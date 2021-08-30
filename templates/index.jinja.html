@@ -11,7 +11,8 @@
     $(document).ready(function() {
         
         $('#projects-table').DataTable({
-            "order": [[ 6, "desc" ]]
+            "pageLength": 25,
+            "order": [[ 4, "desc" ]]
         });
 
     } );
@@ -21,10 +22,10 @@
 
 {% block content %}
 
-<h3> Megapack Project List</h3>
+<h3 id="project-list"> Megapack Project List</h3>
 
 This list is a best effort to try and list all Tesla megapack and powerpack (>5MWh) installations that are reported via the news / twitter. 
-<br>Use the search bar to narrow down the results, e.g. <code>california operation</code>. 
+<br>Use the search bar to narrow down the results, e.g. <code>california operation</code> or <code>⚡ usa</code> for all large project in the USA. 
 <br>Click on the name to show a detail view of the project incl the sources where the information was found. 
 
 <br><br>
@@ -45,10 +46,10 @@ This list is a best effort to try and list all Tesla megapack and powerpack (>5M
     <tbody>
         {% for p in projects %}
         <tr>
-            <td>{{ p["name"] }}</td>
+            <td><a href="/projects/{{ p.id }}.html" target="_blank">{{ p["name"] }}</a> {{p.smileys}}</td>
             <td>{{ p["state"] }}</td>
             <td>{{ p["country"] }}</td>
-            <td>{{ p["status"] }}</td>
+            <td><span class="{{ p.status_class }}">{{ p["status"] }}</span></td>
             <td>{{ p["start operation"] }}</td>
             <td>{{ p["type"] }}</td>
             <td>{{ p["capacity mwh"] }}</td>
@@ -64,20 +65,30 @@ This list is a best effort to try and list all Tesla megapack and powerpack (>5M
     </tfoot> -->
 </table>
 
-In case you want to analyze the data further, you can download the raw data as 
+
+⚡ more than 100MWh, ☀️ attached to solar farm, 🌬️ attached to wind farm, 🏝️ island installation, 🚌 at bus depot
+<br>In case you want to analyze the data further, you can download the raw data as 
 <a href="/misc/projects.json">json</a>,
 <a href="/misc/projects.csv">csv</a> or
 <a href="/misc/projects.excel.csv">excel csv</a>.
 
 
+<h3 id="installations-map" class="mt-4"> Installations map </h3>
+coming soon. 
 
-<h3>Contact & Contribute</h3>
-Contact: Direct Message via <a href="https://twitter.com/l__orenz">Twitter</a> for questions. 
+
+<h3 id="stationary-vs-cars" class="mt-4">Stationary vs Cars</h3>
+coming soon
+
+
+<h3 id="contact" class="mt-4">Contact & Contribute</h3>
+Contact: Direct Message via <a href="https://twitter.com/l__orenz" target="_blank">Twitter</a> for questions. 
 <br>
-Contribute: Found and error or there is a new project, open an Issue or a Pull Request on <a href="https://github.com/lorenz-g/tesla-megapack-tracker">Github</a>
-
+Contribute: Found and error or there is a new project, open an Issue or a Pull Request on <a href="https://github.com/lorenz-g/tesla-megapack-tracker" target="_blank">Github</a>. You can also find all the code there to generate this site. 
 
 <br><br>
 This page is not affiliated, associated, endorsed by or in any way officially connected with Tesla Motors, Inc.
+<br>
+<span style="font-size: 0.8rem;">This static site was generated on: {{ extra.now }} UTC</span>
 
 {% endblock %}

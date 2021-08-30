@@ -1,1 +1,47 @@
+{% extends "base.html" %}
 
+{% block title %} 
+{{p.name}}
+{% endblock %}
+
+
+{% block content %}
+
+<h3> {{p.name}} {{p.smileys}} </h3>
+
+<dt>Status </dt>
+<dl><span class="{{ p.status_class }}">{{ p["status"] }}</span> </dl>
+
+<dt>Country / State / Closest City </dt>
+<dl>{{ p["country"] }} / {{ p["state"] }} / {{ p["city"] }}</dl>
+
+<dt>Date first heard / Construction start / Operation start </dt>
+<dl>{{ p["date first heard"] }} / {{ p["start construction"] }} / {{ p["start operation"] }}</dl>
+
+<dt>Capacity in MWh </dt>
+<dl>{{ p["capacity mwh"] }}</dl>
+
+<dt>Maximum Power in MW </dt>
+<dl>{{ p["power mw"] }}</dl>
+
+<dt>Type / Number of Packs </dt>
+<dl>{{ p["type"] }} / {{ p["no of megapacks"] }}{{ p["no of powerpacks"] }}</dl>
+
+<dt>Customer </dt>
+<dl>{{ p["customer"] }} </dl>
+
+<dt>Use case </dt>
+<dl>{{ p["use case"] }}</dl>
+
+<dt>Notes </dt>
+<dl>{{ p["notes"] }} </dl>
+
+<dt> Sources </dt>
+<dl>
+    <a href="{{ p.link1 }}" target="_blank">{{ p.link1 }} </a> <br>
+    <a href="{{ p.link2 }}" target="_blank">{{ p.link2 }} </a> <br>
+    <a href="{{ p.link3 }}" target="_blank">{{ p.link3 }} </a>
+</dl>
+
+
+{% endblock %}

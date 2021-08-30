@@ -3,6 +3,7 @@ import pprint
 import os
 import json
 from jinja2 import Environment, FileSystemLoader
+import datetime as dt
 
 def load_projects(type_="json"):
     "For now from the csv, later from the toml fils"
@@ -39,17 +40,61 @@ def gen_raw_data_files():
 def gen_templates(projects):
     file_loader = FileSystemLoader('templates')
     env = Environment(loader=file_loader)
-    fn = 'index.jinja.html' 
     output_dir = 'docs'
 
+    # augment raw data
 
-    # generate the templates
+    for p in projects:
+        p["status_class"] = "badge rounded-pill bg-success" if p["status"] == "operation" else ""
+        smileys = []
+        
+        try:
+            mwh = int(p["capacity mwh"])
+        except:
+            mwh = 0
+        if mwh >= 100:
+            smileys.append("⚡")
+        
+        # no else if as multiple can be true
+        if "solar" in p["use case"]:
+            smileys.append("☀️")
+        
+        if "wind" in p["use case"]:
+            smileys.append("🌬️")
+        
+        if "island" in p["use case"]:
+            smileys.append("🏝️")
+        
+        if "bus" in p["use case"]:
+            smileys.append("🚌")
+
+        p["smileys"] = "".join(smileys)
+
+
+    # generate the index template
+    fn = 'index.jinja.html' 
+
+    extra = {
+        "now": dt.datetime.utcnow()
+    }
+
     template = env.get_template(fn)
-    output = template.render(projects=projects)
+    output = template.render(projects=projects, extra=extra)
+    
+    
+    
     with open(os.path.join(output_dir, fn.replace(".jinja", "")), 'w') as f:
         f.write(output)
     
-    
+    # generate the individual pages
+    fn = 'single.jinja.html' 
+    template = env.get_template(fn)
+
+    for p in projects:
+        output_fn = os.path.join(output_dir, "projects", p["id"] + ".html")
+        with open(output_fn, 'w') as f:
+            f.write(template.render(p=p))
+
     
     
 
