@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block extra_scripts %}
+<!-- Datatables JS with Jquery  -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js" crossorigin="anonymous"></script>
+
+<script>
+    // enable the datatable
+    $(document).ready(function() {
+        
+        $('#projects-table').DataTable({
+            "order": [[ 6, "desc" ]]
+        });
+
+    } );
+</script>
+{% endblock %}
+
+
+{% block content %}
+
+<h3> Megapack Project List</h3>
+
+This list is a best effort to try and list all Tesla megapack and powerpack (>5MWh) installations that are reported via the news / twitter. 
+<br>Use the search bar to narrow down the results, e.g. <code>california operation</code>. 
+<br>Click on the name to show a detail view of the project incl the sources where the information was found. 
+
+<br><br>
+
+<table id="projects-table" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>State</th>
+            <th>Country</th>
+            <th>Status</th>
+            <th>Go live</th>
+            <th>Type</th>
+            <th>MWh</th>
+            <th>MW</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in projects %}
+        <tr>
+            <td>{{ p["name"] }}</td>
+            <td>{{ p["state"] }}</td>
+            <td>{{ p["country"] }}</td>
+            <td>{{ p["status"] }}</td>
+            <td>{{ p["start operation"] }}</td>
+            <td>{{ p["type"] }}</td>
+            <td>{{ p["capacity mwh"] }}</td>
+            <td>{{ p["power mw"] }}</td>
+        </tr>
+        {% endfor %}
+        
+    </tbody>
+    <!-- <tfoot>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </tfoot> -->
+</table>
+
+In case you want to analyze the data further, you can download the raw data as 
+<a href="/misc/projects.json">json</a>,
+<a href="/misc/projects.csv">csv</a> or
+<a href="/misc/projects.excel.csv">excel csv</a>.
+
+
+
+<h3>Contact & Contribute</h3>
+Contact: Direct Message via <a href="https://twitter.com/l__orenz">Twitter</a> for questions. 
+<br>
+Contribute: Found and error or there is a new project, open an Issue or a Pull Request on <a href="https://github.com/lorenz-g/tesla-megapack-tracker">Github</a>
+
+
+<br><br>
+This page is not affiliated, associated, endorsed by or in any way officially connected with Tesla Motors, Inc.
+
+{% endblock %}
