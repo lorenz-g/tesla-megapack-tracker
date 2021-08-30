@@ -20,3 +20,4 @@ There are many other great trackers about various tesla stats, such as:
   - Norway car registration tracker https://elbilstatistikk.no/
   - Model 3 VIN tracker (not active anymore) https://www.model3vins.com/ 
   
+  
