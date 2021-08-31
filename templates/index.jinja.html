@@ -15,6 +15,64 @@
             "order": [[ 4, "desc" ]]
         });
 
+        // followed this guide 
+        // https://leafletjs.com/examples/quick-start/
+        // https://leafletjs.com/examples/layers-control/
+        var streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: 'pk.eyJ1IjoiYmFuZGluaWdvIiwiYSI6ImNrc3p2YjhuNzJ3eHAydXRmbW55Y2FuZHgifQ.j5Swr0wVOityl1LecXZT6g'
+        });
+        var satellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/satellite-v9',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: 'pk.eyJ1IjoiYmFuZGluaWdvIiwiYSI6ImNrc3p2YjhuNzJ3eHAydXRmbW55Y2FuZHgifQ.j5Swr0wVOityl1LecXZT6g'
+        });
+
+        var mymap = L.map('mapid', {
+            // sets the default layer here
+            layers: [streets]
+        }).setView([35.160636, 11.096191], 2);
+        
+        var baseLayers = {
+		    "Streets": streets,
+            "Satellite": satellite,
+	    };
+        L.control.layers(baseLayers).addTo(mymap);
+
+        
+        // insert the data via jinja here
+        var projects = {{ projects | tojson }}
+
+        var marker;
+        var p;
+        for (var i=0; i < projects.length; i++){
+            p = projects[i]
+            if (p["lat"] != ""){
+                marker = L.marker([p["lat"], p["long"]]).addTo(mymap);
+                marker.bindPopup(`<b>${p["name"]}</b> <br>${p["capacity mwh"]}MWh<br> ${p["status"]} <br><a href="${p["google_maps_link"]}" target="_blank">Google Maps</a>`);
+            }
+        }
+        
+
+        // useful for refining the points, disable on production
+        var popup = L.popup();
+
+        function onMapClick(e) {
+            popup
+            .setLatLng(e.latlng)
+            .setContent(e.latlng.toString())
+            .openOn(mymap);
+        }
+
+        mymap.on('click', onMapClick);
+
     } );
 </script>
 {% endblock %}
@@ -65,7 +123,7 @@ This list is a best effort to try and list all Tesla megapack and powerpack (>5M
     </tfoot> -->
 </table>
 
-
+<br>
 ⚡ more than 100MWh, ☀️ attached to solar farm, 🌬️ attached to wind farm, 🏝️ island installation, 🚌 at bus depot
 <br>In case you want to analyze the data further, you can download the raw data as 
 <a href="{{ g_l('/misc/projects.json') }}">json</a>,
@@ -74,7 +132,10 @@ This list is a best effort to try and list all Tesla megapack and powerpack (>5M
 
 
 <h3 id="installations-map" class="mt-4"> Installations map </h3>
-coming soon. 
+This shows a map of all the projects. Click on the layers button on the top right to switch to <code>satellite view</code>. 
+For some projects you can see the megapacks. And for others, using the Google Maps satellite shows more. 
+E.g. for the <code>moss landing</code> project in California, the Google Maps data already shows the megapacks installed whereas the mapbox data still shows an old substation.
+<div style="height: 600px;" id="mapid"></div>
 
 
 <h3 id="stationary-vs-cars" class="mt-4">Stationary vs Cars</h3>

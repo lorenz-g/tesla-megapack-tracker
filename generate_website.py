@@ -7,9 +7,9 @@ import datetime as dt
 
 # when using links need to prefix that everywhere
 # for github pages
-BASE_URL = "/tesla-megapack-tracker/"
+# BASE_URL = "/tesla-megapack-tracker/"
 # locally
-# BASE_URL = "/"
+BASE_URL = "/"
 
 
 def generate_link(ip):
@@ -55,11 +55,15 @@ def gen_templates(projects):
     output_dir = 'docs'
 
     # augment raw data
-
     for p in projects:
         p["status_class"] = "badge rounded-pill bg-success" if p["status"] == "operation" else ""
-        smileys = []
         
+        # https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
+        # zoom z=20 is the maximum, but not sure if it is working
+        # TODO: I think this google maps link format is old https://developers.google.com/maps/documentation/urls/get-started
+        p["google_maps_link"] = "http://maps.google.com/maps?z=19&t=k&q=loc:%s+%s" % (p["lat"], p["long"])
+        
+        smileys = []        
         try:
             mwh = int(p["capacity mwh"])
         except:

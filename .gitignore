@@ -1,3 +1,10 @@
+# for this repo
+watchexec
+
+
+
+# python gitignore file from github
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
