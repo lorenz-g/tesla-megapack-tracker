@@ -12,6 +12,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- Datatables CSS https://cdn.datatables.net/ -->
     <link href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <!-- leaflet js css -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
 
 
     <title>
@@ -19,12 +21,17 @@
 Kapolei Energy Storage
 
     </title>
+
+    <meta property="og:title" content="Tesla Megapack Tracker" />
+    <meta property="og:description" content="List and map of all megapack installations, cars vs. stationary" />
+    <meta property="og:image" content="https://lorenz-g.github.io/tesla-megapack-tracker/pics/logo.jpg" />
+        
   </head>
   <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow p-3 mb-3">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="/tesla-megapack-tracker/">
                 <img src="/tesla-megapack-tracker/pics/logo.jpg" alt="logo" width="30" height="30">
                 Tesla Megapack Tracker
             </a>
@@ -71,8 +78,14 @@ Kapolei Energy Storage
 <dt>Use case </dt>
 <dl>island, black start</dl>
 
+<dt>Link to google maps satellite view</dt>
+<dl><a href="http://maps.google.com/maps?z=19&t=k&q=loc:21.328169+-158.105085" target="_blank">http://maps.google.com/maps?z=19&t=k&q=loc:21.328169+-158.105085</a> </dl>
+
 <dt>Notes </dt>
 <dl> </dl>
+
+<dt>Project website </dt>
+<dl><a href="https://www.kapoleienergystorage.com/overview" target="_blank">https://www.kapoleienergystorage.com/overview </a> </dl>
 
 <dt> Sources </dt>
 <dl>
@@ -87,6 +100,9 @@ Kapolei Energy Storage
 
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- leafletjs  -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    
       
   </body>
 </html>
