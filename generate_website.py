@@ -7,9 +7,9 @@ import datetime as dt
 
 # when using links need to prefix that everywhere
 # for github pages
-# BASE_URL = "/tesla-megapack-tracker/"
+BASE_URL = "/tesla-megapack-tracker/"
 # locally
-BASE_URL = "/"
+# BASE_URL = "/"
 
 
 def generate_link(ip):
