@@ -5,6 +5,18 @@ import json
 from jinja2 import Environment, FileSystemLoader
 import datetime as dt
 
+# when using links need to prefix that everywhere
+# for github pages
+BASE_URL = "/tesla-megapack-tracker/"
+# locally
+# BASE_URL = "/"
+
+
+def generate_link(ip):
+    return BASE_URL + ip.lstrip("/")
+
+
+
 def load_projects(type_="json"):
     "For now from the csv, later from the toml fils"
     with open("projects.csv") as f:
@@ -79,7 +91,7 @@ def gen_templates(projects):
     }
 
     template = env.get_template(fn)
-    output = template.render(projects=projects, extra=extra)
+    output = template.render(projects=projects, extra=extra, g_l=generate_link)
     
     
     
@@ -93,7 +105,7 @@ def gen_templates(projects):
     for p in projects:
         output_fn = os.path.join(output_dir, "projects", p["id"] + ".html")
         with open(output_fn, 'w') as f:
-            f.write(template.render(p=p))
+            f.write(template.render(p=p, extra=extra, g_l=generate_link))
 
     
     
