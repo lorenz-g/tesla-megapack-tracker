@@ -36,6 +36,15 @@
 <dt>Link to google maps satellite view</dt>
 <dl><a href="{{ p['google_maps_link'] }}" target="_blank">{{ p["google_maps_link"] }}</a> </dl>
 
+<dt>Coordinates </dt>
+<dl>
+    {{ p["lat"] }}, {{ p["long"] }} 
+    {% if p["coords exact"] != "1" %}
+    <br> Did not manage to find exact coordinates for this project, they are just an estimate.
+    {% endif %}
+</dl>
+
+
 <dt>Notes </dt>
 <dl>{{ p["notes"] }} </dl>
 
