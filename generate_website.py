@@ -131,6 +131,12 @@ def gen_templates(projects):
     env = Environment(loader=file_loader)
     output_dir = 'docs'
 
+    mp_summary = {
+        "project_cnt": 0,
+        "mp_count": 0,
+        "gwh":0,
+    }
+
     # augment raw projects data
     for p in projects:
         p["status_class"] = "badge rounded-pill bg-success" if p["status"] == "operation" else ""
@@ -165,11 +171,22 @@ def gen_templates(projects):
 
         p["smileys"] = "".join(smileys)
 
+        # add to summary
+        if p["status"] == "operation" and p["type"] == "megapack":
+            mp_summary["project_cnt"] += 1
+            mp_summary["mp_count"] +=  0 if p["no of megapacks"] == "" else int(p["no of megapacks"])
+            mp_summary["gwh"] += mwh / 1000
+
+
+
+
+
     # generate the index template
     fn = 'index.jinja.html' 
     extra = {
         "now": dt.datetime.utcnow(),
         "cars": gen_cars_vs_stationary(projects),
+        "mp_summary": mp_summary,
     }
 
     template = env.get_template(fn)

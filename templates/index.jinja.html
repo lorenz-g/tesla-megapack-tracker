@@ -126,6 +126,33 @@
 
 {% block content %}
 Page is better on a big screen. Does not work well on mobile. 
+
+<h3 id=""> Megapack Summmary </h3>
+
+<div class="row">
+    <div class="col-lg-4">
+        <table class="table table-bordered">
+            <tr>
+                <td>
+                    <span class="badge rounded-pill bg-secondary">megapack</span> projects in 
+                    <span class="badge rounded-pill bg-success">operation</span>
+                </td>
+                <td>{{ extra.mp_summary.project_cnt }}</td>
+            </tr>
+            <tr>
+                <td>Total 🔋 battery capacity in GWh </td>
+                <td>{{ "%.1f" | format(extra.mp_summary.gwh) }}</td>
+            </tr>
+            <tr>
+                <td>Number of megapacks installed </td>
+                <td>{{ extra.mp_summary.mp_count }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
 <h3 id="project-list"> Megapack Project List</h3>
 
 This list is a best effort to try and list all Tesla megapack and powerpack (>5MWh) installations that are reported via the news / twitter. 
@@ -155,7 +182,7 @@ This list is a best effort to try and list all Tesla megapack and powerpack (>5M
             <td>{{ p["country"] }}</td>
             <td><span class="{{ p.status_class }}">{{ p["status"] }}</span></td>
             <td>{{ p["start operation"] }}</td>
-            <td>{{ p["type"] }}</td>
+            <td><span class="{% if p.type == 'megapack' %}badge rounded-pill bg-secondary{% endif %}">{{ p["type"] }}</span></td>
             <td>{{ p["capacity mwh"] }}</td>
             <td>{{ p["power mw"] }}</td>
         </tr>
