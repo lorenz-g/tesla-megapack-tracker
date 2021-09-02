@@ -137,6 +137,12 @@ def gen_templates(projects):
         "gwh":0,
     }
 
+    totals_row_summary = {
+        "count": 0,
+        "mwh":0,
+        "mw":0,
+    }
+
     # augment raw projects data
     for p in projects:
         p["status_class"] = "badge rounded-pill bg-success" if p["status"] == "operation" else ""
@@ -148,7 +154,7 @@ def gen_templates(projects):
         
         smileys = []        
         try:
-            mwh = int(p["capacity mwh"])
+            mwh = float(p["capacity mwh"])
         except:
             mwh = 0
         p["mwh_int"] = mwh
@@ -176,6 +182,10 @@ def gen_templates(projects):
             mp_summary["project_cnt"] += 1
             mp_summary["mp_count"] +=  0 if p["no of megapacks"] == "" else int(p["no of megapacks"])
             mp_summary["gwh"] += mwh / 1000
+        
+        totals_row_summary["count"] += 1
+        totals_row_summary["mwh"] += mwh
+        totals_row_summary["mw"] += 0 if p["power mw"] == "" else float(p["power mw"])
 
 
 
@@ -187,6 +197,7 @@ def gen_templates(projects):
         "now": dt.datetime.utcnow(),
         "cars": gen_cars_vs_stationary(projects),
         "mp_summary": mp_summary,
+        "totals_row_summary": totals_row_summary,
     }
 
     template = env.get_template(fn)

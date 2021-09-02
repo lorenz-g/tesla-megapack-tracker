@@ -9,10 +9,35 @@
 <script>
     // enable the datatable
     $(document).ready(function() {
-        
+ 
         $('#projects-table').DataTable({
             "pageLength": 25,
-            "order": [[ 4, "desc" ]]
+            "order": [[ 4, "desc" ]],
+            // the inspiration for the totals row comes from https://elbilstatistikk.no/
+            'drawCallback': function (oSettings) {
+                var api = this.api();
+                var searchStr = oSettings.oPreviousSearch.sSearch;
+                searchStr = searchStr.trim();
+
+                if (searchStr.length != 0) {
+                    columns = [6, 7]; // Add columns here
+                    for (var i = 0; i < columns.length; i++) {
+                        var nodes = api.column(columns[i], { filter: 'applied', page: 'current' }).nodes();
+                        var total = 0;
+                        for (var j = 0; j < nodes.length; j++) {
+                            total += parseFloat(nodes[j].innerText) || 0
+                        }
+                        $('tfoot th').eq(columns[i]).html(total);
+                    }
+                    var pLen = api.column(columns[i], { filter: 'applied', page: 'current' }).nodes().length
+                    $('tfoot th').eq(0).html(`Total (${pLen} projects)`);
+                }
+                else {
+                    $('tfoot th').eq(0).html('Total ({{ extra.totals_row_summary.count}} projects)');
+                    $('tfoot th').eq(6).html('{{ extra.totals_row_summary.mwh}}');
+                    $('tfoot th').eq(7).html('{{ extra.totals_row_summary.mw}}');
+                }
+            } //end footerCallback
         });
 
         // followed this guide 
@@ -189,11 +214,18 @@ This list is a best effort to try and list all Tesla megapack and powerpack (>5M
         {% endfor %}
         
     </tbody>
-    <!-- <tfoot>
+    <tfoot>
         <tr>
-            <th>Name</th>
+            <th>Total</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
-    </tfoot> -->
+    </tfoot>
 </table>
 
 <br>
