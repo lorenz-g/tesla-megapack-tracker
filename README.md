@@ -30,4 +30,5 @@ There are many other great trackers about various tesla stats, such as:
   - Tesla Carriers tracker https://fmossott.github.io/TeslaCarriersMap/
   - Norway car registration tracker https://elbilstatistikk.no/
   - Model 3 VIN tracker (not active anymore) https://www.model3vins.com/ 
+  - Power tracker of big batteries in Australia: http://nemlog.com.au/show/unit/yesterday/?k1=VBBG1,VBBL1 
   
