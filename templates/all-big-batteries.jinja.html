@@ -1,5 +1,17 @@
 {% extends "base.html" %}
 
+
+{% block title %} Big Battery Tracker {% endblock %}
+
+{% block og_props %}
+<meta property="og:title" content="Big Battery Tracker" />
+<meta property="og:description" content="List and map of big battery installations (>10MWh). And more stats around battery storage..." />
+<meta property="og:image" content="https://lorenz-g.github.io/tesla-megapack-tracker/pics/logo.jpg" />
+{% endblock %}
+
+
+
+
 {% block extra_scripts %}
 <!-- Datatables JS with Jquery  -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -240,7 +252,7 @@ This list is a best effort to track all big battery installations larger than 10
 
 
 <h3 id="installations-map" class="mt-4"> Installations map </h3>
-This shows a map of all the projects. Click on the layers button on the top right to switch to <code>satellite view</code>. 
+Click on the layers button on the top right to switch to <code>satellite view</code>. 
 For some projects you can see the big batteries. And for others, using the Google Maps satellite shows more. 
 E.g. for the <code>moss landing</code> project in California, the Google Maps data already shows the batteries installed whereas the mapbox data still shows an old substation.
 
