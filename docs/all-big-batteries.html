@@ -1,0 +1,999 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" href="/tesla-megapack-tracker/favicon.ico">
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Datatables CSS https://cdn.datatables.net/ -->
+    <link href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <!-- leaflet js css -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+
+
+    <title>
+         Tesla Megapack Tracker 
+    </title>
+
+    <meta property="og:title" content="Tesla Megapack Tracker" />
+    <meta property="og:description" content="List and map of Tesla megapack installations. And more stats around battery storage..." />
+    <meta property="og:image" content="https://lorenz-g.github.io/tesla-megapack-tracker/pics/logo.jpg" />
+        
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow p-3 mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/tesla-megapack-tracker/">
+                <img src="/tesla-megapack-tracker/pics/logo.jpg" alt="logo" width="30" height="30">
+                Tesla Megapack Tracker
+            </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            
+            <ul class="navbar-nav mb-2 mb-lg-0">
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#project-list">Project List</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#installations-map">Map</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span class="badge bg-info">New</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#contact">Contact</a></li>
+              
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <div class="container-xl">
+        
+Page is better on a big screen. Does not work well on mobile. 
+
+<h3 id=""> Big battery summary </h3>
+
+<div class="row">
+    <div class="col-lg-4">
+        <table class="table table-bordered">
+            <tr>
+                <td>
+                    Projects in 
+                    <span class="badge rounded-pill bg-success">operation</span>
+                </td>
+                <td>31</td>
+            </tr>
+            <tr>
+                <td>Total 🔋 battery capacity in GWh </td>
+                <td>5.0</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+<h3 id="project-list"> Big battery project list</h3>
+
+This list is a best effort to track all big battery installations larger than 10 MWh that are reported via the news / twitter 
+(only for Tesla Powerpack installations the limit is 5MWh). The focus is on lithium ion battieres.
+<br>Use the search bar to narrow down the results, e.g. <code>california operation</code> or <code>⚡ usa</code> for all large project in the USA. 
+<br>Click on the name to show a detail view of the project incl the sources where the information was found. 
+<br><br>
+
+<table id="projects-table" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>State</th>
+            <th>Country</th>
+            <th>Status</th>
+            <th>Go live</th>
+            <th>Manufacturer</th>
+            <th>Customer</th>
+            <th>MWh</th>
+            <th>MW</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        <tr>
+            <td><a href="projects/1.html" target="_blank">Kapolei Energy Storage</a> ⚡🏝️</td>
+            <td>hawaii</td>
+            <td>usa</td>
+            <td><span class="">construction</span></td>
+            <td></td>
+            <td>tesla</td>
+            <td>Hawaiian Electric</td>
+            <td>565</td>
+            <td>185</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/2.html" target="_blank">Victorian Big Battery</a> ⚡</td>
+            <td>victoria</td>
+            <td>australia</td>
+            <td><span class="">construction</span></td>
+            <td></td>
+            <td>tesla</td>
+            <td>Neoen Australia</td>
+            <td>450</td>
+            <td>300</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/3.html" target="_blank">Saticoy</a> ⚡</td>
+            <td>california</td>
+            <td>usa</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2021-06-29</td>
+            <td>tesla</td>
+            <td>Arevon</td>
+            <td>400</td>
+            <td>100</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/4.html" target="_blank">California Flats</a> ⚡☀️</td>
+            <td>california</td>
+            <td>usa</td>
+            <td><span class="">planning</span></td>
+            <td></td>
+            <td>tesla</td>
+            <td>Apple</td>
+            <td>240</td>
+            <td>130</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/5.html" target="_blank">Nofar Israel</a> ☀️</td>
+            <td></td>
+            <td>israel</td>
+            <td><span class="">planning</span></td>
+            <td></td>
+            <td>tesla</td>
+            <td>Nofar Energy</td>
+            <td></td>
+            <td>100</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/6.html" target="_blank">Gambit</a> </td>
+            <td>texas</td>
+            <td>usa</td>
+            <td><span class="">construction</span></td>
+            <td></td>
+            <td>tesla</td>
+            <td>Tesla Subsidiary</td>
+            <td></td>
+            <td>100</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/7.html" target="_blank">Moss landing </a> ⚡</td>
+            <td>california</td>
+            <td>usa</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2021-04-01</td>
+            <td>tesla</td>
+            <td>PG&E</td>
+            <td>730</td>
+            <td>182</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/8.html" target="_blank">Hornsdale Power Reserve</a> ⚡🌬️</td>
+            <td>south australia</td>
+            <td>australia</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2017-12-01</td>
+            <td>tesla</td>
+            <td>Neoen Australia</td>
+            <td>194</td>
+            <td>150</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/9.html" target="_blank">Osaka Trains</a> </td>
+            <td></td>
+            <td>japan</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2019-03-27</td>
+            <td>tesla</td>
+            <td></td>
+            <td>12</td>
+            <td></td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/10.html" target="_blank">Hokkaido</a> </td>
+            <td></td>
+            <td>japan</td>
+            <td><span class="">planning</span></td>
+            <td></td>
+            <td>tesla</td>
+            <td></td>
+            <td>6</td>
+            <td></td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/11.html" target="_blank">Vallecito Energy Storage Resilience (VESR)</a> </td>
+            <td>california</td>
+            <td>usa</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2021-03-31</td>
+            <td>tesla</td>
+            <td>Clean Coalition</td>
+            <td>40</td>
+            <td></td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/12.html" target="_blank">WindCharger</a> </td>
+            <td>new south wales</td>
+            <td>australia</td>
+            <td><span class="">construction</span></td>
+            <td></td>
+            <td>tesla</td>
+            <td>TransGrid</td>
+            <td>75</td>
+            <td>50</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/13.html" target="_blank">eReserve1</a> </td>
+            <td>alberta</td>
+            <td>canada</td>
+            <td><span class="">planning</span></td>
+            <td></td>
+            <td>tesla</td>
+            <td>WCSB  Power</td>
+            <td></td>
+            <td>20</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/14.html" target="_blank">eReserve2</a> </td>
+            <td>alberta</td>
+            <td>canada</td>
+            <td><span class="">planning</span></td>
+            <td></td>
+            <td>tesla</td>
+            <td>WCSB  Power</td>
+            <td></td>
+            <td>20</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/15.html" target="_blank">eReserve3</a> </td>
+            <td>alberta</td>
+            <td>canada</td>
+            <td><span class="">planning</span></td>
+            <td></td>
+            <td>tesla</td>
+            <td>WCSB  Power</td>
+            <td></td>
+            <td>20</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/16.html" target="_blank">WindCharger</a> 🌬️</td>
+            <td>alberta</td>
+            <td>canada</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2020-10-15</td>
+            <td>tesla</td>
+            <td>TransAlta</td>
+            <td>20</td>
+            <td>10</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/17.html" target="_blank">Holes Bay</a> </td>
+            <td></td>
+            <td>uk</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2020-09-18</td>
+            <td>tesla</td>
+            <td>Harmony Energy Ltd / Fotowatio Renewable Ventures BV </td>
+            <td></td>
+            <td>7.5</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/18.html" target="_blank">switch datacenter</a> </td>
+            <td>nevada</td>
+            <td>usa</td>
+            <td><span class="">planning</span></td>
+            <td></td>
+            <td>tesla</td>
+            <td>switch</td>
+            <td></td>
+            <td></td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/19.html" target="_blank">Kauai Island</a> ☀️🏝️</td>
+            <td>hawaii</td>
+            <td>usa</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2017-03-08</td>
+            <td>tesla</td>
+            <td>KIUC</td>
+            <td>52</td>
+            <td></td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/20.html" target="_blank">Mira Loma Substation</a> </td>
+            <td>california</td>
+            <td>usa</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2017-06-02</td>
+            <td>tesla</td>
+            <td>SCE Southern California Edison</td>
+            <td>80</td>
+            <td>20</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/21.html" target="_blank">ngen slovenia 2</a> </td>
+            <td></td>
+            <td>slovenia</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2020-10-13</td>
+            <td>tesla</td>
+            <td>ngen</td>
+            <td>30</td>
+            <td>15</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/22.html" target="_blank">ngen slovenia 1</a> </td>
+            <td></td>
+            <td>slovenia</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2019-10-14</td>
+            <td>tesla</td>
+            <td>ngen</td>
+            <td>22</td>
+            <td>12</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/23.html" target="_blank">Alaska</a> </td>
+            <td>alaska</td>
+            <td>usa</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2021-07-23</td>
+            <td>tesla</td>
+            <td>Homer Electric Association</td>
+            <td>93</td>
+            <td>46</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/24.html" target="_blank">Colorado </a> </td>
+            <td>colorado</td>
+            <td>usa</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2019-01-22</td>
+            <td>tesla</td>
+            <td>United Power</td>
+            <td>16</td>
+            <td>4</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/25.html" target="_blank">Nantucket</a> 🏝️</td>
+            <td>massachusetts</td>
+            <td>usa</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2019-19-09</td>
+            <td>tesla</td>
+            <td>National Grid</td>
+            <td>48</td>
+            <td>6</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/26.html" target="_blank">Guildford electric buses</a> 🚌</td>
+            <td></td>
+            <td>uk</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2019-06-26</td>
+            <td>tesla</td>
+            <td>Zenobe Energy </td>
+            <td>15</td>
+            <td></td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/27.html" target="_blank">Gannawarra Solar Farm</a> ☀️</td>
+            <td>victora</td>
+            <td>australia</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2018-11-16</td>
+            <td>tesla</td>
+            <td>Edify Energy / Wirsol</td>
+            <td>50</td>
+            <td>25</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/28.html" target="_blank">Lake Bonney Wind Farm</a> 🌬️</td>
+            <td>south australia</td>
+            <td>australia</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2020-01-22</td>
+            <td>tesla</td>
+            <td>Infigen Energy</td>
+            <td>52</td>
+            <td>25</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/29.html" target="_blank">Ta'u island</a> ☀️🏝️</td>
+            <td>american samoa</td>
+            <td>usa</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2016-11-22</td>
+            <td>tesla</td>
+            <td></td>
+            <td>6</td>
+            <td></td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/30.html" target="_blank">Samoa</a> 🏝️</td>
+            <td></td>
+            <td>samoa</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2018-07-25</td>
+            <td>tesla</td>
+            <td></td>
+            <td>13.5</td>
+            <td></td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/31.html" target="_blank">Pinal Central Solar Energy Center</a> ☀️</td>
+            <td>arizona</td>
+            <td>usa</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2018-05-29</td>
+            <td>tesla</td>
+            <td>Salt River Project</td>
+            <td>40</td>
+            <td>10</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/32.html" target="_blank">Terhills</a> </td>
+            <td></td>
+            <td>belguim</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2018-05-14</td>
+            <td>tesla</td>
+            <td>Restore</td>
+            <td>29</td>
+            <td>18</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/33.html" target="_blank">Ozop New York</a> </td>
+            <td>new york</td>
+            <td>usa</td>
+            <td><span class="">planning</span></td>
+            <td></td>
+            <td>tesla</td>
+            <td>Ozop Energy Systems</td>
+            <td>4</td>
+            <td>2</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/34.html" target="_blank">Goleta Energy Storage Project</a> </td>
+            <td>california</td>
+            <td>usa</td>
+            <td><span class="">planning</span></td>
+            <td></td>
+            <td>tesla</td>
+            <td>Goleta Energy Storage, LLC</td>
+            <td></td>
+            <td>60</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/501.html" target="_blank">Moss Landing</a> ⚡</td>
+            <td>california</td>
+            <td>usa</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2021-02-24</td>
+            <td>LG Energy Solution</td>
+            <td>Vistra Corp</td>
+            <td>1600</td>
+            <td>400</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/502.html" target="_blank">Docordova</a> ⚡</td>
+            <td>texas</td>
+            <td>usa</td>
+            <td><span class="">planning</span></td>
+            <td></td>
+            <td></td>
+            <td>Vistra Corp</td>
+            <td>260</td>
+            <td>260</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/503.html" target="_blank">Oakland</a> </td>
+            <td>california</td>
+            <td>usa</td>
+            <td><span class="">planning</span></td>
+            <td></td>
+            <td></td>
+            <td>Vistra Corp</td>
+            <td>36</td>
+            <td>145</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/504.html" target="_blank">Upton 2</a> ☀️</td>
+            <td>texas</td>
+            <td>usa</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2018-12-31</td>
+            <td></td>
+            <td>Vistra Corp</td>
+            <td>10</td>
+            <td>42</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/505.html" target="_blank">Morro Bay</a> ⚡</td>
+            <td>california</td>
+            <td>usa</td>
+            <td><span class="">planning</span></td>
+            <td></td>
+            <td></td>
+            <td>Vistra Corp</td>
+            <td>2400</td>
+            <td>600</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/506.html" target="_blank">Big Star</a> ⚡☀️</td>
+            <td>texas</td>
+            <td>usa</td>
+            <td><span class="">planning</span></td>
+            <td></td>
+            <td>LG Energy Solution</td>
+            <td>RWE Renewables</td>
+            <td>120</td>
+            <td>80</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/507.html" target="_blank">Hickory Park</a> ☀️</td>
+            <td>georgia</td>
+            <td>usa</td>
+            <td><span class="">construction</span></td>
+            <td></td>
+            <td>Wärtsilä Energy</td>
+            <td>RWE Renewables</td>
+            <td>80</td>
+            <td>40</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/508.html" target="_blank">Hubei Flow Battery</a> ⚡☀️</td>
+            <td>hubei</td>
+            <td>china</td>
+            <td><span class="">construction</span></td>
+            <td></td>
+            <td>VRB Energy</td>
+            <td>Hubei Pingfan Ruifeng New Energy Technology</td>
+            <td>500</td>
+            <td>100</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/509.html" target="_blank">Riverina / Darlington Point Solar Farm</a> ⚡☀️</td>
+            <td>new south wales</td>
+            <td>australia</td>
+            <td><span class="">planning</span></td>
+            <td></td>
+            <td></td>
+            <td>Edify Energy / Shell</td>
+            <td>200</td>
+            <td>100</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/510.html" target="_blank">Alamitos</a> ⚡</td>
+            <td>california</td>
+            <td>usa</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2021-01-27</td>
+            <td>fluence</td>
+            <td>Southern California Edison (SCE)</td>
+            <td>400</td>
+            <td>100</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/511.html" target="_blank">Diablo</a> ⚡</td>
+            <td>california</td>
+            <td>usa</td>
+            <td><span class="">construction</span></td>
+            <td></td>
+            <td></td>
+            <td>LS Power / PG & E</td>
+            <td>800</td>
+            <td>200</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/512.html" target="_blank">Gateway </a> ⚡</td>
+            <td>california</td>
+            <td>usa</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2020-08-01</td>
+            <td></td>
+            <td>LS Power</td>
+            <td>250</td>
+            <td>250</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/513.html" target="_blank">Vista</a> </td>
+            <td>california</td>
+            <td>usa</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2018-07-01</td>
+            <td></td>
+            <td>LS Power</td>
+            <td></td>
+            <td>40</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/514.html" target="_blank">LeConte</a> </td>
+            <td>california</td>
+            <td>usa</td>
+            <td><span class="">planning</span></td>
+            <td></td>
+            <td></td>
+            <td>LS Power</td>
+            <td></td>
+            <td>125</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/515.html" target="_blank">Ravenswood</a> ⚡</td>
+            <td>new york</td>
+            <td>usa</td>
+            <td><span class="">planning</span></td>
+            <td></td>
+            <td></td>
+            <td>LS Power</td>
+            <td>2528</td>
+            <td>316</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/516.html" target="_blank">Korea Zinc</a> ⚡</td>
+            <td></td>
+            <td>korea</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2018-01-01</td>
+            <td>hyundai </td>
+            <td>Korea Zinc</td>
+            <td>150</td>
+            <td>32.5</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/517.html" target="_blank">Seosan</a> ⚡☀️</td>
+            <td></td>
+            <td>korea</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2018-12-01</td>
+            <td>hyundai </td>
+            <td></td>
+            <td>140</td>
+            <td>52</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/518.html" target="_blank">Solaseado</a> ⚡☀️</td>
+            <td>jeolla</td>
+            <td>korea</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2020-04-10</td>
+            <td>hyundai </td>
+            <td>Kospo</td>
+            <td>305</td>
+            <td>72</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/519.html" target="_blank">Minety</a> ⚡</td>
+            <td></td>
+            <td>uk</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2020-12-01</td>
+            <td>sungrow</td>
+            <td>Penso Power / China Huaneng Group / CNIC</td>
+            <td>133</td>
+            <td>100</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/520.html" target="_blank">Yorkshire</a> ☀️</td>
+            <td></td>
+            <td>uk</td>
+            <td><span class="badge rounded-pill bg-success">operation</span></td>
+            <td>2019-12-01</td>
+            <td>sungrow</td>
+            <td></td>
+            <td>30</td>
+            <td>27.5</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/521.html" target="_blank">Gateway Energy Project</a> ⚡</td>
+            <td></td>
+            <td>uk</td>
+            <td><span class="">planning</span></td>
+            <td></td>
+            <td>fluence</td>
+            <td>Intergen</td>
+            <td>640</td>
+            <td>320</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/522.html" target="_blank">Spalding</a> ⚡</td>
+            <td></td>
+            <td>uk</td>
+            <td><span class="">planning</span></td>
+            <td></td>
+            <td>fluence</td>
+            <td>Intergen</td>
+            <td>350</td>
+            <td>170</td>
+        </tr>
+        
+        <tr>
+            <td><a href="projects/523.html" target="_blank">Antofagasta</a> ⚡☀️</td>
+            <td></td>
+            <td>chile</td>
+            <td><span class="">construction</span></td>
+            <td></td>
+            <td>fluence</td>
+            <td>AES Gener</td>
+            <td>560</td>
+            <td>112</td>
+        </tr>
+        
+        
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Total</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+
+<br>
+⚡ more than 100MWh, ☀️ attached to solar farm, 🌬️ attached to wind farm, 🏝️ island installation, 🚌 at bus depot
+
+<!-- <br>In case you want to analyze the data further, you can download the raw data as 
+<a href="misc/projects.json">json</a>,
+<a href="misc/projects.csv">csv</a> or
+<a href="misc/projects.excel.csv">excel csv</a>. -->
+
+
+<h3 id="installations-map" class="mt-4"> Installations map </h3>
+This shows a map of all the projects. Click on the layers button on the top right to switch to <code>satellite view</code>. 
+For some projects you can see the big batteries. And for others, using the Google Maps satellite shows more. 
+E.g. for the <code>moss landing</code> project in California, the Google Maps data already shows the batteries installed whereas the mapbox data still shows an old substation.
+
+<div style="height: 600px;" id="mapid"></div>
+
+<img height=28 src="pics/marker-grey.png">Planning
+<img height=28 src="pics/marker-blue.png">Construction
+<img height=28 src="pics/marker-green.png">Operation
+
+
+<h3 id="contact" class="mt-4">Contact & Contribute</h3>
+<a href="https://twitter.com/l__orenz" title="Ask me on Twitter" target="_blank"><img alt="Follow LeafletJS on Twitter" src="pics/twitter-round.png" width="46"></a>
+<a href="https://github.com/lorenz-g/tesla-megapack-tracker" title="View Source on GitHub" target="_blank"><img alt="View Source on GitHub" src="pics/github-round.png" width="46"></a>
+<br>
+
+Contact: Direct Message via <a href="https://twitter.com/l__orenz" target="_blank">Twitter</a> for questions. 
+<br>
+Contribute: Found and error or there is a new project, open an Issue or a Pull Request on 
+<a href="https://github.com/lorenz-g/tesla-megapack-tracker" target="_blank">Github</a>. 
+You can also find all the code there to generate this site. 
+
+<br><br>
+This page is not affiliated, associated, endorsed by or in any way officially connected with Tesla Motors, Inc.
+<br>
+<span style="font-size: 0.8rem;">This static site was generated on: 2021-09-05 20:51:06.643626 UTC</span>
+
+      
+    </div> <!-- end container-xl-->
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- leafletjs  -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    
+    
+<!-- Datatables JS with Jquery  -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js" crossorigin="anonymous"></script>
+
+<script>
+    // enable the datatable
+    $(document).ready(function() {
+ 
+        $('#projects-table').DataTable({
+            "pageLength": 25,
+            "order": [[ 4, "desc" ]],
+            // the inspiration for the totals row comes from https://elbilstatistikk.no/
+            'drawCallback': function (oSettings) {
+                var api = this.api();
+                var searchStr = oSettings.oPreviousSearch.sSearch;
+                searchStr = searchStr.trim();
+
+                if (searchStr.length != 0) {
+                    columns = [7, 8]; // Add columns here
+                    for (var i = 0; i < columns.length; i++) {
+                        var nodes = api.column(columns[i], { filter: 'applied', page: 'current' }).nodes();
+                        var total = 0;
+                        for (var j = 0; j < nodes.length; j++) {
+                            total += parseFloat(nodes[j].innerText) || 0
+                        }
+                        $('tfoot th').eq(columns[i]).html(total);
+                    }
+                    var pLen = api.column(columns[i], { filter: 'applied', page: 'current' }).nodes().length
+                    $('tfoot th').eq(0).html(`Total (${pLen} projects)`);
+                }
+                else {
+                    $('tfoot th').eq(0).html('Total (57 projects)');
+                    $('tfoot th').eq(7).html('14774.5');
+                    $('tfoot th').eq(8).html('5301.5');
+                }
+            } //end footerCallback
+        });
+
+        // followed this guide 
+        // https://leafletjs.com/examples/quick-start/
+        // https://leafletjs.com/examples/layers-control/
+        var streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: 'pk.eyJ1IjoiYmFuZGluaWdvIiwiYSI6ImNrc3p2YjhuNzJ3eHAydXRmbW55Y2FuZHgifQ.j5Swr0wVOityl1LecXZT6g'
+        });
+        var satellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/satellite-v9',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: 'pk.eyJ1IjoiYmFuZGluaWdvIiwiYSI6ImNrc3p2YjhuNzJ3eHAydXRmbW55Y2FuZHgifQ.j5Swr0wVOityl1LecXZT6g'
+        });
+
+        var baseLayers = {
+		    "Streets": streets,
+            "Satellite": satellite,
+	    };
+
+        var overlays = {
+		    planning: [],
+            construction: [],
+            operation: [],
+	    };
+
+        var markerColor = {
+            planning: "grey",
+            construction: "blue",
+            operation: "green",
+        }
+
+
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        var projects = '[{"capacity mwh": "565", "city": "", "coords exact": "1", "country": "usa", "customer": "Hawaiian Electric", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:21.328169+-158.105085", "id": "1", "lat": "21.328169", "link1": "https://www.tesmanian.com/blogs/tesmanian-blog/tesla-565-mwh-megapack-project-in-hawaii-celebrates-groundbreaking-ceremony", "link2": "", "link3": "", "long": "-158.105085", "manufacturer": "tesla", "mwh_int": 565.0, "name": "Kapolei Energy Storage", "no of megapacks": "158", "no of powerpacks": "", "notes": "", "power mw": "185", "project website": "https://www.kapoleienergystorage.com/overview", "smileys": "\u26a1\ud83c\udfdd\ufe0f", "start construction": "2021-08-25", "start operation": "", "state": "hawaii", "status": "construction", "status_class": "", "type": "megapack", "use case": "island, black start"}, {"capacity mwh": "450", "city": "geelong", "coords exact": "1", "country": "australia", "customer": "Neoen Australia", "date first heard": "2020-11-01", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:-38.037741+144.290949", "id": "2", "lat": "-38.037741", "link1": "https://www.teslarati.com/telsa-megpack-victorian-big-battery-launched/", "link2": "https://techau.com.au/victorias-grid-just-got-greener-thanks-to-212-tesla-megapack-batteries-300mw-450mwh/", "link3": "https://www.bestmag.co.uk/indnews/tesla%E2%80%99s-lithium-ion-megapack-causes-three-day-fire-during-test-australian-300mw-ess", "long": "144.290949", "manufacturer": "tesla", "mwh_int": 450.0, "name": "Victorian Big Battery", "no of megapacks": "212", "no of powerpacks": "", "notes": "fire of 2 megapacks on 30.7.2021, burned for ca 3 days, the site was not live yet, it happened during a internal test ** 2021-09-03 moving project back to construction", "power mw": "300", "project website": "https://victorianbigbattery.com.au/", "smileys": "\u26a1", "start construction": "2021-01-01", "start operation": "", "state": "victoria", "status": "construction", "status_class": "", "type": "megapack", "use case": ""}, {"capacity mwh": "400", "city": "oxnard / los angeles", "coords exact": "1", "country": "usa", "customer": "Arevon", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:34.25773+-119.158534", "id": "3", "lat": "34.25773", "link1": "https://electrek.co/2021/06/30/tesla-megapacks-power-on-battery-replacing-gas-peaker-plant-california/", "link2": "https://www.prnewswire.com/news-releases/arevon-powers-oxnard-forward-with-saticoy-battery-storage-project-301321788.html", "link3": "https://arevonenergy.com/location/saticoy/", "long": "-119.158534", "manufacturer": "tesla", "mwh_int": 400.0, "name": "Saticoy", "no of megapacks": "142", "no of powerpacks": "", "notes": "", "power mw": "100", "project website": "", "smileys": "\u26a1", "start construction": "2020-10-01", "start operation": "2021-06-29", "state": "california", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "megapack", "use case": "peaker plant replacement"}, {"capacity mwh": "240", "city": "monterey county", "coords exact": "1", "country": "usa", "customer": "Apple", "date first heard": "2021-03-21", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:35.87009+-120.326403", "id": "4", "lat": "35.87009", "link1": "https://www.teslarati.com/tesla-megapack-apple-solar-farm-california/", "link2": "https://www.apple.com/newsroom/2021/03/apple-powers-ahead-in-new-renewable-energy-solutions-with-over-110-suppliers/", "link3": "https://www.firstsolar.com/en/Resources/Projects/California-Flats", "long": "-120.326403", "manufacturer": "tesla", "mwh_int": 240.0, "name": "California Flats", "no of megapacks": "85", "no of powerpacks": "", "notes": "", "power mw": "130", "project website": "", "smileys": "\u26a1\u2600\ufe0f", "start construction": "", "start operation": "", "state": "california", "status": "planning", "status_class": "", "type": "megapack", "use case": "130MW solar farm support"}, {"capacity mwh": "", "city": "", "coords exact": "0", "country": "israel", "customer": "Nofar Energy", "date first heard": "2021-03-16", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:31.961747+34.835081", "id": "5", "lat": "31.961747", "link1": "https://www.tesmanian.com/blogs/tesmanian-blog/tsla-receives-30-million-order-for-energy-storage-system-from-nofar-energy", "link2": "", "link3": "", "long": "34.835081", "manufacturer": "tesla", "mwh_int": 0, "name": "Nofar Israel", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "100", "project website": "", "smileys": "\u2600\ufe0f", "start construction": "", "start operation": "", "state": "", "status": "planning", "status_class": "", "type": "megapack", "use case": "150mw solar farm support"}, {"capacity mwh": "", "city": "angleton / houston", "coords exact": "1", "country": "usa", "customer": "Tesla Subsidiary", "date first heard": "2021-03-08", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:29.168189+-95.445369", "id": "6", "lat": "29.168189", "link1": "https://www.teslarati.com/tesla-texas-big-battery-report/", "link2": "https://www.bloomberg.com/news/features/2021-03-08/tesla-is-plugging-a-secret-mega-battery-into-the-texas-grid", "link3": "https://www.youtube.com/watch?v=OottNRdebs8", "long": "-95.445369", "manufacturer": "tesla", "mwh_int": 0, "name": "Gambit", "no of megapacks": "", "no of powerpacks": "", "notes": "drone video only show ca 130 white boxes and each is 2 megapacks, there is a vistra battery close by that is even bigger", "power mw": "100", "project website": "", "smileys": "", "start construction": "2021-03-08", "start operation": "", "state": "texas", "status": "construction", "status_class": "", "type": "megapack", "use case": "tesla as energy providor"}, {"capacity mwh": "730", "city": "close to santa cruz", "coords exact": "1", "country": "usa", "customer": "PG\u0026E", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:36.807971+-121.781701", "id": "7", "lat": "36.807971", "link1": "https://www.teslarati.com/tesla-megapack-battery-moss-landing-completion-video/", "link2": "https://en.wikipedia.org/wiki/Tesla_Megapack", "link3": "", "long": "-121.781701", "manufacturer": "tesla", "mwh_int": 730.0, "name": "Moss landing ", "no of megapacks": "256", "no of powerpacks": "", "notes": "in 2020, 64mwh were added", "power mw": "182", "project website": "", "smileys": "\u26a1", "start construction": "2020-07-01", "start operation": "2021-04-01", "state": "california", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "megapack", "use case": ""}, {"capacity mwh": "194", "city": "hornsdale", "coords exact": "1", "country": "australia", "customer": "Neoen Australia", "date first heard": "2017-03-10", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:-33.085797+138.518339", "id": "8", "lat": "-33.085797", "link1": "https://en.wikipedia.org/wiki/Hornsdale_Power_Reserve", "link2": "", "link3": "", "long": "138.518339", "manufacturer": "tesla", "mwh_int": 194.0, "name": "Hornsdale Power Reserve", "no of megapacks": "", "no of powerpacks": "", "notes": "42 power packs", "power mw": "150", "project website": "https://hornsdalepowerreserve.com.au/", "smileys": "\u26a1\ud83c\udf2c\ufe0f", "start construction": "2017-08-01", "start operation": "2017-12-01", "state": "south australia", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "powerpack", "use case": "316MW wind farm support"}, {"capacity mwh": "12", "city": "Osaka", "coords exact": "0", "country": "japan", "customer": "", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:34.701231+135.494584", "id": "9", "lat": "34.701231", "link1": "https://www.teslarati.com/telsa-powerpack-osaka-japan/", "link2": "", "link3": "", "long": "135.494584", "manufacturer": "tesla", "mwh_int": 12.0, "name": "Osaka Trains", "no of megapacks": "", "no of powerpacks": "42", "notes": "", "power mw": "", "project website": "", "smileys": "", "start construction": "", "start operation": "2019-03-27", "state": "", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "powerpack", "use case": "train station backup"}, {"capacity mwh": "6", "city": "", "coords exact": "0", "country": "japan", "customer": "", "date first heard": "2021-08-19", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:43.325369+142.589328", "id": "10", "lat": "43.325369", "link1": "https://www.bloomberg.com/news/articles/2021-08-19/tesla-plotting-battery-storage-entry-into-japan-s-power-market", "link2": "", "link3": "", "long": "142.589328", "manufacturer": "tesla", "mwh_int": 6.0, "name": "Hokkaido", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "", "project website": "", "smileys": "", "start construction": "", "start operation": "", "state": "", "status": "planning", "status_class": "", "type": "megapack", "use case": ""}, {"capacity mwh": "40", "city": "carpinteria / santa barbara county", "coords exact": "1", "country": "usa", "customer": "Clean Coalition", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:34.408083+-119.512937", "id": "11", "lat": "34.408083", "link1": "https://www.tesmanian.com/blogs/tesmanian-blog/tesla-begins-installation-of-15-megapacks-at-carpinteria-santa-barbara-county", "link2": "https://clean-coalition.org/news/vallecito-energy-storage-resilience-vesr-project-online-december/", "link3": "", "long": "-119.512937", "manufacturer": "tesla", "mwh_int": 40.0, "name": "Vallecito Energy Storage Resilience (VESR)", "no of megapacks": "15", "no of powerpacks": "", "notes": "", "power mw": "", "project website": "", "smileys": "", "start construction": "2020-11-05", "start operation": "2021-03-31", "state": "california", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "megapack", "use case": ""}, {"capacity mwh": "75", "city": "Wallgrove / Sydney", "coords exact": "1", "country": "australia", "customer": "TransGrid", "date first heard": "2020-10-27", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:-33.817659+150.828087", "id": "12", "lat": "-33.817659", "link1": "https://www.tesmanian.com/blogs/tesmanian-blog/tesla-and-transgrid-will-build-tesla-megapack-battery-in-western-sydney-australia", "link2": "", "link3": "", "long": "150.828087", "manufacturer": "tesla", "mwh_int": 75.0, "name": "WindCharger", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "50", "project website": "https://www.transgrid.com.au/wallgrovebattery", "smileys": "", "start construction": "2021-02-01", "start operation": "", "state": "new south wales", "status": "construction", "status_class": "", "type": "megapack", "use case": ""}, {"capacity mwh": "", "city": "", "coords exact": "1", "country": "canada", "customer": "WCSB  Power", "date first heard": "2020-10-17", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:55.740245+-118.700003", "id": "13", "lat": "55.740245", "link1": "http://td.mediaroom.com/2020-10-14-TD-Greystone-Infrastructure-Fund-Invested-in-Canadas-Largest-Battery-Energy-Storage-System", "link2": "https://www.teslarati.com/tesla-canada-biggest-battery-energy-storage-system/", "link3": "", "long": "-118.700003", "manufacturer": "tesla", "mwh_int": 0, "name": "eReserve1", "no of megapacks": "", "no of powerpacks": "", "notes": "eReserve is one big project, but at 3 locations, hence 3 different lines here", "power mw": "20", "project website": "https://ereserve-project.com/ereserve1", "smileys": "", "start construction": "", "start operation": "", "state": "alberta", "status": "planning", "status_class": "", "type": "megapack", "use case": ""}, {"capacity mwh": "", "city": "", "coords exact": "1", "country": "canada", "customer": "WCSB  Power", "date first heard": "2020-10-17", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:53.120643+-111.199825", "id": "14", "lat": "53.120643", "link1": "", "link2": "", "link3": "", "long": "-111.199825", "manufacturer": "tesla", "mwh_int": 0, "name": "eReserve2", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "20", "project website": "https://ereserve-project.com/ereserve2", "smileys": "", "start construction": "", "start operation": "", "state": "alberta", "status": "planning", "status_class": "", "type": "megapack", "use case": ""}, {"capacity mwh": "", "city": "", "coords exact": "1", "country": "canada", "customer": "WCSB  Power", "date first heard": "2020-10-17", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:55.287437+-118.642392", "id": "15", "lat": "55.287437", "link1": "", "link2": "", "link3": "", "long": "-118.642392", "manufacturer": "tesla", "mwh_int": 0, "name": "eReserve3", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "20", "project website": "https://ereserve-project.com/ereserve3", "smileys": "", "start construction": "", "start operation": "", "state": "alberta", "status": "planning", "status_class": "", "type": "megapack", "use case": ""}, {"capacity mwh": "20", "city": "", "coords exact": "1", "country": "canada", "customer": "TransAlta", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:49.582737+-113.794235", "id": "16", "lat": "49.582737", "link1": "https://www.transaltarenewables.com/2020/10/15/transalta-renewables-announces-commercial-operation-of-windcharger-albertas-first-utility-scale-battery-storage-project/", "link2": "https://www.teslarati.com/tesla-megapack-alberta-windcharger-complete/", "link3": "https://transalta.com/wp-content/uploads/2020/04/WindCharger_Construction_Start_Newsletter_2020.pdf", "long": "-113.794235", "manufacturer": "tesla", "mwh_int": 20.0, "name": "WindCharger", "no of megapacks": "9", "no of powerpacks": "", "notes": "", "power mw": "10", "project website": "", "smileys": "\ud83c\udf2c\ufe0f", "start construction": "", "start operation": "2020-10-15", "state": "alberta", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "megapack", "use case": "wind farm support"}, {"capacity mwh": "", "city": "Holes Bay / Southampton", "coords exact": "1", "country": "uk", "customer": "Harmony Energy Ltd / Fotowatio Renewable Ventures BV ", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:50.726395+-1.9901", "id": "17", "lat": "50.726395", "link1": "https://www.teslarati.com/tesla-megapack-autobidder-uk-energy-grid-debut/", "link2": "https://www.bloomberg.com/news/articles/2020-09-18/six-giant-tesla-batteries-used-to-keep-lights-on-in-britain", "link3": "https://www.harmonyenergy.co.uk/general/video-holes-bay-battery-energy-storage-plant/", "long": "-1.9901", "manufacturer": "tesla", "mwh_int": 0, "name": "Holes Bay", "no of megapacks": "6", "no of powerpacks": "", "notes": "", "power mw": "7.5", "project website": "", "smileys": "", "start construction": "", "start operation": "2020-09-18", "state": "", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "megapack", "use case": ""}, {"capacity mwh": "", "city": "", "coords exact": "0", "country": "usa", "customer": "switch", "date first heard": "2020-07-24", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:36.058908+-115.21174", "id": "18", "lat": "36.058908", "link1": "https://electrek.co/2020/07/24/tesla-megapack-project-switch-datacenter/", "link2": "", "link3": "", "long": "-115.21174", "manufacturer": "tesla", "mwh_int": 0, "name": "switch datacenter", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "", "project website": "", "smileys": "", "start construction": "", "start operation": "", "state": "nevada", "status": "planning", "status_class": "", "type": "megapack", "use case": "datacenter"}, {"capacity mwh": "52", "city": "Kauai", "coords exact": "1", "country": "usa", "customer": "KIUC", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:21.998353+-159.378905", "id": "19", "lat": "21.998353", "link1": "https://www.theverge.com/2017/3/8/14854858/tesla-solar-hawaii-kauai-kiuc-powerpack-battery-generator", "link2": "https://www.youtube.com/watch?v=X45Iv6b5Zs4\u0026t=78s", "link3": "https://en.wikipedia.org/wiki/Kauai", "long": "-159.378905", "manufacturer": "tesla", "mwh_int": 52.0, "name": "Kauai Island", "no of megapacks": "", "no of powerpacks": "272", "notes": "20 year contract to buy energy", "power mw": "", "project website": "", "smileys": "\u2600\ufe0f\ud83c\udfdd\ufe0f", "start construction": "", "start operation": "2017-03-08", "state": "hawaii", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "powerpack", "use case": "island, 13mw solar farm support"}, {"capacity mwh": "80", "city": "Ontario", "coords exact": "1", "country": "usa", "customer": "SCE Southern California Edison", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:34.00548+-117.566749", "id": "20", "lat": "34.00548", "link1": "https://www.theverge.com/2017/2/6/14523196/tesla-battery-powerpack-los-angeles-electricity", "link2": "", "link3": "", "long": "-117.566749", "manufacturer": "tesla", "mwh_int": 80.0, "name": "Mira Loma Substation", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "20", "project website": "", "smileys": "", "start construction": "", "start operation": "2017-06-02", "state": "california", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "powerpack", "use case": ""}, {"capacity mwh": "30", "city": "Kidri\u010devo", "coords exact": "1", "country": "slovenia", "customer": "ngen", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:46.391223+15.78985", "id": "21", "lat": "46.391223", "link1": "https://www.teslarati.com/tesla-megapack-installation-ngen-slovenia/", "link2": "", "link3": "", "long": "15.78985", "manufacturer": "tesla", "mwh_int": 30.0, "name": "ngen slovenia 2", "no of megapacks": "12", "no of powerpacks": "", "notes": "", "power mw": "15", "project website": "", "smileys": "", "start construction": "", "start operation": "2020-10-13", "state": "", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "megapack", "use case": ""}, {"capacity mwh": "22", "city": "Jesenice", "coords exact": "1", "country": "slovenia", "customer": "ngen", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:46.418237+14.10062", "id": "22", "lat": "46.418237", "link1": "https://www.youtube.com/watch?v=v9j-2lsMcJ0", "link2": "", "link3": "", "long": "14.10062", "manufacturer": "tesla", "mwh_int": 22.0, "name": "ngen slovenia 1", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "12", "project website": "", "smileys": "", "start construction": "", "start operation": "2019-10-14", "state": "", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "powerpack", "use case": ""}, {"capacity mwh": "93", "city": "Soldotna Power Plant", "coords exact": "1", "country": "usa", "customer": "Homer Electric Association", "date first heard": "2019-12-03", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:60.500441+-150.996312", "id": "23", "lat": "60.500441", "link1": "https://www.homerelectric.com/2019/12/battery-energy-storage-system-bess-coming-to-hea/", "link2": "https://www.homerelectric.com/2021/07/battery-energy-storage-system-has-arrived/", "link3": "", "long": "-150.996312", "manufacturer": "tesla", "mwh_int": 93.0, "name": "Alaska", "no of megapacks": "37", "no of powerpacks": "", "notes": "", "power mw": "46", "project website": "", "smileys": "", "start construction": "", "start operation": "2021-07-23", "state": "alaska", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "megapack", "use case": ""}, {"capacity mwh": "16", "city": "Weld County", "coords exact": "0", "country": "usa", "customer": "United Power", "date first heard": "2018-10-14", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:40.577109+-104.40854", "id": "24", "lat": "40.577109", "link1": "https://www.youtube.com/watch?v=dyAhUREGDzA", "link2": "https://electrek.co/2018/10/14/tesla-powerpack-project-save-colorado-ratepayers/", "link3": "", "long": "-104.40854", "manufacturer": "tesla", "mwh_int": 16.0, "name": "Colorado ", "no of megapacks": "", "no of powerpacks": "", "notes": "could not find exact location though it is operational", "power mw": "4", "project website": "", "smileys": "", "start construction": "", "start operation": "2019-01-22", "state": "colorado", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "powerpack", "use case": ""}, {"capacity mwh": "48", "city": "Nantucket island", "coords exact": "0", "country": "usa", "customer": "National Grid", "date first heard": "2017-11-08", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:41.272872+-70.080489", "id": "25", "lat": "41.272872", "link1": "https://electrek.co/2017/11/08/tesla-powerpack-island-of-nantucket/", "link2": "https://electrek.co/2019/10/09/tesla-big-powerpack-nantucket/", "link3": "", "long": "-70.080489", "manufacturer": "tesla", "mwh_int": 48.0, "name": "Nantucket", "no of megapacks": "", "no of powerpacks": "234", "notes": "could not find exact location though it is operational", "power mw": "6", "project website": "", "smileys": "\ud83c\udfdd\ufe0f", "start construction": "", "start operation": "2019-19-09", "state": "massachusetts", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "powerpack", "use case": "island"}, {"capacity mwh": "15", "city": "guildford", "coords exact": "1", "country": "uk", "customer": "Zenobe Energy ", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:51.205099+-0.581772", "id": "26", "lat": "51.205099", "link1": "https://electrek.co/2019/06/26/tesla-powerpacks-charge-electric-buses/", "link2": "https://www.teslarati.com/tesla-powerpacks-clean-up-britain-public-transportation/", "link3": "", "long": "-0.581772", "manufacturer": "tesla", "mwh_int": 15.0, "name": "Guildford electric buses", "no of megapacks": "", "no of powerpacks": "78", "notes": "it is a stagecoach bus depot", "power mw": "", "project website": "", "smileys": "\ud83d\ude8c", "start construction": "", "start operation": "2019-06-26", "state": "", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "powerpack", "use case": "bus depot"}, {"capacity mwh": "50", "city": "", "coords exact": "1", "country": "australia", "customer": "Edify Energy / Wirsol", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:-35.734258+143.780015", "id": "27", "lat": "-35.734258", "link1": "https://electrek.co/2018/11/16/tesla-powerpack-project-australia-megapack/", "link2": "", "link3": "", "long": "143.780015", "manufacturer": "tesla", "mwh_int": 50.0, "name": "Gannawarra Solar Farm", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "25", "project website": "", "smileys": "\u2600\ufe0f", "start construction": "", "start operation": "2018-11-16", "state": "victora", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "powerpack", "use case": "60MW solar farm support"}, {"capacity mwh": "52", "city": "", "coords exact": "1", "country": "australia", "customer": "Infigen Energy", "date first heard": "2018-08-15", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:-37.738826+140.38693", "id": "28", "lat": "-37.738826", "link1": "https://electrek.co/2018/08/15/tesla-powerpack-win-contract-battery-system/", "link2": "https://www.pv-magazine.com/2020/01/22/lake-bonney-big-battery-ready-to-supply-teslas-australian-ev-charger-network/", "link3": "", "long": "140.38693", "manufacturer": "tesla", "mwh_int": 52.0, "name": "Lake Bonney Wind Farm", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "25", "project website": "", "smileys": "\ud83c\udf2c\ufe0f", "start construction": "", "start operation": "2020-01-22", "state": "south australia", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "powerpack", "use case": "278MW wind farm support"}, {"capacity mwh": "6", "city": "Ta\u0027u island", "coords exact": "1", "country": "usa", "customer": "", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:-14.219534+-169.494626", "id": "29", "lat": "-14.219534", "link1": "https://electrek.co/2016/11/22/tesla-island-microgrid-battery-solar/", "link2": "", "link3": "", "long": "-169.494626", "manufacturer": "tesla", "mwh_int": 6.0, "name": "Ta\u0027u island", "no of megapacks": "", "no of powerpacks": "60", "notes": "", "power mw": "", "project website": "", "smileys": "\u2600\ufe0f\ud83c\udfdd\ufe0f", "start construction": "", "start operation": "2016-11-22", "state": "american samoa", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "powerpack", "use case": "island, 1.4MW solar farm support"}, {"capacity mwh": "13.5", "city": "", "coords exact": "1", "country": "samoa", "customer": "", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:-13.885669+-171.884245", "id": "30", "lat": "-13.885669", "link1": "https://electrek.co/2018/07/25/tesla-microgrid-powerpack-projects-samoa-fossil-fuel-free/", "link2": "", "link3": "", "long": "-171.884245", "manufacturer": "tesla", "mwh_int": 13.5, "name": "Samoa", "no of megapacks": "", "no of powerpacks": "", "notes": "2 locations at power station and airport", "power mw": "", "project website": "", "smileys": "\ud83c\udfdd\ufe0f", "start construction": "", "start operation": "2018-07-25", "state": "", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "powerpack", "use case": "island"}, {"capacity mwh": "40", "city": "", "coords exact": "1", "country": "usa", "customer": "Salt River Project", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:32.868983+-111.557171", "id": "31", "lat": "32.868983", "link1": "https://electrek.co/2018/05/29/tesla-powerpacks-without-logo-new-solar-project-arizona/", "link2": "https://www.youtube.com/watch?v=e9RuVL3t4jQ", "link3": "", "long": "-111.557171", "manufacturer": "tesla", "mwh_int": 40.0, "name": "Pinal Central Solar Energy Center", "no of megapacks": "", "no of powerpacks": "", "notes": "Added 40 mwh as the youtube video said it can power with 10MW for 4 hours", "power mw": "10", "project website": "", "smileys": "\u2600\ufe0f", "start construction": "", "start operation": "2018-05-29", "state": "arizona", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "powerpack", "use case": "20MW solar farm support"}, {"capacity mwh": "29", "city": "Terhills", "coords exact": "1", "country": "belguim", "customer": "Restore", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:51.006595+5.711134", "id": "32", "lat": "51.006595", "link1": "https://electrek.co/2018/05/14/tesla-powerpack-project-grid-balancing-europe/", "link2": "", "link3": "", "long": "5.711134", "manufacturer": "tesla", "mwh_int": 29.0, "name": "Terhills", "no of megapacks": "", "no of powerpacks": "140", "notes": "", "power mw": "18", "project website": "", "smileys": "", "start construction": "", "start operation": "2018-05-14", "state": "", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "powerpack", "use case": ""}, {"capacity mwh": "4", "city": "new york city / brooklyn", "coords exact": "0", "country": "usa", "customer": "Ozop Energy Systems", "date first heard": "2021-08-25", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:40.645624+-73.940749", "id": "33", "lat": "40.645624", "link1": "https://www.globenewswire.com/news-release/2021/08/25/2286612/0/en/Ozop-Energy-Solutions-Inc-to-Utilize-Tesla-MEGAPACK-in-Battery-Storage-System-Design-Updated.html", "link2": "https://www.globenewswire.com/news-release/2021/08/18/2282824/0/en/Ozop-Energy-Solutions-OZSC-Announces-Stem-Smart-Energy-Storage-2MW-4MWh-Project-in-New-York-City.html", "link3": "", "long": "-73.940749", "manufacturer": "tesla", "mwh_int": 4.0, "name": "Ozop New York", "no of megapacks": "", "no of powerpacks": "", "notes": "together with stem athena software", "power mw": "2", "project website": "", "smileys": "", "start construction": "", "start operation": "", "state": "new york", "status": "planning", "status_class": "", "type": "powerpack", "use case": "peak shaving"}, {"capacity mwh": "", "city": "Goleta", "coords exact": "1", "country": "usa", "customer": "Goleta Energy Storage, LLC", "date first heard": "2019-11-13", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:34.432740+-119.869283", "id": "34", "lat": "34.432740", "link1": "", "link2": "", "link3": "", "long": "-119.869283", "manufacturer": "tesla", "mwh_int": 0, "name": "Goleta Energy Storage Project", "no of megapacks": "62", "no of powerpacks": "", "notes": "the planning document on the website has a lot of detail", "power mw": "60", "project website": "https://www.cityofgoleta.org/city-hall/planning-and-environmental-review/ceqa-review/cortona-battery-storage-project", "smileys": "", "start construction": "", "start operation": "", "state": "california", "status": "planning", "status_class": "", "type": "megapack", "use case": "peaker plant replacement"}, {"capacity mwh": "1600", "cells": "LG", "city": "Moss Landing", "coords exact": "1", "country": "usa", "customer": "Vistra Corp", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:36.806072+-121.782258", "id": "501", "lat": "36.806072", "link1": "https://www.energy-storage.news/manufacturer-reveals-involvement-in-worlds-biggest-battery-energy-storage-system-so-far/", "link2": "https://insideevs.com/news/489894/vistra-moss-landing-energy-storage-world-largest/", "link3": "", "long": "-121.782258", "manufacturer": "LG Energy Solution", "mwh_int": 1600.0, "name": "Moss Landing", "no of megapacks": "", "no of powerpacks": "", "notes": "TR1200 rack design with JH4 cell, 4500+ racks, two stages here", "power mw": "400", "project website": "https://www.vistracorp.com/vistra-zero/", "smileys": "\u26a1", "start construction": "", "start operation": "2021-02-24", "state": "california", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "", "use case": ""}, {"capacity mwh": "260", "cells": "", "city": "Hood County", "coords exact": "0", "country": "usa", "customer": "Vistra Corp", "date first heard": "2021-01-09", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:32.430077+-97.695028", "id": "502", "lat": "32.430077", "link1": "https://urjadaily.com/vistra-brings-worlds-largest-utility-scale-battery-energy-storage-system-online/", "link2": "", "link3": "", "long": "-97.695028", "manufacturer": "", "mwh_int": 260.0, "name": "Docordova", "no of megapacks": "", "no of powerpacks": "", "notes": "should go online in 2022", "power mw": "260", "project website": "https://www.vistracorp.com/vistra-zero/", "smileys": "\u26a1", "start construction": "", "start operation": "", "state": "texas", "status": "planning", "status_class": "", "type": "", "use case": ""}, {"capacity mwh": "36", "cells": "", "city": "Oakland", "coords exact": "0", "country": "usa", "customer": "Vistra Corp", "date first heard": "2021-01-09", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:37.79422+-122.20837", "id": "503", "lat": "37.79422", "link1": "", "link2": "", "link3": "", "long": "-122.20837", "manufacturer": "", "mwh_int": 36.0, "name": "Oakland", "no of megapacks": "", "no of powerpacks": "", "notes": "should go online in 2022", "power mw": "145", "project website": "https://www.vistracorp.com/vistra-zero/", "smileys": "", "start construction": "", "start operation": "", "state": "california", "status": "planning", "status_class": "", "type": "", "use case": ""}, {"capacity mwh": "10", "cells": "", "city": "Upton County", "coords exact": "0", "country": "usa", "customer": "Vistra Corp", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:31.255119+-102.246596", "id": "504", "lat": "31.255119", "link1": "https://www.energy-storage.news/us-utility-vistra-plans-texas-solar-storage-facilities-alongside-6-8gw-of-coal-retirement-by-2027/", "link2": "https://www.luminant.com/upton-2-solar-power-plant-energy-storage-facility/", "link3": "", "long": "-102.246596", "manufacturer": "", "mwh_int": 10.0, "name": "Upton 2", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "42", "project website": "https://www.vistracorp.com/vistra-zero/", "smileys": "\u2600\ufe0f", "start construction": "", "start operation": "2018-12-31", "state": "texas", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "", "use case": "180MW solar farm support"}, {"capacity mwh": "2400", "cells": "", "city": "Morro Bay", "coords exact": "1", "country": "usa", "customer": "Vistra Corp", "date first heard": "2021-02-15", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:35.374224+-120.858684", "id": "505", "lat": "35.374224", "link1": "https://www.energy-storage.news/vistra-proposes-california-battery-project-twice-the-size-of-worlds-largest-facility-to-date/", "link2": "http://www.morrobayca.gov/documentcenter/view/15093", "link3": "", "long": "-120.858684", "manufacturer": "", "mwh_int": 2400.0, "name": "Morro Bay", "no of megapacks": "", "no of powerpacks": "", "notes": "revitalise existing gas power plant site, start construction in 2022 should take 36-48 month to complete", "power mw": "600", "project website": "", "smileys": "\u26a1", "start construction": "", "start operation": "", "state": "california", "status": "planning", "status_class": "", "type": "", "use case": ""}, {"capacity mwh": "120", "cells": "", "city": "Bastrop County", "coords exact": "0", "country": "usa", "customer": "RWE Renewables", "date first heard": "2021-09-01", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:29.913908+-97.289792", "id": "506", "lat": "29.913908", "link1": "https://www.energy-storage.news/rwe-signs-up-corporate-offtaker-for-big-star-texas-solar-plus-storage-project/", "link2": "https://www.rwe.com/en/press/rwe-renewables/2021-08-25-rwe-teams-up-with-constellation-to-supply-major-us-commercial-customers-with-solar-energy-from-big-star-facility", "link3": "", "long": "-97.289792", "manufacturer": "LG Energy Solution", "mwh_int": 120.0, "name": "Big Star", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "80", "project website": "", "smileys": "\u26a1\u2600\ufe0f", "start construction": "", "start operation": "", "state": "texas", "status": "planning", "status_class": "", "type": "", "use case": "200MW solar farm support"}, {"capacity mwh": "80", "cells": "", "city": "Mitchell County", "coords exact": "0", "country": "usa", "customer": "RWE Renewables", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:31.31621+-84.124752", "id": "507", "lat": "31.31621", "link1": "https://www.energy-storage.news/lg-energy-solution-supplying-800mwh-battery-storage-for-rwes-us-solar-plus-storage-projects/", "link2": "https://www.rwe.com/en/press/rwe-renewables/2020-11-17-rwes-hickory-park-solar-project-with-co-located-storage-facility-under-construction", "link3": "", "long": "-84.124752", "manufacturer": "W\u00e4rtsil\u00e4 Energy", "mwh_int": 80.0, "name": "Hickory Park", "no of megapacks": "", "no of powerpacks": "", "notes": "30 year PPA with Georgia Power", "power mw": "40", "project website": "", "smileys": "\u2600\ufe0f", "start construction": "2020-11-17", "start operation": "", "state": "georgia", "status": "construction", "status_class": "", "type": "GridSolv Quantum", "use case": "200MW solar farm support"}, {"capacity mwh": "500", "cells": "", "city": "Xiangyang", "coords exact": "0", "country": "china", "customer": "Hubei Pingfan Ruifeng New Energy Technology", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:32.075783+112.145275", "id": "508", "lat": "32.075783", "link1": "https://www.energy-storage.news/vrb-energy-breaks-ground-on-100mw-500mwh-flow-battery-and-gigafactory-in-china/", "link2": "https://vrbenergy.com/vrb-energy-announces-agreement-for-chinas-largest-solar-battery-a-100mw-solar-storage-project-in-hubei-province/", "link3": "", "long": "112.145275", "manufacturer": "VRB Energy", "mwh_int": 500.0, "name": "Hubei Flow Battery", "no of megapacks": "", "no of powerpacks": "", "notes": "Vanadium flow battery, built in phases", "power mw": "100", "project website": "", "smileys": "\u26a1\u2600\ufe0f", "start construction": "2021-05-21", "start operation": "", "state": "hubei", "status": "construction", "status_class": "", "type": "", "use case": "500MW rooftop solar support"}, {"capacity mwh": "200", "cells": "", "city": "Darlington Point", "coords exact": "1", "country": "australia", "customer": "Edify Energy / Shell", "date first heard": "2021-05-25", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:-34.646927+146.03516", "id": "509", "lat": "-34.646927", "link1": "https://edifyenergy.com/uncategorised/darlington-point-big-battery-for-shell-and-edify-energy-the-australian-perry-williams/", "link2": "https://www.power-technology.com/news/edify-shell-riverina-energy-storage/", "link3": "", "long": "146.03516", "manufacturer": "", "mwh_int": 200.0, "name": "Riverina / Darlington Point Solar Farm", "no of megapacks": "", "no of powerpacks": "", "notes": "should go online in early 2023", "power mw": "100", "project website": "https://edifyenergy.com/project/riverina/", "smileys": "\u26a1\u2600\ufe0f", "start construction": "", "start operation": "", "state": "new south wales", "status": "planning", "status_class": "", "type": "", "use case": "333MW solar farm support"}, {"capacity mwh": "400", "cells": "", "city": "Long Beach / Los Angeles", "coords exact": "1", "country": "usa", "customer": "Southern California Edison (SCE)", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:33.770365+-118.101597", "id": "510", "lat": "33.770365", "link1": "https://blog.fluenceenergy.com/aes-fluence-commission-alamitos-energy-storage-facility-long-beach-california", "link2": "https://blog.fluenceenergy.com/fluence-aes-alamitos-battery-energy-storage-system-made-history", "link3": "https://www.energy-storage.news/battery-storage-as-peaking-capacity-how-alamitos-changed-the-game-for-california/", "long": "-118.101597", "manufacturer": "fluence", "mwh_int": 400.0, "name": "Alamitos", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "100", "project website": "", "smileys": "\u26a1", "start construction": "2019-06-01", "start operation": "2021-01-27", "state": "california", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "Advancion 5", "use case": "gas peaker plant replacement, 20 year ppa"}, {"capacity mwh": "800", "cells": "", "city": "Pittsburg", "coords exact": "0", "country": "usa", "customer": "LS Power / PG \u0026 E", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:38.015262+-121.846146", "id": "511", "lat": "38.015262", "link1": "https://www.energy-storage.news/direct-energy-business-to-use-some-of-worlds-biggest-battery-projects-to-serve-california-customers/", "link2": "https://www.lspower.com/project-map/", "link3": "https://www.tdworld.com/distributed-energy-resources/energy-storage/article/21131879/pge-poised-to-expand-battery-energy-storage-capacity-by-more-than-420-mw", "long": "-121.846146", "manufacturer": "", "mwh_int": 800.0, "name": "Diablo", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "200", "project website": "", "smileys": "\u26a1", "start construction": "2020-10-30", "start operation": "", "state": "california", "status": "construction", "status_class": "", "type": "", "use case": ""}, {"capacity mwh": "250", "cells": "LG", "city": "East Otey Mesa / San Diego", "coords exact": "1", "country": "usa", "customer": "LS Power", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:32.570558+-116.910955", "id": "512", "lat": "32.570558", "link1": "https://www.lspower.com/project-map/", "link2": "https://vimeo.com/429223580", "link3": "https://en.wikipedia.org/wiki/Gateway_Energy_Storage", "long": "-116.910955", "manufacturer": "", "mwh_int": 250.0, "name": "Gateway ", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "250", "project website": "", "smileys": "\u26a1", "start construction": "2019-09-01", "start operation": "2020-08-01", "state": "california", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "", "use case": ""}, {"capacity mwh": "", "cells": "", "city": "Vista", "coords exact": "0", "country": "usa", "customer": "LS Power", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:33.20395+-117.253731", "id": "513", "lat": "33.20395", "link1": "https://www.lspower.com/project-map/", "link2": "https://www.mapsearch.com/power-plant/vista-energy-storage-system/", "link3": "", "long": "-117.253731", "manufacturer": "", "mwh_int": 0, "name": "Vista", "no of megapacks": "", "no of powerpacks": "", "notes": "no source about the capacity", "power mw": "40", "project website": "", "smileys": "", "start construction": "", "start operation": "2018-07-01", "state": "california", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "", "use case": ""}, {"capacity mwh": "", "cells": "", "city": "Calexico / Imperial County", "coords exact": "1", "country": "usa", "customer": "LS Power", "date first heard": "2019-07-12", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:32.67641+-115.670255", "id": "514", "lat": "32.67641", "link1": "https://www.lspower.com/project-map/", "link2": "https://ceqanet.opr.ca.gov/2010111056/7", "link3": "", "long": "-115.670255", "manufacturer": "", "mwh_int": 0, "name": "LeConte", "no of megapacks": "", "no of powerpacks": "", "notes": "planning doc is available", "power mw": "125", "project website": "", "smileys": "", "start construction": "", "start operation": "", "state": "california", "status": "planning", "status_class": "", "type": "", "use case": ""}, {"capacity mwh": "2528", "cells": "", "city": "Long Island City / Queens", "coords exact": "1", "country": "usa", "customer": "LS Power", "date first heard": "2019-02-01", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:40.761642+-73.944275", "id": "515", "lat": "40.761642", "link1": "https://www.lspower.com/project-map/", "link2": "http://documents.dps.ny.gov/public/Common/ViewDoc.aspx?DocRefId=%7B4A8305F4-BECF-46EE-B493-A088AA7AA8F6%7D\u0026usg=AOvVaw2Yrkm30CAqrxvAShHegBAw", "link3": "https://www.spglobal.com/marketintelligence/en/news-insights/latest-news-headlines/lacking-contract-ls-power-delays-major-battery-storage-station-in-ny-62467197", "long": "-73.944275", "manufacturer": "", "mwh_int": 2528.0, "name": "Ravenswood", "no of megapacks": "", "no of powerpacks": "", "notes": "planning doc is available ** 2021-02-03: project could be delayed until 2024 ", "power mw": "316", "project website": "", "smileys": "\u26a1", "start construction": "", "start operation": "", "state": "new york", "status": "planning", "status_class": "", "type": "", "use case": ""}, {"capacity mwh": "150", "cells": "", "city": "ulsan", "coords exact": "0", "country": "korea", "customer": "Korea Zinc", "date first heard": "2017-07-27", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:35.430406+129.340086", "id": "516", "lat": "35.430406", "link1": "https://pulsenews.co.kr/view.php?year=2017\u0026no=505105", "link2": "https://en.wikipedia.org/wiki/Battery_storage_power_station#cite_note-hei-78", "link3": "https://www.koreazinc.co.kr/english/company/page/headOffice.aspx", "long": "129.340086", "manufacturer": "hyundai ", "mwh_int": 150.0, "name": "Korea Zinc", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "32.5", "project website": "", "smileys": "\u26a1", "start construction": "", "start operation": "2018-01-01", "state": "", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "", "use case": ""}, {"capacity mwh": "140", "cells": "", "city": "seosan", "coords exact": "1", "country": "korea", "customer": "", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:36.636988+126.363673", "id": "517", "lat": "36.636988", "link1": "https://en.wikipedia.org/wiki/Battery_storage_power_station", "link2": "", "link3": "", "long": "126.363673", "manufacturer": "hyundai ", "mwh_int": 140.0, "name": "Seosan", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "52", "project website": "", "smileys": "\u26a1\u2600\ufe0f", "start construction": "", "start operation": "2018-12-01", "state": "", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "", "use case": "65MW solar farm support"}, {"capacity mwh": "305", "cells": "", "city": "Haenam County", "coords exact": "1", "country": "korea", "customer": "Kospo", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:34.709899+126.41275", "id": "518", "lat": "34.709899", "link1": "https://krenewables.com/solar/kospo-ignites-koreas-biggest-pv-farm/", "link2": "https://en.wikipedia.org/wiki/Battery_storage_power_station#cite_note-hei-78", "link3": "", "long": "126.41275", "manufacturer": "hyundai ", "mwh_int": 305.0, "name": "Solaseado", "no of megapacks": "", "no of powerpacks": "", "notes": "not sure whether Solaseado  or Solasido is correct spelling", "power mw": "72", "project website": "", "smileys": "\u26a1\u2600\ufe0f", "start construction": "", "start operation": "2020-04-10", "state": "jeolla", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "", "use case": "98MW solar farm support"}, {"capacity mwh": "133", "cells": "LFP CATL, NMC Samsung", "city": "Minety", "coords exact": "1", "country": "uk", "customer": "Penso Power / China Huaneng Group / CNIC", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:51.605997+-2.003146", "id": "519", "lat": "51.605997", "link1": "https://en.wikipedia.org/wiki/Battery_storage_power_station#cite_note-nsenergy-minety-55", "link2": "https://www.energy-storage.news/what-we-know-about-europes-largest-grid-connected-battery-project-so-far/", "link3": "https://eclipsepower.co.uk/project/minety-battery-storage/", "long": "-2.003146", "manufacturer": "sungrow", "mwh_int": 133.0, "name": "Minety", "no of megapacks": "", "no of powerpacks": "", "notes": "PPA from shell, when second stage is complete it will be 150MW/266MWh", "power mw": "100", "project website": "https://www.pensopower.com/", "smileys": "\u26a1", "start construction": "2019-12-01", "start operation": "2020-12-01", "state": "", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "", "use case": ""}, {"capacity mwh": "30", "cells": "", "city": "yorkshire", "coords exact": "0", "country": "uk", "customer": "", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:53.949604+-1.190935", "id": "520", "lat": "53.949604", "link1": "https://www.pv-tech.org/industry-updates/yorkshire-uk-europes-largest-unsubsidized-solar-plus-storage-project/", "link2": "", "link3": "", "long": "-1.190935", "manufacturer": "sungrow", "mwh_int": 30.0, "name": "Yorkshire", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "27.5", "project website": "", "smileys": "\u2600\ufe0f", "start construction": "", "start operation": "2019-12-01", "state": "", "status": "operation", "status_class": "badge rounded-pill bg-success", "type": "", "use case": "34MW solar farm support"}, {"capacity mwh": "640", "cells": "", "city": "London Gateway port/ essex", "coords exact": "1", "country": "uk", "customer": "Intergen", "date first heard": "2020-11-30", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:51.512649+0.493992", "id": "521", "lat": "51.512649", "link1": "https://www.solarpowerportal.co.uk/news/intergen_unveil_uks_largest_battery_storage_project_with_320mw_essex_projec", "link2": "", "link3": "", "long": "0.493992", "manufacturer": "fluence", "mwh_int": 640.0, "name": "Gateway Energy Project", "no of megapacks": "", "no of powerpacks": "", "notes": "should go online in 2024", "power mw": "320", "project website": "https://www.intergen.com/our-technologies/development-projects/gateway-energy-centre/", "smileys": "\u26a1", "start construction": "", "start operation": "", "state": "", "status": "planning", "status_class": "", "type": "Gridstack", "use case": ""}, {"capacity mwh": "350", "cells": "", "city": "spalding", "coords exact": "0", "country": "uk", "customer": "Intergen", "date first heard": "2020-11-30", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:52.805112+-0.133741", "id": "522", "lat": "52.805112", "link1": "https://www.solarpowerportal.co.uk/news/intergen_unveil_uks_largest_battery_storage_project_with_320mw_essex_projec", "link2": "", "link3": "", "long": "-0.133741", "manufacturer": "fluence", "mwh_int": 350.0, "name": "Spalding", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "170", "project website": "https://www.intergen.com/our-technologies/development-projects/spalding-energy-park/", "smileys": "\u26a1", "start construction": "", "start operation": "", "state": "", "status": "planning", "status_class": "", "type": "", "use case": ""}, {"capacity mwh": "560", "cells": "", "city": "Atacama Desert", "coords exact": "0", "country": "chile", "customer": "AES Gener", "date first heard": "", "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:-24.014801+-68.58494", "id": "523", "lat": "-24.014801", "link1": "https://www.energy-storage.news/aes-begins-work-on-560mwh-largest-battery-system-in-latin-america-for-solar-and-wind-in-chile/", "link2": "https://www.renpp.eu/en/solar-project/andes-solar-park-1018", "link3": "", "long": "-68.58494", "manufacturer": "fluence", "mwh_int": 560.0, "name": "Antofagasta", "no of megapacks": "", "no of powerpacks": "", "notes": "", "power mw": "112", "project website": "", "smileys": "\u26a1\u2600\ufe0f", "start construction": "2020-10-19", "start operation": "", "state": "", "status": "construction", "status_class": "", "type": "Sunstack", "use case": "253MW solar farm support"}]';
+        projects = JSON.parse(projects)
+        
+        var p;
+        var warning = "";
+        for (var i=0; i < projects.length; i++){
+            p = projects[i];
+            if (p["coords exact"] != "1") {
+                warning = `<br><span class="badge bg-danger">Coordinates are an estimate.</span>`;
+            } else {
+                warning = "";
+            }
+            // L.Icon.Default.prototype.options, to check the default things
+            var icon = L.icon({
+                iconUrl:"pics/marker-" + markerColor[p["status"]]+ ".png",
+                iconAnchor: [12, 41],
+                iconSize: [25, 41],
+                popupAnchor: [ 1, -34],
+                tooltipAnchor: [ 16, -28 ],
+            }); 
+               
+            if (p["lat"] != ""){
+                var marker;
+                marker = L.marker([p["lat"], p["long"]], {icon: icon});
+                marker.bindPopup(
+                    `<b>${p["name"]}</b> <br>${p["capacity mwh"]}MWh
+                    <br> in: ${p["status"]} 
+                    <br> from: ${p["manufacturer"]}
+                    <br> for: ${p["customer"]}
+                    <br><a href="${p["google_maps_link"]}" target="_blank">Google Maps</a>
+                    ${warning}
+                    <br><a href="projects/${p["id"]}.html" target="_blank">Details</a>
+                    `
+                );
+                // TODO: find a way to quickly create icons of different colors
+                // there is the div icon, or an external lib called AwesomeMarker
+                overlays[p["status"]].push(marker)
+            }
+        }
+
+        // not pretty, can you add to a layer group directly? 
+        overlays = {
+		    "planning": L.layerGroup(overlays["planning"]),
+            "construction": L.layerGroup(overlays["construction"]),
+            "operation": L.layerGroup(overlays["operation"]),
+	    };
+
+
+        var mymap = L.map('mapid', {
+            // sets what is shown
+            layers: [streets, overlays["planning"], overlays["construction"], overlays["operation"]],
+            // TODO: is there a way how you can set it to ctrl + wheel
+            scrollWheelZoom: true,
+        }).setView([35.160636, 11.096191], 2);
+        
+        L.control.layers(baseLayers, overlays).addTo(mymap);
+ 
+        // useful for refining the points, disable on production
+        var popup = L.popup();
+        function onMapClick(e) {
+            popup
+            .setLatLng(e.latlng)
+            .setContent(e.latlng.toString())
+            .openOn(mymap);
+        }
+        // mymap.on('click', onMapClick);
+
+    } );
+</script>
+  
+  </body>
+</html>

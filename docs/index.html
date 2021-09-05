@@ -42,7 +42,9 @@
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#project-list">Project List</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#installations-map">Map</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span class="badge bg-info">New</span></a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#contact">Contact</a></li>
+              
             </ul>
           </div>
         </div>
@@ -645,7 +647,7 @@ You can also find all the code there to generate this site.
 <br><br>
 This page is not affiliated, associated, endorsed by or in any way officially connected with Tesla Motors, Inc.
 <br>
-<span style="font-size: 0.8rem;">This static site was generated on: 2021-09-03 07:47:01.840901 UTC</span>
+<span style="font-size: 0.8rem;">This static site was generated on: 2021-09-05 20:51:06.611619 UTC</span>
 
       
     </div> <!-- end container-xl-->
@@ -743,7 +745,7 @@ This page is not affiliated, associated, endorsed by or in any way officially co
         for (var i=0; i < projects.length; i++){
             p = projects[i];
             if (p["coords exact"] != "1") {
-                warning = "<br>Coordinates are an estimate.";
+                warning = `<br><span class="badge bg-danger">Coordinates are an estimate.</span>`;
             } else {
                 warning = "";
             }
