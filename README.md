@@ -1,3 +1,10 @@
+Table of Contents:
+- [tesla-megapack-tracker](#tesla-megapack-tracker)
+- [project structure](#project-structure)
+- [good information sources](#good-information-sources)
+- [inspiration](#inspiration)
+
+
 # tesla-megapack-tracker
 
 - project tries to track all tesla megapack and powerpack (>5MWh) installations and other big batteries larger than 10MWh
