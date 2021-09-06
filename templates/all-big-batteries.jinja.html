@@ -45,9 +45,9 @@
                     $('tfoot th').eq(0).html(`Total (${pLen} projects)`);
                 }
                 else {
-                    $('tfoot th').eq(0).html('Total ({{ extra.totals_row_summary.count}} projects)');
-                    $('tfoot th').eq(7).html('{{ extra.totals_row_summary.mwh}}');
-                    $('tfoot th').eq(8).html('{{ extra.totals_row_summary.mw}}');
+                    $('tfoot th').eq(0).html('Total ({{ extra.summary.totals_row.count}} projects)');
+                    $('tfoot th').eq(7).html('{{ extra.summary.totals_row.mwh}}');
+                    $('tfoot th').eq(8).html('{{ extra.summary.totals_row.mw}}');
                 }
             } //end footerCallback
         });
@@ -177,11 +177,29 @@ Page is better on a big screen. Does not work well on mobile.
                     Projects in 
                     <span class="badge rounded-pill bg-success">operation</span>
                 </td>
-                <td>{{ extra.operation_summary.count }}</td>
+                <td>{{ extra.summary.operation.count }}</td>
             </tr>
             <tr>
                 <td>Total 🔋 battery capacity in GWh </td>
-                <td>{{ "%.1f" | format(extra.operation_summary.gwh) }}</td>
+                <td>{{ "%.1f" | format(extra.summary.operation.gwh) }}</td>
+            </tr>
+            <tr>
+                <td colspan="2"> 
+                    
+                    Per year in GWh:<br>
+                    <div class="progress" style="height: 2em;">
+                    {% for year in extra.summary.yearly_operation %}
+                        <div class="progress-bar bg-success border" role="progressbar" style="width: {{ year.perc }}%;">{{ "%.1f" | format(year.gwh) }}</div>
+                    {% endfor %}
+                    </div>  
+                    <div class="progress" style="height: 2em;">
+                        {% for year in extra.summary.yearly_operation %}
+                            <div class="progress-bar bg-white text-muted" role="progressbar" style="width: {{ year.perc }}%;">{{ year.year[2:] }}</div>
+                        {% endfor %}
+                    </div>  
+
+                </td>
+                
             </tr>
         </table>
     </div>
@@ -205,7 +223,7 @@ This list is a best effort to track all big battery installations larger than 10
             <th>Country</th>
             <th>Status</th>
             <th>Go live</th>
-            <th>Manufacturer</th>
+            <th>Man.</th>
             <th>Customer</th>
             <th>MWh</th>
             <th>MW</th>
@@ -245,10 +263,10 @@ This list is a best effort to track all big battery installations larger than 10
 <br>
 ⚡ more than 100MWh, ☀️ attached to solar farm, 🌬️ attached to wind farm, 🏝️ island installation, 🚌 at bus depot
 
-<!-- <br>In case you want to analyze the data further, you can download the raw data as 
-<a href="misc/projects.json">json</a>,
-<a href="misc/projects.csv">csv</a> or
-<a href="misc/projects.excel.csv">excel csv</a>. -->
+<br><br>In case you want to analyze the data further, you can download the raw data as 
+<a href="misc/projects-all-manufacturers.json">json</a>,
+<a href="misc/projects-all-manufacturers.csv">csv</a> or
+<a href="misc/projects-all-manufacturers.excel.csv">excel csv</a>.
 
 
 <h3 id="installations-map" class="mt-4"> Installations map </h3>

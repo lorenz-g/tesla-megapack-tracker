@@ -17,7 +17,7 @@ def generate_link(ip):
 
 
 
-def load_file(filename='projects.csv', type_="json"):
+def load_file(filename='projects-tesla.csv', type_="json"):
     "For now from the csv, later from the toml fils"
     with open(filename) as f:
         if type_ == "json":
@@ -32,20 +32,33 @@ def load_file(filename='projects.csv', type_="json"):
 
 
 def gen_raw_data_files():
-    output_dir = os.path.join('docs', "misc")
     # write the raw data files
-    with open(os.path.join(output_dir, "projects.json"), 'w') as f:
-        json.dump(load_file(), f)
-    
-    rows = load_file(type_="csv")
-    # I think the two csv files are the same, but keep it for now.
-    with open(os.path.join(output_dir, "projects.csv"), 'w') as f:
-        writer = csv.writer(f)
-        writer.writerows(rows)
+    output_dir = os.path.join('docs', "misc")
+    json_tesla = load_file()
+    with open(os.path.join(output_dir, "projects-tesla.json"), 'w') as f:
+        json.dump(json_tesla, f)
 
-    with open(os.path.join(output_dir, "projects.excel.csv"), 'w') as f:
-        writer = csv.writer(f, dialect='excel')
-        writer.writerows(rows)
+    with open(os.path.join(output_dir, "projects-all-manufacturers.json"), 'w') as f:
+        json.dump(json_tesla + load_file("projects-other-man.csv"), f)
+    
+
+    rows_tesla = load_file(type_="csv")
+    rows_all = rows_tesla + load_file("projects-other-man.csv", "csv")[1:]
+
+    files_to_write = [
+        ["projects-tesla", rows_tesla],
+        ["projects-all-manufacturers", rows_all],
+    ]
+
+    for name, rows in files_to_write:
+        # I think the two csv files are the same, but keep it for now.
+        with open(os.path.join(output_dir, name + ".csv"), 'w') as f:
+            writer = csv.writer(f)
+            writer.writerows(rows)
+
+        with open(os.path.join(output_dir, name + ".excel.csv"), 'w') as f:
+            writer = csv.writer(f, dialect='excel')
+            writer.writerows(rows)
         
 
 def gen_cars_vs_stationary(projects):
@@ -125,23 +138,27 @@ def gen_cars_vs_stationary(projects):
 
 
 def prepare_projects(projects):
-    mp_summary = {
+    
+    # s_ stands for summary_
+    s_megapack = {
         "project_cnt": 0,
         "mp_count": 0,
         "gwh":0,
     }
 
-    totals_row_summary = {
+    s_totals_row = {
         "count": 0,
         "mwh":0,
         "mw":0,
     }
 
-    operation_summary = {
+    s_operation = {
         "count": 0,
         "gwh":0,
         "gw":0,
     }
+
+    s_yearly_op = {}
 
     # augment raw projects data
     for p in projects:
@@ -179,20 +196,38 @@ def prepare_projects(projects):
 
         # add to summary
         if p["status"] == "operation" and p["type"] == "megapack":
-            mp_summary["project_cnt"] += 1
-            mp_summary["mp_count"] +=  0 if p["no of megapacks"] == "" else int(p["no of megapacks"])
-            mp_summary["gwh"] += mwh / 1000
+            s_megapack["project_cnt"] += 1
+            s_megapack["mp_count"] +=  0 if p["no of megapacks"] == "" else int(p["no of megapacks"])
+            s_megapack["gwh"] += mwh / 1000
         
-        if p["status"] == "operation":
-            operation_summary["count"] += 1
-            operation_summary["gwh"] += mwh / 1000
-            operation_summary["gw"] += 0 if p["power mw"] == "" else float(p["power mw"]) / 1000
-        
-        totals_row_summary["count"] += 1
-        totals_row_summary["mwh"] += mwh
-        totals_row_summary["mw"] += 0 if p["power mw"] == "" else float(p["power mw"])
 
-    return projects, mp_summary, totals_row_summary, operation_summary
+        if p["status"] == "operation":
+            s_operation["count"] += 1
+            s_operation["gwh"] += mwh / 1000
+            s_operation["gw"] += 0 if p["power mw"] == "" else float(p["power mw"]) / 1000
+
+            year = p["start operation"][:4]
+            if year not in s_yearly_op:
+                s_yearly_op[year] = {"year": year, "gwh": 0, "perc": None}
+            s_yearly_op[year]["gwh"] += mwh / 1000
+        
+        s_totals_row["count"] += 1
+        s_totals_row["mwh"] += mwh
+        s_totals_row["mw"] += 0 if p["power mw"] == "" else float(p["power mw"])
+    
+    for year in s_yearly_op.values():
+        year["perc"] = 100 * year["gwh"] / s_operation["gwh"]
+    
+    s_yearly_op = sorted(s_yearly_op.values(), key=lambda x:x["year"])
+
+    summaries = {
+        "megapack": s_megapack,
+        "totals_row": s_totals_row,
+        "operation": s_operation,
+        "yearly_operation": s_yearly_op,
+    }
+
+    return projects, summaries
 
 
 
@@ -203,13 +238,11 @@ def gen_projects_template(projects, template_name):
     output_dir = 'docs'
 
     # generate the index template
-    projects, mp_summary, totals_row_summary, operation_summary = prepare_projects(projects)
+    projects, summary = prepare_projects(projects)
     extra = {
         "now": dt.datetime.utcnow(),
         "cars": gen_cars_vs_stationary(projects),
-        "mp_summary": mp_summary,
-        "operation_summary": operation_summary,
-        "totals_row_summary": totals_row_summary,
+        "summary": summary,
     }
 
     template = env.get_template(template_name)
@@ -236,8 +269,8 @@ def gen_individual_pages(projects):
     
 def main():
     # load them twice to have different objects with different pointers
-    projects = load_file("projects.csv") + load_file("projects_other_man.csv")
-    tesla_projects = load_file("projects.csv")
+    projects = load_file("projects-tesla.csv") + load_file("projects-other-man.csv")
+    tesla_projects = load_file("projects-tesla.csv")
 
     gen_projects_template(tesla_projects, 'index.jinja.html')
     gen_projects_template(projects, 'all-big-batteries.jinja.html')

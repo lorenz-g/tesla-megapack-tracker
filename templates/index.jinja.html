@@ -33,9 +33,9 @@
                     $('tfoot th').eq(0).html(`Total (${pLen} projects)`);
                 }
                 else {
-                    $('tfoot th').eq(0).html('Total ({{ extra.totals_row_summary.count}} projects)');
-                    $('tfoot th').eq(6).html('{{ extra.totals_row_summary.mwh}}');
-                    $('tfoot th').eq(7).html('{{ extra.totals_row_summary.mw}}');
+                    $('tfoot th').eq(0).html('Total ({{ extra.summary.totals_row.count}} projects)');
+                    $('tfoot th').eq(6).html('{{ extra.summary.totals_row.mwh}}');
+                    $('tfoot th').eq(7).html('{{ extra.summary.totals_row.mw}}');
                 }
             } //end footerCallback
         });
@@ -162,15 +162,15 @@ Page is better on a big screen. Does not work well on mobile.
                     <span class="badge rounded-pill bg-secondary">megapack</span> projects in 
                     <span class="badge rounded-pill bg-success">operation</span>
                 </td>
-                <td>{{ extra.mp_summary.project_cnt }}</td>
+                <td>{{ extra.summary.megapack.project_cnt }}</td>
             </tr>
             <tr>
                 <td>Total 🔋 battery capacity in GWh </td>
-                <td>{{ "%.1f" | format(extra.mp_summary.gwh) }}</td>
+                <td>{{ "%.1f" | format(extra.summary.megapack.gwh) }}</td>
             </tr>
             <tr>
                 <td>Number of megapacks installed </td>
-                <td>{{ extra.mp_summary.mp_count }}</td>
+                <td>{{ extra.summary.megapack.mp_count }}</td>
             </tr>
         </table>
     </div>
@@ -231,9 +231,9 @@ This list is a best effort to try and list all Tesla megapack and powerpack (>5M
 <br>
 ⚡ more than 100MWh, ☀️ attached to solar farm, 🌬️ attached to wind farm, 🏝️ island installation, 🚌 at bus depot
 <br>In case you want to analyze the data further, you can download the raw data as 
-<a href="misc/projects.json">json</a>,
-<a href="misc/projects.csv">csv</a> or
-<a href="misc/projects.excel.csv">excel csv</a>.
+<a href="misc/projects-tesla.json">json</a>,
+<a href="misc/projects-tesla.csv">csv</a> or
+<a href="misc/projects-tesla.excel.csv">excel csv</a>.
 
 
 <h3 id="installations-map" class="mt-4"> Installations map </h3>
@@ -278,15 +278,21 @@ The calculations are in the <a href="https://github.com/lorenz-g/tesla-megapack-
 <span class="badge rounded-pill bg-secondary">Model s/x in GWh</span>
 <span class="badge rounded-pill bg-success">ESS in GWh</span>
 <br><br>
-To put <code>{{ "%.1f" | format(extra.cars.expl.total_gwh) }} GWh</code> into perspective: 
-you could power the entire <a href="https://www.agora-energiewende.de/en/service/recent-electricity-data/" target="_blank">country of Germany</a> 
-🇩🇪
-for <code>ca {{ "%.1f" | format(extra.cars.expl.hours_germany) }} hours</code> with all the battery cells that Tesla has sold so far.
-<br>Or the <a href="https://www.statista.com/statistics/280704/world-power-consumption/" target="_blank">entire globe</a> 
-🌎 for <code>ca {{ "%.1f" | format(extra.cars.expl.minutes_world) }} minutes</code>.
+To put <code>{{ "%.1f" | format(extra.cars.expl.total_gwh) }} GWh</code> into perspective. With all battery cells Tesla sold to date, you could power: 
+<ul>
+    <li>
+        the entire 
+        <a href="https://www.agora-energiewende.de/en/service/recent-electricity-data/" target="_blank">country of Germany</a> 🇩🇪
+        for <code>ca {{ "%.1f" | format(extra.cars.expl.hours_germany) }} hours</code> 
+    </li>
+    <li>
+        Or the <a href="https://www.statista.com/statistics/280704/world-power-consumption/" target="_blank">entire globe</a> 
+        🌎 for <code>ca {{ "%.1f" | format(extra.cars.expl.minutes_world) }} minutes</code>.
+    </li>
+</ul>
 
 
-<br><br> Unfortunately most of those cells are in cars which most of the time are not connected via a charger to the grid. 
+<br> Unfortunately most of those cells are in cars which most of the time are not connected via a charger to the grid. 
 Making the car chargers smarter and trying to maximize the times that EVs are connected to the grid has a huge potential to stabilize the grid 
 and transform it towards a supply driven energy market vs a demand driven. <br>
 That means: You charge your car when there is enough green energy vs when you want to charge your car there must be enough energy
