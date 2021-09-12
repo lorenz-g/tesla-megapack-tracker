@@ -46,8 +46,11 @@ for the cars vs stationary:
 - owners websites (they often list their portfolios)
   - https://www.lspower.com/map/
   - https://www.harmonyenergy.co.uk/projects/ 
+  - https://recurrentenergy.com/project-portfolio/# 
 - authorities websites (often the applications are public)
   - e.g. [goleta planning doc](https://www.cityofgoleta.org/city-hall/planning-and-environmental-review/ceqa-review/cortona-battery-storage-project)
+- google 
+  - search for the project name and add `approval` and e.g. the county name and often you will find the approval docs which are great to determine the exact location. 
 - google maps
   - for old installations you will often be able to spot the installations on the satellite view and can then add precise GPS coordinates. 
 - youtube

@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block og_props %}
+<meta name="description" content="detail page for {{p.name}} big battery">
+
 <meta property="og:title" content="{{p.name}} ({{ p['capacity mwh'] }}MWh)" />
 <meta property="og:description" content="detail page for {{p.name}} big battery" />
 <meta property="og:image" content="https://lorenz-g.github.io/tesla-megapack-tracker/pics/logo.jpg" />
