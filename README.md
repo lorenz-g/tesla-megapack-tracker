@@ -45,6 +45,7 @@ for the cars vs stationary:
   - https://electrek.co/
 - owners websites (they often list their portfolios)
   - https://www.lspower.com/map/
+  - https://www.harmonyenergy.co.uk/projects/ 
 - authorities websites (often the applications are public)
   - e.g. [goleta planning doc](https://www.cityofgoleta.org/city-hall/planning-and-environmental-review/ceqa-review/cortona-battery-storage-project)
 - google maps
