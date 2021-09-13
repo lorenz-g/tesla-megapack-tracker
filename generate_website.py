@@ -17,7 +17,7 @@ def generate_link(ip):
 
 
 
-def load_file(filename='projects-tesla.csv', type_="json"):
+def load_file(filename='projects.csv', type_="json"):
     "For now from the csv, later from the toml fils"
     with open(filename) as f:
         if type_ == "json":
@@ -34,31 +34,22 @@ def load_file(filename='projects-tesla.csv', type_="json"):
 def gen_raw_data_files():
     # write the raw data files
     output_dir = os.path.join('docs', "misc")
-    json_tesla = load_file()
-    with open(os.path.join(output_dir, "projects-tesla.json"), 'w') as f:
-        json.dump(json_tesla, f)
+    json_projects = load_file('projects.csv')
+    output_fn = 'big-battery-projects'
 
-    with open(os.path.join(output_dir, "projects-all-manufacturers.json"), 'w') as f:
-        json.dump(json_tesla + load_file("projects-other-man.csv"), f)
-    
+    with open(os.path.join(output_dir, output_fn + ".json"), 'w') as f:
+        json.dump(json_projects, f)    
 
-    rows_tesla = load_file(type_="csv")
-    rows_all = rows_tesla + load_file("projects-other-man.csv", "csv")[1:]
+    csv_projects = load_file(type_="csv")
 
-    files_to_write = [
-        ["projects-tesla", rows_tesla],
-        ["projects-all-manufacturers", rows_all],
-    ]
+    # I think the two csv files are the same, but keep it for now.
+    with open(os.path.join(output_dir, output_fn + ".csv"), 'w') as f:
+        writer = csv.writer(f)
+        writer.writerows(csv_projects)
 
-    for name, rows in files_to_write:
-        # I think the two csv files are the same, but keep it for now.
-        with open(os.path.join(output_dir, name + ".csv"), 'w') as f:
-            writer = csv.writer(f)
-            writer.writerows(rows)
-
-        with open(os.path.join(output_dir, name + ".excel.csv"), 'w') as f:
-            writer = csv.writer(f, dialect='excel')
-            writer.writerows(rows)
+    with open(os.path.join(output_dir, output_fn + ".excel.csv"), 'w') as f:
+        writer = csv.writer(f, dialect='excel')
+        writer.writerows(csv_projects)
         
 
 def gen_cars_vs_stationary(projects):
@@ -197,7 +188,7 @@ def prepare_projects(projects):
         # add to summary
         if p["status"] == "operation" and p["type"] == "megapack":
             s_megapack["project_cnt"] += 1
-            s_megapack["mp_count"] +=  0 if p["no of megapacks"] == "" else int(p["no of megapacks"])
+            s_megapack["mp_count"] +=  0 if p["no of battery units"] == "" else int(p["no of battery units"])
             s_megapack["gwh"] += mwh / 1000
         
 
@@ -269,8 +260,10 @@ def gen_individual_pages(projects):
     
 def main():
     # load them twice to have different objects with different pointers
-    projects = load_file("projects-tesla.csv") + load_file("projects-other-man.csv")
-    tesla_projects = load_file("projects-tesla.csv")
+    projects = load_file("projects.csv")
+
+    tesla_projects = load_file("projects.csv")
+    tesla_projects = [r for r in tesla_projects if r["manufacturer"] == "tesla"]
 
     gen_projects_template(tesla_projects, 'index.jinja.html')
     gen_projects_template(projects, 'all-big-batteries.jinja.html')
