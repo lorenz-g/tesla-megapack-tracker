@@ -183,6 +183,10 @@ def prepare_projects(projects):
         if "bus" in p["use case"]:
             smileys.append("🚌")
 
+        if p["coords exact"] != "1":
+            smileys.append("📍")
+            
+
         p["smileys"] = "".join(smileys)
 
         # add to summary

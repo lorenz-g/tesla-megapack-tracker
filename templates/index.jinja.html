@@ -77,6 +77,8 @@
             operation: "green",
         }
 
+        var labelGroup = new L.FeatureGroup();
+
 
         // insert the data via jinja here
         // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
@@ -85,10 +87,11 @@
         
         var p;
         var warning = "";
+
         for (var i=0; i < projects.length; i++){
             p = projects[i];
             if (p["coords exact"] != "1") {
-                warning = `<br><span class="badge bg-danger">Coordinates are an estimate.</span>`;
+                warning = `<br>📍<span class="badge bg-danger">location not exactly known</span>`;
             } else {
                 warning = "";
             }
@@ -114,6 +117,19 @@
                 // TODO: find a way to quickly create icons of different colors
                 // there is the div icon, or an external lib called AwesomeMarker
                 overlays[p["status"]].push(marker)
+                
+                // TODO: find a way to only show the labels for the layers that a selected
+                // for now they are always shown
+                var label = L.marker([p["lat"], p["long"]]);
+                var div = L.divIcon({
+                "className": "map-label", 
+                "html": `<span class="text-nowrap bg-white">&nbsp;${p.smileys}${p.name}&nbsp;</span> <span class="text-nowrap bg-white">&nbsp;${p["capacity mwh"]}MWh&nbsp;</span>`,
+                "iconAnchor": [0, 0]});
+                label.setIcon(div);
+                labelGroup.addLayer(label)
+
+                // overlays[p["status"]].push(label)
+
             }
         }
 
@@ -133,6 +149,17 @@
         }).setView([35.160636, 11.096191], 2);
         
         L.control.layers(baseLayers, overlays).addTo(mymap);
+
+        // only show labels on certain zoom level
+        mymap.on('zoomend', function() {
+            console.log("zoom", mymap.getZoom());
+            if (mymap.getZoom() < 8){
+                mymap.removeLayer(labelGroup);
+            }
+            else {
+                mymap.addLayer(labelGroup);
+            }
+        });
  
         // useful for refining the points, disable on production
         var popup = L.popup();
@@ -229,7 +256,7 @@ This list is a best effort to try and list all Tesla megapack and powerpack (>5M
 </table>
 
 <br>
-⚡ more than 100MWh, ☀️ attached to solar farm, 🌬️ attached to wind farm, 🏝️ island installation, 🚌 at bus depot
+⚡ more than 100MWh, ☀️ attached to solar farm, 🌬️ attached to wind farm, 🏝️ island installation, 🚌 at bus depot, 📍 location not exactly known
 <br>In case you want to analyze the data further, you can download the raw data as 
 <a href="misc/big-battery-projects.json">json</a>,
 <a href="misc/big-battery-projects.csv">csv</a> or
@@ -237,9 +264,11 @@ This list is a best effort to try and list all Tesla megapack and powerpack (>5M
 
 
 <h3 id="installations-map" class="mt-4"> Installations map </h3>
-Click on the layers button on the top right to switch to <code>satellite view</code>. 
-For some projects you can see the megapacks. And for others, using the Google Maps satellite shows more. 
-E.g. for the <code>moss landing</code> project in California, the Google Maps data already shows the megapacks installed whereas the mapbox data still shows an old substation.
+<ul>
+    <li>Click on the layers button on the top right to switch to <code>satellite view</code></li>
+    <li>At certain zoom level, the names of the projects will show up under the pin</code></li>
+    <li>Click on the pins for more info about the project</code></li>
+</ul>
 
 <div style="height: 600px;" id="mapid"></div>
 

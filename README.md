@@ -13,8 +13,7 @@ Table of Contents:
 # project structure
 
 for now:
-- tesla data is in the [projects-tesla.csv](./projects-tesla.csv) file
-- data for all other manufacturers is in [projects-other-man.csv](./projects-other-man.csv)
+- raw data (tesla and other manufacturers) are in [projects.csv](./projects.csv) file
 - the generated website is in the [docs](./docs) folder (it is called docs because of github pages)
 - To generate the website, install the dependencies and run `python generate_website.py`
 - To develop it is handy to use a tool like [watchexec](https://watchexec.github.io/downloads/) to listen to file changes and then rebuild the site. 
