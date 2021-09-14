@@ -13,6 +13,17 @@ BASE_URL = "/tesla-megapack-tracker/"
 
 VALID_STATUS = ("planning", "construction", "operation")
 
+COUNTRY_EMOJI_DI = {
+    "usa": "🇺🇸", 
+    "australia": "🇦🇺",
+    "uk": "🇬🇧",
+    "korea": "🇰🇷",
+    "philippines": "🇵🇭",
+}
+
+
+
+
 def generate_link(ip):
     return BASE_URL + ip.lstrip("/")
 
@@ -145,8 +156,26 @@ def prepare_projects(projects):
     }
 
     s_by_status = {}
-
     s_yearly_op = {}
+    s_by_country = {}
+
+    use_case_emoji_li = [
+        # these just used for the legend
+        ["📍", "📍", "location not exactly known"],
+        ["⚡", "⚡", "more than 100 MWh"],
+        # below for legend and use case
+        ["solar", "☀️", "attached to solar farm"],
+        ["wind", "🌬️", "attached to wind farm"],
+        ["island", "🏝️", "island installation"],
+        ["bus", "🚌", "at bus depot"],
+        ["ev", "🚗", "EV charging support"],
+    ]
+
+    emoji_legend = []
+    for _, emoji, explanation in use_case_emoji_li:
+        emoji_legend.append("%s %s" % (emoji, explanation))
+    emoji_legend = ", ".join(emoji_legend)
+
 
     # augment raw projects data
     for p in projects:
@@ -174,27 +203,20 @@ def prepare_projects(projects):
             mwh = 0
         p["mwh_int"] = mwh
 
-        if mwh >= 100:
-            smileys.append("⚡")
         
-        # no else if as multiple can be true
-        if "solar" in p["use case"]:
-            smileys.append("☀️")
-        
-        if "wind" in p["use case"]:
-            smileys.append("🌬️")
-        
-        if "island" in p["use case"]:
-            smileys.append("🏝️")
-        
-        if "bus" in p["use case"]:
-            smileys.append("🚌")
-
         if p["coords exact"] != "1":
             smileys.append("📍")
-            
+        
+        if mwh >= 100:
+            smileys.append("⚡")
 
+        use_case_lower = p["use case"].lower()
+        for keyword, emoji, _ in use_case_emoji_li:
+            if keyword in use_case_lower:
+                smileys.append(emoji)
+            
         p["smileys"] = "".join(smileys)
+
 
         # add to summary
         if status == "operation" and p["type"] == "megapack":
@@ -219,17 +241,30 @@ def prepare_projects(projects):
         s_totals_row["count"] += 1
         s_totals_row["mwh"] += mwh
         s_totals_row["mw"] += 0 if p["power mw"] == "" else float(p["power mw"])
+
+
+        if p["country"] not in s_by_country:
+            s_by_country[p["country"]] = {
+                "flag": COUNTRY_EMOJI_DI.get(p["country"],p["country"]), 
+                "gwh":0
+            }
+        if status == "operation":
+            s_by_country[p["country"]]["gwh"] += mwh / 1000
+
     
     for year in s_yearly_op.values():
         year["perc"] = 100 * year["gwh"] / s_by_status["operation"]["gwh"]
     
     s_yearly_op = sorted(s_yearly_op.values(), key=lambda x:x["year"])
+    s_by_country = sorted(s_by_country.values(), key=lambda x:x["gwh"], reverse=True)
 
     summaries = {
         "megapack": s_megapack,
         "totals_row": s_totals_row,
         "by_status": s_by_status,
         "yearly_operation": s_yearly_op,
+        "emoji_legend": emoji_legend,
+        "by_country": s_by_country,
     }
 
     return projects, summaries
@@ -267,6 +302,8 @@ def gen_individual_pages(projects):
     template = env.get_template(fn)
 
     for p in projects:
+        if p["name"] == "":
+            continue
         output_fn = os.path.join(output_dir, "projects", p["id"] + ".html")
         with open(output_fn, 'w') as f:
             f.write(template.render(p=p, g_l=generate_link))
