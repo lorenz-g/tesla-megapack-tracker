@@ -195,24 +195,32 @@ Page is better on a big screen. Does not work well on mobile.
 <h3 id=""> Big battery summary </h3>
 
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-5">
         <table class="table table-bordered">
             <tr>
-                <td>
-                    Projects in 
-                    <span class="badge rounded-pill bg-success">operation</span>
-                </td>
-                <td>{{ extra.summary.operation.count }}</td>
+                <td></td>
+                <td><span class="badge rounded-pill bg-success">operation</span></td>
+                <td>🏗️</td>
+                <td>💻</td>
+            </tr>
+            
+            <tr>
+                <td>Projects count</td>
+                <td>{{ extra.summary.by_status.operation.count }}</td>
+                <td>{{ extra.summary.by_status.construction.count }}</td>
+                <td>{{ extra.summary.by_status.planning.count }}</td>
             </tr>
             <tr>
                 <td>Total 🔋 battery capacity in GWh </td>
-                <td>{{ "%.1f" | format(extra.summary.operation.gwh) }}</td>
+                <td>{{ "%.1f" | format(extra.summary.by_status.operation.gwh) }}</td>
+                <td>{{ "%.1f" | format(extra.summary.by_status.construction.gwh) }}</td>
+                <td>{{ "%.1f" | format(extra.summary.by_status.planning.gwh) }}</td>
             </tr>
             <tr>
-                <td colspan="2"> 
+                <td colspan="4"> 
                     
-                    Per year in GWh:<br>
-                    <div class="progress" style="height: 2em;">
+                    GWh that went in <span class="badge rounded-pill bg-success">operation</span> per year: <br>
+                    <div class="progress mt-2" style="height: 2em;">
                     {% for year in extra.summary.yearly_operation %}
                         <div class="progress-bar bg-success border" role="progressbar" style="width: {{ year.perc }}%;">{{ "%.1f" | format(year.gwh) }}</div>
                     {% endfor %}
@@ -227,6 +235,7 @@ Page is better on a big screen. Does not work well on mobile.
                 
             </tr>
         </table>
+        🏗️ = construction; 💻 = planning<br><br>
     </div>
 </div>
 

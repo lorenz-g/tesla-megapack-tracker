@@ -11,6 +11,7 @@ BASE_URL = "/tesla-megapack-tracker/"
 # locally
 # BASE_URL = "/"
 
+VALID_STATUS = ("planning", "construction", "operation")
 
 def generate_link(ip):
     return BASE_URL + ip.lstrip("/")
@@ -143,17 +144,23 @@ def prepare_projects(projects):
         "mw":0,
     }
 
-    s_operation = {
-        "count": 0,
-        "gwh":0,
-        "gw":0,
-    }
+    s_by_status = {}
 
     s_yearly_op = {}
 
     # augment raw projects data
     for p in projects:
-        p["status_class"] = "badge rounded-pill bg-success" if p["status"] == "operation" else ""
+
+        # some error checks first
+        
+        # skip for an empty row (sometimes the case at the end)
+        if p["name"] == "":
+            continue
+
+        status = p["status"]
+        assert status in VALID_STATUS, "status is not valid '%s' - %s" % (status, p['name'])
+
+        p["status_class"] = "badge rounded-pill bg-success" if status == "operation" else ""
         
         # https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
         # zoom z=20 is the maximum, but not sure if it is working
@@ -190,17 +197,20 @@ def prepare_projects(projects):
         p["smileys"] = "".join(smileys)
 
         # add to summary
-        if p["status"] == "operation" and p["type"] == "megapack":
+        if status == "operation" and p["type"] == "megapack":
             s_megapack["project_cnt"] += 1
             s_megapack["mp_count"] +=  0 if p["no of battery units"] == "" else int(p["no of battery units"])
             s_megapack["gwh"] += mwh / 1000
         
 
-        if p["status"] == "operation":
-            s_operation["count"] += 1
-            s_operation["gwh"] += mwh / 1000
-            s_operation["gw"] += 0 if p["power mw"] == "" else float(p["power mw"]) / 1000
+        if status not in s_by_status:
+            s_by_status[status] = {"count": 0, "gwh":0, "gw":0}
+        
+        s_by_status[status]["count"] += 1
+        s_by_status[status]["gwh"] += mwh / 1000
+        s_by_status[status]["gw"] += 0 if p["power mw"] == "" else float(p["power mw"]) / 1000
 
+        if status == "operation":
             year = p["start operation"][:4]
             if year not in s_yearly_op:
                 s_yearly_op[year] = {"year": year, "gwh": 0, "perc": None}
@@ -211,14 +221,14 @@ def prepare_projects(projects):
         s_totals_row["mw"] += 0 if p["power mw"] == "" else float(p["power mw"])
     
     for year in s_yearly_op.values():
-        year["perc"] = 100 * year["gwh"] / s_operation["gwh"]
+        year["perc"] = 100 * year["gwh"] / s_by_status["operation"]["gwh"]
     
     s_yearly_op = sorted(s_yearly_op.values(), key=lambda x:x["year"])
 
     summaries = {
         "megapack": s_megapack,
         "totals_row": s_totals_row,
-        "operation": s_operation,
+        "by_status": s_by_status,
         "yearly_operation": s_yearly_op,
     }
 
