@@ -230,6 +230,11 @@ Page is better on a big screen. Does not work well on mobile.
                             <div class="progress-bar bg-white text-muted" role="progressbar" style="width: {{ year.perc }}%;">{{ year.year[2:] }}</div>
                         {% endfor %}
                     </div>  
+                    GWh in <span class="badge rounded-pill bg-success">operation</span> by country (top 5): <br>
+                    {% for country in extra.summary.by_country[:5] %}
+                        {{ country.flag }} {{ "%.1f" | format(country.gwh) }} &nbsp;&nbsp;
+                    {% endfor %}
+
 
                 </td>
                 
@@ -295,7 +300,7 @@ This list is a best effort to track all big battery installations larger than 10
 </table>
 
 <br>
-⚡ more than 100MWh, ☀️ attached to solar farm, 🌬️ attached to wind farm, 🏝️ island installation, 🚌 at bus depot, 📍 location not exactly known
+{{ extra.summary.emoji_legend}}
 
 <br>In case you want to analyze the data further, you can download the raw data as 
 <a href="misc/big-battery-projects.json">json</a>,
@@ -315,7 +320,7 @@ This list is a best effort to track all big battery installations larger than 10
 <img height=28 src="pics/marker-grey.png">Planning
 <img height=28 src="pics/marker-blue.png">Construction
 <img height=28 src="pics/marker-green.png">Operation
-
+<br>{{ extra.summary.emoji_legend}}
 
 <h3 id="contact" class="mt-4">Contact & Contribute</h3>
 <a href="https://twitter.com/l__orenz" title="Ask me on Twitter" target="_blank"><img alt="Follow LeafletJS on Twitter" src="pics/twitter-round.png" width="46"></a>
