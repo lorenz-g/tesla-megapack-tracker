@@ -57,7 +57,11 @@
 
 
 <dt>Notes </dt>
-<dl>{{ p["notes"] }} </dl>
+<dl>
+    {% for note in p.notes_split %}
+    {{ note }} <br>
+    {% endfor %} 
+</dl>
 
 <dt>Project website </dt>
 <dl><a href="{{ p['project website'] }}" target="_blank">{{ p["project website"] }} </a> </dl>

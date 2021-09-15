@@ -169,6 +169,8 @@ def prepare_projects(projects):
         ["island", "🏝️", "island installation"],
         ["bus", "🚌", "at bus depot"],
         ["ev", "🚗", "EV charging support"],
+        # these just used for the legend
+        ["🚨", "🚨", "incident reported"],
     ]
 
     emoji_legend = []
@@ -190,6 +192,7 @@ def prepare_projects(projects):
         assert status in VALID_STATUS, "status is not valid '%s' - %s" % (status, p['name'])
 
         p["status_class"] = "badge rounded-pill bg-success" if status == "operation" else ""
+        p["notes_split"] = p["notes"].split("**")
         
         # https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
         # zoom z=20 is the maximum, but not sure if it is working
@@ -204,6 +207,7 @@ def prepare_projects(projects):
         p["mwh_int"] = mwh
 
         
+        # the order in which the if cases happen matters as that is the order of the emojis
         if p["coords exact"] != "1":
             smileys.append("📍")
         
@@ -214,6 +218,9 @@ def prepare_projects(projects):
         for keyword, emoji, _ in use_case_emoji_li:
             if keyword in use_case_lower:
                 smileys.append(emoji)
+
+        if "incident" in p["notes"].lower():
+            smileys.append("🚨")
             
         p["smileys"] = "".join(smileys)
 

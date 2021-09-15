@@ -54,6 +54,9 @@ for the cars vs stationary:
   - for old installations you will often be able to spot the installations on the satellite view and can then add precise GPS coordinates. 
 - youtube
   - some installations will have drone flyover videos. From there it is also easy to determine exact location. 
+- Global Energy Storage Database (GESDB)
+  - https://www.sandia.gov/ess-ssl/global-energy-storage-database-home/
+  - one big excel list, however was last updated only in 2020
 
 # inspiration
 

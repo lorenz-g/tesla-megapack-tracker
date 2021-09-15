@@ -263,7 +263,7 @@ This list is a best effort to track all big battery installations larger than 10
             <th>Status</th>
             <th>Go live</th>
             <th>Man.</th>
-            <th>Customer</th>
+            <th>Customer and/or Owner</th>
             <th>MWh</th>
             <th>MW</th>
         </tr>
@@ -277,7 +277,7 @@ This list is a best effort to track all big battery installations larger than 10
             <td><span class="{{ p.status_class }}">{{ p["status"] }}</span></td>
             <td>{{ p["start operation"] }}</td>
             <td>{{ p["manufacturer"] }}</td>
-            <td>{{ p["customer"] }}</td>
+            <td>{{ p["customer"] }} {{ p["owner"] }}</td>
             <td>{{ p["capacity mwh"] }}</td>
             <td>{{ p["power mw"] }}</td>
         </tr>
