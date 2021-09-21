@@ -108,12 +108,14 @@
                 var marker;
                 marker = L.marker([p["lat"], p["long"]], {icon: icon});
                 marker.bindPopup(
-                    `<b>${p["name"]}</b> <br>${p["capacity mwh"]}MWh<br> ${p["status"]} 
+                    `<b>${p["smileys"]} ${p["name"]}</b> <br>${p["capacity mwh"]}MWh
+                    <br> in: ${p["status"]} 
+                    <br> go live: ${p["go_live"]}
+                    <br> from: ${p["manufacturer"]}
+                    <br> for: ${p["customer"]} ${p["owner"]}
                     <br><a href="${p["google_maps_link"]}" target="_blank">Google Maps</a>
                     ${warning}
-                    <br><a href="projects/${p["id"]}.html" target="_blank">Details</a>
-                    `
-                );
+                    <br><a href="projects/${p["id"]}.html" target="_blank">Details</a>`                );
                 // TODO: find a way to quickly create icons of different colors
                 // there is the div icon, or an external lib called AwesomeMarker
                 overlays[p["status"]].push(marker)
@@ -234,7 +236,7 @@ This list is a best effort to try and list all Tesla megapack and powerpack (>5M
             <td>{{ p["state"] }}</td>
             <td>{{ p["country"] }}</td>
             <td><span class="{{ p.status_class }}">{{ p["status"] }}</span></td>
-            <td>{{ p["start operation"] }}</td>
+            <td>{{ p["go_live"] }}</td>
             <td><span class="{% if p.type == 'megapack' %}badge rounded-pill bg-secondary{% endif %}">{{ p["type"] }}</span></td>
             <td>{{ p["capacity mwh"] }}</td>
             <td>{{ p["power mw"] }}</td>

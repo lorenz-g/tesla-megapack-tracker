@@ -120,8 +120,12 @@
             if (p["lat"] != ""){
                 var marker;
                 marker = L.marker([p["lat"], p["long"]], {icon: icon});
-                marker.bindPopup(
-                    `<b>${p["name"]}</b> <br>${p["capacity mwh"]}MWh<br> ${p["status"]} 
+                marker.bindPopup(`
+                    <b>${p["smileys"]} ${p["name"]}</b> <br>${p["capacity mwh"]}MWh
+                    <br> in: ${p["status"]} 
+                    <br> go live: ${p["go_live"]}
+                    <br> from: ${p["manufacturer"]}
+                    <br> for: ${p["customer"]} ${p["owner"]}
                     <br><a href="${p["google_maps_link"]}" target="_blank">Google Maps</a>
                     ${warning}
                     <br><a href="projects/${p["id"]}.html" target="_blank">Details</a>
@@ -275,7 +279,7 @@ This list is a best effort to track all big battery installations larger than 10
             <td>{{ p["state"] }}</td>
             <td>{{ p["country"] }}</td>
             <td><span class="{{ p.status_class }}">{{ p["status"] }}</span></td>
-            <td>{{ p["start operation"] }}</td>
+            <td>{{ p["go_live"] }}</td>
             <td>{{ p["manufacturer"] }}</td>
             <td>{{ p["customer"] }} {{ p["owner"] }}</td>
             <td>{{ p["capacity mwh"] }}</td>

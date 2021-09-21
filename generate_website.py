@@ -196,6 +196,15 @@ def prepare_projects(projects):
         p["status_class"] = "badge rounded-pill bg-success" if status == "operation" else ""
         p["notes_split"] = p["notes"].split("**")
         
+        # merge the start operation and estimated start here
+        if p["start operation"]:
+            p["go_live"] = p["start operation"] 
+        elif p["start estimated"]:
+            p["go_live"] = "0 ~  " + p["start estimated"]
+        else:
+            p["go_live"] = ""
+
+
         # https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
         # zoom z=20 is the maximum, but not sure if it is working
         # TODO: I think this google maps link format is old https://developers.google.com/maps/documentation/urls/get-started
