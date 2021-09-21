@@ -1,2 +1,3 @@
 toml
 jinja2
+pytest

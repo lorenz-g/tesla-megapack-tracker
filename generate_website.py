@@ -142,6 +142,24 @@ def gen_cars_vs_stationary(projects):
     }
 
 
+def project_is_slow(go_live, mwh, mw):
+    """ Any project that is going live in 2025 or later and that has less than 1GW / 1GWh is slow
+    Might have to change that function in the future. 
+
+    >>> project_is_slow(2025, 0, 200)
+    True
+    >>> project_is_slow(2025, 0, 1200)
+    False
+    >>> project_is_slow(2023, 0, 200)
+    False
+    """
+    if go_live and go_live >= 2025:
+        if not (mwh >= 1000 or mw >=1000):
+            return True
+    return False
+
+
+
 def prepare_projects(projects):
     
     # s_ stands for summary_
@@ -165,6 +183,7 @@ def prepare_projects(projects):
         # these just used for the legend
         ["📍", "📍", "location not exactly known"],
         ["⚡", "⚡", "more than 100 MWh"],
+        ["❤️", "❤️", "more than 1000 MWh / 1GWh"],
         # below for legend and use case
         ["solar", "☀️", "attached to solar farm"],
         ["wind", "🌬️", "attached to wind farm"],
@@ -173,6 +192,7 @@ def prepare_projects(projects):
         ["ev", "🚗", "EV charging support"],
         # these just used for the legend
         ["🚨", "🚨", "incident reported"],
+        ["🐌", "🐌", "slow, bureaucracy"],
     ]
 
     emoji_legend = []
@@ -199,10 +219,13 @@ def prepare_projects(projects):
         # merge the start operation and estimated start here
         if p["start operation"]:
             p["go_live"] = p["start operation"] 
+            p["go_live_year_int"] = int(p["go_live"][:4])
         elif p["start estimated"]:
             p["go_live"] = "0 ~  " + p["start estimated"]
+            p["go_live_year_int"] = int(p["start estimated"][:4])
         else:
             p["go_live"] = ""
+            p["go_live_year_int"] = None
 
 
         # https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
@@ -217,11 +240,21 @@ def prepare_projects(projects):
             mwh = 0
         p["mwh_int"] = mwh
 
+        try:
+            mw = float(p["power mw"])
+        except:
+            mw = 0
+        p["mw_int"] = mw
+        
+
         
         # the order in which the if cases happen matters as that is the order of the emojis
         if p["coords exact"] != "1":
             smileys.append("📍")
         
+        # add both heart and ⚡ for 1gwh projects so if you search for the ⚡ the massive ones will show up also
+        if mwh >= 1000:
+            smileys.append("❤️")
         if mwh >= 100:
             smileys.append("⚡")
 
@@ -232,6 +265,10 @@ def prepare_projects(projects):
 
         if "incident" in p["notes"].lower():
             smileys.append("🚨")
+
+        
+        if project_is_slow(p["go_live_year_int"], mwh, mw):
+            smileys.append("🐌")
             
         p["smileys"] = "".join(smileys)
 
