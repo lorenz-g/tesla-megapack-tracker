@@ -19,6 +19,8 @@ COUNTRY_EMOJI_DI = {
     "uk": "🇬🇧",
     "korea": "🇰🇷",
     "philippines": "🇵🇭",
+    "germany": "🇩🇪",
+    "france": "🇫🇷",
 }
 
 
@@ -279,7 +281,7 @@ def prepare_projects(projects):
 
 
 
-def gen_projects_template(projects, template_name):
+def gen_projects_template(projects, template_name, pr_len):
     file_loader = FileSystemLoader('templates')
     env = Environment(loader=file_loader)
     output_dir = 'docs'
@@ -290,6 +292,7 @@ def gen_projects_template(projects, template_name):
         "now": dt.datetime.utcnow(),
         "cars": gen_cars_vs_stationary(projects),
         "summary": summary,
+        "pr_len": pr_len,
     }
 
     template = env.get_template(template_name)
@@ -299,7 +302,7 @@ def gen_projects_template(projects, template_name):
         f.write(output)
     
 
-def gen_individual_pages(projects):
+def gen_individual_pages(projects, pr_len):
     # generate the individual pages
     file_loader = FileSystemLoader('templates')
     env = Environment(loader=file_loader)
@@ -308,12 +311,16 @@ def gen_individual_pages(projects):
     fn = 'single.jinja.html' 
     template = env.get_template(fn)
 
+    extra = {
+        "pr_len": pr_len, 
+    }
+
     for p in projects:
         if p["name"] == "":
             continue
         output_fn = os.path.join(output_dir, "projects", p["id"] + ".html")
         with open(output_fn, 'w') as f:
-            f.write(template.render(p=p, g_l=generate_link))
+            f.write(template.render(p=p, g_l=generate_link, extra=extra))
 
     
 def main():
@@ -323,10 +330,16 @@ def main():
     tesla_projects = load_file("projects.csv")
     tesla_projects = [r for r in tesla_projects if r["manufacturer"] == "tesla"]
 
-    gen_projects_template(tesla_projects, 'index.jinja.html')
-    gen_projects_template(projects, 'all-big-batteries.jinja.html')
+    # needed for the menu in the base templat
+    pr_len = {
+        "tesla": len(tesla_projects),
+        "all": len(projects)
+    }
+
+    gen_projects_template(tesla_projects, 'index.jinja.html', pr_len)
+    gen_projects_template(projects, 'all-big-batteries.jinja.html', pr_len)
     
-    gen_individual_pages(projects)
+    gen_individual_pages(projects, pr_len)
     gen_raw_data_files()
 
 
