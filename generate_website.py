@@ -4,6 +4,8 @@ import os
 import json
 from jinja2 import Environment, FileSystemLoader
 import datetime as dt
+import pylightxl as xl
+from collections import defaultdict
 
 # when using links need to prefix that everywhere
 # for github pages
@@ -43,6 +45,81 @@ def load_file(filename='projects.csv', type_="json"):
         rows = [row for row in reader]
     # pprint.pprint(rows[0])
     return rows
+
+def read_eia_data():
+    """ 
+    eia = U.S. Energy Information Administration
+
+    Data is downloaded from here:
+    https://www.eia.gov/electricity/monthly/ -> overview page
+    https://www.eia.gov/electricity/monthly/xls/table_6_03.xlsx -> new operating units
+    https://www.eia.gov/electricity/monthly/xls/table_6_05.xlsx -> planned operating
+
+    TODO: download data every month and then create a changelog and publish it on the website
+    
+    """
+    files = [
+        ['misc/eia-data/2021-09-22-table_6_03.xlsx', "operation", "June 2021"],
+        ['misc/eia-data/2021-09-22-table_6_05.xlsx', "planned", "June 2021"],
+    ]
+
+    # so far only planning, construction, operation used, but the eia data is more detailed
+    status_to_status_simple = {
+        "(L) Regulatory approvals pending. Not under construction": "planning",
+        "(T) Regulatory approvals received. Not under construction": "planning",
+        "(P) Planned for installation, but regulatory approvals not initiated": "planning",
+        "(U) Under construction, less than or equal to 50 percent complete": "construction",
+        "(V) Under construction, more than 50 percent complete": "construction",
+        "(TS) Construction complete, but not yet in commercial operation": "construction",
+        "operation": "operation",
+    }
+    
+    # use a list here as some projects can have the same plant id
+    # plant_id + generator code is always unique
+    # e.g. Ravenswood project has 3 entries with the same plant id
+    projects = defaultdict(list)
+    dif_status = []
+    for file, type_, released in files:
+        db = xl.readxl(file)
+        ws = db.ws(db.ws_names[0])
+
+        # ignore first row and use second row as column names
+        rows = list(ws.rows)[1:]
+        # only use lower case col names
+        column_names = [r.lower() for r in rows[0]]
+        rows = rows[1:]
+        col_len = len(column_names)
+        
+        # print(type_, "\n", "\n".join(column_names))
+        
+        for row in rows:
+            # similar to a csv dict reader
+            pr = {column_names[i]: row[i] for i in range(col_len)}
+            
+            # only battery projects and projects of more than 10MW
+            if not (pr["technology"] == "Batteries" and float(pr["net summer capacity (mw)"]) >= 10):
+                continue
+            
+            # need to add this manually
+            if type_ == 'operation':
+                pr["status"] = "operation"
+
+            pr["data_released"] = released
+            pr["status_simple"] = 
+            
+            # print(pr)
+            projects[pr["plant id"]].append(pr)
+
+
+            dif_status.append(pr["status"])
+      
+    # print(len(projects))
+    # print(sum(len(i) for i in projects.values()))
+
+    print("\n:".join(set(dif_status)))
+
+    return projects
+
 
 
 def gen_raw_data_files():

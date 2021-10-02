@@ -1,3 +1,5 @@
 toml
 jinja2
 pytest
+# to read xlsx excel files
+pylightxl
