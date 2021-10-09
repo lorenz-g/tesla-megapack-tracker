@@ -1,0 +1,113 @@
+year,month,entity id,entity name,plant producer type,plant name,plant state,plant id,generator id,net summer capacity (mw),technology,energy source code,prime mover code,status,status_simple,date
+2021,1,62160,"AES ES Alamitos, LLC",IPP,"AES ES ALAMITOS, LLC",CA,61204,ALMTS,100,Batteries,MWH,BA,operation,operation,2021-01
+2021,1,63731,Desert Harvest II LLC,IPP,Desert Harvest II LLC,CA,64103,DH003,35,Batteries,MWH,BA,operation,operation,2021-01
+2021,2,59843,"Blythe Solar II, LLC",IPP,"Blythe Solar II, LLC",CA,60092,BLST2,115,Batteries,MWH,BA,"(V) Under construction, more than 50 percent complete",construction,2021-02
+2021,3,54802,Dynegy -Moss Landing LLC,IPP,Dynegy Moss Landing Power Plant Hybrid,CA,260,BAT1,300,Batteries,MWH,BA,"(V) Under construction, more than 50 percent complete",construction,2021-03
+2021,3,59497,Eversource,IPP,Outer Cape Community Battery,MA,62604,OCESS,25,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-03
+2021,3,63424,"Silverstrand Grid, LLC",IPP,Silverstrand Grid Energy Storage System,CA,63735,SLV01,11,Batteries,MWH,BA,"(V) Under construction, more than 50 percent complete",construction,2021-03
+2021,3,61522,"Viridity Energy Solutions, Inc.",IPP,Vallecito,CA,62801,ORN34,10,Batteries,MWH,BA,"(V) Under construction, more than 50 percent complete",construction,2021-03
+2021,4,61012,AES Distributed Energy,IPP,"AES Kekaha Solar, LLC Hybrid",HI,63280,BESS,14,Batteries,MWH,BA,"(TS) Construction complete, but not yet in commercial operation",construction,2021-04
+2021,4,62763,"Hecate Grid, LLC",IPP,Hecate Energy Johanna Facility,CA,62889,HEGJF,20,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-04
+2021,4,62763,"Hecate Grid, LLC",IPP,Hecate Energy Johanna Facility,CA,62889,HJFII,10,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-04
+2021,4,63550,"Ventura Energy Storage, LLC",IPP,Saticoy,CA,63891,SATCY,100,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-04
+2021,5,63012,"2W Permian Solar, LLC",IPP,2W Permian Solar Project Hybrid,TX,63255,2WPBA,40,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-05
+2021,5,59844,"Blythe Solar III, LLC",IPP,"Blythe Solar III, LLC Hybrid",CA,60094,BLST3,115,Batteries,MWH,BA,"(V) Under construction, more than 50 percent complete",construction,2021-05
+2021,5,16609,San Diego Gas & Electric Co,Electric Utility,Top Gun Energy Storage,CA,61366,TGES,30,Batteries,MWH,BA,"(V) Under construction, more than 50 percent complete",construction,2021-05
+2021,5,63522,Santa Ana Storage 1,IPP,"Johanna Energy Center, LLC",CA,63843,SASP1,20,Batteries,MWH,BA,"(V) Under construction, more than 50 percent complete",construction,2021-05
+2021,6,59842,"Blythe Solar 110, LLC",IPP,"Blythe Solar 110, LLC",CA,60093,BES1,63,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-06
+2021,6,63883,Broad Reach Power,IPP,Bat Cave,TX,64312,BC,100,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-06
+2021,6,63883,Broad Reach Power,IPP,North Fork TX,TX,64317,NF,100,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-06
+2021,6,61978,Convergent Energy and Power LP,IPP,Henrietta D Energy Storage LLC,CA,60641,HDES1,10,Batteries,MWH,BA,"(V) Under construction, more than 50 percent complete",construction,2021-06
+2021,6,6455,"Duke Energy Florida, LLC",Electric Utility,Trenton,FL,63995,ES1,11,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-06
+2021,6,63549,"Lily Solar, LLC",IPP,Lily Solar Hybrid,TX,63892,LILYB,50,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-06
+2021,7,61230,"CD Arevon USA, Inc.",IPP,Cal Flats BESS,CA,63930,CF60,60,Batteries,MWH,BA,(T) Regulatory approvals received. Not under construction,planning,2021-07
+2021,7,63430,"Chisholm Grid, LLC",IPP,Chisholm Grid Energy Storage System,TX,63737,CHS01,100,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-07
+2021,7,63403,"Luna Storage, LLC",IPP,Luna Storage,CA,63685,LUNA,100,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2021-07
+2021,7,58451,"McCoy Solar, LLC",IPP,McCoy Solar Energy Project Hybrid,CA,58462,MCST1,230,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2021-07
+2021,7,14328,Pacific Gas & Electric Co.,Electric Utility,Elkhorn Battery Energy Storage System,CA,62564,ELKHO,182.5,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-07
+2021,8,63571,"Azure Sky Solar Project, LLC",IPP,Azure Sky Solar,TX,63905,ASKYB,77,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-08
+2021,8,63611,Coso Battery Storage LLC,IPP,Coso Battery Storage,CA,63943,61730,60,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2021-08
+2021,8,61684,"Diablo Energy Storage, LLC",IPP,Diablo Energy Storage,CA,62175,DIBLO,200,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2021-08
+2021,8,17650,Southern Power Co,IPP,RE Garland,CA,60233,BESS1,88,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2021-08
+2021,8,62936,TREX US Red Holly LLC,IPP,TREX US Red Holly,TX,63202,701-S,50,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2021-08
+2021,9,61944,GSRP,IPP,Chevron - Lost Hills Hybrid,CA,63545,BESS1,10,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2021-09
+2021,9,19558,Homer Electric Assn Inc,Electric Utility,Soldotna,AK,57206,3,46.5,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-09
+2021,9,15296,New York Power Authority,Electric Utility,Willis Battery Storage,NY,63238,WB1,20,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2021-09
+2021,9,63599,Pure Hedge LLC,IPP,Pure Hedge LLC,CT,50736,FSS13,20,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-09
+2021,9,63420,"Taos Mesa Energy Facility, LLC",IPP,Taos Mesa Energy Facility Hybrid,NM,63728,BESS,12,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2021-09
+2021,10,63883,Broad Reach Power,IPP,Sierra,CA,64320,SIER,10,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2021-10
+2021,10,62780,RE Slate 1 LLC,IPP,Slate Hybrid,CA,63727,SLBES,300,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-10
+2021,10,17650,Southern Power Co,IPP,RE Tranquillity,CA,59939,BESS1,72,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2021-10
+2021,11,63414,"Cool Springs Solar, LLC",IPP,Cool Springs Solar (Hybrid),GA,63721,CSBAT,40,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-11
+2021,11,6452,Florida Power & Light Co,Electric Utility,Manatee Solar Energy Center,FL,60014,BMS,409,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-11
+2021,11,63289,Key Capture Energy,IPP,NY2 Battery,NY,63584,NY2,200,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2021-11
+2021,11,62780,RE Slate 1 LLC,IPP,Slate Hybrid,CA,63727,SLBSV,46.5,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-11
+2021,11,56215,RWE Renewables Americas LLC,IPP,Hickory Park Solar Hybrid,GA,63522,HPBAT,40,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2021-11
+2021,11,60387,"Townsite Solar, LLC",IPP,Townsite Solar Project Hybrid,NV,60654,GEN02,90,Batteries,MWH,BA,(T) Regulatory approvals received. Not under construction,planning,2021-11
+2021,12,63733,"Maverick Solar 6, LLC",IPP,"Maverick Solar 6, LLC",CA,64105,MAV04,50,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-12
+2021,12,14328,Pacific Gas & Electric Co.,Electric Utility,Renz Energy Storage,CA,63529,LLAGS,20,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2021-12
+2021,12,62646,"Painter Energy Storage, LLC",IPP,Painter Energy Storage,CA,62729,PAIN1,40,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2021-12
+2021,12,62780,RE Slate 1 LLC,IPP,Slate Hybrid,CA,63727,SLB3C,33.8,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-12
+2021,12,16609,San Diego Gas & Electric Co,Electric Utility,Fallbrook Energy Storage,CA,61365,FBES,40,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-12
+2021,12,62109,"Searcy Solar, LLC",IPP,Searcy Solar Hybrid,AR,62617,SEABT,10,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2021-12
+2021,12,62668,"Wheatridge Wind Holdings, LLC",IPP,Wheatridge Hybrid,OR,62745,BTRY,30,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2021-12
+2022,1,63451,"Madero Grid, LLC",IPP,Madero Grid,TX,63757,MAD01,100,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2022-01
+2022,1,62780,RE Slate 1 LLC,IPP,Slate Hybrid,CA,63727,SLBPW,10,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2022-01
+2022,2,55983,Luminant Generation Company LLC,IPP,DeCordova Steam Electric Station,TX,8063,BESS,260,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2022-02
+2022,3,63784,"Azure Sky Wind Project, LLC",IPP,"Azure Sky Wind Project, LLC Hybrid",TX,64164,ASWBE,120,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2022-03
+2022,3,63723,"Ignacio Grid, LLC",IPP,Ignacio Grid Energy Storage System,TX,64089,IGN01,100,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2022-03
+2022,3,63289,Key Capture Energy,IPP,TX18 Cottage Meadow Storage,TX,63879,TX18,100,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-03
+2022,4,56215,RWE Renewables Americas LLC,IPP,"Big Star Solar, LLC (Hybrid)",TX,64202,BGSTB,80,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2022-04
+2022,5,15399,Avangrid Renewables LLC,IPP,Camino Solar Hybrid,CA,63508,CSBA1,11,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-05
+2022,6,61222,174 Power Global Corp.,IPP,Kupehau,HI,63799,KUPB1,60,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-06
+2022,6,63826,201LC 8me LLC,IPP,Rockmont Solar and Storage Project,NM,64216,309SJ,200,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-06
+2022,6,62921,Arroyo Solar LLC,IPP,Arroyo Solar Energy Storage Hybrid,NM,63172,ARESS,150,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-06
+2022,7,18642,Tennessee Valley Authority,Electric Utility,Vonore Battery Energy Storage System,TN,64255,VBESS,20,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-07
+2022,8,60796,91MC 8me LLC,IPP,Aratina Solar Center 1 Hybrid,CA,61167,BESS,50,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-08
+2022,9,63416,Ho'Ohana Solar 1 LLC,IPP,Ho'Ohana Solar 1,HI,63723,HESS1,52,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-09
+2022,9,56215,RWE Renewables Americas LLC,IPP,"Fifth Standard Solar PV, LLC (Hybrid)",CA,64197,FTHSB,117,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2022-09
+2022,11,60797,68SF 8me LLC,IPP,"Eland Solar & Storage Center, Phase 1 Hybrid",CA,61168,61168,150,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-11
+2022,11,61012,AES Distributed Energy,IPP,AES Waikoloa Solar Hybrid,HI,63900,KLOAB,30,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2022-11
+2022,12,61222,174 Power Global Corp.,IPP,Atlas,AZ,63798,ATLB1,300,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-12
+2022,12,61012,AES Distributed Energy,IPP,AES Maui Kuihelani Solar Hybrid,HI,64256,KLNIB,60,Batteries,MWH,BA,(T) Regulatory approvals received. Not under construction,planning,2022-12
+2022,12,803,Arizona Public Service Co,Electric Utility,Cotton Center Solar Hybrid,AZ,57561,CC17M,17,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-12
+2022,12,803,Arizona Public Service Co,Electric Utility,Desert Star Hybrid,AZ,62965,DS10M,10,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-12
+2022,12,803,Arizona Public Service Co,Electric Utility,El Sol BESS,AZ,62964,EL50M,50,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-12
+2022,12,803,Arizona Public Service Co,Electric Utility,Foothills Solar Plant Hybrid,AZ,57997,FH38M,38,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-12
+2022,12,803,Arizona Public Service Co,Electric Utility,Gila Bend Hybrid,AZ,59020,GB36M,36,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-12
+2022,12,803,Arizona Public Service Co,Electric Utility,Hyder II Hybrid,AZ,58383,H214M,14,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-12
+2022,12,803,Arizona Public Service Co,Electric Utility,Hyder Solar Hybrid,AZ,57563,H116M,16,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-12
+2022,12,803,Arizona Public Service Co,Electric Utility,Paloma Solar Hybrid,AZ,57562,PA17M,17,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-12
+2022,12,61768,Arrow Canyon Solar LLC,IPP,Arrow Canyon Solar Hybrid,NV,62248,2,75,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-12
+2022,12,54803,"Dynegy Oakland, LLC",IPP,Dynegy Oakland Power Plant,CA,6211,GEN4,36.3,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-12
+2022,12,62760,EDPR CA Solar Park VI LLC,IPP,EDPR CA Solar Park VI LLC (CA) Hybrid,CA,62892,SONR2,40,Batteries,MWH,BA,(T) Regulatory approvals received. Not under construction,planning,2022-12
+2022,12,59380,"Enel Green Power NA, Inc.",IPP,"Cascade Energy Storage, LLC",CA,61801,10002,25,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2022-12
+2022,12,59380,"Enel Green Power NA, Inc.",IPP,"Sierra Energy Storage, LLC",CA,61803,10003,10,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2022-12
+2022,12,62008,Hale Kuawehi Solar LLC,IPP,Hale Kuawehi Solar Hybrid,HI,62529,HKBA,30,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-12
+2022,12,63553,Haymaker Energy Project LLC,IPP,Haymaker Hybrid,MT,63878,HBESS,200,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-12
+2022,12,64077,JVR Energy Park LLC,IPP,JVR Energy Park LLC,CA,64428,JVR1B,70,Batteries,MWH,BA,(T) Regulatory approvals received. Not under construction,planning,2022-12
+2022,12,63289,Key Capture Energy,IPP,TX17 Nickel Prairie Storage,TX,63880,TX17,100,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-12
+2022,12,63427,"Neptune Energy Center, LLC",IPP,Neptune Energy Center Hybrid,CO,63731,NT125,125,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-12
+2022,12,63454,"Thunder Wolf Energy Center, LLC",IPP,Thunder Wolf Energy Center Hybrid,CO,63776,TW100,100,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2022-12
+2022,12,61198,esVolta LP,IPP,Goleta Grid Resiliency,CA,63736,BESS1,10,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2022-12
+2023,3,61130,"Helix Ravenswood, LLC",IPP,Ravenswood,NY,2500,RWES1,129,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2023-03
+2023,3,61130,"Helix Ravenswood, LLC",IPP,Ravenswood,NY,2500,RWES2,98,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2023-03
+2023,3,61130,"Helix Ravenswood, LLC",IPP,Ravenswood,NY,2500,RWES3,89,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2023-03
+2023,4,62036,Paeahu Solar LLC,IPP,Paeahu Solar Hybrid,HI,62534,PHBA,15,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2023-04
+2023,6,63806,26SB 8me LLC,IPP,Bellefield 2 Solar & Energy Storage Farm,CA,64209,26SBB,500,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2023-06
+2023,6,63807,302PN 8me LLC,IPP,Red Antelope Solar & Energy Storage Farm,AZ,64208,30PNB,500,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2023-06
+2023,6,63825,45MG 8me LLC,IPP,Aratina Solar Center 2,CA,64215,45MGB,200,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2023-06
+2023,6,63805,50LW 8me LLC,IPP,Bellefield Solar and Energy Storage Farm,CA,64210,50LWB,500,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2023-06
+2023,7,60798,69SV 8me LLC,IPP,"Eland Solar & Storage Center, Phase 2 Hybrid",CA,61169,61169,150,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2023-07
+2023,9,62910,300MS 8me LLC,IPP,Southern Bighorn Solar Hybrid,NV,63113,BESS,135,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2023-09
+2023,11,63117,Gemini Solar,IPP,Gemini Solar,NV,63352,ARPV1,280,Batteries,MWH,BA,"(U) Under construction, less than or equal to 50 percent complete",construction,2023-11
+2023,11,60971,NYC ENERGY LLC,IPP,NISA Electric Generation Project,NY,61331,BA1,300,Batteries,MWH,BA,(T) Regulatory approvals received. Not under construction,planning,2023-11
+2023,12,63702,"Barbers Point Solar, LLC",IPP,"Barbers Point Solar, LLC",HI,64094,BPBA,15,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2023-12
+2023,12,63839,Hecate Grid Clermont 1 LLC,IPP,Clermont,NY,64236,CLRMT,100,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2023-12
+2023,12,63838,Hecate Grid Swiftsure LLC,IPP,Swiftsure,NY,64235,SWFTS,650,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2023-12
+2023,12,63703,"Kahana Solar, LLC",IPP,"Kahana Solar, LLC",HI,64095,KSBA,20,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2023-12
+2023,12,13407,Nevada Power Co,Electric Utility,Dry Lake Solar Energy Center,NV,63933,DLES1,100,Batteries,MWH,BA,(L) Regulatory approvals pending. Not under construction,planning,2023-12
+2023,12,63821,Pike Solar LLC,IPP,Pike Solar Hybrid,CO,64212,PSBES,25,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2023-12
+2023,12,62023,Skeleton Creek Energy Center,IPP,Skeleton Creek Energy Center Hybrid,OK,62494,SCBAT,200,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2023-12
+2024,3,63726,Renewable Energy Ventures LLC,IPP,Forest Grove - Dodd,TX,64131,ESS1,100,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2024-03
+2024,6,62733,Cranberry Point Energy Storage LLC,IPP,Cranberry Point Energy Storage,MA,62844,NA,150,Batteries,MWH,BA,"(P) Planned for installation, but regulatory approvals not initiated",planning,2024-06
