@@ -52,6 +52,7 @@ for the cars vs stationary:
   - https://recurrentenergy.com/project-portfolio/# 
   - https://www.pluspower.com/home#projects
   - https://broadreachpower.com/projects/
+  - https://arevonenergy.com/portfolio/
 - authorities websites (often the applications are public)
   - e.g. [goleta planning doc](https://www.cityofgoleta.org/city-hall/planning-and-environmental-review/ceqa-review/cortona-battery-storage-project)
   - https://eplanning.blm.gov/eplanning-ui/home (this one is great as it even has a map search function)

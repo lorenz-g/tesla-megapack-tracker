@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %} 
+EIA big battery summary
+{% endblock %}
+
+
+
+{% block og_props %}
+<meta name="description" content="U.S. Energy Information Administration (EIA) big battery summary">
+
+<meta property="og:title" content="EIA big battery summary" />
+<meta property="og:description" content="U.S. Energy Information Administration (EIA) big battery summary" />
+<meta property="og:image" content="https://lorenz-g.github.io/tesla-megapack-tracker/pics/logo.jpg" />
+{% endblock %}
+
+{% block extra_styles %}
+    <link rel="stylesheet" href="vendor/uplot-1.6.16/uPlot.min.css">
+{% endblock %}
+
+
+{% block content %}
+
+<h3> US EIA Summary <span class="badge bg-info">New</span></h3>
+
+<!-- enable to show the a chart -->
+<!-- <div id="uPlotArea"></div> -->
+
+<div class="row">
+    <div class="col-lg-5">
+        EIA report from <code>{{ extra.summary.current_month }}</code>
+        <table class="table table-bordered">
+            <tr>
+                <td></td>
+                <td><span class="badge rounded-pill bg-success">operation</span></td>
+                <td>🏗️</td>
+                <td>💻</td>
+            </tr>
+            
+            <tr>
+                <td>Projects count</td>
+                <td>{{ extra.summary.current.operation.count }}</td>
+                <td>{{ extra.summary.current.construction.count }}</td>
+                <td>{{ extra.summary.current.planning.count }}</td>
+            </tr>
+            <tr>
+                <td>Total 🔋 battery power in GW </td>
+                <td>{{ "%.1f" | format(extra.summary.current.operation.gw) }}</td>
+                <td>{{ "%.1f" | format(extra.summary.current.construction.gw) }}</td>
+                <td>{{ "%.1f" | format(extra.summary.current.planning.gw) }}</td>
+            </tr>
+        </table>
+        🏗️ = construction; 💻 = planning<br><br>
+    </div>
+</div>
+<ul>
+    <li>The <b>U.S. Energy Information Administration (EIA)</b> publishes a monthly report on planned (Chapter 6.5) and existing (Chapter 6.3) energy projects here: <a href ="https://www.eia.gov/electricity/monthly/">https://www.eia.gov/electricity/monthly/</a></li>
+    <li>The data is usually published on the 25th of every month but it is lagging 2 months (E.g. in October 21 the data will be published for August 21).</li>
+    <li>Those two tables are filtered by battery projects above 10MW (unfortunately the capacity is not in the reports)</li>    
+</ul>
+
+<h3> Monthly big battery changes from EIA reports </h3>
+Comparing the reports to show the changes throughout the months. <br>
+Projects are sorted by the max power output.
+
+{% for month in extra.summary.monthly_diffs%}
+
+<br>
+<h4>{{ month.month}}</h4>
+New projects ({{ month.new | length}}): <br>
+{% for pr in month.new %}
+{{pr["plant state"]}} - {{pr.mw | int}} MW - {{pr["plant name"]}} - {{pr["entity name"]}}<br>
+{% endfor %}
+
+<br>
+Updated projects ({{ month.updated | length}}):<br>
+{% for pr, changes in month.updated %}
+    {{pr["plant state"]}} - {{pr.mw | int}} MW - {{pr["plant name"]}} - {{pr["entity name"]}}<br>
+    {% for change in changes %}
+        &nbsp;&nbsp;{{ change.name }}: {{ change.from }} -> {{ change.to }} <br>
+    {% endfor %}
+{% endfor %}
+
+{% endfor %}
+
+
+{% endblock %}
+
+{% block extra_scripts %}
+    <!-- Page level plugins -->
+    <!-- this is a test here, lets see if this will lead to anything -->
+    <script src="vendor/uplot-1.6.16/uPlot.iife.min.js"></script>
+    <script src="vendor/uplot-1.6.16/distr.js"></script>
+    <script src="vendor/uplot-1.6.16/quadtree.js"></script>
+    <script src="vendor/uplot-1.6.16/grouped-bars.js"></script>
+    <script>
+        let xs = ["hello",2,3];
+        let vals = [4,5,6];
+        let vals2 = [10,9,8];
+
+        let data = [
+           xs,
+           vals,
+           vals2,
+           [1,2,3]
+
+        //    xs.map((t, i) => vals[Math.floor(Math.random() * vals.length)]),
+        ];
+
+        let o = {ori: 0, dir: 1, stacked: false}
+        let ori = o.ori;
+        let dir = o.dir;
+        let stacked = o.stacked;
+
+
+        const opts = {
+            width: 600,
+            height: 400,
+            // => is returning a function
+            // tzDate: ts => uPlot.tzDate(new Date(ts * 1e3), "utc"),
+            title: "bla title",
+            axes: [
+                {},
+                {
+                    label: "power in GW",
+                    side: 1,
+                    scale: "default",
+                },
+            ],
+            series: [
+						{},
+						{
+							label: "planning",
+							fill: "#33BB55",
+							scale: 'default',
+						},
+						{
+							label:	"construction",
+							fill: "#B56FAB",
+							scale: 'default',
+						},
+                        {
+							label:	"operation",
+							fill: "#006FAB",
+							scale: 'default',
+						},
+					],
+            plugins: [
+                    seriesBarsPlugin({
+							ori,
+							dir,
+							stacked,
+						}),
+					],
+        };
+        let u = new uPlot(opts, data, document.getElementById("uPlotArea"));
+    </script>
+{% endblock %}

@@ -1,11 +1,15 @@
 import csv
+import io
 import pprint
 import os
 import json
+import zipfile
 from jinja2 import Environment, FileSystemLoader
 import datetime as dt
 import pylightxl as xl
 from collections import defaultdict
+import requests
+from pathlib import Path
 
 # when using links need to prefix that everywhere
 # for github pages
@@ -46,7 +50,108 @@ def load_file(filename='projects.csv', type_="json"):
     # pprint.pprint(rows[0])
     return rows
 
-def read_eia_data():
+def check_di_differnce(old, new, ignore=None):
+    """ only focus on single level dicts and assume they have the same keys
+    """
+    assert sorted(old.keys()) == sorted(old.keys())
+
+    if ignore is None:
+        ignore = []
+
+    li = []
+    for k,v in old.items():
+        if k in ignore:
+            continue
+
+        if new[k] != v:
+            li.append({
+                "name": k,
+                "from": v,
+                "to": new[k]
+            })
+    return li
+
+def stats_eia_data():
+    folder = "misc/eia-data/merged/"
+    filenames = sorted(os.listdir(folder))
+    months = [f.split(".")[0] for f in filenames]
+    
+
+    monthly_diffs = []
+    last_report = {}
+
+    s_monthly = defaultdict(dict)
+    for fn in filenames:
+        month = fn.split(".")[0]
+        with open(folder + fn) as f:
+            reader = csv.DictReader(f)
+            rows = [row for row in reader]
+        
+        report_di = {}
+        monthly_changes = {
+            "month": month,
+            "new": [],
+            "updated": [],
+        }
+
+        for r in rows:
+
+            r["mw"] = float(r["net summer capacity (mw)"])
+            
+            if r["status_simple"] not in s_monthly[month]:
+                s_monthly[month][r["status_simple"]] = {"count": 0, "gw": 0}
+            s_monthly[month][r["status_simple"]]["count"] += 1
+            s_monthly[month][r["status_simple"]]["gw"] += float(r["net summer capacity (mw)"]) / 1000
+
+            p_id = r["plant id"]
+            g_id = r["generator id"]
+            if p_id not in report_di:
+                report_di[p_id] = {}
+            report_di[p_id][g_id] = r
+            if p_id in last_report and g_id in last_report[p_id]:
+                # need to check for changes here
+                dif = check_di_differnce(last_report[p_id][g_id], r, ignore=["month", "year", "status_simple"])
+                if dif:
+                    monthly_changes["updated"].append([r, dif])
+                pass
+            else:
+                # new project
+                monthly_changes["new"].append(r)
+        
+        monthly_changes["new"] = sorted(monthly_changes["new"], key=lambda x:x["mw"], reverse=True)
+        monthly_changes["updated"] = sorted(monthly_changes["updated"], key=lambda x:x[0]["mw"], reverse=True)
+
+        monthly_diffs.append(monthly_changes)
+        last_report = report_di
+
+
+
+
+    
+    # for k,v in s_monthly.items():
+    #     print(k,v)
+
+    summary = {
+        "current": s_monthly[months[-1]],
+        "current_month": months[-1],
+        # want the in descending order
+        "monthly_diffs": monthly_diffs[::-1],
+    }
+
+    return summary
+    
+
+def read_eia_data_all_months():
+    folders = [str(f) for f in Path("misc/eia-data/original/").iterdir()]
+    for folder in folders:
+        if ".DS_Store" in folder:
+            continue
+        print(folder)
+        read_eia_data_single_month(folder)
+
+
+
+def read_eia_data_single_month(folder):
     """ 
     eia = U.S. Energy Information Administration
 
@@ -58,13 +163,10 @@ def read_eia_data():
     TODO: download data every month and then create a changelog and publish it on the website
     
     """
-    files = [
-        ['misc/eia-data/2021-09-22-table_6_03.xlsx', "operation", "June 2021"],
-        ['misc/eia-data/2021-09-22-table_6_05.xlsx', "planned", "June 2021"],
-    ]
 
     # so far only planning, construction, operation used, but the eia data is more detailed
     status_to_status_simple = {
+        "(OT) Other": "planning",
         "(L) Regulatory approvals pending. Not under construction": "planning",
         "(T) Regulatory approvals received. Not under construction": "planning",
         "(P) Planned for installation, but regulatory approvals not initiated": "planning",
@@ -78,9 +180,25 @@ def read_eia_data():
     # plant_id + generator code is always unique
     # e.g. Ravenswood project has 3 entries with the same plant id
     projects = defaultdict(list)
-    dif_status = []
-    for file, type_, released in files:
+
+    # this one is to write it to a csv
+    projects_li = []
+
+    counts = defaultdict(int)
+    files = [os.path.join(folder, "Table_6_03.xlsx"), os.path.join(folder, "Table_6_05.xlsx")]
+
+
+    for file in files:
+        if "6_03" in file:
+            type_ = "operation"
+        elif "6_05" in file:
+            type_ = "planned"
+        else:
+            raise ValueError("unknown table")
+
+        print(file)
         db = xl.readxl(file)
+        print(db)
         ws = db.ws(db.ws_names[0])
 
         # ignore first row and use second row as column names
@@ -103,22 +221,90 @@ def read_eia_data():
             # need to add this manually
             if type_ == 'operation':
                 pr["status"] = "operation"
+            else:
+                # don't need it, can rely on the net summer capacity
+                pr.pop('nameplate capacity (mw)')
 
-            pr["data_released"] = released
-            pr["status_simple"] = 
+            pr["status_simple"] = status_to_status_simple[pr["status"]]
+            pr["date"] = "%d-%02d" % (pr["year"], pr["month"])
             
             # print(pr)
             projects[pr["plant id"]].append(pr)
+            projects_li.append(pr)
+            counts[pr["status_simple"]] += 1
+    
+    print(counts)
+    
+    # e.g. "misc/eia-data/original/2021-01/table.xlsx"
+    date = files[0].split("/")[3]
+    with open("misc/eia-data/merged/%s.csv" % date, "w") as f:
+        writer = csv.DictWriter(f, fieldnames=projects_li[0].keys())
+        writer.writeheader()
+        for p in projects_li:
+            writer.writerow(p)
 
-
-            dif_status.append(pr["status"])
-      
     # print(len(projects))
     # print(sum(len(i) for i in projects.values()))
 
-    print("\n:".join(set(dif_status)))
 
     return projects
+
+def download_and_extract_eia_data():
+    """
+    don't always have to run the entire date range, can just run the latest month...
+
+    https://www.eia.gov/electricity/monthly/archive/july2021.zip
+
+    # TODO: need to find out if they are the same for all the month
+    Table_6_03.xlsx
+    Table_6_05.xlsx
+
+    seems like the table 6_03 did not exist in 2020
+    """
+
+    years = [
+        [2020, [9,12]], # before 9, there is a key error net summer capacity (mw), not digging further here
+        [2021, [1, 13]],
+    ]
+    base_url = "https://www.eia.gov/electricity/monthly/archive/%s.zip"
+    tables = ['Table_6_03.xlsx', 'Table_6_05.xlsx']
+
+    for year, r in years:
+        for month in range(r[0],r[1]):
+            date = dt.date(year, month, 1)
+            print(date)
+            r = requests.get(base_url % date.strftime("%B%Y").lower())
+            if r.status_code != 200:
+                print("got %s code, ignoring it" % (r.status_code))
+                continue
+            
+            file = zipfile.ZipFile(io.BytesIO(r.content))
+        
+            for table in tables:
+                zi = file.getinfo(table)
+                folder = "misc/eia-data/original/%s/" % date.strftime("%Y-%m")
+                file.extract(zi, folder)
+    
+            read_eia_data_single_month(folder)
+
+
+def gen_eia_page(pr_len):
+    file_loader = FileSystemLoader('templates')
+    env = Environment(loader=file_loader)
+    output_dir = 'docs'
+    template_name = "eia.jinja.html"
+    
+    extra = {
+        "now": dt.datetime.utcnow(),
+        "pr_len": pr_len, 
+        "summary": stats_eia_data()
+    }
+
+    template = env.get_template(template_name)
+    output = template.render(extra=extra, g_l=generate_link) 
+    
+    with open(os.path.join(output_dir, template_name.replace(".jinja", "")), 'w') as f:
+        f.write(output)
 
 
 
@@ -445,6 +631,7 @@ def gen_individual_pages(projects, pr_len):
         with open(output_fn, 'w') as f:
             f.write(template.render(p=p, g_l=generate_link, extra=extra))
 
+
     
 def main():
     # load them twice to have different objects with different pointers
@@ -463,9 +650,16 @@ def main():
     gen_projects_template(projects, 'all-big-batteries.jinja.html', pr_len)
     
     gen_individual_pages(projects, pr_len)
+
+    gen_eia_page(pr_len)
+
     gen_raw_data_files()
 
 
 if __name__ == "__main__":
+    # download_and_extract_eia_data()
+    # stats_eia_data()
+    # read_eia_data_all_months()
     main()
 
+    
