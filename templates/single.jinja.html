@@ -73,5 +73,48 @@
     <a href="{{ p.link3 }}" target="_blank">{{ p.link3 }} </a>
 </dl>
 
+{% if p.eia_plant_id in extra.eia.projects %}
+<h3> US EIA data </h3>
+This data is matched from the U.S. Energy Information Administration (EIA) electricity monthly website from planned (Chapter 6.5) and existing (Chapter 6.3) energy projects
+ <a href ="https://www.eia.gov/electricity/monthly/">https://www.eia.gov/electricity/monthly/</a></li>
+<br>
+
+{% if extra.eia.projects[p.eia_plant_id].values() | length > 1 %}
+<span class="badge bg-info">This project has multiple generator ids under the same plant id</span><br>
+{% endif %}
+
+
+
+{% for gen in extra.eia.projects[p.eia_plant_id].values()%}
+From the <code>{{ gen.current_month }}</code> report<br>
+
+<br>
+<dt>Plant Name / State</dt>
+<dl>{{ gen["current"]["plant name"]}} / {{ gen["current"]["plant state"]}}</dl>
+
+<dt>go live / power </dt>
+<dl>{{ gen["current"]["date"]}} / {{ gen["current"]["mw"]}}MW</dl>
+
+<dt>status / simple status</dt>
+<dl>{{ gen["current"]["status"]}} / {{ gen["current"]["status_simple"]}} </dl>
+
+<dt>Plant id / generator id </dt>
+<dl>{{ gen["current"]["plant id"]}} / {{ gen["current"]["generator id"]}}</dl>
+
+<dt>Entity name / entity id </dt>
+<dl>{{ gen["current"]["entity name"]}} / {{ gen["current"]["entity id"]}}</dl>
+
+<b>Changes:</b><br>
+
+{% for change in gen.changes %}
+    <b>{{change.month}}</b><br>
+    {% for field in change.li %}
+        {{ field.name }}: {{ field.from }} -> {{ field.to }} <br>
+    {% endfor %} <!-- field -->
+
+{% endfor %} <!-- changes -->
+<br><br>
+{% endfor %}
+{% endif %}
 
 {% endblock %}

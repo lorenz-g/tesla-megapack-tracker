@@ -79,8 +79,12 @@ def stats_eia_data():
 
     monthly_diffs = []
     last_report = {}
-
     s_monthly = defaultdict(dict)
+
+    # projects with their history
+    projects_di = defaultdict(dict)
+
+
     for fn in filenames:
         month = fn.split(".")[0]
         with open(folder + fn) as f:
@@ -108,24 +112,35 @@ def stats_eia_data():
             if p_id not in report_di:
                 report_di[p_id] = {}
             report_di[p_id][g_id] = r
+
             if p_id in last_report and g_id in last_report[p_id]:
                 # need to check for changes here
                 dif = check_di_differnce(last_report[p_id][g_id], r, ignore=["month", "year", "status_simple"])
                 if dif:
                     monthly_changes["updated"].append([r, dif])
-                pass
+                    projects_di[p_id][g_id]["changes"].append({"month": month, "li": dif})
+
             else:
                 # new project
                 monthly_changes["new"].append(r)
+                projects_di[p_id][g_id] = {
+                    "first": r, 
+                    "first_month": month,
+                    "changes": [],
+                    "current": r,
+                    "current_month": month,
+                }
+            
+            projects_di[p_id][g_id]["current"] = r
+            projects_di[p_id][g_id]["current_month"] = month
+
+
         
         monthly_changes["new"] = sorted(monthly_changes["new"], key=lambda x:x["mw"], reverse=True)
         monthly_changes["updated"] = sorted(monthly_changes["updated"], key=lambda x:x[0]["mw"], reverse=True)
 
         monthly_diffs.append(monthly_changes)
         last_report = report_di
-
-
-
 
     
     # for k,v in s_monthly.items():
@@ -136,6 +151,7 @@ def stats_eia_data():
         "current_month": months[-1],
         # want the in descending order
         "monthly_diffs": monthly_diffs[::-1],
+        "projects": projects_di,
     }
 
     return summary
@@ -288,7 +304,7 @@ def download_and_extract_eia_data():
             read_eia_data_single_month(folder)
 
 
-def gen_eia_page(pr_len):
+def gen_eia_page(pr_len, eia_data):
     file_loader = FileSystemLoader('templates')
     env = Environment(loader=file_loader)
     output_dir = 'docs'
@@ -297,7 +313,7 @@ def gen_eia_page(pr_len):
     extra = {
         "now": dt.datetime.utcnow(),
         "pr_len": pr_len, 
-        "summary": stats_eia_data()
+        "summary": eia_data,
     }
 
     template = env.get_template(template_name)
@@ -456,6 +472,8 @@ def prepare_projects(projects):
         # these just used for the legend
         ["🚨", "🚨", "incident reported"],
         ["🐌", "🐌", "slow, bureaucracy"],
+        ["📊", "📊", "U.S. EIA data available"],
+        
     ]
 
     emoji_legend = []
@@ -529,9 +547,11 @@ def prepare_projects(projects):
         if "incident" in p["notes"].lower():
             smileys.append("🚨")
 
-        
         if project_is_slow(p["go_live_year_int"], mwh, mw):
             smileys.append("🐌")
+        
+        if p["eia_plant_id"]:
+            smileys.append("📊")
             
         p["smileys"] = "".join(smileys)
 
@@ -611,7 +631,7 @@ def gen_projects_template(projects, template_name, pr_len):
         f.write(output)
     
 
-def gen_individual_pages(projects, pr_len):
+def gen_individual_pages(projects, pr_len, eia_data):
     # generate the individual pages
     file_loader = FileSystemLoader('templates')
     env = Environment(loader=file_loader)
@@ -621,12 +641,15 @@ def gen_individual_pages(projects, pr_len):
     template = env.get_template(fn)
 
     extra = {
-        "pr_len": pr_len, 
+        "pr_len": pr_len,
+        "eia": eia_data
     }
 
     for p in projects:
         if p["name"] == "":
             continue
+        if p["eia_plant_id"] in extra["eia"]:
+            print(p["name"])
         output_fn = os.path.join(output_dir, "projects", p["id"] + ".html")
         with open(output_fn, 'w') as f:
             f.write(template.render(p=p, g_l=generate_link, extra=extra))
@@ -646,12 +669,14 @@ def main():
         "all": len(projects)
     }
 
+    eia_data = stats_eia_data()
+
     gen_projects_template(tesla_projects, 'index.jinja.html', pr_len)
     gen_projects_template(projects, 'all-big-batteries.jinja.html', pr_len)
     
-    gen_individual_pages(projects, pr_len)
+    gen_individual_pages(projects, pr_len, eia_data)
 
-    gen_eia_page(pr_len)
+    gen_eia_page(pr_len, eia_data)
 
     gen_raw_data_files()
 
