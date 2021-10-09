@@ -1,0 +1,1382 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" href="/tesla-megapack-tracker/favicon.ico">
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Datatables CSS https://cdn.datatables.net/ -->
+    <link href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <!-- leaflet js css -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+
+    
+    <link rel="stylesheet" href="vendor/uplot-1.6.16/uPlot.min.css">
+ 
+
+    <title>
+         
+EIA big battery summary
+
+    </title>
+
+    
+<meta name="description" content="U.S. Energy Information Administration (EIA) big battery summary">
+
+<meta property="og:title" content="EIA big battery summary" />
+<meta property="og:description" content="U.S. Energy Information Administration (EIA) big battery summary" />
+<meta property="og:image" content="https://lorenz-g.github.io/tesla-megapack-tracker/pics/logo.jpg" />
+
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow p-3 mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/tesla-megapack-tracker/">
+                <img src="/tesla-megapack-tracker/pics/logo.jpg" alt="logo" width="30" height="30">
+                Tesla Megapack Tracker
+            </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            
+            <ul class="navbar-nav mb-2 mb-lg-0">
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#project-list">Tesla list (39)</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#installations-map"> Map</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries list (118)</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html#installations-map">Map</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/eia.html">US EIA data<span class="badge bg-info">New</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#contact">Contact</a></li>
+              
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <div class="container-xl">
+        
+
+<h3> US EIA Summary <span class="badge bg-info">New</span></h3>
+
+<!-- enable to show the a chart -->
+<!-- <div id="uPlotArea"></div> -->
+
+<div class="row">
+    <div class="col-lg-5">
+        EIA report from <code>2021-07</code>
+        <table class="table table-bordered">
+            <tr>
+                <td></td>
+                <td><span class="badge rounded-pill bg-success">operation</span></td>
+                <td>🏗️</td>
+                <td>💻</td>
+            </tr>
+            
+            <tr>
+                <td>Projects count</td>
+                <td>11</td>
+                <td>50</td>
+                <td>81</td>
+            </tr>
+            <tr>
+                <td>Total 🔋 battery power in GW </td>
+                <td>0.8</td>
+                <td>3.7</td>
+                <td>9.0</td>
+            </tr>
+        </table>
+        🏗️ = construction; 💻 = planning<br><br>
+    </div>
+</div>
+<ul>
+    <li>The <b>U.S. Energy Information Administration (EIA)</b> publishes a monthly report on planned (Chapter 6.5) and existing (Chapter 6.3) energy projects here: <a href ="https://www.eia.gov/electricity/monthly/">https://www.eia.gov/electricity/monthly/</a></li>
+    <li>The data is usually published on the 25th of every month but it is lagging 2 months (E.g. in October 21 the data will be published for August 21).</li>
+    <li>Those two tables are filtered by battery projects above 10MW (unfortunately the capacity is not in the reports)</li>    
+</ul>
+
+<h3> Monthly big battery changes from EIA reports </h3>
+Comparing the reports to show the changes throughout the months. <br>
+Projects are sorted by the max power output.
+
+
+
+<br>
+<h4>2021-07</h4>
+New projects (6): <br>
+
+CA - 125 MW - LeConte Energy Storage - LeConte Energy Storage, LLC - 64701<br>
+
+CA - 100 MW - Sanborn BESS 1 - Terra-Gen Operating Co-BESS - 64712<br>
+
+CA - 100 MW - Sanborn BESS 2 - Terra-Gen Operating Co-BESS - 64713<br>
+
+CA - 75 MW - RE Mustang LLC - Goldman Sachs Renewable Power Group - 59150<br>
+
+AZ - 25 MW - Agua Fria - Salt River Project - 141<br>
+
+NY - 20 MW - Orangeville Storage - Invenergy Services LLC - 64686<br>
+
+
+<br>
+Updated projects (18):<br>
+
+    CA - 300 MW - Dynegy Moss Landing Power Plant Hybrid - Dynegy -Moss Landing LLC - 260<br>
+    
+        &nbsp;&nbsp;status: (TS) Construction complete, but not yet in commercial operation -> operation <br>
+    
+        &nbsp;&nbsp;date: 2021-06 -> 2021-05 <br>
+    
+
+    CA - 115 MW - Blythe Solar III, LLC Hybrid - Blythe Solar III, LLC - 60094<br>
+    
+        &nbsp;&nbsp;status: (V) Under construction, more than 50 percent complete -> operation <br>
+    
+
+    CA - 100 MW - Luna Storage - Luna Storage, LLC - 63685<br>
+    
+        &nbsp;&nbsp;status: (U) Under construction, less than or equal to 50 percent complete -> (V) Under construction, more than 50 percent complete <br>
+    
+        &nbsp;&nbsp;date: 2021-07 -> 2021-10 <br>
+    
+
+    CA - 88 MW - RE Garland - Southern Power Co - 60233<br>
+    
+        &nbsp;&nbsp;status: (U) Under construction, less than or equal to 50 percent complete -> (V) Under construction, more than 50 percent complete <br>
+    
+
+    TX - 50 MW - Blue Jay Solar I, LLC - Blue Jay Solar I, LLC - 64672<br>
+    
+        &nbsp;&nbsp;net summer capacity (mw): 210 -> 50 <br>
+    
+        &nbsp;&nbsp;mw: 210.0 -> 50.0 <br>
+    
+
+    TX - 50 MW - High Lonesome Wind Power, LLC Hybrid - High Lonesome Wind Power, LLC - 62562<br>
+    
+        &nbsp;&nbsp;date: 2022-05 -> 2022-07 <br>
+    
+
+    TX - 40 MW - 2W Permian Solar Project Hybrid - 2W Permian Solar, LLC - 63255<br>
+    
+        &nbsp;&nbsp;status: (U) Under construction, less than or equal to 50 percent complete -> (TS) Construction complete, but not yet in commercial operation <br>
+    
+        &nbsp;&nbsp;date: 2021-05 -> 2021-07 <br>
+    
+
+    CA - 30 MW - Top Gun Energy Storage - San Diego Gas & Electric Co - 61366<br>
+    
+        &nbsp;&nbsp;date: 2021-05 -> 2021-07 <br>
+    
+
+    CA - 20 MW - Johanna Energy Center, LLC - Santa Ana Storage 1 - 63843<br>
+    
+        &nbsp;&nbsp;date: 2021-05 -> 2021-08 <br>
+    
+
+    NY - 20 MW - Willis Battery Storage - New York Power Authority - 63238<br>
+    
+        &nbsp;&nbsp;date: 2021-09 -> 2022-03 <br>
+    
+
+    NM - 12 MW - Taos Mesa Energy Facility Hybrid - Taos Mesa Energy Facility, LLC - 63728<br>
+    
+        &nbsp;&nbsp;status: (L) Regulatory approvals pending. Not under construction -> (T) Regulatory approvals received. Not under construction <br>
+    
+
+    FL - 11 MW - Trenton - Duke Energy Florida, LLC - 63995<br>
+    
+        &nbsp;&nbsp;date: 2021-06 -> 2021-07 <br>
+    
+
+    CA - 11 MW - Camino Solar Hybrid - Avangrid Renewables LLC - 63508<br>
+    
+        &nbsp;&nbsp;date: 2022-05 -> 2023-03 <br>
+    
+
+    NC - 10 MW - Grissom Solar, LLC - Grissom Solar, LLC - 64450<br>
+    
+        &nbsp;&nbsp;status: (V) Under construction, more than 50 percent complete -> operation <br>
+    
+
+    CA - 10 MW - Kearny North Energy Storage - San Diego Gas & Electric Co - 64612<br>
+    
+        &nbsp;&nbsp;status: (T) Regulatory approvals received. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 10 MW - Kearny South Energy Storage - San Diego Gas & Electric Co - 64614<br>
+    
+        &nbsp;&nbsp;status: (T) Regulatory approvals received. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 10 MW - Henrietta D Energy Storage LLC - Convergent Energy and Power LP - 60641<br>
+    
+        &nbsp;&nbsp;date: 2021-06 -> 2021-09 <br>
+    
+
+    CA - 10 MW - Chevron - Lost Hills Hybrid - Goldman Sachs Renewable Power Group - 63545<br>
+    
+        &nbsp;&nbsp;date: 2021-09 -> 2021-10 <br>
+    
+
+
+
+
+<br>
+<h4>2021-06</h4>
+New projects (13): <br>
+
+CA - 360 MW - Kingsley Solar Farm - 90FI 8me, LLC - 64634<br>
+
+CA - 300 MW - Rexford Solar Farm - 20SD 8me LLC - 64633<br>
+
+TX - 210 MW - Blue Jay Solar I, LLC - Blue Jay Solar I, LLC - 64672<br>
+
+CA - 200 MW - Big Rock Solar Farm - 92JT 8me, LLC - 64636<br>
+
+CA - 200 MW - Sienna Solar Farm - 99MT 8me, LLC - 64632<br>
+
+CA - 50 MW - Hudson - High Desert Hybrid - Goldman Sachs Renewable Power Group - 64624<br>
+
+NV - 50 MW - Dodge Flat - Dodge Flat Solar, LLC - 63913<br>
+
+TX - 50 MW - High Lonesome Wind Power, LLC Hybrid - High Lonesome Wind Power, LLC - 62562<br>
+
+TX - 50 MW - Roadrunner, LLC Hybrid - Roadrunner Solar, LLC - 62561<br>
+
+HI - 12 MW - AES West Oahu Solar Hybrid - AES Distributed Energy - 64656<br>
+
+CA - 10 MW - Kearny North Energy Storage - San Diego Gas & Electric Co - 64612<br>
+
+CA - 10 MW - Kearny South Energy Storage - San Diego Gas & Electric Co - 64614<br>
+
+ME - 10 MW - South Portland ESS, LLC - South Portland ESS, LLC - 64616<br>
+
+
+<br>
+Updated projects (14):<br>
+
+    CA - 300 MW - Dynegy Moss Landing Power Plant Hybrid - Dynegy -Moss Landing LLC - 260<br>
+    
+        &nbsp;&nbsp;status: (V) Under construction, more than 50 percent complete -> (TS) Construction complete, but not yet in commercial operation <br>
+    
+
+    CA - 100 MW - Saticoy - Ventura Energy Storage, LLC - 63891<br>
+    
+        &nbsp;&nbsp;status: (U) Under construction, less than or equal to 50 percent complete -> operation <br>
+    
+        &nbsp;&nbsp;date: 2021-05 -> 2021-04 <br>
+    
+
+    TX - 100 MW - Gambit Energy Storage - Angleton Storage - Tesla Inc. - 64528<br>
+    
+        &nbsp;&nbsp;status: (T) Regulatory approvals received. Not under construction -> (V) Under construction, more than 50 percent complete <br>
+    
+
+    TX - 100 MW - Chisholm Grid Energy Storage System - Chisholm Grid, LLC - 63737<br>
+    
+        &nbsp;&nbsp;status: (U) Under construction, less than or equal to 50 percent complete -> (V) Under construction, more than 50 percent complete <br>
+    
+
+    TX - 100 MW - Ignacio Grid Energy Storage System - Ignacio Grid, LLC - 64089<br>
+    
+        &nbsp;&nbsp;status: (T) Regulatory approvals received. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    TX - 80 MW - Big Star Solar, LLC (Hybrid) - RWE Renewables Americas LLC - 64202<br>
+    
+        &nbsp;&nbsp;status: (L) Regulatory approvals pending. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+        &nbsp;&nbsp;date: 2022-04 -> 2022-05 <br>
+    
+
+    CA - 60 MW - Cal Flats BESS - CD Arevon USA, Inc. - 63930<br>
+    
+        &nbsp;&nbsp;date: 2021-07 -> 2021-08 <br>
+    
+
+    AZ - 30 MW - Wilmot Energy Center LLC - Wilmot Energy Center LLC - 64426<br>
+    
+        &nbsp;&nbsp;status: (U) Under construction, less than or equal to 50 percent complete -> operation <br>
+    
+        &nbsp;&nbsp;date: 2021-05 -> 2021-04 <br>
+    
+
+    NY - 20 MW - Willis Battery Storage - New York Power Authority - 63238<br>
+    
+        &nbsp;&nbsp;status: (P) Planned for installation, but regulatory approvals not initiated -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    HI - 14 MW - AES Kekaha Solar, LLC Hybrid - AES Distributed Energy - 63280<br>
+    
+        &nbsp;&nbsp;status: (TS) Construction complete, but not yet in commercial operation -> operation <br>
+    
+
+    CA - 11 MW - Silverstrand Grid Energy Storage System - Silverstrand Grid, LLC - 63735<br>
+    
+        &nbsp;&nbsp;status: (V) Under construction, more than 50 percent complete -> operation <br>
+    
+
+    NC - 10 MW - Grissom Solar, LLC - Grissom Solar, LLC - 64450<br>
+    
+        &nbsp;&nbsp;status: (T) Regulatory approvals received. Not under construction -> (V) Under construction, more than 50 percent complete <br>
+    
+
+    CA - 10 MW - Chevron - Lost Hills Hybrid - Goldman Sachs Renewable Power Group - 63545<br>
+    
+        &nbsp;&nbsp;entity name: GSRP -> Goldman Sachs Renewable Power Group <br>
+    
+
+    AZ - 10 MW - Desert Star Hybrid - Arizona Public Service Co - 59444<br>
+    
+        &nbsp;&nbsp;date: 2021-12 -> 2022-06 <br>
+    
+
+
+
+
+<br>
+<h4>2021-05</h4>
+New projects (4): <br>
+
+NV - 180 MW - Chuckwalla Solar, LLC - Chuckwalla Solar, LLC - 64558<br>
+
+TX - 73 MW - Ranchland Wind Storage - Ranchland Wind Storage, LLC - 64545<br>
+
+MS - 50 MW - OE_MS5 - OE_MS5 - 64529<br>
+
+CA - 47 MW - Arlington Energy Center III - Arlington Energy Center III - 64564<br>
+
+
+<br>
+Updated projects (15):<br>
+
+    CA - 300 MW - Dynegy Moss Landing Power Plant Hybrid - Dynegy -Moss Landing LLC - 260<br>
+    
+        &nbsp;&nbsp;date: 2021-03 -> 2021-06 <br>
+    
+
+    TX - 260 MW - DeCordova Steam Electric Station - Luminant Generation Company LLC - 8063<br>
+    
+        &nbsp;&nbsp;date: 2022-02 -> 2022-05 <br>
+    
+
+    CA - 200 MW - Diablo Energy Storage - Diablo Energy Storage, LLC - 62175<br>
+    
+        &nbsp;&nbsp;status: (P) Planned for installation, but regulatory approvals not initiated -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 115 MW - Blythe Solar II, LLC - Blythe Solar II, LLC - 60092<br>
+    
+        &nbsp;&nbsp;status: (V) Under construction, more than 50 percent complete -> operation <br>
+    
+
+    TX - 100 MW - Madero Grid - Madero Grid, LLC - 63757<br>
+    
+        &nbsp;&nbsp;status: (L) Regulatory approvals pending. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    TX - 100 MW - Ignacio Grid Energy Storage System - Ignacio Grid, LLC - 64089<br>
+    
+        &nbsp;&nbsp;status: (L) Regulatory approvals pending. Not under construction -> (T) Regulatory approvals received. Not under construction <br>
+    
+
+    CA - 88 MW - RE Garland - Southern Power Co - 60233<br>
+    
+        &nbsp;&nbsp;status: (P) Planned for installation, but regulatory approvals not initiated -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 72 MW - RE Tranquillity - Southern Power Co - 59939<br>
+    
+        &nbsp;&nbsp;status: (P) Planned for installation, but regulatory approvals not initiated -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 63 MW - Blythe Solar 110, LLC - Blythe Solar 110, LLC - 60093<br>
+    
+        &nbsp;&nbsp;status: (U) Under construction, less than or equal to 50 percent complete -> (V) Under construction, more than 50 percent complete <br>
+    
+
+    CA - 60 MW - Coso Battery Storage - Arevon Asset Management - 63943<br>
+    
+        &nbsp;&nbsp;status: (L) Regulatory approvals pending. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    TX - 50 MW - TREX US Red Holly - TREX US Red Holly LLC - 63202<br>
+    
+        &nbsp;&nbsp;date: 2021-08 -> 2022-05 <br>
+    
+
+    GA - 40 MW - Cool Springs Solar (Hybrid) - Cool Springs Solar, LLC - 63721<br>
+    
+        &nbsp;&nbsp;status: (U) Under construction, less than or equal to 50 percent complete -> (V) Under construction, more than 50 percent complete <br>
+    
+
+    MA - 25 MW - Outer Cape Community Battery - Eversource - 62604<br>
+    
+        &nbsp;&nbsp;date: 2021-03 -> 2021-09 <br>
+    
+
+    CT - 20 MW - Pure Hedge LLC - Pure Hedge LLC - 50736<br>
+    
+        &nbsp;&nbsp;date: 2021-09 -> 2022-01 <br>
+    
+
+    CA - 10 MW - Goleta Grid Resiliency - esVolta LP - 63736<br>
+    
+        &nbsp;&nbsp;date: 2022-12 -> 2022-09 <br>
+    
+
+
+
+
+<br>
+<h4>2021-04</h4>
+New projects (9): <br>
+
+CA - 132 MW - Arlington Energy Center II - Arlington Energy Center II - 64481<br>
+
+CA - 115 MW - Resurgence Solar - Resurgence Solar - 64489<br>
+
+TX - 100 MW - Gambit Energy Storage - Angleton Storage - Tesla Inc. - 64528<br>
+
+CA - 99 MW - Noosa Energy Storage LLC - Noosa Energy Storage LLC - 64531<br>
+
+WI - 75 MW - Darien Solar - Wisconsin Electric Power Co - 64534<br>
+
+AZ - 30 MW - Wilmot Energy Center LLC - Wilmot Energy Center LLC - 64426<br>
+
+NV - 25 MW - Fish Springs - Fish Springs Ranch Solar, LLC - 64148<br>
+
+NC - 10 MW - Grissom Solar, LLC - Grissom Solar, LLC - 64450<br>
+
+AZ - 10 MW - Desert Star Hybrid - Arizona Public Service Co - 59444<br>
+
+
+<br>
+Updated projects (15):<br>
+
+    CA - 230 MW - McCoy Solar Energy Project Hybrid - McCoy Solar, LLC - 58462<br>
+    
+        &nbsp;&nbsp;status: (P) Planned for installation, but regulatory approvals not initiated -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    NY - 200 MW - NY2 Battery - Key Capture Energy - 63584<br>
+    
+        &nbsp;&nbsp;date: 2021-11 -> 2022-11 <br>
+    
+
+    CA - 115 MW - Blythe Solar II, LLC - Blythe Solar II, LLC - 60092<br>
+    
+        &nbsp;&nbsp;date: 2021-02 -> 2021-03 <br>
+    
+
+    CA - 100 MW - Saticoy - Ventura Energy Storage, LLC - 63891<br>
+    
+        &nbsp;&nbsp;date: 2021-04 -> 2021-05 <br>
+    
+
+    CA - 100 MW - Luna Storage - Luna Storage, LLC - 63685<br>
+    
+        &nbsp;&nbsp;status: (L) Regulatory approvals pending. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 60 MW - Cal Flats BESS - CD Arevon USA, Inc. - 63930<br>
+    
+        &nbsp;&nbsp;status: (T) Regulatory approvals received. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 60 MW - Coso Battery Storage - Arevon Asset Management - 63943<br>
+    
+        &nbsp;&nbsp;entity id: 63611 -> 64172 <br>
+    
+        &nbsp;&nbsp;entity name: Coso Battery Storage LLC -> Arevon Asset Management <br>
+    
+
+    CA - 50 MW - Slate Hybrid - RE Slate 1 LLC - 63727<br>
+    
+        &nbsp;&nbsp;net summer capacity (mw): 300 -> 50 <br>
+    
+        &nbsp;&nbsp;date: 2021-10 -> 2022-03 <br>
+    
+        &nbsp;&nbsp;mw: 300.0 -> 50.0 <br>
+    
+
+    CA - 25 MW - Cascade Energy Storage, LLC - Broad Reach Power - 61801<br>
+    
+        &nbsp;&nbsp;entity id: 59380 -> 63883 <br>
+    
+        &nbsp;&nbsp;entity name: Enel Green Power NA, Inc. -> Broad Reach Power <br>
+    
+
+    CA - 20 MW - Hecate Energy Johanna Facility - Hecate Grid, LLC - 62889<br>
+    
+        &nbsp;&nbsp;date: 2021-04 -> 2021-06 <br>
+    
+
+    CA - 20 MW - Renz Energy Storage - Pacific Gas & Electric Co. - 63529<br>
+    
+        &nbsp;&nbsp;date: 2021-12 -> 2022-05 <br>
+    
+
+    CA - 11 MW - Silverstrand Grid Energy Storage System - Silverstrand Grid, LLC - 63735<br>
+    
+        &nbsp;&nbsp;date: 2021-03 -> 2021-04 <br>
+    
+
+    FL - 11 MW - Trenton - Duke Energy Florida, LLC - 63995<br>
+    
+        &nbsp;&nbsp;status: (U) Under construction, less than or equal to 50 percent complete -> (V) Under construction, more than 50 percent complete <br>
+    
+
+    CA - 10 MW - Vallecito - Viridity Energy Solutions, Inc. - 62801<br>
+    
+        &nbsp;&nbsp;status: (V) Under construction, more than 50 percent complete -> operation <br>
+    
+        &nbsp;&nbsp;date: 2021-03 -> 2021-02 <br>
+    
+
+    CA - 10 MW - Hecate Energy Johanna Facility - Hecate Grid, LLC - 62889<br>
+    
+        &nbsp;&nbsp;date: 2021-04 -> 2021-06 <br>
+    
+
+
+
+
+<br>
+<h4>2021-03</h4>
+New projects (9): <br>
+
+NY - 300 MW - NISA Electric Generation Project - NYC ENERGY LLC - 61331<br>
+
+CA - 88 MW - RE Garland - Southern Power Co - 60233<br>
+
+CA - 72 MW - RE Tranquillity - Southern Power Co - 59939<br>
+
+CA - 70 MW - JVR Energy Park LLC - JVR Energy Park LLC - 64428<br>
+
+CA - 46 MW - Slate Hybrid - RE Slate 1 LLC - 63727<br>
+
+CA - 40 MW - Painter Energy Storage - Painter Energy Storage, LLC - 62729<br>
+
+CA - 33 MW - Slate Hybrid - RE Slate 1 LLC - 63727<br>
+
+CT - 20 MW - Pure Hedge LLC - Pure Hedge LLC - 50736<br>
+
+CA - 10 MW - Slate Hybrid - RE Slate 1 LLC - 63727<br>
+
+
+<br>
+Updated projects (22):<br>
+
+    CA - 300 MW - Slate Hybrid - RE Slate 1 LLC - 63727<br>
+    
+        &nbsp;&nbsp;entity name: RE Slate LLC -> RE Slate 1 LLC <br>
+    
+        &nbsp;&nbsp;status: (L) Regulatory approvals pending. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    MA - 150 MW - Cranberry Point Energy Storage - Cranberry Point Energy Storage LLC - 62844<br>
+    
+        &nbsp;&nbsp;date: 2023-05 -> 2024-06 <br>
+    
+
+    CA - 117 MW - Fifth Standard Solar PV, LLC (Hybrid) - RWE Renewables Americas LLC - 64197<br>
+    
+        &nbsp;&nbsp;date: 2022-12 -> 2022-09 <br>
+    
+
+    CA - 115 MW - Blythe Solar III, LLC Hybrid - Blythe Solar III, LLC - 60094<br>
+    
+        &nbsp;&nbsp;status: (U) Under construction, less than or equal to 50 percent complete -> (V) Under construction, more than 50 percent complete <br>
+    
+
+    CA - 100 MW - AES ES ALAMITOS, LLC - AES ES Alamitos, LLC - 61204<br>
+    
+        &nbsp;&nbsp;status: (V) Under construction, more than 50 percent complete -> operation <br>
+    
+
+    TX - 100 MW - Madero Grid - Madero Grid, LLC - 63757<br>
+    
+        &nbsp;&nbsp;date: 2021-12 -> 2022-01 <br>
+    
+
+    TX - 100 MW - Ignacio Grid Energy Storage System - Ignacio Grid, LLC - 64089<br>
+    
+        &nbsp;&nbsp;date: 2022-01 -> 2022-03 <br>
+    
+
+    CA - 60 MW - Cal Flats BESS - CD Arevon USA, Inc. - 63930<br>
+    
+        &nbsp;&nbsp;entity id: 63600 -> 61230 <br>
+    
+        &nbsp;&nbsp;entity name: Cal Flats BESS, LLC -> CD Arevon USA, Inc. <br>
+    
+        &nbsp;&nbsp;date: 2021-06 -> 2021-07 <br>
+    
+
+    CA - 60 MW - Coso Battery Storage - Coso Battery Storage LLC - 63943<br>
+    
+        &nbsp;&nbsp;date: 2021-06 -> 2021-08 <br>
+    
+
+    AZ - 50 MW - El Sol BESS - Arizona Public Service Co - 62964<br>
+    
+        &nbsp;&nbsp;date: 2021-12 -> 2022-12 <br>
+    
+
+    CA - 40 MW - Fallbrook Energy Storage - San Diego Gas & Electric Co - 61365<br>
+    
+        &nbsp;&nbsp;date: 2021-05 -> 2021-12 <br>
+    
+
+    AZ - 38 MW - Foothills Solar Plant Hybrid - Arizona Public Service Co - 57997<br>
+    
+        &nbsp;&nbsp;date: 2021-12 -> 2022-12 <br>
+    
+
+    AZ - 36 MW - Gila Bend Hybrid - Arizona Public Service Co - 59020<br>
+    
+        &nbsp;&nbsp;date: 2021-12 -> 2022-12 <br>
+    
+
+    CA - 35 MW - Desert Harvest II LLC - Desert Harvest II LLC - 64103<br>
+    
+        &nbsp;&nbsp;status: (TS) Construction complete, but not yet in commercial operation -> operation <br>
+    
+        &nbsp;&nbsp;date: 2021-02 -> 2021-01 <br>
+    
+
+    CA - 30 MW - Top Gun Energy Storage - San Diego Gas & Electric Co - 61366<br>
+    
+        &nbsp;&nbsp;date: 2021-04 -> 2021-05 <br>
+    
+
+    CA - 20 MW - Renz Energy Storage - Pacific Gas & Electric Co. - 63529<br>
+    
+        &nbsp;&nbsp;plant name: Llagas Energy Storage -> Renz Energy Storage <br>
+    
+
+    AZ - 17 MW - Cotton Center Solar Hybrid - Arizona Public Service Co - 57561<br>
+    
+        &nbsp;&nbsp;date: 2021-12 -> 2022-12 <br>
+    
+
+    AZ - 17 MW - Paloma Solar Hybrid - Arizona Public Service Co - 57562<br>
+    
+        &nbsp;&nbsp;date: 2021-12 -> 2022-12 <br>
+    
+
+    AZ - 16 MW - Hyder Solar Hybrid - Arizona Public Service Co - 57563<br>
+    
+        &nbsp;&nbsp;date: 2021-12 -> 2022-12 <br>
+    
+
+    HI - 15 MW - Paeahu Solar Hybrid - Paeahu Solar LLC - 62534<br>
+    
+        &nbsp;&nbsp;date: 2022-12 -> 2023-04 <br>
+    
+
+    AZ - 14 MW - Hyder II Hybrid - Arizona Public Service Co - 58383<br>
+    
+        &nbsp;&nbsp;date: 2021-12 -> 2022-12 <br>
+    
+
+    AZ - 10 MW - Desert Star Hybrid - Arizona Public Service Co - 62965<br>
+    
+        &nbsp;&nbsp;date: 2021-12 -> 2022-12 <br>
+    
+
+
+
+
+<br>
+<h4>2021-02</h4>
+New projects (5): <br>
+
+TX - 100 MW - Bat Cave - Broad Reach Power - 64312<br>
+
+TX - 100 MW - North Fork TX - Broad Reach Power - 64317<br>
+
+CA - 63 MW - Blythe Solar 110, LLC - Blythe Solar 110, LLC - 60093<br>
+
+CA - 11 MW - Camino Solar Hybrid - Avangrid Renewables LLC - 63508<br>
+
+CA - 10 MW - Sierra - Broad Reach Power - 64320<br>
+
+
+<br>
+Updated projects (20):<br>
+
+    CA - 300 MW - Dynegy Moss Landing Power Plant Hybrid - Dynegy -Moss Landing LLC - 260<br>
+    
+        &nbsp;&nbsp;date: 2020-12 -> 2021-03 <br>
+    
+
+    TX - 260 MW - DeCordova Steam Electric Station - Luminant Generation Company LLC - 8063<br>
+    
+        &nbsp;&nbsp;date: 2021-07 -> 2022-02 <br>
+    
+
+    MT - 200 MW - Haymaker Hybrid - Haymaker Energy Project LLC - 63878<br>
+    
+        &nbsp;&nbsp;date: 2021-12 -> 2022-12 <br>
+    
+
+    NM - 150 MW - Arroyo Solar Energy Storage Hybrid - Arroyo Solar LLC - 63172<br>
+    
+        &nbsp;&nbsp;net summer capacity (mw): 40 -> 150 <br>
+    
+        &nbsp;&nbsp;mw: 40.0 -> 150.0 <br>
+    
+
+    CA - 117 MW - Fifth Standard Solar PV, LLC (Hybrid) - RWE Renewables Americas LLC - 64197<br>
+    
+        &nbsp;&nbsp;plant name: Fifth Standard Solar PV, LLC -> Fifth Standard Solar PV, LLC (Hybrid) <br>
+    
+
+    TX - 100 MW - Chisholm Grid Energy Storage System - Chisholm Grid, LLC - 63737<br>
+    
+        &nbsp;&nbsp;entity name: Astral Electricity, LLC -> Chisholm Grid, LLC <br>
+    
+
+    TX - 100 MW - TX17 Nickel Prairie Storage - Key Capture Energy - 63880<br>
+    
+        &nbsp;&nbsp;date: 2021-12 -> 2022-12 <br>
+    
+
+    TX - 80 MW - Big Star Solar, LLC (Hybrid) - RWE Renewables Americas LLC - 64202<br>
+    
+        &nbsp;&nbsp;plant name: Big Star Solar, LLC -> Big Star Solar, LLC (Hybrid) <br>
+    
+
+    CA - 50 MW - Maverick Solar 6, LLC - Maverick Solar 6, LLC - 64105<br>
+    
+        &nbsp;&nbsp;status: (T) Regulatory approvals received. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 40 MW - Fallbrook Energy Storage - San Diego Gas & Electric Co - 61365<br>
+    
+        &nbsp;&nbsp;status: (P) Planned for installation, but regulatory approvals not initiated -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 35 MW - Desert Harvest II LLC - Desert Harvest II LLC - 64103<br>
+    
+        &nbsp;&nbsp;status: (V) Under construction, more than 50 percent complete -> (TS) Construction complete, but not yet in commercial operation <br>
+    
+        &nbsp;&nbsp;date: 2020-12 -> 2021-02 <br>
+    
+
+    CA - 30 MW - Top Gun Energy Storage - San Diego Gas & Electric Co - 61366<br>
+    
+        &nbsp;&nbsp;date: 2021-03 -> 2021-04 <br>
+    
+
+    CA - 20 MW - Hecate Energy Johanna Facility - Hecate Grid, LLC - 62889<br>
+    
+        &nbsp;&nbsp;date: 2021-01 -> 2021-04 <br>
+    
+
+    CA - 20 MW - Johanna Energy Center, LLC - Santa Ana Storage 1 - 63843<br>
+    
+        &nbsp;&nbsp;date: 2021-01 -> 2021-05 <br>
+    
+
+    CA - 11 MW - Silverstrand Grid Energy Storage System - Silverstrand Grid, LLC - 63735<br>
+    
+        &nbsp;&nbsp;status: (U) Under construction, less than or equal to 50 percent complete -> (V) Under construction, more than 50 percent complete <br>
+    
+
+    CA - 10 MW - Vallecito - Viridity Energy Solutions, Inc. - 62801<br>
+    
+        &nbsp;&nbsp;date: 2020-12 -> 2021-03 <br>
+    
+
+    CA - 10 MW - Hecate Energy Johanna Facility - Hecate Grid, LLC - 62889<br>
+    
+        &nbsp;&nbsp;status: (L) Regulatory approvals pending. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+        &nbsp;&nbsp;date: 2021-01 -> 2021-04 <br>
+    
+
+    CA - 10 MW - Henrietta D Energy Storage LLC - Convergent Energy and Power LP - 60641<br>
+    
+        &nbsp;&nbsp;status: (U) Under construction, less than or equal to 50 percent complete -> (V) Under construction, more than 50 percent complete <br>
+    
+        &nbsp;&nbsp;date: 2021-04 -> 2021-06 <br>
+    
+
+    AR - 10 MW - Searcy Solar Hybrid - Searcy Solar, LLC - 62617<br>
+    
+        &nbsp;&nbsp;status: (P) Planned for installation, but regulatory approvals not initiated -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 10 MW - Goleta Grid Resiliency - esVolta LP - 63736<br>
+    
+        &nbsp;&nbsp;entity id: 62742 -> 61198 <br>
+    
+        &nbsp;&nbsp;entity name: ENEL BELLA ENERGY STORAGE, LLC -> esVolta LP <br>
+    
+
+
+
+
+<br>
+<h4>2021-01</h4>
+New projects (13): <br>
+
+NY - 650 MW - Swiftsure - Hecate Grid Swiftsure LLC - 64235<br>
+
+CA - 500 MW - Bellefield 2 Solar & Energy Storage Farm - 26SB 8me LLC - 64209<br>
+
+AZ - 500 MW - Red Antelope Solar & Energy Storage Farm - 302PN 8me LLC - 64208<br>
+
+CA - 500 MW - Bellefield Solar and Energy Storage Farm - 50LW 8me LLC - 64210<br>
+
+NM - 200 MW - Rockmont Solar and Storage Project - 201LC 8me LLC - 64216<br>
+
+CA - 200 MW - Aratina Solar Center 2 - 45MG 8me LLC - 64215<br>
+
+CA - 117 MW - Fifth Standard Solar PV, LLC - RWE Renewables Americas LLC - 64197<br>
+
+NY - 100 MW - Clermont - Hecate Grid Clermont 1 LLC - 64236<br>
+
+TX - 80 MW - Big Star Solar, LLC - RWE Renewables Americas LLC - 64202<br>
+
+HI - 60 MW - AES Maui Kuihelani Solar Hybrid - AES Distributed Energy - 64256<br>
+
+CO - 25 MW - Pike Solar Hybrid - Pike Solar LLC - 64212<br>
+
+TN - 20 MW - Vonore Battery Energy Storage System - Tennessee Valley Authority - 64255<br>
+
+CA - 10 MW - Hecate Energy Johanna Facility - Hecate Grid, LLC - 62889<br>
+
+
+<br>
+Updated projects (14):<br>
+
+    FL - 409 MW - Manatee Solar Energy Center - Florida Power & Light Co - 60014<br>
+    
+        &nbsp;&nbsp;status: (P) Planned for installation, but regulatory approvals not initiated -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 200 MW - Diablo Energy Storage - Diablo Energy Storage, LLC - 62175<br>
+    
+        &nbsp;&nbsp;net summer capacity (mw): 250 -> 200 <br>
+    
+        &nbsp;&nbsp;mw: 250.0 -> 200.0 <br>
+    
+
+    CA - 115 MW - Blythe Solar II, LLC - Blythe Solar II, LLC - 60092<br>
+    
+        &nbsp;&nbsp;status: (U) Under construction, less than or equal to 50 percent complete -> (V) Under construction, more than 50 percent complete <br>
+    
+
+    TX - 100 MW - TX17 Nickel Prairie Storage - Key Capture Energy - 63880<br>
+    
+        &nbsp;&nbsp;entity id: 63552 -> 63289 <br>
+    
+
+    TX - 100 MW - Madero Grid - Madero Grid, LLC - 63757<br>
+    
+        &nbsp;&nbsp;net summer capacity (mw): 200 -> 100 <br>
+    
+        &nbsp;&nbsp;mw: 200.0 -> 100.0 <br>
+    
+
+    TX - 100 MW - Ignacio Grid Energy Storage System - Ignacio Grid, LLC - 64089<br>
+    
+        &nbsp;&nbsp;date: 2021-06 -> 2022-01 <br>
+    
+
+    TX - 100 MW - TX18 Cottage Meadow Storage - Key Capture Energy - 63879<br>
+    
+        &nbsp;&nbsp;entity id: 63552 -> 63289 <br>
+    
+
+    GA - 40 MW - Cool Springs Solar (Hybrid) - Cool Springs Solar, LLC - 63721<br>
+    
+        &nbsp;&nbsp;status: (T) Regulatory approvals received. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 35 MW - Desert Harvest II LLC - Desert Harvest II LLC - 64103<br>
+    
+        &nbsp;&nbsp;status: (T) Regulatory approvals received. Not under construction -> (V) Under construction, more than 50 percent complete <br>
+    
+
+    OR - 30 MW - Wheatridge Hybrid - Wheatridge Wind Holdings, LLC - 62745<br>
+    
+        &nbsp;&nbsp;entity name: Wheatridge Wind Energy, LLC -> Wheatridge Wind Holdings, LLC <br>
+    
+
+    NY - 20 MW - Willis Battery Storage - New York Power Authority - 63238<br>
+    
+        &nbsp;&nbsp;date: 2021-06 -> 2021-09 <br>
+    
+
+    CA - 11 MW - Silverstrand Grid Energy Storage System - Silverstrand Grid, LLC - 63735<br>
+    
+        &nbsp;&nbsp;status: (L) Regulatory approvals pending. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 10 MW - Henrietta D Energy Storage LLC - Convergent Energy and Power LP - 60641<br>
+    
+        &nbsp;&nbsp;date: 2021-03 -> 2021-04 <br>
+    
+
+    CA - 10 MW - Goleta Grid Resiliency - ENEL BELLA ENERGY STORAGE, LLC - 63736<br>
+    
+        &nbsp;&nbsp;date: 2021-06 -> 2022-12 <br>
+    
+
+
+
+
+<br>
+<h4>2020-12</h4>
+New projects (4): <br>
+
+TX - 120 MW - Azure Sky Wind Project, LLC Hybrid - Azure Sky Wind Project, LLC - 64164<br>
+
+TX - 100 MW - Forest Grove - Dodd - Renewable Energy Ventures LLC - 64131<br>
+
+CA - 50 MW - Maverick Solar 6, LLC - Maverick Solar 6, LLC - 64105<br>
+
+CA - 35 MW - Desert Harvest II LLC - Desert Harvest II LLC - 64103<br>
+
+
+<br>
+Updated projects (6):<br>
+
+    CA - 182 MW - Elkhorn Battery Energy Storage System - Pacific Gas & Electric Co. - 62564<br>
+    
+        &nbsp;&nbsp;status: (L) Regulatory approvals pending. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+        &nbsp;&nbsp;date: 2021-03 -> 2021-07 <br>
+    
+
+    NV - 100 MW - Dry Lake Solar Energy Center - Nevada Power Co - 63933<br>
+    
+        &nbsp;&nbsp;entity id: 63603 -> 13407 <br>
+    
+        &nbsp;&nbsp;entity name: Nevada Power Company DBA NV Energy -> Nevada Power Co <br>
+    
+
+    MA - 25 MW - Outer Cape Community Battery - Eversource - 62604<br>
+    
+        &nbsp;&nbsp;status: (L) Regulatory approvals pending. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 20 MW - Johanna Energy Center, LLC - Santa Ana Storage 1 - 63843<br>
+    
+        &nbsp;&nbsp;status: (U) Under construction, less than or equal to 50 percent complete -> (V) Under construction, more than 50 percent complete <br>
+    
+        &nbsp;&nbsp;date: 2020-10 -> 2021-01 <br>
+    
+
+    CA - 10 MW - Henrietta D Energy Storage LLC - Convergent Energy and Power LP - 60641<br>
+    
+        &nbsp;&nbsp;status: (L) Regulatory approvals pending. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 10 MW - Goleta Grid Resiliency - ENEL BELLA ENERGY STORAGE, LLC - 63736<br>
+    
+        &nbsp;&nbsp;date: 2021-03 -> 2021-06 <br>
+    
+
+
+
+
+<br>
+<h4>2020-11</h4>
+New projects (4): <br>
+
+TX - 260 MW - DeCordova Steam Electric Station - Luminant Generation Company LLC - 8063<br>
+
+TX - 100 MW - Ignacio Grid Energy Storage System - Ignacio Grid, LLC - 64089<br>
+
+HI - 20 MW - Kahana Solar, LLC - Kahana Solar, LLC - 64095<br>
+
+HI - 15 MW - Barbers Point Solar, LLC - Barbers Point Solar, LLC - 64094<br>
+
+
+<br>
+Updated projects (8):<br>
+
+    TX - 200 MW - Madero Grid - Madero Grid, LLC - 63757<br>
+    
+        &nbsp;&nbsp;date: 2021-09 -> 2021-12 <br>
+    
+
+    CA - 115 MW - Blythe Solar II, LLC - Blythe Solar II, LLC - 60092<br>
+    
+        &nbsp;&nbsp;status: (P) Planned for installation, but regulatory approvals not initiated -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 115 MW - Blythe Solar III, LLC Hybrid - Blythe Solar III, LLC - 60094<br>
+    
+        &nbsp;&nbsp;status: (P) Planned for installation, but regulatory approvals not initiated -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 100 MW - Saticoy - Ventura Energy Storage, LLC - 63891<br>
+    
+        &nbsp;&nbsp;status: (T) Regulatory approvals received. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 100 MW - Luna Storage - Luna Storage, LLC - 63685<br>
+    
+        &nbsp;&nbsp;status: (P) Planned for installation, but regulatory approvals not initiated -> (L) Regulatory approvals pending. Not under construction <br>
+    
+
+    AK - 46 MW - Soldotna - Homer Electric Assn Inc - 57206<br>
+    
+        &nbsp;&nbsp;status: (P) Planned for installation, but regulatory approvals not initiated -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    HI - 14 MW - AES Kekaha Solar, LLC Hybrid - AES Distributed Energy - 63280<br>
+    
+        &nbsp;&nbsp;date: 2020-09 -> 2021-04 <br>
+    
+
+    CA - 10 MW - Chevron - Lost Hills Hybrid - GSRP - 63545<br>
+    
+        &nbsp;&nbsp;date: 2021-08 -> 2021-09 <br>
+    
+
+
+
+
+<br>
+<h4>2020-10</h4>
+New projects (2): <br>
+
+CA - 60 MW - Coso Battery Storage - Coso Battery Storage LLC - 63943<br>
+
+FL - 11 MW - Trenton - Duke Energy Florida, LLC - 63995<br>
+
+
+<br>
+Updated projects (9):<br>
+
+    CA - 300 MW - Dynegy Moss Landing Power Plant Hybrid - Dynegy -Moss Landing LLC - 260<br>
+    
+        &nbsp;&nbsp;status: (U) Under construction, less than or equal to 50 percent complete -> (V) Under construction, more than 50 percent complete <br>
+    
+
+    CA - 300 MW - Slate Hybrid - RE Slate LLC - 63727<br>
+    
+        &nbsp;&nbsp;date: 2020-12 -> 2021-10 <br>
+    
+
+    TX - 200 MW - Madero Grid - Madero Grid, LLC - 63757<br>
+    
+        &nbsp;&nbsp;date: 2021-07 -> 2021-09 <br>
+    
+
+    TX - 100 MW - Chisholm Grid Energy Storage System - Astral Electricity, LLC - 63737<br>
+    
+        &nbsp;&nbsp;status: (L) Regulatory approvals pending. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 30 MW - Top Gun Energy Storage - San Diego Gas & Electric Co - 61366<br>
+    
+        &nbsp;&nbsp;date: 2021-01 -> 2021-03 <br>
+    
+
+    CA - 20 MW - Hecate Energy Johanna Facility - Hecate Grid, LLC - 62889<br>
+    
+        &nbsp;&nbsp;status: (L) Regulatory approvals pending. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+
+    CA - 10 MW - Stanton Energy Reliability Center Hybrid - Wellhead Energy, LLC - 60698<br>
+    
+        &nbsp;&nbsp;status: (OT) Other -> operation <br>
+    
+        &nbsp;&nbsp;date: 2020-09 -> 2020-08 <br>
+    
+
+    CA - 10 MW - Stanton Energy Reliability Center Hybrid - Wellhead Energy, LLC - 60698<br>
+    
+        &nbsp;&nbsp;status: (OT) Other -> operation <br>
+    
+        &nbsp;&nbsp;date: 2020-09 -> 2020-08 <br>
+    
+
+    CA - 10 MW - Henrietta D Energy Storage LLC - Convergent Energy and Power LP - 60641<br>
+    
+        &nbsp;&nbsp;date: 2021-01 -> 2021-03 <br>
+    
+
+
+
+
+<br>
+<h4>2020-09</h4>
+New projects (81): <br>
+
+FL - 409 MW - Manatee Solar Energy Center - Florida Power & Light Co - 60014<br>
+
+CA - 300 MW - Dynegy Moss Landing Power Plant Hybrid - Dynegy -Moss Landing LLC - 260<br>
+
+CA - 300 MW - Slate Hybrid - RE Slate LLC - 63727<br>
+
+AZ - 300 MW - Atlas - 174 Power Global Corp. - 63798<br>
+
+NV - 280 MW - Gemini Solar - Gemini Solar - 63352<br>
+
+CA - 250 MW - Gateway Energy Storage System - Gateway Energy Storage, LLC - 63834<br>
+
+CA - 250 MW - Diablo Energy Storage - Diablo Energy Storage, LLC - 62175<br>
+
+CA - 230 MW - McCoy Solar Energy Project Hybrid - McCoy Solar, LLC - 58462<br>
+
+TX - 200 MW - Madero Grid - Madero Grid, LLC - 63757<br>
+
+NY - 200 MW - NY2 Battery - Key Capture Energy - 63584<br>
+
+MT - 200 MW - Haymaker Hybrid - Haymaker Energy Project LLC - 63878<br>
+
+OK - 200 MW - Skeleton Creek Energy Center Hybrid - Skeleton Creek Energy Center - 62494<br>
+
+CA - 182 MW - Elkhorn Battery Energy Storage System - Pacific Gas & Electric Co. - 62564<br>
+
+CA - 150 MW - Eland Solar & Storage Center, Phase 1 Hybrid - 68SF 8me LLC - 61168<br>
+
+MA - 150 MW - Cranberry Point Energy Storage - Cranberry Point Energy Storage LLC - 62844<br>
+
+CA - 150 MW - Eland Solar & Storage Center, Phase 2 Hybrid - 69SV 8me LLC - 61169<br>
+
+NV - 135 MW - Southern Bighorn Solar Hybrid - 300MS 8me LLC - 63113<br>
+
+NY - 129 MW - Ravenswood - Helix Ravenswood, LLC - 2500<br>
+
+CO - 125 MW - Neptune Energy Center Hybrid - Neptune Energy Center, LLC - 63731<br>
+
+CA - 115 MW - Blythe Solar II, LLC - Blythe Solar II, LLC - 60092<br>
+
+CA - 115 MW - Blythe Solar III, LLC Hybrid - Blythe Solar III, LLC - 60094<br>
+
+CA - 100 MW - AES ES ALAMITOS, LLC - AES ES Alamitos, LLC - 61204<br>
+
+CA - 100 MW - Saticoy - Ventura Energy Storage, LLC - 63891<br>
+
+TX - 100 MW - Chisholm Grid Energy Storage System - Astral Electricity, LLC - 63737<br>
+
+CA - 100 MW - Luna Storage - Luna Storage, LLC - 63685<br>
+
+TX - 100 MW - TX17 Nickel Prairie Storage - Key Capture Energy - 63880<br>
+
+TX - 100 MW - TX18 Cottage Meadow Storage - Key Capture Energy - 63879<br>
+
+CO - 100 MW - Thunder Wolf Energy Center Hybrid - Thunder Wolf Energy Center, LLC - 63776<br>
+
+NV - 100 MW - Dry Lake Solar Energy Center - Nevada Power Company DBA NV Energy - 63933<br>
+
+NY - 98 MW - Ravenswood - Helix Ravenswood, LLC - 2500<br>
+
+NV - 90 MW - Townsite Solar Project Hybrid - Townsite Solar, LLC - 60654<br>
+
+NY - 89 MW - Ravenswood - Helix Ravenswood, LLC - 2500<br>
+
+TX - 77 MW - Azure Sky Solar - Azure Sky Solar Project, LLC - 63905<br>
+
+NV - 75 MW - Arrow Canyon Solar Hybrid - Arrow Canyon Solar LLC - 62248<br>
+
+CA - 60 MW - Cal Flats BESS - Cal Flats BESS, LLC - 63930<br>
+
+HI - 60 MW - Kupehau - 174 Power Global Corp. - 63799<br>
+
+HI - 52 MW - Ho'Ohana Solar 1 - Ho'Ohana Solar 1 LLC - 63723<br>
+
+TX - 50 MW - Lily Solar Hybrid - Lily Solar, LLC - 63892<br>
+
+TX - 50 MW - TREX US Red Holly - TREX US Red Holly LLC - 63202<br>
+
+AZ - 50 MW - El Sol BESS - Arizona Public Service Co - 62964<br>
+
+CA - 50 MW - Aratina Solar Center 1 Hybrid - 91MC 8me LLC - 61167<br>
+
+AK - 46 MW - Soldotna - Homer Electric Assn Inc - 57206<br>
+
+TX - 40 MW - 2W Permian Solar Project Hybrid - 2W Permian Solar, LLC - 63255<br>
+
+CA - 40 MW - Fallbrook Energy Storage - San Diego Gas & Electric Co - 61365<br>
+
+GA - 40 MW - Cool Springs Solar (Hybrid) - Cool Springs Solar, LLC - 63721<br>
+
+GA - 40 MW - Hickory Park Solar Hybrid - RWE Renewables Americas LLC - 63522<br>
+
+NM - 40 MW - Arroyo Solar Energy Storage Hybrid - Arroyo Solar LLC - 63172<br>
+
+CA - 40 MW - EDPR CA Solar Park VI LLC (CA) Hybrid - EDPR CA Solar Park VI LLC - 62892<br>
+
+AZ - 38 MW - Foothills Solar Plant Hybrid - Arizona Public Service Co - 57997<br>
+
+CA - 36 MW - Dynegy Oakland Power Plant - Dynegy Oakland, LLC - 6211<br>
+
+AZ - 36 MW - Gila Bend Hybrid - Arizona Public Service Co - 59020<br>
+
+CA - 30 MW - Top Gun Energy Storage - San Diego Gas & Electric Co - 61366<br>
+
+OR - 30 MW - Wheatridge Hybrid - Wheatridge Wind Energy, LLC - 62745<br>
+
+HI - 30 MW - AES Waikoloa Solar Hybrid - AES Distributed Energy - 63900<br>
+
+HI - 30 MW - Hale Kuawehi Solar Hybrid - Hale Kuawehi Solar LLC - 62529<br>
+
+MA - 25 MW - Outer Cape Community Battery - Eversource - 62604<br>
+
+CA - 25 MW - Cascade Energy Storage, LLC - Enel Green Power NA, Inc. - 61801<br>
+
+CA - 20 MW - Johanna Energy Center, LLC - Santa Ana Storage 1 - 63843<br>
+
+CA - 20 MW - Hecate Energy Johanna Facility - Hecate Grid, LLC - 62889<br>
+
+NY - 20 MW - Willis Battery Storage - New York Power Authority - 63238<br>
+
+CA - 20 MW - Llagas Energy Storage - Pacific Gas & Electric Co. - 63529<br>
+
+AZ - 17 MW - Cotton Center Solar Hybrid - Arizona Public Service Co - 57561<br>
+
+AZ - 17 MW - Paloma Solar Hybrid - Arizona Public Service Co - 57562<br>
+
+AZ - 16 MW - Hyder Solar Hybrid - Arizona Public Service Co - 57563<br>
+
+HI - 15 MW - Paeahu Solar Hybrid - Paeahu Solar LLC - 62534<br>
+
+HI - 14 MW - AES Kekaha Solar, LLC Hybrid - AES Distributed Energy - 63280<br>
+
+AZ - 14 MW - Hyder II Hybrid - Arizona Public Service Co - 58383<br>
+
+NM - 12 MW - Taos Mesa Energy Facility Hybrid - Taos Mesa Energy Facility, LLC - 63728<br>
+
+CA - 11 MW - Silverstrand Grid Energy Storage System - Silverstrand Grid, LLC - 63735<br>
+
+CA - 11 MW - Camino Solar - Avangrid Renewables LLC - 63508<br>
+
+OK - 10 MW - Rush Springs Energy Storage (BA) - Rush Springs Energy Storage - 63458<br>
+
+CA - 10 MW - Stanton Energy Reliability Center Hybrid - Wellhead Energy, LLC - 60698<br>
+
+CA - 10 MW - Stanton Energy Reliability Center Hybrid - Wellhead Energy, LLC - 60698<br>
+
+CA - 10 MW - Vallecito - Viridity Energy Solutions, Inc. - 62801<br>
+
+CA - 10 MW - Henrietta D Energy Storage LLC - Convergent Energy and Power LP - 60641<br>
+
+CA - 10 MW - Goleta Grid Resiliency - ENEL BELLA ENERGY STORAGE, LLC - 63736<br>
+
+CA - 10 MW - Painter Energy Storage - Painter Energy Storage, LLC - 62729<br>
+
+CA - 10 MW - Chevron - Lost Hills Hybrid - GSRP - 63545<br>
+
+AZ - 10 MW - Desert Star Hybrid - Arizona Public Service Co - 62965<br>
+
+AR - 10 MW - Searcy Solar Hybrid - Searcy Solar, LLC - 62617<br>
+
+CA - 10 MW - Sierra Energy Storage, LLC - Enel Green Power NA, Inc. - 61803<br>
+
+
+<br>
+Updated projects (0):<br>
+
+
+
+
+<br>
+<h4></h4>
+New projects (0): <br>
+
+
+<br>
+Updated projects (0):<br>
+
+
+
+
+
+      
+    </div> <!-- end container-xl-->
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- leafletjs  -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    
+    
+    <!-- Page level plugins -->
+    <!-- this is a test here, lets see if this will lead to anything -->
+    <script src="vendor/uplot-1.6.16/uPlot.iife.min.js"></script>
+    <script src="vendor/uplot-1.6.16/distr.js"></script>
+    <script src="vendor/uplot-1.6.16/quadtree.js"></script>
+    <script src="vendor/uplot-1.6.16/grouped-bars.js"></script>
+    <script>
+        let xs = ["hello",2,3];
+        let vals = [4,5,6];
+        let vals2 = [10,9,8];
+
+        let data = [
+           xs,
+           vals,
+           vals2,
+           [1,2,3]
+
+        //    xs.map((t, i) => vals[Math.floor(Math.random() * vals.length)]),
+        ];
+
+        let o = {ori: 0, dir: 1, stacked: false}
+        let ori = o.ori;
+        let dir = o.dir;
+        let stacked = o.stacked;
+
+
+        const opts = {
+            width: 600,
+            height: 400,
+            // => is returning a function
+            // tzDate: ts => uPlot.tzDate(new Date(ts * 1e3), "utc"),
+            title: "bla title",
+            axes: [
+                {},
+                {
+                    label: "power in GW",
+                    side: 1,
+                    scale: "default",
+                },
+            ],
+            series: [
+						{},
+						{
+							label: "planning",
+							fill: "#33BB55",
+							scale: 'default',
+						},
+						{
+							label:	"construction",
+							fill: "#B56FAB",
+							scale: 'default',
+						},
+                        {
+							label:	"operation",
+							fill: "#006FAB",
+							scale: 'default',
+						},
+					],
+            plugins: [
+                    seriesBarsPlugin({
+							ori,
+							dir,
+							stacked,
+						}),
+					],
+        };
+        let u = new uPlot(opts, data, document.getElementById("uPlotArea"));
+    </script>
+  
+  </body>
+</html>
