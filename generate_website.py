@@ -29,6 +29,59 @@ COUNTRY_EMOJI_DI = {
     "france": "🇫🇷",
 }
 
+US_STATES_LONG_TO_SHORT = {
+    "alabama" :"AL",
+    "alaska" :"AK",
+    "arizona" :"AZ",
+    "arkansas" :"AR",
+    "california" :"CA",
+    "colorado" :"CO",
+    "connecticut" :"CT",
+    "delaware" :"DE",
+    "florida" :"FL",
+    "georgia" :"GA",
+    "hawaii" :"HI",
+    "idaho" :"ID",
+    "illinois" :"IL",
+    "indiana" :"IN",
+    "iowa" :"IA",
+    "kansas" :"KS",
+    "kentucky" :"KY",
+    "louisiana" :"LA",
+    "maine" :"ME",
+    "maryland" :"MD",
+    "massachusetts" :"MA",
+    "michigan" :"MI",
+    "minnesota" :"MN",
+    "mississippi" :"MS",
+    "missouri" :"MO",
+    "montana" :"MT",
+    "nebraska" :"NE",
+    "nevada" :"NV",
+    "new hampshire" :"NH",
+    "new jersey" :"NJ",
+    "new mexico" :"NM",
+    "new york" :"NY",
+    "north carolina" :"NC",
+    "north dakota" :"ND",
+    "ohio" :"OH",
+    "oklahoma" :"OK",
+    "oregon" :"OR",
+    "pennsylvania" :"PA",
+    "rhode island" :"RI",
+    "south carolina" :"SC",
+    "south dakota" :"SD",
+    "tennessee" :"TN",
+    "texas" :"TX",
+    "utah" :"UT",
+    "vermont" :"VT",
+    "virginia" :"VA",
+    "washington" :"WA",
+    "west virginia" :"WV",
+    "wisconsin" :"WI",
+    "wyoming" :"WY",
+}
+
 
 
 
@@ -304,7 +357,10 @@ def download_and_extract_eia_data():
             read_eia_data_single_month(folder)
 
 
-def gen_eia_page(pr_len, eia_data):
+def gen_eia_page(pr_len, eia_data, projects):
+
+    gen_ids_from_projects = set([p["eia_plant_id"] for p in projects])
+
     file_loader = FileSystemLoader('templates')
     env = Environment(loader=file_loader)
     output_dir = 'docs'
@@ -314,6 +370,7 @@ def gen_eia_page(pr_len, eia_data):
         "now": dt.datetime.utcnow(),
         "pr_len": pr_len, 
         "summary": eia_data,
+        "gen_ids_from_projects": gen_ids_from_projects,
     }
 
     template = env.get_template(template_name)
@@ -436,7 +493,6 @@ def project_is_slow(go_live, mwh, mw):
         if not (mwh >= 1000 or mw >=1000):
             return True
     return False
-
 
 
 def prepare_projects(projects):
@@ -607,9 +663,6 @@ def prepare_projects(projects):
 
     return projects, summaries
 
-
-
-
 def gen_projects_template(projects, template_name, pr_len):
     file_loader = FileSystemLoader('templates')
     env = Environment(loader=file_loader)
@@ -655,6 +708,48 @@ def gen_individual_pages(projects, pr_len, eia_data):
             f.write(template.render(p=p, g_l=generate_link, extra=extra))
 
 
+def match_eia_projects_with_mpt_projects(eia_data, projects):
+    """ match by state and then print in desceding order of capacity"""
+
+    pr_by_state = defaultdict(lambda: {"eia": [], "mpt": []})
+
+    mpt_plant_ids = set([p["eia_plant_id"] for p in projects])
+
+    for v in eia_data["projects"].values():
+        # ignore if there are multiple generator codes
+        pr = list(v.values())[0]["current"]
+        if pr["plant id"] not in mpt_plant_ids:
+            pr_by_state[pr["plant state"]]["eia"].append(pr)
+    
+    for pr in projects:
+        if pr["country"] != "usa":
+            continue
+        if not pr["state"]:
+            continue
+        
+        if not pr["eia_plant_id"]:
+            state_short = US_STATES_LONG_TO_SHORT.get(pr["state"])
+            if state_short:
+                pr_by_state[state_short]["mpt"].append(pr)
+            else:
+                print("could not find state", pr["state"])
+            
+    
+    for state, projects in sorted(pr_by_state.items()):
+        print("\n\n")
+        print(state)
+        print("eia projects:")
+        eia = sorted(projects["eia"], key=lambda x:x["mw"], reverse=True)
+        for p in eia:
+            print(p["mw"], p["plant name"], p["plant id"], p["status_simple"])
+        
+        print("\nmpt projects:")
+        mpt = sorted(projects["mpt"], key=lambda x:x["mw_int"], reverse=True)
+        for p in mpt:
+            print(p["mw_int"], p["name"], p["id"], p["status"])
+
+
+
     
 def main():
     # load them twice to have different objects with different pointers
@@ -676,9 +771,12 @@ def main():
     
     gen_individual_pages(projects, pr_len, eia_data)
 
-    gen_eia_page(pr_len, eia_data)
+    gen_eia_page(pr_len, eia_data, projects)
 
     gen_raw_data_files()
+
+    # this does not have to be run every time, just for manual assignment
+    # match_eia_projects_with_mpt_projects(eia_data, projects)
 
 
 if __name__ == "__main__":
