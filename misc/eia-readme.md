@@ -10,4 +10,8 @@ Data for June 2021	Release Date: August 24, 2021 Next Release Date: September 24
 
 TODOS:
 - if there is a match, check that the status / mw are the same in both
-- on the eia data, add a checkmark if the data is also shown on our map
+
+- [x] on the eia data, add a checkmark if the data is also shown on our map
+- [ ] add the link to the individual pae to the checkmark
+- [ ] add a proper footer in the base template
+- [ ] 

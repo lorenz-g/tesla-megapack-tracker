@@ -77,8 +77,8 @@ EIA big battery summary
 <h4>{{ month.month}}</h4>
 New projects ({{ month.new | length}}): <br>
 {% for pr in month.new %}
-    {{pr["plant state"]}} - {{pr.mw | int}} MW - {{pr["plant name"]}} 
-    - {{pr["entity name"]}} - {{pr["plant id"]}}
+    {{pr["plant state"]}} - {{pr.mw | int}} MW - {{pr["plant name"]}} - 
+    {{pr["entity name"]}} - {{pr["date"]}} - {{pr["status_simple"]}} - {{pr["plant id"]}}
     {% if pr["plant id"] in extra.gen_ids_from_projects %} ✅ {% endif %}<br>
 {% endfor %}
 
@@ -86,7 +86,7 @@ New projects ({{ month.new | length}}): <br>
 Updated projects ({{ month.updated | length}}):<br>
 {% for pr, changes in month.updated %}
     {{pr["plant state"]}} - {{pr.mw | int}} MW - {{pr["plant name"]}} - 
-    {{pr["entity name"]}} - {{pr["plant id"]}}
+    {{pr["entity name"]}} - {{pr["date"]}} - {{pr["status_simple"]}} - {{pr["plant id"]}}
     {% if pr["plant id"] in extra.gen_ids_from_projects %} ✅ {% endif %}<br>
     {% for change in changes %}
         &nbsp;&nbsp;{{ change.name }}: {{ change.from }} -> {{ change.to }} <br>
