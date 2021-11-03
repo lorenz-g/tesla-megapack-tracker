@@ -332,8 +332,8 @@ def download_and_extract_eia_data():
     """
 
     years = [
-        [2020, [9,12]], # before 9, there is a key error net summer capacity (mw), not digging further here
-        [2021, [1, 13]],
+        # [2020, [9,12]], # before 9, there is a key error net summer capacity (mw), not digging further here
+        [2021, [8, 13]],
     ]
     base_url = "https://www.eia.gov/electricity/monthly/archive/%s.zip"
     tables = ['Table_6_03.xlsx', 'Table_6_05.xlsx']
@@ -780,9 +780,10 @@ def main():
 
 
 if __name__ == "__main__":
+    # to download a new report, need to enable those two lines and make sure the month is correct
     # download_and_extract_eia_data()
-    # stats_eia_data()
     # read_eia_data_all_months()
+    
     main()
 
     

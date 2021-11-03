@@ -53,6 +53,8 @@ for the cars vs stationary:
   - https://www.pluspower.com/home#projects
   - https://broadreachpower.com/projects/
   - https://arevonenergy.com/portfolio/
+  - https://www.res-group.com/en/portfolio/
+  - https://octopusrenewables.com/investment-solutions/
 - authorities websites (often the applications are public)
   - e.g. [goleta planning doc](https://www.cityofgoleta.org/city-hall/planning-and-environmental-review/ceqa-review/cortona-battery-storage-project)
   - https://eplanning.blm.gov/eplanning-ui/home (this one is great as it even has a map search function)
@@ -76,4 +78,4 @@ There are many other great trackers about various tesla stats, such as:
   - Model 3 VIN tracker (not active anymore) https://www.model3vins.com/ 
   - Power tracker of big batteries in Australia: http://nemlog.com.au/show/unit/yesterday/?k1=VBBG1,VBBL1 
   - EU EVs tracker https://eu-evs.com/ 
-  
+  - https://map.evuniverse.io/#mapstart map of EV the ev industry 
