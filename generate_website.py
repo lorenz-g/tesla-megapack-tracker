@@ -178,7 +178,10 @@ def stats_eia_data():
 
             if p_id in last_report and g_id in last_report[p_id]:
                 # need to check for changes here
-                dif = check_di_difference(last_report[p_id][g_id], r, ignore=["month", "year", "status_simple"])
+                dif = check_di_difference(
+                    last_report[p_id][g_id], r, 
+                    ignore=["month", "year", "status_simple", "net summer capacity (mw)"]
+                )
                 if dif:
                     monthly_changes["updated"].append([r, dif])
                     projects_di[p_id][g_id]["changes"].append({"month": month, "li": dif})

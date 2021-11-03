@@ -9,9 +9,14 @@ Data for June 2021	Release Date: August 24, 2021 Next Release Date: September 24
 ```
 
 TODOS:
-- if there is a match, check that the status / mw are the same in both
+
+
+- [ ] add a proper footer in the base template
+
+- on the detail page mention the first time the project appeared in a eia report
+- if the eia_plant_id is set, then automatically add the estimated go live and status if it is missing
+  - go live and status should never be set if there is a eia plant id
+  - if there is a match, check that the status / mw are the same in both 
 
 - [x] on the eia data, add a checkmark if the data is also shown on our map
-- [ ] add the link to the individual pae to the checkmark
-- [ ] add a proper footer in the base template
-- [ ] 
+- [x] add the link to the individual pae to the checkmark
