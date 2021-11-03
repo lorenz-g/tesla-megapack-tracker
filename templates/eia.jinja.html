@@ -65,7 +65,7 @@ EIA big battery summary
     <li>Comparing the reports to show the changes throughout the months.</li>
     <li>Projects are sorted by the max power output.</li>
     <li>✅ indicates EIA project is also shown on the map on the 
-        <a href="all-big-batteries.html">All Big Batteries page</a></li>
+        <a href="all-big-batteries.html">All Big Batteries page</a>. You can click on the ✅ to get to the detail page.</li>
 </ul>
 
 
@@ -79,7 +79,7 @@ New projects ({{ month.new | length}}): <br>
 {% for pr in month.new %}
     {{pr["plant state"]}} - {{pr.mw | int}} MW - {{pr["plant name"]}} - 
     {{pr["entity name"]}} - {{pr["date"]}} - {{pr["status_simple"]}} - {{pr["plant id"]}}
-    {% if pr["plant id"] in extra.gen_ids_from_projects %} ✅ {% endif %}<br>
+    {% if pr["plant id"] in extra.gen_ids_from_projects %} <a href="projects/{{extra.gen_ids_from_projects[pr['plant id']]}}.html">✅</a> {% endif %}<br>
 {% endfor %}
 
 <br>
@@ -87,9 +87,9 @@ Updated projects ({{ month.updated | length}}):<br>
 {% for pr, changes in month.updated %}
     {{pr["plant state"]}} - {{pr.mw | int}} MW - {{pr["plant name"]}} - 
     {{pr["entity name"]}} - {{pr["date"]}} - {{pr["status_simple"]}} - {{pr["plant id"]}}
-    {% if pr["plant id"] in extra.gen_ids_from_projects %} ✅ {% endif %}<br>
+    {% if pr["plant id"] in extra.gen_ids_from_projects %} <a href="projects/{{extra.gen_ids_from_projects[pr['plant id']]}}.html">✅</a> {% endif %}<br>
     {% for change in changes %}
-        &nbsp;&nbsp;{{ change.name }}: {{ change.from }} -> {{ change.to }} <br>
+        &nbsp;&nbsp;{{ change.name }}: {{ change.from }} -> {{ change.to }} {{ change.extra | safe }}<br>
     {% endfor %}
 {% endfor %}
 

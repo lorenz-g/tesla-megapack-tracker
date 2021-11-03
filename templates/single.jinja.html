@@ -106,10 +106,10 @@ From the <code>{{ gen.current_month }}</code> report<br>
 
 <b>Changes:</b><br>
 
-{% for change in gen.changes %}
+{% for change in gen.changes[::-1] %}
     <b>{{change.month}}</b><br>
     {% for field in change.li %}
-        {{ field.name }}: {{ field.from }} -> {{ field.to }} <br>
+        {{ field.name }}: {{ field.from }} -> {{ field.to }} {{ field.extra | safe }}<br>
     {% endfor %} <!-- field -->
 
 {% endfor %} <!-- changes -->

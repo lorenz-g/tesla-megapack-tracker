@@ -103,7 +103,7 @@ def load_file(filename='projects.csv', type_="json"):
     # pprint.pprint(rows[0])
     return rows
 
-def check_di_differnce(old, new, ignore=None):
+def check_di_difference(old, new, ignore=None):
     """ only focus on single level dicts and assume they have the same keys
     """
     assert sorted(old.keys()) == sorted(old.keys())
@@ -115,12 +115,22 @@ def check_di_differnce(old, new, ignore=None):
     for k,v in old.items():
         if k in ignore:
             continue
+        extra = ""
+        if k == 'date':
+            from_date = dt.datetime.strptime(v, "%Y-%m")
+            to_date = dt.datetime.strptime(new[k], "%Y-%m")
+            month_delta = (to_date.year - from_date.year) * 12 + (to_date.month - from_date.month)
+            pill_bg = 'danger' if month_delta > 0 else 'success'
+            word = 'delayed' if month_delta > 0 else 'accelerated'
+            month = "month" if abs(month_delta) == 1 else "months"
+            extra = '<span class="badge rounded-pill bg-%s">%s by %d %s</span>' % (pill_bg, word, abs(month_delta), month)
 
         if new[k] != v:
             li.append({
                 "name": k,
                 "from": v,
-                "to": new[k]
+                "to": new[k],
+                "extra": extra,
             })
     return li
 
@@ -168,7 +178,7 @@ def stats_eia_data():
 
             if p_id in last_report and g_id in last_report[p_id]:
                 # need to check for changes here
-                dif = check_di_differnce(last_report[p_id][g_id], r, ignore=["month", "year", "status_simple"])
+                dif = check_di_difference(last_report[p_id][g_id], r, ignore=["month", "year", "status_simple"])
                 if dif:
                     monthly_changes["updated"].append([r, dif])
                     projects_di[p_id][g_id]["changes"].append({"month": month, "li": dif})
@@ -359,7 +369,7 @@ def download_and_extract_eia_data():
 
 def gen_eia_page(pr_len, eia_data, projects):
 
-    gen_ids_from_projects = set([p["eia_plant_id"] for p in projects])
+    gen_ids_from_projects = {p["eia_plant_id"]:p["id"] for p in projects}
 
     file_loader = FileSystemLoader('templates')
     env = Environment(loader=file_loader)
