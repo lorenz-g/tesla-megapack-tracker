@@ -57,10 +57,12 @@ for the cars vs stationary:
   - https://octopusrenewables.com/investment-solutions/
   - https://www.hecateenergy.com/projects/
 - authorities websites (often the applications are public)
-  - e.g. [goleta planning doc](https://www.cityofgoleta.org/city-hall/planning-and-environmental-review/ceqa-review/cortona-battery-storage-project)
   - https://eplanning.blm.gov/eplanning-ui/home (this one is great as it even has a map search function)
   - https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=epmt_6_05 (this is a list of upcoming electric generating units including batteries, **this one is very good**)
   - https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=table_6_03 (list of installed generating units in the us)
+  - https://www.gov.uk/government/publications/renewable-energy-planning-database-monthly-extract UK renewable planning database
+  - https://www.marktstammdatenregister.de/MaStR Germany generation database
+  - e.g. [goleta planning doc](https://www.cityofgoleta.org/city-hall/planning-and-environmental-review/ceqa-review/cortona-battery-storage-project)
 - google 
   - search for the project name and add `approval` and e.g. the county name and often you will find the approval docs which are great to determine the exact location. 
 - google maps
