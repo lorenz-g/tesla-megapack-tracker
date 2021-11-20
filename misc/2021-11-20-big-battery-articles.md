@@ -19,10 +19,10 @@ tags: updated regularly
 
 ## Projections about BESS market size
 
-https://www.energy-storage.news/terawatt-hour-of-energy-storage-by-2030-bloombergnef-forecasts-boom-in-installations/
-- 2021-11-15
-- BloombergNEF Outlook
-- https://about.bnef.com/blog/global-energy-storage-market-set-to-hit-one-terawatt-hour-by-2030/ 
+- https://www.energy-storage.news/terawatt-hour-of-energy-storage-by-2030-bloombergnef-forecasts-boom-in-installations/
+  - 2021-11-15
+  - BloombergNEF Outlook
+  - https://about.bnef.com/blog/global-energy-storage-market-set-to-hit-one-terawatt-hour-by-2030/ 
 
 
 ## Projections about cell costs

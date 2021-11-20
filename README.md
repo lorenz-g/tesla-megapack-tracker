@@ -3,6 +3,7 @@ Table of Contents:
 - [project structure](#project-structure)
 - [good information sources](#good-information-sources)
 - [for profit usage](#for-profit-usage)
+- [want to contribute?](#want-to-contribute)
 - [inspiration](#inspiration)
 
 # tesla-megapack-tracker
@@ -44,6 +45,17 @@ This has grown, so you can find it here now: [Big Battery Info Sources](./misc/2
 
 - if you are a corporate and can use some the data here please do. You can also sell it on (but please respect the MIT license to give credit where it's due)
 - and if you have used it, please consider contributing some info/insights back to the project via pull requests. Thanks 👏
+
+# want to contribute?
+
+- battery projects
+  - just add them to the `projects.csv` file and submit a PR (Pull Request)
+- feature / website improvements
+  - there is a [TODO](./misc/TODO.md) file. You can just grab sth there. 
+- new government integration
+  - they are the best to keep data up to date. Feel free to add one. 
+- blog post
+  - just write / amend one and submit a PR. 
 
 # inspiration
 
