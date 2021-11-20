@@ -97,7 +97,7 @@ def generate_blog(pr_len):
 
         # this populates the md.Meta
         md.Meta["static_folder"] = ["./blog/" + b[0:10] + "/"]
-        md.Meta["url"] = ["/blog/" + b.replace(".md", ".html")]
+        md.Meta["url"] = ["blog/" + b.replace(".md", ".html")]
         md.Meta["github_url"] = "https://github.com/lorenz-g/tesla-megapack-tracker/blob/main/misc/" + b
         extra["blog_entries"].append(md.Meta)
 
