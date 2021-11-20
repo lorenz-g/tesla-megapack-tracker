@@ -2,15 +2,14 @@ Table of Contents:
 - [tesla-megapack-tracker](#tesla-megapack-tracker)
 - [project structure](#project-structure)
 - [good information sources](#good-information-sources)
+- [for profit usage](#for-profit-usage)
 - [inspiration](#inspiration)
-
-
-
 
 # tesla-megapack-tracker
 
-- project tries to track all tesla megapack and powerpack (>5MWh) installations and other big batteries larger than 10MWh
-- the site is hosted via github pages and this is the link https://lorenz-g.github.io/tesla-megapack-tracker/
+- project tries to track all tesla megapack and powerpack (>5MWh) installations and other big batteries larger than 10MWh or 10MW
+- the site is hosted via github pages and this is the link:
+  - 🟢 👉 https://lorenz-g.github.io/tesla-megapack-tracker/ 👈 🟢
 
 ![map of image](./docs/pics/og-image.jpg)
 
@@ -19,9 +18,12 @@ Table of Contents:
 for now:
 - raw data (tesla and other manufacturers) are in [projects.csv](./projects.csv) file
 - the generated website is in the [docs](./docs) folder (it is called docs because of github pages)
-- To generate the website, install the dependencies and run `python generate_website.py`
+- To generate the website, install the dependencies with `pip install -r requirements.txt` and run `python generate/website.py`. It is recommended to setup a python virtualenv for the project beforehand. 
+  - all python code lives in the `generate` folder
 - To develop it is handy to use a tool like [watchexec](https://watchexec.github.io/downloads/) to listen to file changes and then rebuild the site. 
 - to edit the CSV files, it is best to use Libre Office
+- the external government data is the `misc` folder
+- the blog entries are written in Markdown and in the `misc`
 
 eventually:
 - every battery installation has a toml file located in the `battery-projects`
@@ -36,42 +38,12 @@ for the cars vs stationary:
 
 # good information sources
 
-- wikipedia (but need to double check their sources also)
-  - https://en.wikipedia.org/wiki/Battery_storage_power_station
-  - https://en.wikipedia.org/wiki/List_of_energy_storage_power_plants
-- tesla news sites
-  - https://www.tesmanian.com/
-  - https://www.teslarati.com/
-- battery / ev news sites:
-  - https://www.energy-storage.news/
-  - https://cleantechnica.com/
-  - https://electrek.co/
-- owners websites (they often list their portfolios)
-  - https://www.lspower.com/map/
-  - https://www.harmonyenergy.co.uk/projects/ 
-  - https://recurrentenergy.com/project-portfolio/# 
-  - https://www.pluspower.com/home#projects
-  - https://broadreachpower.com/projects/
-  - https://arevonenergy.com/portfolio/
-  - https://www.res-group.com/en/portfolio/
-  - https://octopusrenewables.com/investment-solutions/
-  - https://www.hecateenergy.com/projects/
-- authorities websites (often the applications are public)
-  - https://eplanning.blm.gov/eplanning-ui/home (this one is great as it even has a map search function)
-  - https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=epmt_6_05 (this is a list of upcoming electric generating units including batteries, **this one is very good**)
-  - https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=table_6_03 (list of installed generating units in the us)
-  - https://www.gov.uk/government/publications/renewable-energy-planning-database-monthly-extract UK renewable planning database
-  - https://www.marktstammdatenregister.de/MaStR Germany generation database
-  - e.g. [goleta planning doc](https://www.cityofgoleta.org/city-hall/planning-and-environmental-review/ceqa-review/cortona-battery-storage-project)
-- google 
-  - search for the project name and add `approval` and e.g. the county name and often you will find the approval docs which are great to determine the exact location. 
-- google maps
-  - for old installations you will often be able to spot the installations on the satellite view and can then add precise GPS coordinates. 
-- youtube
-  - some installations will have drone flyover videos. From there it is also easy to determine exact location. 
-- Global Energy Storage Database (GESDB)
-  - https://www.sandia.gov/ess-ssl/global-energy-storage-database-home/
-  - one big excel list, however was last updated only in 2020
+This has grown, so you can find it here now: [Big Battery Info Sources](./misc/2021-11-19-big-battery-info-sources.md)
+
+# for profit usage
+
+- if you are a corporate and can use some the data here please do. You can also sell it on (but please respect the MIT license to give credit where it's due)
+- and if you have used it, please consider contributing some info/insights back to the project via pull requests. Thanks 👏
 
 # inspiration
 

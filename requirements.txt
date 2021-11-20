@@ -1,6 +1,13 @@
+# to install the generate package in dev mode (so you can import it anywhere)
+-e .
+
 toml
 jinja2
 pytest
 # to read xlsx excel files
 pylightxl
 requests
+
+# for the blog
+bs4
+markdown

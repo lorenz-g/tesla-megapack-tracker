@@ -42,12 +42,19 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             {# not sure how to move the items to the right ml-auto worked in v4, but does not work in v5 #}
             <ul class="navbar-nav mb-2 mb-lg-0">
-              <li class="nav-item"><a class="nav-link" href="{{ g_l('/#project-list') }}">Tesla list ({{ extra.pr_len.tesla }})</a></li>
-              <li class="nav-item"><a class="nav-link" href="{{ g_l('/#installations-map') }}"> Map</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ g_l('/') }}">Tesla batteries ({{ extra.pr_len.tesla }})</a></li>
               <li class="nav-item"><a class="nav-link" href="{{ g_l('/#stationary-vs-cars') }}">Stationary vs Cars</a></li>
               <li class="nav-item"><a class="nav-link" href="{{ g_l('/all-big-batteries.html') }}">All big batteries list ({{ extra.pr_len.all }})</a></li>
-              <li class="nav-item"><a class="nav-link" href="{{ g_l('/all-big-batteries.html#installations-map') }}">Map</a></li>
-              <li class="nav-item"><a class="nav-link" href="{{ g_l('/eia.html') }}">US EIA data<span class="badge bg-info">New</span></a></li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Government data <span class="badge bg-info">New</span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="{{ g_l('/eia.html') }}">🇺🇸 US EIA data</a></li>
+                </ul>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="{{ g_l('/blog.html') }}">Blog<span class="badge bg-info">New</span></a></li>
+
               <li class="nav-item"><a class="nav-link" href="{{ g_l('/#contact') }}">Contact</a></li>
               
             </ul>

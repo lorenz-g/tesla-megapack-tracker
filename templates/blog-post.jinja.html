@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    blog - {{meta.title[0][0:30]}}...
+{% endblock title %}
+
+
+{% block og_props %}
+    <meta name="author" content="{{meta.author[0]}}" />
+    <meta name="description" content="{{meta.description[0]}}" />
+
+    <meta property="og:title" content="{{meta.title[0]}}" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://lorenz-g.github.io/tesla-megapack-tracker/pics/og-image.jpg" />
+    <meta property="og:description" content="{{meta.description[0]}}" />
+    <meta property="og:site_name" content="https://lorenz-g.github.io/tesla-megapack-tracker/blog.html" />
+    <meta property="og:type" content="article" />
+    <meta property="article:published_time" content="{{meta.date[0]}}T00:00:00+00:00" />
+    <meta property="article:modified_time" content="{{meta.date_last_modified[0]}}T00:00:00+00:00" />
+    <meta property="article:author" content="{{meta.author[0]}}" />
+{% endblock %}
+
+{% block content %}
+<div class="">
+    {{ blog_html | safe}}
+</div>
+<p>
+    First published: {{meta.date[0]}} {% if "updated regularly" in meta.tags %} <br> Last updated: {{ meta.date_last_modified[0] }} {% endif%}
+    <br>Author: {{meta.author[0]}}
+    <br>
+    {% for t in meta.tags %}
+    <span class="badge rounded-pill bg-primary">{{t}}</span>
+    {% endfor%}
+    <br>
+    You can edit this blogpost on <a href="{{ meta.github_url }}">Github</a>
+</p>
+
+{% endblock %}

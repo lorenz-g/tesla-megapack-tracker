@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %} Blog {% endblock %}
+
+{% block og_props %}
+<meta name="description" content="Welcome to Big Battery Tracker blog">
+<meta property="og:title" content="Big Battery Tracker blog" />
+<meta property="og:description" content="Welcome to Big Battery Tracker blog" />
+<meta property="og:image" content="https://lorenz-g.github.io/tesla-megapack-tracker/pics/og-image.jpg" />
+{% endblock %}
+
+
+
+{% block content %}
+<p>
+    Welcome to Big Battery Tracker Blog.
+</p>
+{% for meta in extra.blog_entries %}
+<div class="card shadow mb-3">
+    <div class="card-body">
+        <h2>{{meta.title[0]}}</h2>
+            {{ meta.description[0] }} <br>
+            First published: {{ meta.date[0] }} 
+            {% if "updated regularly" in meta.tags %} <br> Last updated: {{ meta.date_last_modified[0] }} {% endif%}
+            <br>
+            {% for t in meta.tags %}
+                <span class="badge rounded-pill bg-primary">{{t}}</span>
+            {% endfor%}
+            <br>
+            <a href="{{meta.url[0]}}">Read article</a>
+    </div>
+</div>
+{% endfor%}
+{% endblock %}
