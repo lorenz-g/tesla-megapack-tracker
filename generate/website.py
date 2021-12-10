@@ -50,6 +50,10 @@ def check_di_difference(old, new, ignore=None):
             word = 'delayed' if month_delta > 0 else 'accelerated'
             month = "month" if abs(month_delta) == 1 else "months"
             extra = '<span class="badge rounded-pill bg-%s">%s by %d %s</span>' % (pill_bg, word, abs(month_delta), month)
+        if k == 'status' and new[k] == "operation":
+            # celebrate
+            extra = "🍾 🎉 🍸"
+
 
         if new[k] != v:
             li.append({
@@ -529,9 +533,9 @@ def prepare_projects(projects):
             smileys.append("📍")
         
         # add both heart and ⚡ for 1gwh projects so if you search for the ⚡ the massive ones will show up also
-        if mwh >= 1000:
+        if mwh >= 1000 or mw >= 1000:
             smileys.append("❤️")
-        if mwh >= 100:
+        if mwh >= 100 or mw >= 100:
             smileys.append("⚡")
 
         use_case_lower = p["use case"].lower()
@@ -700,7 +704,9 @@ def main():
     # needed for the menu in the base templat
     pr_len = {
         "tesla": len(tesla_projects),
-        "all": len(projects)
+        "tesla_str": "(%d)" % len(tesla_projects),
+        "all": len(projects),
+        "all_str": "(%d)" % len(projects),
     }
 
     eia_data = stats_eia_data()
@@ -715,6 +721,13 @@ def main():
     gen_raw_data_files()
 
     generate_blog(pr_len)
+
+    ajax_data = {
+        "project_length": pr_len,
+    }
+    # load some data via ajax to keep the commit history of the individual project html files cleaner
+    with open("docs/ajax-data.json", "w") as f:
+        json.dump(ajax_data, f)
 
     # this does not have to be run every time, just for manual assignment
     # match_eia_projects_with_mpt_projects(eia_data, projects)
