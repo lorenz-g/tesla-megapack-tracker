@@ -300,7 +300,7 @@ def download_and_extract_eia_data():
             read_eia_data_single_month(folder)
 
 
-def gen_eia_page(pr_len, eia_data, projects):
+def gen_eia_page(eia_data, projects):
 
     gen_ids_from_projects = {p["eia_plant_id"]:p["id"] for p in projects}
 
@@ -311,7 +311,6 @@ def gen_eia_page(pr_len, eia_data, projects):
     
     extra = {
         "now": dt.datetime.utcnow(),
-        "pr_len": pr_len, 
         "summary": eia_data,
         "gen_ids_from_projects": gen_ids_from_projects,
     }
@@ -606,7 +605,7 @@ def prepare_projects(projects):
 
     return projects, summaries
 
-def gen_projects_template(projects, template_name, pr_len):
+def gen_projects_template(projects, template_name):
     file_loader = FileSystemLoader('templates')
     env = Environment(loader=file_loader)
     output_dir = 'docs'
@@ -617,7 +616,6 @@ def gen_projects_template(projects, template_name, pr_len):
         "now": dt.datetime.utcnow(),
         "cars": gen_cars_vs_stationary(projects),
         "summary": summary,
-        "pr_len": pr_len,
     }
 
     template = env.get_template(template_name)
@@ -627,7 +625,7 @@ def gen_projects_template(projects, template_name, pr_len):
         f.write(output)
     
 
-def gen_individual_pages(projects, pr_len, eia_data):
+def gen_individual_pages(projects, eia_data):
     # generate the individual pages
     file_loader = FileSystemLoader('templates')
     env = Environment(loader=file_loader)
@@ -637,8 +635,7 @@ def gen_individual_pages(projects, pr_len, eia_data):
     template = env.get_template(fn)
 
     extra = {
-        "pr_len": pr_len,
-        "eia": eia_data
+        "eia": eia_data,
     }
 
     for p in projects:
@@ -701,29 +698,26 @@ def main():
     tesla_projects = load_file("projects.csv")
     tesla_projects = [r for r in tesla_projects if r["manufacturer"] == "tesla"]
 
-    # needed for the menu in the base templat
-    pr_len = {
-        "tesla": len(tesla_projects),
-        "tesla_str": "(%d)" % len(tesla_projects),
-        "all": len(projects),
-        "all_str": "(%d)" % len(projects),
-    }
-
     eia_data = stats_eia_data()
 
-    gen_projects_template(tesla_projects, 'index.jinja.html', pr_len)
-    gen_projects_template(projects, 'all-big-batteries.jinja.html', pr_len)
+    gen_projects_template(tesla_projects, 'index.jinja.html')
+    gen_projects_template(projects, 'all-big-batteries.jinja.html')
     
-    gen_individual_pages(projects, pr_len, eia_data)
+    gen_individual_pages(projects, eia_data)
 
-    gen_eia_page(pr_len, eia_data, projects)
+    gen_eia_page(eia_data, projects)
 
     gen_raw_data_files()
 
-    generate_blog(pr_len)
+    generate_blog()
 
     ajax_data = {
-        "project_length": pr_len,
+        "project_length": {
+            "tesla_str": "(%d)" % len(tesla_projects),
+            "all_str": "(%d)" % len(projects),
+        },
+        # TODO: can move the static site generated at into here also
+        # "generated_at": 
     }
     # load some data via ajax to keep the commit history of the individual project html files cleaner
     with open("docs/ajax-data.json", "w") as f:

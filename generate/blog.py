@@ -65,7 +65,7 @@ def bootstrapify_markdown_html(html):
 
 
 
-def generate_blog(pr_len):
+def generate_blog():
     markdown_entries_path = "misc"
     blog_entries_names = [
         # the latest one at the top
@@ -81,11 +81,8 @@ def generate_blog(pr_len):
     
     extra = {
         "now": dt.datetime.utcnow(),
-        "pr_len": pr_len,
         "blog_entries": []
     }
-    
-
     
     for b in blog_entries_names:
         p = os.path.join(markdown_entries_path, b)
