@@ -1,3 +1,4 @@
+import collections
 import csv
 import io
 import pprint
@@ -11,8 +12,10 @@ from collections import defaultdict
 import requests
 from pathlib import Path
 from generate.blog import generate_blog
+from generate.battery_project import USE_CASE_EMOJI_LI, BatteryProject, VALID_STATUS
+from generate.utils import generate_link, COUNTRY_EMOJI_DI, US_STATES_LONG_TO_SHORT, US_STATES_SHORT_TO_LONG
 
-from generate.utils import generate_link, VALID_STATUS, COUNTRY_EMOJI_DI, US_STATES_LONG_TO_SHORT, US_STATES_SHORT_TO_LONG
+from typing import Iterable
 
 
 
@@ -300,9 +303,9 @@ def download_and_extract_eia_data():
             read_eia_data_single_month(folder)
 
 
-def gen_eia_page(eia_data, projects):
+def gen_eia_page(eia_data, projects: Iterable[BatteryProject]):
 
-    gen_ids_from_projects = {p["eia_plant_id"]:p["id"] for p in projects}
+    gen_ids_from_projects = {p.csv.external_id:p.csv.id for p in projects}
 
     file_loader = FileSystemLoader('templates')
     env = Environment(loader=file_loader)
@@ -344,7 +347,7 @@ def gen_raw_data_files():
         writer.writerows(csv_projects)
         
 
-def gen_cars_vs_stationary(projects):
+def gen_cars_vs_stationary():
     "prepare data to use it with bootstrap bars, a charting lib might be easier..."
 
     info_per_quarter = load_file(filename='cars-vs-stationary.csv')
@@ -420,25 +423,9 @@ def gen_cars_vs_stationary(projects):
     }
 
 
-def project_is_slow(go_live, mwh, mw):
-    """ Any project that is going live in 2025 or later and that has less than 1GW / 1GWh is slow
-    Might have to change that function in the future. 
 
-    >>> project_is_slow(2025, 0, 200)
-    True
-    >>> project_is_slow(2025, 0, 1200)
-    False
-    >>> project_is_slow(2023, 0, 200)
-    False
-    """
-    if go_live and go_live >= 2025:
-        if not (mwh >= 1000 or mw >=1000):
-            return True
-    return False
+def create_project_summaries(projects: Iterable[BatteryProject]):
 
-
-def prepare_projects(projects):
-    
     # s_ stands for summary_
     s_megapack = {
         "project_cnt": 0,
@@ -456,26 +443,10 @@ def prepare_projects(projects):
     s_yearly_op = {}
     s_by_country = {}
 
-    use_case_emoji_li = [
-        # these just used for the legend
-        ["📍", "📍", "location not exactly known"],
-        ["⚡", "⚡", "more than 100 MWh"],
-        ["❤️", "❤️", "more than 1000 MWh / 1GWh"],
-        # below for legend and use case
-        ["solar", "☀️", "attached to solar farm"],
-        ["wind", "🌬️", "attached to wind farm"],
-        ["island", "🏝️", "island installation"],
-        ["bus", "🚌", "at bus depot"],
-        ["ev", "🚗", "EV charging support"],
-        # these just used for the legend
-        ["🚨", "🚨", "incident reported"],
-        ["🐌", "🐌", "slow, bureaucracy"],
-        ["📊", "📊", "U.S. EIA data available"],
-        
-    ]
+
 
     emoji_legend = []
-    for _, emoji, explanation in use_case_emoji_li:
+    for _, emoji, explanation in USE_CASE_EMOJI_LI:
         emoji_legend.append("%s %s" % (emoji, explanation))
     emoji_legend = ", ".join(emoji_legend)
 
@@ -483,109 +454,37 @@ def prepare_projects(projects):
     # augment raw projects data
     for p in projects:
 
-        # some error checks first
-        
-        # skip for an empty row (sometimes the case at the end)
-        if p["name"] == "":
-            continue
-
-        status = p["status"]
-        assert status in VALID_STATUS, "status is not valid '%s' - %s" % (status, p['name'])
-
-        p["status_class"] = "badge rounded-pill bg-success" if status == "operation" else ""
-        p["notes_split"] = p["notes"].split("**")
-        
-        # merge the start operation and estimated start here
-        if p["start operation"]:
-            p["go_live"] = p["start operation"] 
-            p["go_live_year_int"] = int(p["go_live"][:4])
-        elif p["start estimated"]:
-            p["go_live"] = "0 ~  " + p["start estimated"]
-            p["go_live_year_int"] = int(p["start estimated"][:4])
-        else:
-            p["go_live"] = ""
-            p["go_live_year_int"] = None
-
-
-        # https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
-        # zoom z=20 is the maximum, but not sure if it is working
-        # TODO: I think this google maps link format is old https://developers.google.com/maps/documentation/urls/get-started
-        p["google_maps_link"] = "http://maps.google.com/maps?z=19&t=k&q=loc:%s+%s" % (p["lat"], p["long"])
-        
-        smileys = []        
-        try:
-            mwh = float(p["capacity mwh"])
-        except:
-            mwh = 0
-        p["mwh_int"] = mwh
-
-        try:
-            mw = float(p["power mw"])
-        except:
-            mw = 0
-        p["mw_int"] = mw
-        
-
-        
-        # the order in which the if cases happen matters as that is the order of the emojis
-        if p["coords exact"] != "1":
-            smileys.append("📍")
-        
-        # add both heart and ⚡ for 1gwh projects so if you search for the ⚡ the massive ones will show up also
-        if mwh >= 1000 or mw >= 1000:
-            smileys.append("❤️")
-        if mwh >= 100 or mw >= 100:
-            smileys.append("⚡")
-
-        use_case_lower = p["use case"].lower()
-        for keyword, emoji, _ in use_case_emoji_li:
-            if keyword in use_case_lower:
-                smileys.append(emoji)
-
-        if "incident" in p["notes"].lower():
-            smileys.append("🚨")
-
-        if project_is_slow(p["go_live_year_int"], mwh, mw):
-            smileys.append("🐌")
-        
-        if p["eia_plant_id"]:
-            smileys.append("📊")
-            
-        p["smileys"] = "".join(smileys)
-
-
         # add to summary
-        if status == "operation" and p["type"] == "megapack":
+        if p.in_operation and p.csv.type == "megapack":
             s_megapack["project_cnt"] += 1
-            s_megapack["mp_count"] +=  0 if p["no of battery units"] == "" else int(p["no of battery units"])
-            s_megapack["gwh"] += mwh / 1000
+            s_megapack["mp_count"] +=  p.no_of_battery_units
+            s_megapack["gwh"] += p.mwh / 1000
         
 
-        if status not in s_by_status:
-            s_by_status[status] = {"count": 0, "gwh":0, "gw":0}
+        if p.status not in s_by_status:
+            s_by_status[p.status] = {"count": 0, "gwh":0, "gw":0}
         
-        s_by_status[status]["count"] += 1
-        s_by_status[status]["gwh"] += mwh / 1000
-        s_by_status[status]["gw"] += 0 if p["power mw"] == "" else float(p["power mw"]) / 1000
+        s_by_status[p.status]["count"] += 1
+        s_by_status[p.status]["gwh"] += p.mwh / 1000
+        s_by_status[p.status]["gw"] += p.mw / 1000
 
-        if status == "operation":
-            year = p["start operation"][:4]
+        if p.in_operation:
+            year = p.csv.start_operation[:4]
             if year not in s_yearly_op:
                 s_yearly_op[year] = {"year": year, "gwh": 0, "perc": None}
-            s_yearly_op[year]["gwh"] += mwh / 1000
+            s_yearly_op[year]["gwh"] += p.mwh / 1000
         
         s_totals_row["count"] += 1
-        s_totals_row["mwh"] += mwh
-        s_totals_row["mw"] += 0 if p["power mw"] == "" else float(p["power mw"])
+        s_totals_row["mwh"] += p.mwh
+        s_totals_row["mw"] += p.mwh
 
-
-        if p["country"] not in s_by_country:
-            s_by_country[p["country"]] = {
-                "flag": COUNTRY_EMOJI_DI.get(p["country"],p["country"]), 
+        if p.csv.country not in s_by_country:
+            s_by_country[p.csv.country] = {
+                "flag": p.flag, 
                 "gwh":0
             }
-        if status == "operation":
-            s_by_country[p["country"]]["gwh"] += mwh / 1000
+        if p.in_operation:
+            s_by_country[p.csv.country]["gwh"] += p.mwh / 1000
 
     
     for year in s_yearly_op.values():
@@ -594,7 +493,7 @@ def prepare_projects(projects):
     s_yearly_op = sorted(s_yearly_op.values(), key=lambda x:x["year"])
     s_by_country = sorted(s_by_country.values(), key=lambda x:x["gwh"], reverse=True)
 
-    summaries = {
+    return {
         "megapack": s_megapack,
         "totals_row": s_totals_row,
         "by_status": s_by_status,
@@ -603,7 +502,6 @@ def prepare_projects(projects):
         "by_country": s_by_country,
     }
 
-    return projects, summaries
 
 def gen_projects_template(projects, template_name):
     file_loader = FileSystemLoader('templates')
@@ -611,15 +509,17 @@ def gen_projects_template(projects, template_name):
     output_dir = 'docs'
 
     # generate the index template
-    projects, summary = prepare_projects(projects)
+    summary = create_project_summaries(projects)
     extra = {
         "now": dt.datetime.utcnow(),
-        "cars": gen_cars_vs_stationary(projects),
+        "cars": gen_cars_vs_stationary(),
         "summary": summary,
+        "projects": projects,
+        "projects_json": json.dumps([p.to_dict() for p in projects])
     }
 
     template = env.get_template(template_name)
-    output = template.render(projects=projects, extra=extra, g_l=generate_link) 
+    output = template.render(extra=extra, g_l=generate_link) 
     
     with open(os.path.join(output_dir, template_name.replace(".jinja", "")), 'w') as f:
         f.write(output)
@@ -723,17 +623,32 @@ def match_eia_projects_with_mpt_projects(eia_data, projects):
     
 def main():
     # load them twice to have different objects with different pointers
-    projects = load_file("projects.csv")
-
-    tesla_projects = load_file("projects.csv")
-    tesla_projects = [r for r in tesla_projects if r["manufacturer"] == "tesla"]
+    csv_projects = load_file("projects.csv")
 
     eia_data = stats_eia_data()
 
-    gen_projects_template(tesla_projects, 'index.jinja.html')
-    gen_projects_template(projects, 'all-big-batteries.jinja.html')
+    projects = []
+    for p in csv_projects:
+        # skip for an empty row (sometimes the case at the end)
+        if p["name"] == "":
+            continue
+
+        gov = None
+        if p["country"] == "usa":
+            gov = eia_data["projects"].get(p["external_id"])
+
+        projects.append(BatteryProject(p, gov))
+
+    # print(projects[0].to_dict())
+    # return
+
+    tesla_projects = [p for p in projects if p.is_tesla]
     
-    gen_individual_pages(projects, eia_data)
+    gen_projects_template(tesla_projects, 'index.jinja.html')
+
+    return
+    # gen_projects_template(projects, 'all-big-batteries.jinja.html')
+    # gen_individual_pages(projects, eia_data)
 
     gen_eia_page(eia_data, projects)
 
@@ -754,7 +669,7 @@ def main():
         json.dump(ajax_data, f)
 
     # this does not have to be run every time, just for manual assignment
-    # match_eia_projects_with_mpt_projects(eia_data, projects)
+    match_eia_projects_with_mpt_projects(eia_data, projects)
 
 
 if __name__ == "__main__":

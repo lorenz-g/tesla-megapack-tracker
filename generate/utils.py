@@ -9,8 +9,6 @@ def generate_link(ip):
     return BASE_URL + ip.lstrip("/")
 
 
-VALID_STATUS = ("planning", "construction", "operation")
-
 COUNTRY_EMOJI_DI = {
     "usa": "🇺🇸", 
     "australia": "🇦🇺",

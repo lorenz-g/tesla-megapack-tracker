@@ -79,49 +79,52 @@
         var labelGroup = new L.FeatureGroup();
 
 
+        var projects = {{ extra.projects_json }};
+        
         // insert the data via jinja here
         // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
-        var projects = '{{ projects | tojson }}';
-        projects = JSON.parse(projects)
+        // this does not work, why?
+        // var projects = '{# extra.projects_json #}';
+        // projects = JSON.parse(projects)
         
         var p;
         var warning = "";
 
         for (var i=0; i < projects.length; i++){
             p = projects[i];
-            if (p["coords exact"] != "1") {
+            if (p.csv.coords_exact != "1") {
                 warning = `<br>📍<span class="badge bg-danger">location not exactly known</span>`;
             } else {
                 warning = "";
             }
             // L.Icon.Default.prototype.options, to check the default things
             var icon = L.icon({
-                iconUrl:"pics/marker-" + markerColor[p["status"]]+ ".png",
+                iconUrl:"pics/marker-" + markerColor[p.status]+ ".png",
                 iconAnchor: [12, 41],
                 iconSize: [25, 41],
                 popupAnchor: [ 1, -34],
                 tooltipAnchor: [ 16, -28 ],
             }); 
                
-            if (p["lat"] != ""){
+            if (p.csv.lat != ""){
                 var marker;
-                marker = L.marker([p["lat"], p["long"]], {icon: icon});
+                marker = L.marker([p.csv.lat, p.csv.long], {icon: icon});
                 marker.bindPopup(
-                    `<b>${p["smileys"]} ${p["name"]}</b> <br>${p["capacity mwh"]}MWh
+                    `<b>${p.emojis} ${p.csv.name}</b> <br>${p.mwh}MWh
                     <br> in: ${p["status"]} 
                     <br> go live: ${p["go_live"]}
-                    <br> from: ${p["manufacturer"]}
-                    <br> for: ${p["customer"]} ${p["owner"]}
+                    <br> from: ${p.csv["manufacturer"]}
+                    <br> for: ${p.csv["customer"]} ${p.csv["owner"]}
                     <br><a href="${p["google_maps_link"]}" target="_blank">Google Maps</a>
                     ${warning}
-                    <br><a href="projects/${p["id"]}.html" target="_blank">Details</a>`                );
+                    <br><a href="projects/${p.csv["id"]}.html" target="_blank">Details</a>`                );
                 // TODO: find a way to quickly create icons of different colors
                 // there is the div icon, or an external lib called AwesomeMarker
                 overlays[p["status"]].push(marker)
                 
                 // TODO: find a way to only show the labels for the layers that a selected
                 // for now they are always shown
-                var label = L.marker([p["lat"], p["long"]]);
+                var label = L.marker([p.csv["lat"], p.csv["long"]]);
                 var div = L.divIcon({
                 "className": "map-label", 
                 "html": `<span class="text-nowrap bg-white">&nbsp;${p.smileys}${p.name}&nbsp;</span> <span class="text-nowrap bg-white">&nbsp;${p["capacity mwh"]}MWh&nbsp;</span>`,
@@ -229,16 +232,16 @@ This list is a best effort to try and list all Tesla megapack and powerpack (>5M
         </tr>
     </thead>
     <tbody>
-        {% for p in projects %}
+        {% for p in extra.projects %}
         <tr>
-            <td><a href="projects/{{p.id}}.html" target="_blank">{{ p["name"] }}</a> {{p.smileys}}</td>
-            <td>{{ p["state"] }}</td>
-            <td>{{ p["country"] }}</td>
-            <td><span class="{{ p.status_class }}">{{ p["status"] }}</span></td>
-            <td>{{ p["go_live"] }}</td>
-            <td><span class="{% if p.type == 'megapack' %}badge rounded-pill bg-secondary{% endif %}">{{ p["type"] }}</span></td>
-            <td>{{ p["capacity mwh"] }}</td>
-            <td>{{ p["power mw"] }}</td>
+            <td><a href="projects/{{p.csv.id}}.html" target="_blank">{{ p.csv.name }}</a> {{p.smileys}}</td>
+            <td>{{ p.csv.state }}</td>
+            <td>{{ p.csv.country }}</td>
+            <td><span class="{{ p.status_class }}">{{ p.status }}</span></td>
+            <td>{{ p.go_live }}</td>
+            <td><span class="{% if p.csv.type == 'megapack' %}badge rounded-pill bg-secondary{% endif %}">{{ p.csv.type }}</span></td>
+            <td>{{ p.mwh }}</td>
+            <td>{{ p.mw }}</td>
         </tr>
         {% endfor %}
         

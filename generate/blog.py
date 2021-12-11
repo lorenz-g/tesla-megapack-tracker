@@ -72,6 +72,7 @@ def generate_blog():
         # enable it once it is done
         "2021-11-20-big-battery-articles.md",
         "2021-11-19-big-battery-info-sources.md",
+        "2021-08-30-changelog.md",
     ]
 
     file_loader = FileSystemLoader('templates')
