@@ -12,7 +12,7 @@ import requests
 from pathlib import Path
 from generate.blog import generate_blog
 
-from generate.utils import generate_link, VALID_STATUS, COUNTRY_EMOJI_DI, US_STATES_LONG_TO_SHORT
+from generate.utils import generate_link, VALID_STATUS, COUNTRY_EMOJI_DI, US_STATES_LONG_TO_SHORT, US_STATES_SHORT_TO_LONG
 
 
 
@@ -688,6 +688,36 @@ def match_eia_projects_with_mpt_projects(eia_data, projects):
         for p in mpt:
             print(p["mw_int"], p["name"], p["id"], p["status"])
 
+    # list that can be inserted into projects.csv
+    # TODO: probably should try and ignore the ones that I had in the US that are not covered here. 
+    print("\n\n")
+    for state, projects in sorted(pr_by_state.items()):
+        eia = sorted(projects["eia"], key=lambda x:x["mw"], reverse=True)
+        start_id = 143
+        for p in eia:
+            # estimate a two hour system
+            mwh_estimate = str(p["mw"] * 2)
+
+            # set different dates
+            start_operation = ""
+            start_estimated = ""
+
+            if p["status_simple"] == "operation":
+                start_operation = p["date"] + "-01"
+            else:
+                start_estimated = p["date"]
+
+            li = [
+                p["plant name"], "", str(start_id), p["plant id"], "1",
+                US_STATES_SHORT_TO_LONG[state], "usa", "", mwh_estimate,
+                str(p["mw"]), "", p["entity name"], 
+                "", "", "", "", "",
+                p["status_simple"], 
+                "", "",
+                start_operation, start_estimated, 
+            ]
+            print(";".join(li))
+            start_id += 1
 
 
     
