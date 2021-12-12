@@ -11,7 +11,7 @@ import pylightxl as xl
 from collections import defaultdict
 import requests
 from pathlib import Path
-from generate.blog import generate_blog
+from generate.blog import gen_blog
 from generate.battery_project import USE_CASE_EMOJI_LI, BatteryProject, VALID_STATUS
 from generate.utils import generate_link, COUNTRY_EMOJI_DI, US_STATES_LONG_TO_SHORT, US_STATES_SHORT_TO_LONG
 
@@ -455,7 +455,7 @@ def create_project_summaries(projects: Iterable[BatteryProject]):
     for p in projects:
 
         # add to summary
-        if p.in_operation and p.csv.type == "megapack":
+        if p.in_operation and p.is_megapack:
             s_megapack["project_cnt"] += 1
             s_megapack["mp_count"] +=  p.no_of_battery_units
             s_megapack["gwh"] += p.mwh / 1000
@@ -476,9 +476,10 @@ def create_project_summaries(projects: Iterable[BatteryProject]):
         
         s_totals_row["count"] += 1
         s_totals_row["mwh"] += p.mwh
-        s_totals_row["mw"] += p.mwh
-
+        s_totals_row["mw"] += p.mw
+        
         if p.csv.country not in s_by_country:
+            
             s_by_country[p.csv.country] = {
                 "flag": p.flag, 
                 "gwh":0
@@ -525,7 +526,7 @@ def gen_projects_template(projects, template_name):
         f.write(output)
     
 
-def gen_individual_pages(projects, eia_data):
+def gen_individual_pages(projects: Iterable[BatteryProject]):
     # generate the individual pages
     file_loader = FileSystemLoader('templates')
     env = Environment(loader=file_loader)
@@ -534,18 +535,10 @@ def gen_individual_pages(projects, eia_data):
     fn = 'single.jinja.html' 
     template = env.get_template(fn)
 
-    extra = {
-        "eia": eia_data,
-    }
-
     for p in projects:
-        if p["name"] == "":
-            continue
-        if p["eia_plant_id"] in extra["eia"]:
-            print(p["name"])
-        output_fn = os.path.join(output_dir, "projects", p["id"] + ".html")
+        output_fn = os.path.join(output_dir, "projects", p.csv.id + ".html")
         with open(output_fn, 'w') as f:
-            f.write(template.render(p=p, g_l=generate_link, extra=extra))
+            f.write(template.render(p=p, g_l=generate_link))
 
 
 def match_eia_projects_with_mpt_projects(eia_data, projects):
@@ -622,11 +615,10 @@ def match_eia_projects_with_mpt_projects(eia_data, projects):
 
     
 def main():
-    # load them twice to have different objects with different pointers
+    
+    # 1) Load an prepare data
     csv_projects = load_file("projects.csv")
-
     eia_data = stats_eia_data()
-
     projects = []
     for p in csv_projects:
         # skip for an empty row (sometimes the case at the end)
@@ -634,27 +626,20 @@ def main():
             continue
 
         gov = None
-        if p["country"] == "usa":
-            gov = eia_data["projects"].get(p["external_id"])
+        if p["country"] == "usa" and p["external_id"]:
+            gov = eia_data["projects"][p["external_id"]]
 
         projects.append(BatteryProject(p, gov))
 
-    # print(projects[0].to_dict())
-    # return
-
     tesla_projects = [p for p in projects if p.is_tesla]
     
+    # 2) Generate the pages
     gen_projects_template(tesla_projects, 'index.jinja.html')
-
-    return
-    # gen_projects_template(projects, 'all-big-batteries.jinja.html')
-    # gen_individual_pages(projects, eia_data)
-
+    gen_projects_template(projects, 'all-big-batteries.jinja.html')
+    gen_individual_pages(projects)
     gen_eia_page(eia_data, projects)
-
     gen_raw_data_files()
-
-    generate_blog()
+    gen_blog()
 
     ajax_data = {
         "project_length": {
@@ -669,14 +654,13 @@ def main():
         json.dump(ajax_data, f)
 
     # this does not have to be run every time, just for manual assignment
-    match_eia_projects_with_mpt_projects(eia_data, projects)
+    # match_eia_projects_with_mpt_projects(eia_data, projects)
 
 
 if __name__ == "__main__":
     # to download a new report, need to enable those two lines and make sure the month is correct
     # download_and_extract_eia_data()
     # read_eia_data_all_months()
-    
     main()
 
     

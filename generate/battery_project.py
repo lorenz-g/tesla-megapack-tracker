@@ -1,4 +1,6 @@
 from dataclasses import asdict, dataclass
+import copy
+import sys
 
 from generate.utils import COUNTRY_EMOJI_DI
 
@@ -19,9 +21,7 @@ USE_CASE_EMOJI_LI = [
         ["🚨", "🚨", "incident reported"],
         ["🐌", "🐌", "slow, bureaucracy"],
         ["📊", "📊", "government data available"],
-        ["📏", "📏", "mwh estimate from mw"],
-        
-        
+        ["📏", "📏", "mwh estimate based on mw"],
     ]
 
 
@@ -101,13 +101,13 @@ class BatteryProject:
     can use vars(BatteryProject) to turn it into a dict, very handy. 
     """
 
-    def __init__(self, csv_di, gov_di):
+    def __init__(self, csv_di, gov):
         pass
         # the dict from the projects.csv file and turn into dataclass for type hints
         csv = CsvProjectData(**csv_di)
         
         # government data dict
-        self.gov_di = gov_di
+        self.gov = gov
 
         self.status = csv.status
         assert self.status in VALID_STATUS, "status is not valid '%s' - %s" % (self.status, csv_di['name'])
@@ -141,7 +141,6 @@ class BatteryProject:
         if self.mwh == 0 and csv_int(csv.estimate_mwh) > 0:
             self.mwh = csv_int(csv.estimate_mwh)
             self.mwh_is_estimate = True
-            
             
         self.no_of_battery_units = csv_int(csv.no_of_battery_units)
 
@@ -178,36 +177,36 @@ class BatteryProject:
 
         self.flag = COUNTRY_EMOJI_DI.get(csv.country, csv.country)
         
-
+        self.links = [csv.link1, csv.link2, csv.link3, csv.link4]
+        self.links = [l for l in self.links if l != ""]
+        
         self.csv = csv
 
 
-    # could also just declare all those properties in the init
-    @property
-    def in_operation(self):
-        return self.status == "operation"
-    
-    @property
-    def in_construction(self):
-        return self.status == "construction"
+        # some helper variables
+        self.in_operation = self.status == "operation"
+        self.in_construction = self.status == "construction"
+        self.in_planning = self.status == "planning"
 
-    @property
-    def in_planning(self):
-        return self.status == "planning"
+        self.is_tesla = self.csv.manufacturer == "tesla"
+        self.is_megapack = self.csv.type == "megapack"
 
-    @property
-    def is_tesla(self):
-        return self.csv.manufacturer == "tesla"
+
+    def __repr__(self) -> str:
+        return "<BatteryProject %s - %s>" % (self.csv.id, self.csv.name)
+
+
+    def to_dict(self):
+        # need this detour aus the dataclass does not automatically convert to json
+        # as vars returns the __dict__ of the class, the deepcopy here is very important
+        di = copy.deepcopy(vars(self))
+        di["csv"] = copy.deepcopy(asdict(self.csv))
+        return di
+
 
     def data_check(self):
         """TODO: check between csv and gov data"""
         pass
-
-    def to_dict(self):
-        # need this detour aus the dataclass does not automatically convert to json
-        di = vars(self)
-        di["csv"] = asdict(self.csv)
-        return di
 
     
 @dataclass
@@ -221,6 +220,7 @@ if __name__ == "__main__":
     test = Test(**{"test": 23})
     print(test)
     print(asdict(test))
+    print(type(test))
 
 
         

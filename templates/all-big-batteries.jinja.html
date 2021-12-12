@@ -11,180 +11,21 @@
 {% endblock %}
 
 
-
-
 {% block extra_scripts %}
 <!-- Datatables JS -->
 <script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js" crossorigin="anonymous"></script>
 
+<script src="{{ g_l('/js/batteryMap.js')}}" crossorigin="anonymous"></script>
+<script src="{{ g_l('/js/batteryList.js')}}" crossorigin="anonymous"></script>
+
 <script>
-    // enable the datatable
-    $(document).ready(function() {
- 
-        $('#projects-table').DataTable({
-            "pageLength": 25,
-            "order": [[ 4, "desc" ]],
-            // the inspiration for the totals row comes from https://elbilstatistikk.no/
-            'drawCallback': function (oSettings) {
-                var api = this.api();
-                var searchStr = oSettings.oPreviousSearch.sSearch;
-                searchStr = searchStr.trim();
-
-                if (searchStr.length != 0) {
-                    columns = [7, 8]; // Add columns here
-                    for (var i = 0; i < columns.length; i++) {
-                        var nodes = api.column(columns[i], { filter: 'applied', page: 'current' }).nodes();
-                        var total = 0;
-                        for (var j = 0; j < nodes.length; j++) {
-                            total += parseFloat(nodes[j].innerText) || 0
-                        }
-                        $('tfoot th').eq(columns[i]).html(total);
-                    }
-                    var pLen = api.column(columns[i], { filter: 'applied', page: 'current' }).nodes().length
-                    $('tfoot th').eq(0).html(`Total (${pLen} projects)`);
-                }
-                else {
-                    $('tfoot th').eq(0).html('Total ({{ extra.summary.totals_row.count}} projects)');
-                    $('tfoot th').eq(7).html('{{ extra.summary.totals_row.mwh}}');
-                    $('tfoot th').eq(8).html('{{ extra.summary.totals_row.mw}}');
-                }
-            } //end footerCallback
-        });
-
-        // followed this guide 
-        // https://leafletjs.com/examples/quick-start/
-        // https://leafletjs.com/examples/layers-control/
-        var streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            maxZoom: 18,
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1,
-            accessToken: 'pk.eyJ1IjoiYmFuZGluaWdvIiwiYSI6ImNrc3p2YjhuNzJ3eHAydXRmbW55Y2FuZHgifQ.j5Swr0wVOityl1LecXZT6g'
-        });
-        var satellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            maxZoom: 18,
-            id: 'mapbox/satellite-v9',
-            tileSize: 512,
-            zoomOffset: -1,
-            accessToken: 'pk.eyJ1IjoiYmFuZGluaWdvIiwiYSI6ImNrc3p2YjhuNzJ3eHAydXRmbW55Y2FuZHgifQ.j5Swr0wVOityl1LecXZT6g'
-        });
-
-        var baseLayers = {
-		    "Streets": streets,
-            "Satellite": satellite,
-	    };
-
-        var overlays = {
-		    planning: [],
-            construction: [],
-            operation: [],
-	    };
-
-        var markerColor = {
-            planning: "grey",
-            construction: "blue",
-            operation: "green",
-        }
-
-        var labelGroup = new L.FeatureGroup();
-
-        // insert the data via jinja here
-        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
-        var projects = '{{ projects | tojson }}';
-        projects = JSON.parse(projects)
-        
-        var p;
-        var warning = "";
-
-        for (var i=0; i < projects.length; i++){
-            p = projects[i];
-            if (p["coords exact"] != "1") {
-                warning = `<br>📍<span class="badge bg-danger">location not exactly known</span>`;
-            } else {
-                warning = "";
-            }
-            // L.Icon.Default.prototype.options, to check the default things
-            var icon = L.icon({
-                iconUrl:"pics/marker-" + markerColor[p["status"]]+ ".png",
-                iconAnchor: [12, 41],
-                iconSize: [25, 41],
-                popupAnchor: [ 1, -34],
-                tooltipAnchor: [ 16, -28 ],
-            }); 
-               
-            if (p["lat"] != ""){
-                var marker;
-                marker = L.marker([p["lat"], p["long"]], {icon: icon});
-                marker.bindPopup(`
-                    <b>${p["smileys"]} ${p["name"]}</b> <br>${p["capacity mwh"]}MWh
-                    <br> in: ${p["status"]} 
-                    <br> go live: ${p["go_live"]}
-                    <br> from: ${p["manufacturer"]}
-                    <br> for: ${p["customer"]} ${p["owner"]}
-                    <br><a href="${p["google_maps_link"]}" target="_blank">Google Maps</a>
-                    ${warning}
-                    <br><a href="projects/${p["id"]}.html" target="_blank">Details</a>
-                    `
-                );
-                // TODO: find a way to quickly create icons of different colors
-                // there is the div icon, or an external lib called AwesomeMarker
-                overlays[p["status"]].push(marker)
-                
-                // TODO: find a way to only show the labels for the layers that a selected
-                // for now they are always shown
-                var label = L.marker([p["lat"], p["long"]]);
-                var div = L.divIcon({
-                "className": "map-label", 
-                "html": `<span class="text-nowrap bg-white">&nbsp;${p.smileys}${p.name}&nbsp;</span> <span class="text-nowrap bg-white">&nbsp;${p["capacity mwh"]}MWh&nbsp;</span>`,
-                "iconAnchor": [0, 0]});
-                label.setIcon(div);
-                labelGroup.addLayer(label)
-
-                // overlays[p["status"]].push(label)
-
-            }
-        }
-
-        // not pretty, can you add to a layer group directly? 
-        overlays = {
-		    "planning": L.layerGroup(overlays["planning"]),
-            "construction": L.layerGroup(overlays["construction"]),
-            "operation": L.layerGroup(overlays["operation"]),
-	    };
-
-
-        var mymap = L.map('mapid', {
-            // sets what is shown
-            layers: [streets, overlays["planning"], overlays["construction"], overlays["operation"]],
-            // TODO: is there a way how you can set it to ctrl + wheel
-            scrollWheelZoom: true,
-        }).setView([35.160636, 11.096191], 2);
-        
-        L.control.layers(baseLayers, overlays).addTo(mymap);
-
-        // only show labels on certain zoom level
-        mymap.on('zoomend', function() {
-            console.log("zoom", mymap.getZoom());
-            if (mymap.getZoom() < 8){
-                mymap.removeLayer(labelGroup);
-            }
-            else {
-                mymap.addLayer(labelGroup);
-            }
-        });
- 
-        // useful for refining the points, disable on production
-        var popup = L.popup();
-        function onMapClick(e) {
-            popup
-            .setLatLng(e.latlng)
-            .setContent(e.latlng.toString())
-            .openOn(mymap);
-        }
-        // mymap.on('click', onMapClick);
+    $(document).ready(function() {        
+        // load data via jinja
+        var projects = {{ extra.projects_json }};
+        var summary = {{ extra.summary | tojson }};
+        generateBatteryList(4, [7,8], summary, '#projects-table');
+        generateBatteryMap(projects, 'mapid');
 
     } );
 </script>
@@ -271,17 +112,17 @@ This list is a best effort to track all big battery installations larger than 10
         </tr>
     </thead>
     <tbody>
-        {% for p in projects %}
+        {% for p in extra.projects %}
         <tr>
-            <td><a href="projects/{{p.id}}.html" target="_blank">{{ p["name"] }}</a> {{p.smileys}}</td>
-            <td>{{ p["state"] }}</td>
-            <td>{{ p["country"] }}</td>
-            <td><span class="{{ p.status_class }}">{{ p["status"] }}</span></td>
-            <td>{{ p["go_live"] }}</td>
-            <td>{{ p["manufacturer"] }}</td>
-            <td>{{ p["customer"] }} {{ p["owner"] }}</td>
-            <td>{{ p["capacity mwh"] }}</td>
-            <td>{{ p["power mw"] }}</td>
+            <td><a href="projects/{{p.csv.id}}.html" target="_blank">{{ p.csv.name }}</a> {{p.emojis}}</td>
+            <td>{{ p.csv.state }}</td>
+            <td>{{ p.csv.country }}</td>
+            <td><span class="{{ p.status_class }}">{{ p.status }}</span></td>
+            <td>{{ p.go_live }}</td>
+            <td>{{ p.csv.manufacturer }}</td>
+            <td>{{ p.csv.customer }} {{ p.csv.owner }}</td>
+            <td>{{ p.mwh }}</td>
+            <td>{{ p.mw }}</td>
         </tr>
         {% endfor %}
         

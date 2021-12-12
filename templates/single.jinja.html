@@ -5,52 +5,52 @@
 {% endblock %}
 
 {% block og_props %}
-<meta name="description" content="detail page for {{p.name}} big battery">
+<meta name="description" content="detail page for {{p.csv.name}} big battery">
 
-<meta property="og:title" content="{{p.name}} ({{ p['capacity mwh'] }}MWh)" />
-<meta property="og:description" content="detail page for {{p.name}} big battery" />
+<meta property="og:title" content="{{p.csv.name}} ({{ p.mwh }}MWh)" />
+<meta property="og:description" content="detail page for {{p.csv.name}} big battery" />
 <meta property="og:image" content="https://lorenz-g.github.io/tesla-megapack-tracker/pics/logo.jpg" />
 {% endblock %}
 
 {% block content %}
 
-<h3> {{p.name}} {{p.smileys}} </h3>
+<h3> {{p.csv.name}} {{p.emojis}} </h3>
 
 <dt>Status </dt>
-<dl><span class="{{ p.status_class }}">{{ p["status"] }}</span> </dl>
+<dl><span class="{{ p.status_class }}">{{ p.status }}</span> </dl>
 
 <dt>Country / State / Closest City </dt>
-<dl>{{ p["country"] }} / {{ p["state"] }} / {{ p["city"] }}</dl>
+<dl>{{ p.csv.country }} / {{ p.csv.state }} / {{ p.csv.city }}</dl>
 
 <dt>Date first heard / Construction start / Operation start / Estimated Operation Start</dt>
-<dl>{{ p["date first heard"] }} / {{ p["start construction"] }} / {{ p["start operation"] }} / {{ p["start estimated"] }}</dl>
+<dl>{{ p.csv.date_first_heard }} / {{ p.csv.start_construction }} / {{ p.csv.start_operation }} / {{ p.csv.start_estimated }}</dl>
 
 <dt>Capacity in MWh </dt>
-<dl>{{ p["capacity mwh"] }}</dl>
+<dl>{{ p.mwh }}</dl>
 
 <dt>Maximum Power in MW </dt>
-<dl>{{ p["power mw"] }}</dl>
+<dl>{{ p.m }}</dl>
 
 <dt>Manufacturer </dt>
-<dl>{{ p["manufacturer"] }} </dl>
+<dl>{{ p.csv.manufacturer }} </dl>
 
 <dt>Type / Number of Packs / Cells </dt>
-<dl>{{ p["type"] }} / {{ p["no of battery units"] }} / {{ p["cells"] }}</dl>
+<dl>{{ p.csv.type }} / {{ p.csv.no_of_battery_units }} / {{ p.csv.cells }}</dl>
 
 <dt>Customer / Owner / Developer</dt>
-<dl>{{ p["customer"] }} / {{ p["owner"] }} / {{ p["developer"] }} </dl>
+<dl>{{ p.csv.customer }} / {{ p.csv.owner }} / {{ p.csv.developer }} </dl>
 
 
 <dt>Use case </dt>
-<dl>{{ p["use case"] }}</dl>
+<dl>{{ p.csv.use_case }}</dl>
 
 <dt>Link to google maps satellite view</dt>
-<dl><a href="{{ p['google_maps_link'] }}" target="_blank">{{ p["google_maps_link"] }}</a> </dl>
+<dl><a href="{{ p.csv.google_maps_link }}" target="_blank">{{ p.csv.google_maps_link }}</a> </dl>
 
 <dt>Coordinates </dt>
 <dl>
-    {{ p["lat"] }}, {{ p["long"] }} 
-    {% if p["coords exact"] != "1" %}
+    {{ p.csv.lat }}, {{ p.csv.long }} 
+    {% if p.csv.coords_exact != "1" %}
     <br> 📍 Did not manage to find exact coordinates for this project, they are just an estimate.
     {% endif %}
 </dl>
@@ -64,28 +64,28 @@
 </dl>
 
 <dt>Project website </dt>
-<dl><a href="{{ p['project website'] }}" target="_blank">{{ p["project website"] }} </a> </dl>
+<dl><a href="{{ p.csv.project_website }}" target="_blank">{{ p.csv.project_website }} </a> </dl>
 
 <dt> Sources </dt>
 <dl>
-    <a href="{{ p.link1 }}" target="_blank">{{ p.link1 }} </a> <br>
-    <a href="{{ p.link2 }}" target="_blank">{{ p.link2 }} </a> <br>
-    <a href="{{ p.link3 }}" target="_blank">{{ p.link3 }} </a>
+    {% for link in p.links %}
+    <a href="{{ link }}" target="_blank">{{ link }} </a> <br>
+    {% endfor %} 
 </dl>
 
-{% if p.eia_plant_id in extra.eia.projects %}
+{% if p.gov %}
 <h3> US EIA data </h3>
 This data is matched from the U.S. Energy Information Administration (EIA) electricity monthly website from planned (Chapter 6.5) and existing (Chapter 6.3) energy projects
  <a href ="https://www.eia.gov/electricity/monthly/">https://www.eia.gov/electricity/monthly/</a></li>
 <br>
 
-{% if extra.eia.projects[p.eia_plant_id].values() | length > 1 %}
+{% if p.gov.values() | length > 1 %}
 <span class="badge bg-info">This project has multiple generator ids under the same plant id</span><br>
 {% endif %}
 
 
 
-{% for gen in extra.eia.projects[p.eia_plant_id].values()%}
+{% for gen in p.gov.values()%}
 From the <code>{{ gen.current_month }}</code> report<br>
 
 <br>

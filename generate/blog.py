@@ -65,7 +65,7 @@ def bootstrapify_markdown_html(html):
 
 
 
-def generate_blog():
+def gen_blog():
     markdown_entries_path = "misc"
     blog_entries_names = [
         # the latest one at the top
@@ -128,4 +128,4 @@ if __name__ == "__main__":
         "tesla": -1,
         "all": -1,
     }
-    generate_blog(pr_len)
+    gen_blog(pr_len)
