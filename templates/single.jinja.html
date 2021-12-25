@@ -45,12 +45,12 @@
 <dl>{{ p.csv.use_case }}</dl>
 
 <dt>Link to google maps satellite view</dt>
-<dl><a href="{{ p.csv.google_maps_link }}" target="_blank">{{ p.csv.google_maps_link }}</a> </dl>
+<dl><a href="{{ p.google_maps_link }}" target="_blank">{{ p.google_maps_link }}</a> </dl>
 
 <dt>Coordinates </dt>
 <dl>
-    {{ p.csv.lat }}, {{ p.csv.long }} 
-    {% if p.csv.coords_exact != "1" %}
+    {{ p.lat }}, {{ p.long }} 
+    {% if p.coords_exact != "1" %}
     <br> 📍 Did not manage to find exact coordinates for this project, they are just an estimate.
     {% endif %}
 </dl>
@@ -80,7 +80,7 @@ This data is matched from the U.S. Energy Information Administration (EIA) elect
 <br>
 
 {% if p.gov.values() | length > 1 %}
-<span class="badge bg-info">This project has multiple generator ids under the same plant id</span><br>
+<span class="badge bg-info">This project has {{ p.gov.values() | length }} generator ids under the same plant id</span><br>
 {% endif %}
 
 

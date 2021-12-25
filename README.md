@@ -4,6 +4,7 @@ Table of Contents:
 - [good information sources](#good-information-sources)
 - [for profit usage](#for-profit-usage)
 - [want to contribute?](#want-to-contribute)
+- [changelog](#changelog)
 - [inspiration](#inspiration)
 
 # tesla-megapack-tracker
@@ -21,7 +22,7 @@ for now:
 - the generated website is in the [docs](./docs) folder (it is called docs because of github pages)
 - To generate the website, install the dependencies with `pip install -r requirements.txt` and run `python generate/website.py`. It is recommended to setup a python virtualenv for the project beforehand. 
   - all python code lives in the `generate` folder
-- To develop it is handy to use a tool like [watchexec](https://watchexec.github.io/downloads/) to listen to file changes and then rebuild the site. 
+- To develop it is handy to use a tool like [watchexec](https://watchexec.github.io/downloads/) to listen to file changes and then rebuild the site. Some handy commands are in the [./Makefile](./Makefile)
 - to edit the CSV files, it is best to use Libre Office
 - the external government data is the `misc` folder
 - the blog entries are written in Markdown and in the `misc`
@@ -56,6 +57,12 @@ This has grown, so you can find it here now: [Big Battery Info Sources](./misc/2
   - they are the best to keep data up to date. Feel free to add one. 
 - blog post
   - just write / amend one and submit a PR. 
+
+# changelog
+
+- you can find the changelog file here: [./misc/2021-08-30-changelog.md](./misc/2021-08-30-changelog.md)
+- not everything is documented here. The git commit history should be more complete.
+
 
 # inspiration
 

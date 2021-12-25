@@ -1,8 +1,9 @@
 from dataclasses import asdict, dataclass
 import copy
 import sys
+import math
 
-from generate.utils import COUNTRY_EMOJI_DI
+from generate.utils import COUNTRY_EMOJI_DI, US_STATES_TO_EIA_COORDINATES
 
 VALID_STATUS = ("planning", "construction", "operation")
 
@@ -24,6 +25,8 @@ USE_CASE_EMOJI_LI = [
         ["📏", "📏", "mwh estimate based on mw"],
     ]
 
+# in case the state does not have default coords
+EIA_COORDS_USA = (39.613588, -101.337891)
 
 def project_is_slow(go_live, mwh, mw):
     """ Any project that is going live in 2025 or later and that has less than 1GW / 1GWh is slow
@@ -48,6 +51,33 @@ def csv_int(ip):
     
     # and remove the float here again.
     return 0 if ip == "" else int(float(ip))
+
+
+def eia_location_estimate(id_, state):
+    """ based on the id, we want to create the same coordinates every time
+
+    x = r(cos(degrees)), y = r(sin(degrees))
+
+    the ids start at around 140 (which is why 13 is subtracted below)
+    """
+    id_ = int(id_)
+
+    coords = US_STATES_TO_EIA_COORDINATES[state] 
+    if not coords:
+        print("no coordinates for state:", state)
+        coords = EIA_COORDS_USA
+
+    scaling_factor = 0.02
+    radius = (int(id_/10) - 13) * scaling_factor
+    angle = (id_ % 10) / 10 * 2 * math.pi
+
+    x = radius * math.cos(angle)
+    y = radius * math.sin(angle)
+    return str(coords[0] + y), str(coords[1] + x) 
+
+
+
+
 
 
 
@@ -92,6 +122,8 @@ class CsvProjectData:
 
 
 
+
+
 class BatteryProject:
     """ Class for a project to add helper and styling functions 
     that make it easier to work with the projects
@@ -99,6 +131,12 @@ class BatteryProject:
     not sure whether to create attributes for mw and mwh..
 
     can use vars(BatteryProject) to turn it into a dict, very handy. 
+
+    TODO: don't expose the csv file (all attributes should be in this class)
+    TODO: add the construction start for the EIA projects
+    TODO: add identifier for location of the EIA projects
+    TODO: check for the EIA data if the data is correct in the CSV sheet (and have a function to correct the data)
+
     """
 
     def __init__(self, csv_di, gov):
@@ -126,11 +164,6 @@ class BatteryProject:
             self.go_live = ""
             self.go_live_year_int = None
 
-
-        # https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
-        # zoom z=20 is the maximum, but not sure if it is working
-        # TODO: I think this google maps link format is old https://developers.google.com/maps/documentation/urls/get-started
-        self.google_maps_link = "http://maps.google.com/maps?z=19&t=k&q=loc:%s+%s" % (csv.lat, csv.long)
         
         self.mw = csv_int(csv.power_mw)
         # include the estimate here
@@ -144,10 +177,24 @@ class BatteryProject:
             
         self.no_of_battery_units = csv_int(csv.no_of_battery_units)
 
-        
+        # coordinate overwrites
+        if csv.overwrite == "1" and csv.lat == "":
+            self.lat, self.long = eia_location_estimate(csv.id, csv.state)
+            self.coords_exact = "0"
+        else:
+            self.lat = csv.lat
+            self.long = csv.long
+            self.coords_exact = csv.coords_exact
+
+        # https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
+        # zoom z=20 is the maximum, but not sure if it is working
+        # TODO: I think this google maps link format is old https://developers.google.com/maps/documentation/urls/get-started
+        self.google_maps_link = "http://maps.google.com/maps?z=19&t=k&q=loc:%s+%s" % (self.lat, self.long)
+
+
         emojis = []        
         # the order in which the if cases happen matters as that is the order of the emojis
-        if csv.coords_exact != "1":
+        if self.coords_exact != "1":
             emojis.append("📍")
         
         # add both heart and ⚡ for 1gwh projects so if you search for the ⚡ the massive ones will show up also
@@ -179,6 +226,10 @@ class BatteryProject:
         
         self.links = [csv.link1, csv.link2, csv.link3, csv.link4]
         self.links = [l for l in self.links if l != ""]
+
+        
+
+
         
         self.csv = csv
 

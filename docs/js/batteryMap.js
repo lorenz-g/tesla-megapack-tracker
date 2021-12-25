@@ -49,7 +49,7 @@ function generateBatteryMap(projects, mapId){
 
     for (var i=0; i < projects.length; i++){
         p = projects[i];
-        if (p.csv.coords_exact != "1") {
+        if (p.coords_exact != "1") {
             warning = `<br>📍<span class="badge bg-danger">location not exactly known</span>`;
         } else {
             warning = "";
@@ -63,28 +63,28 @@ function generateBatteryMap(projects, mapId){
             tooltipAnchor: [ 16, -28 ],
         }); 
             
-        if (p.csv.lat != ""){
+        if (p.lat != ""){
             var marker;
-            marker = L.marker([p.csv.lat, p.csv.long], {icon: icon});
+            marker = L.marker([p.lat, p.long], {icon: icon});
             marker.bindPopup(
                 `<b>${p.emojis} ${p.csv.name}</b> <br>${p.mwh}MWh
-                <br> in: ${p["status"]} 
-                <br> go live: ${p["go_live"]}
-                <br> from: ${p.csv["manufacturer"]}
-                <br> for: ${p.csv["customer"]} ${p.csv["owner"]}
-                <br><a href="${p["google_maps_link"]}" target="_blank">Google Maps</a>
+                <br> in: ${p.status} 
+                <br> go live: ${p.go_live}
+                <br> from: ${p.csv.manufacturer}
+                <br> for: ${p.csv.customer} ${p.csv.owner}
+                <br><a href="${p.google_maps_link}" target="_blank">Google Maps</a>
                 ${warning}
-                <br><a href="/tesla-megapack-tracker/projects/${p.csv["id"]}.html" target="_blank">Details</a>`                );
+                <br><a href="/tesla-megapack-tracker/projects/${p.csv.id}.html" target="_blank">Details</a>`                );
             // TODO: find a way to quickly create icons of different colors
             // there is the div icon, or an external lib called AwesomeMarker
             overlays[p["status"]].push(marker)
             
             // TODO: find a way to only show the labels for the layers that a selected
             // for now they are always shown
-            var label = L.marker([p.csv["lat"], p.csv["long"]]);
+            var label = L.marker([p.lat, p.long]);
             var div = L.divIcon({
             "className": "map-label", 
-            "html": `<span class="text-nowrap bg-white">&nbsp;${p.smileys}${p.name}&nbsp;</span> <span class="text-nowrap bg-white">&nbsp;${p["capacity mwh"]}MWh&nbsp;</span>`,
+            "html": `<span class="text-nowrap bg-white">&nbsp;${p.emojis}${p.csv.name}&nbsp;</span> <span class="text-nowrap bg-white">&nbsp;${p.mwh}MWh&nbsp;</span>`,
             "iconAnchor": [0, 0]});
             label.setIcon(div);
             labelGroup.addLayer(label)
@@ -130,5 +130,5 @@ function generateBatteryMap(projects, mapId){
         .setContent(e.latlng.toString())
         .openOn(mymap);
     }
-    // mymap.on('click', onMapClick);
+    mymap.on('click', onMapClick);
 }

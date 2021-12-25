@@ -541,12 +541,12 @@ def gen_individual_pages(projects: Iterable[BatteryProject]):
             f.write(template.render(p=p, g_l=generate_link))
 
 
-def match_eia_projects_with_mpt_projects(eia_data, projects):
+def match_eia_projects_with_mpt_projects(eia_data, projects: Iterable[BatteryProject]):
     """ match by state and then print in desceding order of capacity"""
 
     pr_by_state = defaultdict(lambda: {"eia": [], "mpt": []})
 
-    mpt_plant_ids = set([p["eia_plant_id"] for p in projects])
+    mpt_plant_ids = set([p.csv.external_id for p in projects])
 
     for v in eia_data["projects"].values():
         # ignore if there are multiple generator codes
@@ -555,17 +555,17 @@ def match_eia_projects_with_mpt_projects(eia_data, projects):
             pr_by_state[pr["plant state"]]["eia"].append(pr)
     
     for pr in projects:
-        if pr["country"] != "usa":
+        if pr.csv.country != "usa":
             continue
-        if not pr["state"]:
+        if not pr.csv.state:
             continue
         
-        if not pr["eia_plant_id"]:
-            state_short = US_STATES_LONG_TO_SHORT.get(pr["state"])
+        if not pr.csv.external_id:
+            state_short = US_STATES_LONG_TO_SHORT.get(pr.csv.state)
             if state_short:
                 pr_by_state[state_short]["mpt"].append(pr)
             else:
-                print("could not find state", pr["state"])
+                print("could not find state", pr.csv.state)
             
     
     for state, projects in sorted(pr_by_state.items()):
@@ -577,16 +577,16 @@ def match_eia_projects_with_mpt_projects(eia_data, projects):
             print(p["mw"], p["plant name"], p["plant id"], p["status_simple"])
         
         print("\nmpt projects:")
-        mpt = sorted(projects["mpt"], key=lambda x:x["mw_int"], reverse=True)
+        mpt = sorted(projects["mpt"], key=lambda x:x.mw, reverse=True)
         for p in mpt:
-            print(p["mw_int"], p["name"], p["id"], p["status"])
+            print(p.mw, p.csv.name)
 
     # list that can be inserted into projects.csv
     # TODO: probably should try and ignore the ones that I had in the US that are not covered here. 
     print("\n\n")
+    start_id = 143
     for state, projects in sorted(pr_by_state.items()):
         eia = sorted(projects["eia"], key=lambda x:x["mw"], reverse=True)
-        start_id = 143
         for p in eia:
             # estimate a two hour system
             mwh_estimate = str(p["mw"] * 2)
