@@ -49,8 +49,8 @@ function generateBatteryMap(projects, mapId){
 
     for (var i=0; i < projects.length; i++){
         p = projects[i];
-        if (p.coords_exact != "1") {
-            warning = `<br>📍<span class="badge bg-danger">location not exactly known</span>`;
+        if (p.coords_exact != true) {
+            warning = `<br><span class="badge bg-danger">${p.coords_hint}</span>`;
         } else {
             warning = "";
         }
