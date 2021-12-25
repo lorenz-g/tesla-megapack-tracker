@@ -28,6 +28,16 @@ USE_CASE_EMOJI_LI = [
 # in case the state does not have default coords
 EIA_COORDS_USA = (39.613588, -101.337891)
 
+
+COORDS_EXACT_DICT = {
+    "-1": "📍 Coords are a guess. Only the state is known",
+    "0": "📍 Coords not known",
+    "1": "✅ Coords are exact (+/- 50m)",
+    "2": "📍 Coords are +/- 1 kilometer",
+}
+
+
+
 def project_is_slow(go_live, mwh, mw):
     """ Any project that is going live in 2025 or later and that has less than 1GW / 1GWh is slow
     Might have to change that function in the future. 
@@ -43,6 +53,9 @@ def project_is_slow(go_live, mwh, mw):
         if not (mwh >= 1000 or mw >=1000):
             return True
     return False
+
+
+
 
 def csv_int(ip):
     # TODO: enable that again if data is clean...
@@ -74,6 +87,7 @@ def eia_location_estimate(id_, state):
     x = radius * math.cos(angle)
     y = radius * math.sin(angle)
     return str(coords[0] + y), str(coords[1] + x) 
+
 
 
 
@@ -180,11 +194,15 @@ class BatteryProject:
         # coordinate overwrites
         if csv.overwrite == "1" and csv.lat == "":
             self.lat, self.long = eia_location_estimate(csv.id, csv.state)
-            self.coords_exact = "0"
+            # overwrite of csv, not ideal
+            csv.coords_exact = "-1"
         else:
             self.lat = csv.lat
             self.long = csv.long
-            self.coords_exact = csv.coords_exact
+            
+        
+        self.coords_exact = True if csv.coords_exact == "1" else False
+        self.coords_hint = COORDS_EXACT_DICT[csv.coords_exact]
 
         # https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
         # zoom z=20 is the maximum, but not sure if it is working
@@ -194,7 +212,7 @@ class BatteryProject:
 
         emojis = []        
         # the order in which the if cases happen matters as that is the order of the emojis
-        if self.coords_exact != "1":
+        if not self.coords_exact:
             emojis.append("📍")
         
         # add both heart and ⚡ for 1gwh projects so if you search for the ⚡ the massive ones will show up also

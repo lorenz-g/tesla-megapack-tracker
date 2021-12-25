@@ -50,9 +50,7 @@
 <dt>Coordinates </dt>
 <dl>
     {{ p.lat }}, {{ p.long }} 
-    {% if p.coords_exact != "1" %}
-    <br> 📍 Did not manage to find exact coordinates for this project, they are just an estimate.
-    {% endif %}
+    <br> {{ p.coords_hint}}
 </dl>
 
 
