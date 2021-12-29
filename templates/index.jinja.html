@@ -85,9 +85,9 @@ This list is a best effort to try and list all Tesla megapack and powerpack (>5M
     <tbody>
         {% for p in extra.projects %}
         <tr>
-            <td><a href="projects/{{p.csv.id}}.html" target="_blank">{{ p.csv.name }}</a> {{p.emojis}}</td>
-            <td>{{ p.csv.state }}</td>
-            <td>{{ p.csv.country }}</td>
+            <td><a href="projects/{{p.csv.id}}.html" target="_blank">{{ p.name }}</a> {{p.emojis}}</td>
+            <td>{{ p.state }}</td>
+            <td>{{ p.country }}</td>
             <td><span class="{{ p.status_class }}">{{ p.status }}</span></td>
             <td>{{ p.go_live }}</td>
             <td><span class="{% if p.is_megapack %} badge rounded-pill bg-secondary {% endif %}">{{ p.csv.type }}</span></td>

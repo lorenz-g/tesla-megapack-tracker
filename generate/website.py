@@ -1,21 +1,18 @@
-import collections
 import csv
-import io
 import pprint
 import os
 import json
-import zipfile
 from jinja2 import Environment, FileSystemLoader
 import datetime as dt
-import pylightxl as xl
 from collections import defaultdict
-import requests
-from pathlib import Path
 from generate.blog import gen_blog
-from generate.battery_project import USE_CASE_EMOJI_LI, BatteryProject, VALID_STATUS
-from generate.utils import generate_link, COUNTRY_EMOJI_DI, US_STATES_LONG_TO_SHORT, US_STATES_SHORT_TO_LONG
+from generate.battery_project import USE_CASE_EMOJI_LI, BatteryProject
+from generate.constants import US_STATES_LONG_TO_SHORT, US_STATES_SHORT_TO_LONG
+from generate.utils import generate_link
 
 from typing import Iterable
+
+from generate.gov.us_eia import stats_eia_data
 
 
 
@@ -32,275 +29,6 @@ def load_file(filename='projects.csv', type_="json"):
     # pprint.pprint(rows[0])
     return rows
 
-def check_di_difference(old, new, ignore=None):
-    """ only focus on single level dicts and assume they have the same keys
-    """
-    assert sorted(old.keys()) == sorted(old.keys())
-
-    if ignore is None:
-        ignore = []
-
-    li = []
-    for k,v in old.items():
-        if k in ignore:
-            continue
-        extra = ""
-        if k == 'date':
-            from_date = dt.datetime.strptime(v, "%Y-%m")
-            to_date = dt.datetime.strptime(new[k], "%Y-%m")
-            month_delta = (to_date.year - from_date.year) * 12 + (to_date.month - from_date.month)
-            pill_bg = 'danger' if month_delta > 0 else 'success'
-            word = 'delayed' if month_delta > 0 else 'accelerated'
-            month = "month" if abs(month_delta) == 1 else "months"
-            extra = '<span class="badge rounded-pill bg-%s">%s by %d %s</span>' % (pill_bg, word, abs(month_delta), month)
-        if k == 'status' and new[k] == "operation":
-            # celebrate
-            extra = "🍾 🎉 🍸"
-
-
-        if new[k] != v:
-            li.append({
-                "name": k,
-                "from": v,
-                "to": new[k],
-                "extra": extra,
-            })
-    return li
-
-def stats_eia_data():
-    folder = "misc/eia-data/merged/"
-    filenames = sorted(os.listdir(folder))
-    months = [f.split(".")[0] for f in filenames]
-    
-
-    monthly_diffs = []
-    last_report = {}
-    s_monthly = defaultdict(dict)
-
-    # projects with their history
-    projects_di = defaultdict(dict)
-
-
-    for fn in filenames:
-        month = fn.split(".")[0]
-        with open(folder + fn) as f:
-            reader = csv.DictReader(f)
-            rows = [row for row in reader]
-        
-        report_di = {}
-        monthly_changes = {
-            "month": month,
-            "new": [],
-            "updated": [],
-        }
-
-        for r in rows:
-
-            r["mw"] = float(r["net summer capacity (mw)"])
-            
-            if r["status_simple"] not in s_monthly[month]:
-                s_monthly[month][r["status_simple"]] = {"count": 0, "gw": 0}
-            s_monthly[month][r["status_simple"]]["count"] += 1
-            s_monthly[month][r["status_simple"]]["gw"] += float(r["net summer capacity (mw)"]) / 1000
-
-            p_id = r["plant id"]
-            g_id = r["generator id"]
-            if p_id not in report_di:
-                report_di[p_id] = {}
-            report_di[p_id][g_id] = r
-
-            if p_id in last_report and g_id in last_report[p_id]:
-                # need to check for changes here
-                dif = check_di_difference(
-                    last_report[p_id][g_id], r, 
-                    ignore=["month", "year", "status_simple", "net summer capacity (mw)"]
-                )
-                if dif:
-                    monthly_changes["updated"].append([r, dif])
-                    projects_di[p_id][g_id]["changes"].append({"month": month, "li": dif})
-
-            else:
-                # new project
-                monthly_changes["new"].append(r)
-                projects_di[p_id][g_id] = {
-                    "first": r, 
-                    "first_month": month,
-                    "changes": [],
-                    "current": r,
-                    "current_month": month,
-                }
-            
-            projects_di[p_id][g_id]["current"] = r
-            projects_di[p_id][g_id]["current_month"] = month
-
-
-        
-        monthly_changes["new"] = sorted(monthly_changes["new"], key=lambda x:x["mw"], reverse=True)
-        monthly_changes["updated"] = sorted(monthly_changes["updated"], key=lambda x:x[0]["mw"], reverse=True)
-
-        monthly_diffs.append(monthly_changes)
-        last_report = report_di
-
-    
-    # for k,v in s_monthly.items():
-    #     print(k,v)
-
-    summary = {
-        "current": s_monthly[months[-1]],
-        "current_month": months[-1],
-        # want the in descending order
-        "monthly_diffs": monthly_diffs[::-1],
-        "projects": projects_di,
-    }
-
-    return summary
-    
-
-def read_eia_data_all_months():
-    folders = [str(f) for f in Path("misc/eia-data/original/").iterdir()]
-    for folder in folders:
-        if ".DS_Store" in folder:
-            continue
-        print(folder)
-        read_eia_data_single_month(folder)
-
-
-
-def read_eia_data_single_month(folder):
-    """ 
-    eia = U.S. Energy Information Administration
-
-    Data is downloaded from here:
-    https://www.eia.gov/electricity/monthly/ -> overview page
-    https://www.eia.gov/electricity/monthly/xls/table_6_03.xlsx -> new operating units
-    https://www.eia.gov/electricity/monthly/xls/table_6_05.xlsx -> planned operating
-
-    TODO: download data every month and then create a changelog and publish it on the website
-    
-    """
-
-    # so far only planning, construction, operation used, but the eia data is more detailed
-    status_to_status_simple = {
-        "(OT) Other": "planning",
-        "(L) Regulatory approvals pending. Not under construction": "planning",
-        "(T) Regulatory approvals received. Not under construction": "planning",
-        "(P) Planned for installation, but regulatory approvals not initiated": "planning",
-        "(U) Under construction, less than or equal to 50 percent complete": "construction",
-        "(V) Under construction, more than 50 percent complete": "construction",
-        "(TS) Construction complete, but not yet in commercial operation": "construction",
-        "operation": "operation",
-    }
-    
-    # use a list here as some projects can have the same plant id
-    # plant_id + generator code is always unique
-    # e.g. Ravenswood project has 3 entries with the same plant id
-    projects = defaultdict(list)
-
-    # this one is to write it to a csv
-    projects_li = []
-
-    counts = defaultdict(int)
-    files = [os.path.join(folder, "Table_6_03.xlsx"), os.path.join(folder, "Table_6_05.xlsx")]
-
-
-    for file in files:
-        if "6_03" in file:
-            type_ = "operation"
-        elif "6_05" in file:
-            type_ = "planned"
-        else:
-            raise ValueError("unknown table")
-
-        print(file)
-        db = xl.readxl(file)
-        print(db)
-        ws = db.ws(db.ws_names[0])
-
-        # ignore first row and use second row as column names
-        rows = list(ws.rows)[1:]
-        # only use lower case col names
-        column_names = [r.lower() for r in rows[0]]
-        rows = rows[1:]
-        col_len = len(column_names)
-        
-        # print(type_, "\n", "\n".join(column_names))
-        
-        for row in rows:
-            # similar to a csv dict reader
-            pr = {column_names[i]: row[i] for i in range(col_len)}
-            
-            # only battery projects and projects of more than 10MW
-            if not (pr["technology"] == "Batteries" and float(pr["net summer capacity (mw)"]) >= 10):
-                continue
-            
-            # need to add this manually
-            if type_ == 'operation':
-                pr["status"] = "operation"
-            else:
-                # don't need it, can rely on the net summer capacity
-                pr.pop('nameplate capacity (mw)')
-
-            pr["status_simple"] = status_to_status_simple[pr["status"]]
-            pr["date"] = "%d-%02d" % (pr["year"], pr["month"])
-            
-            # print(pr)
-            projects[pr["plant id"]].append(pr)
-            projects_li.append(pr)
-            counts[pr["status_simple"]] += 1
-    
-    print(counts)
-    
-    # e.g. "misc/eia-data/original/2021-01/table.xlsx"
-    date = files[0].split("/")[3]
-    with open("misc/eia-data/merged/%s.csv" % date, "w") as f:
-        writer = csv.DictWriter(f, fieldnames=projects_li[0].keys())
-        writer.writeheader()
-        for p in projects_li:
-            writer.writerow(p)
-
-    # print(len(projects))
-    # print(sum(len(i) for i in projects.values()))
-
-
-    return projects
-
-def download_and_extract_eia_data():
-    """
-    don't always have to run the entire date range, can just run the latest month...
-
-    https://www.eia.gov/electricity/monthly/archive/july2021.zip
-
-    # TODO: need to find out if they are the same for all the month
-    Table_6_03.xlsx
-    Table_6_05.xlsx
-
-    seems like the table 6_03 did not exist in 2020
-    """
-
-    years = [
-        # [2020, [9,12]], # before 9, there is a key error net summer capacity (mw), not digging further here
-        [2021, [8, 13]],
-    ]
-    base_url = "https://www.eia.gov/electricity/monthly/archive/%s.zip"
-    tables = ['Table_6_03.xlsx', 'Table_6_05.xlsx']
-
-    for year, r in years:
-        for month in range(r[0],r[1]):
-            date = dt.date(year, month, 1)
-            print(date)
-            r = requests.get(base_url % date.strftime("%B%Y").lower())
-            if r.status_code != 200:
-                print("got %s code, ignoring it" % (r.status_code))
-                continue
-            
-            file = zipfile.ZipFile(io.BytesIO(r.content))
-        
-            for table in tables:
-                zi = file.getinfo(table)
-                folder = "misc/eia-data/original/%s/" % date.strftime("%Y-%m")
-                file.extract(zi, folder)
-    
-            read_eia_data_single_month(folder)
 
 
 def gen_eia_page(eia_data, projects: Iterable[BatteryProject]):
@@ -626,10 +354,12 @@ def main():
             continue
 
         gov = None
+        gov_history = None
         if p["country"] == "usa" and p["external_id"]:
-            gov = eia_data["projects"][p["external_id"]]
+            gov = eia_data["projects_short"][p["external_id"]]
+            gov_history = eia_data["projects"][p["external_id"]]
 
-        projects.append(BatteryProject(p, gov))
+        projects.append(BatteryProject(p, gov, gov_history))
 
     tesla_projects = [p for p in projects if p.is_tesla]
     

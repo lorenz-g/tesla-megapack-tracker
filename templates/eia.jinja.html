@@ -82,6 +82,17 @@ New projects ({{ month.new | length}}): <br>
     {% if pr["plant id"] in extra.gen_ids_from_projects %} <a href="projects/{{extra.gen_ids_from_projects[pr['plant id']]}}.html">✅</a> {% endif %}<br>
 {% endfor %}
 
+
+{% if month.disappeared | length > 0 %}
+<br>
+Disappeared projects ({{ month.disappeared | length}}): <br>
+{% for pr in month.disappeared %}
+    {{pr["plant state"]}} - {{pr.mw | int}} MW - {{pr["plant name"]}} - 
+    {{pr["entity name"]}} - {{pr["date"]}} - {{pr["status_simple"]}} - {{pr["plant id"]}}
+    {% if pr["plant id"] in extra.gen_ids_from_projects %} <a href="projects/{{extra.gen_ids_from_projects[pr['plant id']]}}.html">✅</a> {% endif %}<br>
+{% endfor %}
+{% endif %}
+
 <br>
 Updated projects ({{ month.updated | length}}):<br>
 {% for pr, changes in month.updated %}

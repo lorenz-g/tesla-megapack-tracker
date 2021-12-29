@@ -2,8 +2,13 @@ from dataclasses import asdict, dataclass
 import copy
 import sys
 import math
+import logging
 
-from generate.utils import COUNTRY_EMOJI_DI, US_STATES_TO_EIA_COORDINATES
+from generate.constants import COUNTRY_EMOJI_DI, US_STATES_TO_EIA_COORDINATES
+from generate.gov.us_eia import EiaShortData
+
+l = logging.getLogger("battery_project")
+
 
 VALID_STATUS = ("planning", "construction", "operation")
 
@@ -89,12 +94,6 @@ def eia_location_estimate(id_, state):
     return str(coords[0] + y), str(coords[1] + x) 
 
 
-
-
-
-
-
-
 # good link about dataclasses
 @dataclass
 class CsvProjectData:
@@ -137,7 +136,6 @@ class CsvProjectData:
 
 
 
-
 class BatteryProject:
     """ Class for a project to add helper and styling functions 
     that make it easier to work with the projects
@@ -153,19 +151,63 @@ class BatteryProject:
 
     """
 
-    def __init__(self, csv_di, gov):
+    def __init__(self, csv_di, gov: EiaShortData, gov_history):
         pass
         # the dict from the projects.csv file and turn into dataclass for type hints
         csv = CsvProjectData(**csv_di)
         
         # government data dict
-        self.gov = gov
+        self.gov_history = gov_history
+        self.has_gov_data = bool(gov)
 
-        self.status = csv.status
+        # merge the government data        
+        if gov:
+            self.status = gov.status
+
+            self.date_first_heard = gov.date_first_heard
+            self.start_construction = gov.start_construction
+            self.start_operation = gov.start_operation
+            self.start_estimated = gov.start_estimated
+
+            self.owner = gov.owner
+            self.name = gov.name
+            self.state = gov.state
+            self.country = gov.country
+            self.mw = gov.power_mw
+            self.mwh = gov.estimate_mwh
+            self.mwh_is_estimate = True
+        else:
+            self.status = csv.status
+        
+            self.date_first_heard = csv.date_first_heard    
+            self.start_construction = csv.start_construction
+            self.start_operation = csv.start_operation
+            self.start_estimated = csv.start_estimated
+
+            self.owner = csv.owner
+            self.name = csv.name
+            self.state = csv.state
+            self.country = csv.country
+            self.mw = csv_int(csv.power_mw)
+        
+            # include the estimate here
+            self.mwh = csv_int(csv.capacity_mwh)
+            self.mwh_is_estimate = False
+            if self.mwh == 0 and csv_int(csv.estimate_mwh) > 0:
+                self.mwh = csv_int(csv.estimate_mwh)
+                self.mwh_is_estimate = True
+
+
+
+
         assert self.status in VALID_STATUS, "status is not valid '%s' - %s" % (self.status, csv_di['name'])
 
         self.status_class = "badge rounded-pill bg-success" if self.status == "operation" else ""
-        notes_split = csv.notes.split("**")
+        self.notes_split = csv.notes.split("**")
+
+        self.in_operation = self.status == "operation"
+        self.in_construction = self.status == "construction"
+        self.in_planning = self.status == "planning"
         
         # merge the start operation and estimated start here
         if csv.start_operation:
@@ -179,15 +221,7 @@ class BatteryProject:
             self.go_live_year_int = None
 
         
-        self.mw = csv_int(csv.power_mw)
-        # include the estimate here
-        self.mwh = csv_int(csv.capacity_mwh)
-        self.mwh_is_estimate = False
 
-        # TODO: add an emoji for estimate
-        if self.mwh == 0 and csv_int(csv.estimate_mwh) > 0:
-            self.mwh = csv_int(csv.estimate_mwh)
-            self.mwh_is_estimate = True
             
         self.no_of_battery_units = csv_int(csv.no_of_battery_units)
 
@@ -244,19 +278,10 @@ class BatteryProject:
         
         self.links = [csv.link1, csv.link2, csv.link3, csv.link4]
         self.links = [l for l in self.links if l != ""]
-
-        
-
-
         
         self.csv = csv
 
-
         # some helper variables
-        self.in_operation = self.status == "operation"
-        self.in_construction = self.status == "construction"
-        self.in_planning = self.status == "planning"
-
         self.is_tesla = self.csv.manufacturer == "tesla"
         self.is_megapack = self.csv.type == "megapack"
 

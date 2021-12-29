@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %} 
-{{p.name}} ({{ p['capacity mwh'] }}MWh)
+{{p.csv.name}} ({{ p.mwh }}MWh)
 {% endblock %}
 
 {% block og_props %}
@@ -14,22 +14,48 @@
 
 {% block content %}
 
-<h3> {{p.csv.name}} {{p.emojis}} </h3>
+<h3> {{p.name}} {{p.emojis}} </h3>
 
 <dt>Status </dt>
 <dl><span class="{{ p.status_class }}">{{ p.status }}</span> </dl>
 
 <dt>Country / State / Closest City </dt>
-<dl>{{ p.csv.country }} / {{ p.csv.state }} / {{ p.csv.city }}</dl>
+<dl>{{ p.country }} / {{ p.state }} / {{ p.csv.city }}</dl>
 
-<dt>Date first heard / Construction start / Operation start / Estimated Operation Start</dt>
-<dl>{{ p.csv.date_first_heard }} / {{ p.csv.start_construction }} / {{ p.csv.start_operation }} / {{ p.csv.start_estimated }}</dl>
+<dt>Dates</dt>
+<div class="row">
+    <div class="col-lg-4">
+        <table class="table table-bordered">
+            <tr>
+                <td>First heard</td>
+                <td>{{ p.date_first_heard }}</td>
+            </tr>
+            <tr>
+                <td>Construction start</td>
+                <td>{{ p.start_construction }}</td>
+            </tr>
+            <tr>
+                <td>Operation start</td>
+                <td>{{ p.start_operation }}</td>
+            </tr>
+            <tr>
+                <td>Estimated start</td>
+                <td>{{ p.start_estimated }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
 
 <dt>Capacity in MWh </dt>
-<dl>{{ p.mwh }}</dl>
+<dl>
+    {{ p.mwh }}
+    {% if p.mwh_is_estimate %} <br>📏  This is an estimate {% endif %}
+
+</dl>
+
 
 <dt>Maximum Power in MW </dt>
-<dl>{{ p.m }}</dl>
+<dl>{{ p.mw }}</dl>
 
 <dt>Manufacturer </dt>
 <dl>{{ p.csv.manufacturer }} </dl>
@@ -38,7 +64,7 @@
 <dl>{{ p.csv.type }} / {{ p.csv.no_of_battery_units }} / {{ p.csv.cells }}</dl>
 
 <dt>Customer / Owner / Developer</dt>
-<dl>{{ p.csv.customer }} / {{ p.csv.owner }} / {{ p.csv.developer }} </dl>
+<dl>{{ p.csv.customer }} / {{ p.owner }} / {{ p.csv.developer }} </dl>
 
 
 <dt>Use case </dt>
@@ -71,20 +97,20 @@
     {% endfor %} 
 </dl>
 
-{% if p.gov %}
+{% if p.has_gov_data %}
 <h3> US EIA data </h3>
 This data is matched from the U.S. Energy Information Administration (EIA) electricity monthly website from planned (Chapter 6.5) and existing (Chapter 6.3) energy projects
  <a href ="https://www.eia.gov/electricity/monthly/">https://www.eia.gov/electricity/monthly/</a></li>
 <br>
 
-{% if p.gov.values() | length > 1 %}
-<span class="badge bg-info">This project has {{ p.gov.values() | length }} generator ids under the same plant id</span><br>
+{% if p.gov_history.values() | length > 1 %}
+<span class="badge bg-info">This project has {{ p.gov_history.values() | length }} generator ids under the same plant id</span><br>
 {% endif %}
 
 
 
-{% for gen in p.gov.values()%}
-From the <code>{{ gen.current_month }}</code> report<br>
+{% for gen in p.gov_history.values()%}
+Info from the <code>{{ gen.current_month }}</code> report (Project first appeared in the <code>{{ gen.first_month }}</code> report):<br>
 
 <br>
 <dt>Plant Name / State</dt>
