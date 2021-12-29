@@ -67,11 +67,11 @@ function generateBatteryMap(projects, mapId){
             var marker;
             marker = L.marker([p.lat, p.long], {icon: icon});
             marker.bindPopup(
-                `<b>${p.emojis} ${p.csv.name}</b> <br>${p.mwh}MWh
+                `<b>${p.emojis} ${p.name}</b> <br>${p.mwh}MWh
                 <br> in: ${p.status} 
                 <br> go live: ${p.go_live}
                 <br> from: ${p.csv.manufacturer}
-                <br> for: ${p.csv.customer} ${p.csv.owner}
+                <br> for: ${p.csv.customer} ${p.owner}
                 <br><a href="${p.google_maps_link}" target="_blank">Google Maps</a>
                 ${warning}
                 <br><a href="/tesla-megapack-tracker/projects/${p.csv.id}.html" target="_blank">Details</a>`                );
@@ -84,7 +84,7 @@ function generateBatteryMap(projects, mapId){
             var label = L.marker([p.lat, p.long]);
             var div = L.divIcon({
             "className": "map-label", 
-            "html": `<span class="text-nowrap bg-white">&nbsp;${p.emojis}${p.csv.name}&nbsp;</span> <span class="text-nowrap bg-white">&nbsp;${p.mwh}MWh&nbsp;</span>`,
+            "html": `<span class="text-nowrap bg-white">&nbsp;${p.emojis}${p.name}&nbsp;</span> <span class="text-nowrap bg-white">&nbsp;${p.mwh}MWh&nbsp;</span>`,
             "iconAnchor": [0, 0]});
             label.setIcon(div);
             labelGroup.addLayer(label)
@@ -130,5 +130,5 @@ function generateBatteryMap(projects, mapId){
         .setContent(e.latlng.toString())
         .openOn(mymap);
     }
-    mymap.on('click', onMapClick);
+    // mymap.on('click', onMapClick);
 }
