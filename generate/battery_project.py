@@ -160,7 +160,12 @@ class BatteryProject:
         self.gov_history = gov_history
         self.has_gov_data = bool(gov)
 
+        # mwh is a special case as it always comes from CSV (and might be overwritten by an estimate)
+        self.mwh = csv_int(csv.capacity_mwh)
+        self.mwh_is_estimate = False
+
         # merge the government data        
+        # if gov and csv.overwrite == "1":
         if gov:
             self.status = gov.status
 
@@ -174,8 +179,8 @@ class BatteryProject:
             self.state = gov.state
             self.country = gov.country
             self.mw = gov.power_mw
-            self.mwh = gov.estimate_mwh
-            self.mwh_is_estimate = True
+
+            mwh_estimate = gov.estimate_mwh
         else:
             self.status = csv.status
         
@@ -189,15 +194,13 @@ class BatteryProject:
             self.state = csv.state
             self.country = csv.country
             self.mw = csv_int(csv.power_mw)
+
+            mwh_estimate = csv_int(csv.estimate_mwh)
         
-            # include the estimate here
-            self.mwh = csv_int(csv.capacity_mwh)
-            self.mwh_is_estimate = False
-            if self.mwh == 0 and csv_int(csv.estimate_mwh) > 0:
-                self.mwh = csv_int(csv.estimate_mwh)
-                self.mwh_is_estimate = True
-
-
+        
+        if self.mwh == 0 and mwh_estimate > 0:
+            self.mwh = mwh_estimate
+            self.mwh_is_estimate = True
 
 
         assert self.status in VALID_STATUS, "status is not valid '%s' - %s" % (self.status, csv_di['name'])

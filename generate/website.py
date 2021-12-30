@@ -197,7 +197,7 @@ def create_project_summaries(projects: Iterable[BatteryProject]):
         s_by_status[p.status]["gw"] += p.mw / 1000
 
         if p.in_operation:
-            year = p.csv.start_operation[:4]
+            year = p.start_operation[:4]
             if year not in s_yearly_op:
                 s_yearly_op[year] = {"year": year, "gwh": 0, "perc": None}
             s_yearly_op[year]["gwh"] += p.mwh / 1000
@@ -206,14 +206,14 @@ def create_project_summaries(projects: Iterable[BatteryProject]):
         s_totals_row["mwh"] += p.mwh
         s_totals_row["mw"] += p.mw
         
-        if p.csv.country not in s_by_country:
+        if p.country not in s_by_country:
             
-            s_by_country[p.csv.country] = {
+            s_by_country[p.country] = {
                 "flag": p.flag, 
                 "gwh":0
             }
         if p.in_operation:
-            s_by_country[p.csv.country]["gwh"] += p.mwh / 1000
+            s_by_country[p.country]["gwh"] += p.mwh / 1000
 
     
     for year in s_yearly_op.values():
@@ -283,17 +283,17 @@ def match_eia_projects_with_mpt_projects(eia_data, projects: Iterable[BatteryPro
             pr_by_state[pr["plant state"]]["eia"].append(pr)
     
     for pr in projects:
-        if pr.csv.country != "usa":
+        if pr.country != "usa":
             continue
-        if not pr.csv.state:
+        if not pr.state:
             continue
         
         if not pr.csv.external_id:
-            state_short = US_STATES_LONG_TO_SHORT.get(pr.csv.state)
+            state_short = US_STATES_LONG_TO_SHORT.get(pr.state)
             if state_short:
                 pr_by_state[state_short]["mpt"].append(pr)
             else:
-                print("could not find state", pr.csv.state)
+                print("could not find state", pr.state)
             
     
     for state, projects in sorted(pr_by_state.items()):
