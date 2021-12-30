@@ -84,7 +84,7 @@ function generateBatteryMap(projects, mapId){
             var label = L.marker([p.lat, p.long]);
             var div = L.divIcon({
             "className": "map-label", 
-            "html": `<span class="text-nowrap bg-white">&nbsp;${p.emojis}${p.name}&nbsp;</span> <span class="text-nowrap bg-white">&nbsp;${p.mwh}MWh&nbsp;</span>`,
+            "html": `<span class="text-nowrap bg-white">&nbsp;${p.emojis}${p.name_short}&nbsp;</span> <span class="text-nowrap bg-white">&nbsp;${p.mwh}MWh&nbsp;</span>`,
             "iconAnchor": [0, 0]});
             label.setIcon(div);
             labelGroup.addLayer(label)
