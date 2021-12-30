@@ -43,11 +43,14 @@
 
 - should automatically add a field since when the project is tracked. 
 
-
-- add changelog blog and refer to it from the readme
-- 
-
+- maybe could treat the manual research just as another data sourece
+  
 - better table on mobile...
 
-- test
+- 
 
+
+
+# DONE
+
+- add changelog blog and refer to it from the readme

@@ -6,6 +6,21 @@
 
 - conversion of x and y coordinates given:
   - https://gridreferencefinder.com/#gr=TL0324326320|503243_s__c__s_226320|1
+  - This is the library used http://www.nearby.org.uk/tests/GeoTools2.html
+
+```javascript
+osgb=new GT_OSGB();
+Object { northings: 0, eastings: 0, status: "Undefined" }
+osgb.setGridCoordinates(157517, 543117);
+undefined
+osgb.getWGS84()
+Object { latitude: 54.72440697094995, longitude: -5.767212016423667 }
+
+```
+
+https://github.com/thruston/grid-banger
+In the end, can use this one here:
+https://github.com/fmalina/blocl-bnglatlon/blob/main/bng_latlon/bng_to_latlon.py
 
 
 ```
