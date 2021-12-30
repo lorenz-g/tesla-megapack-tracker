@@ -8,16 +8,7 @@ on 30.12.21
 """
 
 from math import sqrt, pi, sin, cos, tan, atan2
-try:
-    from numba import jit
-except ImportError:
-    def jit(*args, **kwargs):
-        """Dummy decorator to use if numba not installed"""
-        def decorator(func): return func
-        return decorator
 
-
-@jit(nopython=True)
 def OSGB36toWGS84(E, N):
     """ Accept The Ordnance Survey National Grid eastings and northings.
     Return latitude and longitude coordinates.

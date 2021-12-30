@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 import datetime as dt
 
 # when using links need to prefix that everywhere
@@ -8,6 +9,24 @@ BASE_URL = "/tesla-megapack-tracker/"
 
 def generate_link(ip):
     return BASE_URL + ip.lstrip("/")
+
+# common dataclass for all government projects
+@dataclass
+class GovShortData:
+    data_source: str
+    name: str
+    external_id: str
+    state: str
+    country: str
+    estimate_mwh: int
+    power_mw: int
+    owner: str
+    status: str
+    date_first_heard: str
+    start_construction: str
+    start_operation: str
+    start_estimated: str
+    has_multiple_projects: bool
 
 
 def check_di_difference(old, new, ignore=None):

@@ -8,6 +8,7 @@ from collections import defaultdict
 from generate.blog import gen_blog
 from generate.battery_project import USE_CASE_EMOJI_LI, BatteryProject
 from generate.constants import US_STATES_LONG_TO_SHORT, US_STATES_SHORT_TO_LONG
+from generate.gov.uk_repd import match_uk_repd_projects_with_mpt_projects, stats_uk_repd_data
 from generate.utils import generate_link
 
 from typing import Iterable
@@ -347,6 +348,7 @@ def main():
     # 1) Load an prepare data
     csv_projects = load_file("projects.csv")
     eia_data = stats_eia_data()
+    uk_repd_data = stats_uk_repd_data()
     projects = []
     for p in csv_projects:
         # skip for an empty row (sometimes the case at the end)
@@ -358,6 +360,9 @@ def main():
         if p["country"] == "usa" and p["external_id"]:
             gov = eia_data["projects_short"][p["external_id"]]
             gov_history = eia_data["projects"][p["external_id"]]
+        elif p["country"] == "uk" and p["external_id"]:
+            gov = uk_repd_data["projects_short"][p["external_id"]]
+            gov_history = uk_repd_data["projects"][p["external_id"]]
 
         projects.append(BatteryProject(p, gov, gov_history))
 
@@ -385,6 +390,7 @@ def main():
 
     # this does not have to be run every time, just for manual assignment
     # match_eia_projects_with_mpt_projects(eia_data, projects)
+    # match_uk_repd_projects_with_mpt_projects(uk_repd_data, projects)
 
 
 if __name__ == "__main__":

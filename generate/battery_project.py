@@ -5,7 +5,7 @@ import math
 import logging
 
 from generate.constants import COUNTRY_EMOJI_DI, US_STATES_TO_EIA_COORDINATES
-from generate.gov.us_eia import EiaShortData
+from generate.utils import GovShortData
 
 l = logging.getLogger("battery_project")
 
@@ -39,6 +39,7 @@ COORDS_EXACT_DICT = {
     "0": "📍 Coords not known",
     "1": "✅ Coords are exact (+/- 50m)",
     "2": "📍 Coords are +/- 1 kilometer",
+    "3": "📍 Coords are +/- 1 kilometer (gov data)",
 }
 
 
@@ -59,6 +60,23 @@ def project_is_slow(go_live, mwh, mw):
             return True
     return False
 
+
+def format_short_name(name, limit=25):
+    """
+    >>> format_short_name("hello bla")
+    """
+    if len(name) > limit:
+        # todo
+        # # what to extend until the next whitespace
+        # extend = name[limit:]
+        # extend = extend[:extend.index(" ")]
+        extend = ""
+
+        name_short = name[:limit] +  extend + "..."
+    else:
+        name_short = name
+    
+    return name_short
 
 
 
@@ -151,12 +169,13 @@ class BatteryProject:
 
     """
 
-    def __init__(self, csv_di, gov: EiaShortData, gov_history):
+    def __init__(self, csv_di, gov: GovShortData, gov_history):
         pass
         # the dict from the projects.csv file and turn into dataclass for type hints
         csv = CsvProjectData(**csv_di)
         
         # government data dict
+        self.gov = gov
         self.gov_history = gov_history
         self.has_gov_data = bool(gov)
 
@@ -205,6 +224,9 @@ class BatteryProject:
 
         assert self.status in VALID_STATUS, "status is not valid '%s' - %s" % (self.status, csv_di['name'])
 
+        self.name_short = format_short_name(self.name)
+
+
         self.status_class = "badge rounded-pill bg-success" if self.status == "operation" else ""
         self.notes_split = csv.notes.split("**")
 
@@ -229,14 +251,18 @@ class BatteryProject:
         self.no_of_battery_units = csv_int(csv.no_of_battery_units)
 
         # coordinate overwrites
-        if csv.overwrite == "1" and csv.lat == "":
+        if csv.overwrite == "1" and csv.lat == "" and csv.country == "usa":
             self.lat, self.long = eia_location_estimate(csv.id, csv.state)
             # overwrite of csv, not ideal
             csv.coords_exact = "-1"
+        elif gov and csv.lat == "" and csv.country == "uk":
+            self.lat = gov_history["current"]["lat"]
+            self.long = gov_history["current"]["long"]
+            # overwrite of csv, not ideal
+            csv.coords_exact = "3"
         else:
             self.lat = csv.lat
             self.long = csv.long
-            
         
         self.coords_exact = True if csv.coords_exact == "1" else False
         self.coords_hint = COORDS_EXACT_DICT[csv.coords_exact]
@@ -298,6 +324,10 @@ class BatteryProject:
         # as vars returns the __dict__ of the class, the deepcopy here is very important
         di = copy.deepcopy(vars(self))
         di["csv"] = copy.deepcopy(asdict(self.csv))
+        if self.gov:
+            di["gov"] = copy.deepcopy(asdict(self.gov))
+        else:
+            di["gov"] = {}
         return di
 
 

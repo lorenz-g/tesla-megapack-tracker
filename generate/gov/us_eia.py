@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from pathlib import Path
 import csv
 from collections import defaultdict
@@ -12,25 +11,7 @@ import pylightxl as xl
 import requests
 from generate.constants import US_STATES_SHORT_TO_LONG
 
-from generate.utils import check_di_difference
-
-@dataclass
-class EiaShortData:
-    name: str
-    external_id: str
-    state: str
-    country: str
-    estimate_mwh: int
-    power_mw: int
-    owner: str
-    status: str
-    date_first_heard: str
-    start_construction: str
-    start_operation: str
-    start_estimated: str
-    has_multiple_projects: bool
-
-
+from generate.utils import GovShortData, check_di_difference
 
 def stats_eia_data():
     folder = "misc/eia-data/merged/"
@@ -205,7 +186,8 @@ def gen_short_project(generator_di):
         start_estimated = max_date([p["date"] for p in sub_p_cu])
 
 
-    return EiaShortData(
+    return GovShortData(
+        data_source="us_eia",
         name=p0["plant name"],
         external_id=p0["plant id"],
         state=US_STATES_SHORT_TO_LONG[p0["plant state"]],
