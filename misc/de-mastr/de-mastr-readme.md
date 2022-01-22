@@ -12,13 +12,16 @@
 - TODO: write a unzip command that only extracts the relevant files which are:
 
 ```
-unzip -j Gesamtdatenexport_20220122__7deb41eb7fee404f8177517ba2978030.zip "EinheitenStromSpeicher_*" "AnlagenStromSpeicher_*" -d extracted
+unzip -j Gesamtdatenexport_20220122__7deb41eb7fee404f8177517ba2978030.zip "EinheitenStromSpeicher_*" "AnlagenStromSpeicher_*" "Marktakteure_*" -d extracted
+unzip -j Gesamtdatenexport_20220122__7deb41eb7fee404f8177517ba2978030.zip "Marktakteure_*" -d extracted
 
 ```
 
   
   - `EinheitenStromSpeicher_1.xml` (files 1-4) - contains all basic info
   - `AnlagenStromSpeicher_1.xml` (files 1-4) - contains mwh info
+
+- TODO `Marktakteure_20.xml` (1-19) - can be used to look up the  ABR932212103470 numbers
 
 - for now filtering on th mw filed if it is more or equal than 10mw. 
 - TODO: maybe change the filter to 10mwh (but thats in the other field)
@@ -86,6 +89,48 @@ An example XML is:
     </AnlageStromSpeicher>
     <AnlageStromSpeicher>
         <MaStRNummer>SSE999679476417</MaStRNummer>
+
+
+<Marktakteure>
+    <Marktakteur>
+        <MastrNummer>ABR999811578986</MastrNummer>
+        <Personenart>518</Personenart>
+        <Marktfunktion>2</Marktfunktion>
+        <RegistergerichtAusland></RegistergerichtAusland>
+        <Registernummer></Registernummer>
+    </Marktakteur>
+    <Marktakteur>
+        <MastrNummer>ABR999811635924</MastrNummer>
+        <DatumLetzeAktualisierung>2019-12-02T09:16:46.3179167</DatumLetzeAktualisierung>
+        <Personenart>517</Personenart>
+        <Firmenname>Vigotec GmbH</Firmenname>
+        <Marktfunktion>2</Marktfunktion>
+        <Rechtsform>429</Rechtsform>
+        <Land>84</Land>
+        <Strasse>Äußere Frühlingstraße</Strasse>
+        <Hausnummer>28</Hausnummer>
+        <Hausnummer_nv>0</Hausnummer_nv>
+        <Postleitzahl>94315</Postleitzahl>
+        <Ort>Straubing</Ort>
+        <Bundesland>335</Bundesland>
+        <Nuts2>Straubing, kreisfreie Stadt</Nuts2>
+        <Email>info@vigotec.de</Email>
+        <Fax_nv>1</Fax_nv>
+        <Webseite_nv>1</Webseite_nv>
+        <Registergericht>1031</Registergericht>
+        <RegistergerichtAusland></RegistergerichtAusland>
+        <Registernummer>11636</Registernummer>
+        <Taetigkeitsbeginn>2011-10-26</Taetigkeitsbeginn>
+        <AcerCode_nv>1</AcerCode_nv>
+        <Umsatzsteueridentifikationsnummer>DE260216386</Umsatzsteueridentifikationsnummer>
+        <Umsatzsteueridentifikationsnummer_nv>0</Umsatzsteueridentifikationsnummer_nv>
+        <BundesnetzagenturBetriebsnummer></BundesnetzagenturBetriebsnummer>
+        <BundesnetzagenturBetriebsnummer_nv>0</BundesnetzagenturBetriebsnummer_nv>
+        <HausnummerAnZustelladresse_nv>0</HausnummerAnZustelladresse_nv>
+        <Kmu>0</Kmu>
+        <RegistrierungsdatumMarktakteur>2019-12-02T09:16:45.7848096</RegistrierungsdatumMarktakteur>
+    </Marktakteur>
+
 
 ```
 

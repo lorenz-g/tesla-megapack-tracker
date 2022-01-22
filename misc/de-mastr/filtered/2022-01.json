@@ -47,7 +47,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "2377745",
-    "mwh": 8
+    "mwh": 8,
+    "owner": "Allg\u00e4uer \u00dcberlandwerk GmbH"
   },
   {
     "EinheitMastrNummer": "SEE905490507995",
@@ -95,7 +96,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "2607685",
-    "mwh": 9
+    "mwh": 9,
+    "owner": "Coulomb GmbH"
   },
   {
     "EinheitMastrNummer": "SEE905843309764",
@@ -141,7 +143,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "4667064",
-    "mwh": 45
+    "mwh": 45,
+    "owner": "RWE Generation SE"
   },
   {
     "EinheitMastrNummer": "SEE905930139120",
@@ -192,7 +195,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "2725831",
-    "mwh": 52
+    "mwh": 52,
+    "owner": "Lausitz Energie Kraftwerke AG"
   },
   {
     "EinheitMastrNummer": "SEE908096553144",
@@ -241,7 +245,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "3430593",
-    "mwh": 15
+    "mwh": 15,
+    "owner": "STEAG Battery System"
   },
   {
     "EinheitMastrNummer": "SEE910324388312",
@@ -289,7 +294,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "4139056",
-    "mwh": 15
+    "mwh": 15,
+    "owner": "Batteriespeicher Chemnitz GmbH \uff06 Co. KG"
   },
   {
     "EinheitMastrNummer": "SEE913862454280",
@@ -338,7 +344,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "2023224",
-    "mwh": 14
+    "mwh": 14,
+    "owner": "swb Erzeugung AG \uff06 Co. KG"
   },
   {
     "EinheitMastrNummer": "SEE919443669678",
@@ -388,7 +395,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "3429839",
-    "mwh": 15
+    "mwh": 15,
+    "owner": "STEAG Battery System"
   },
   {
     "EinheitMastrNummer": "SEE931375347240",
@@ -436,7 +444,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "3059314",
-    "mwh": 10
+    "mwh": 10,
+    "owner": "SMAREG 1"
   },
   {
     "EinheitMastrNummer": "SEE933095868289",
@@ -483,7 +492,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "4273037",
-    "mwh": 15
+    "mwh": 15,
+    "owner": "Versorgungsbetriebe Bordesholm GmbH"
   },
   {
     "EinheitMastrNummer": "SEE935506652999",
@@ -531,7 +541,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "2940061",
-    "mwh": 26
+    "mwh": 26,
+    "owner": "be.storaged GmbH"
   },
   {
     "EinheitMastrNummer": "SEE937857006797",
@@ -576,7 +587,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "3371345",
-    "mwh": 10
+    "mwh": 10,
+    "owner": "KNE Windpark Nr. 12 GmbH \uff06 Co. KG"
   },
   {
     "EinheitMastrNummer": "SEE940316838242",
@@ -626,7 +638,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "3638550",
-    "mwh": 10
+    "mwh": 10,
+    "owner": "ENGIE Deutschland GmbH"
   },
   {
     "EinheitMastrNummer": "SEE941708872783",
@@ -675,7 +688,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "3395953",
-    "mwh": 15
+    "mwh": 15,
+    "owner": "STEAG Battery System"
   },
   {
     "EinheitMastrNummer": "SEE946919525862",
@@ -719,7 +733,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "4680516",
-    "mwh": 13
+    "mwh": 13,
+    "owner": ""
   },
   {
     "EinheitMastrNummer": "SEE953605889740",
@@ -766,7 +781,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "2568940",
-    "mwh": 17
+    "mwh": 17,
+    "owner": "enercity AG"
   },
   {
     "EinheitMastrNummer": "SEE963081865633",
@@ -813,7 +829,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "2562804",
-    "mwh": 25
+    "mwh": 25,
+    "owner": "BES Bennewitz GmbH \uff06 Co. KG"
   },
   {
     "EinheitMastrNummer": "SEE964940893804",
@@ -863,7 +880,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "3430514",
-    "mwh": 15
+    "mwh": 15,
+    "owner": "STEAG Battery System"
   },
   {
     "EinheitMastrNummer": "SEE966091400436",
@@ -911,7 +929,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "2607339",
-    "mwh": 18
+    "mwh": 18,
+    "owner": "Coulomb GmbH"
   },
   {
     "EinheitMastrNummer": "SEE971138728251",
@@ -961,7 +980,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "3430427",
-    "mwh": 15
+    "mwh": 15,
+    "owner": "STEAG Battery System"
   },
   {
     "EinheitMastrNummer": "SEE971932533266",
@@ -1007,7 +1027,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "4667306",
-    "mwh": 72
+    "mwh": 72,
+    "owner": "RWE Generation SE"
   },
   {
     "EinheitMastrNummer": "SEE976362409624",
@@ -1054,7 +1075,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "2562905",
-    "mwh": 25
+    "mwh": 25,
+    "owner": "BES Groitzsch GmbH\uff06 Co. KG"
   },
   {
     "EinheitMastrNummer": "SEE976927444749",
@@ -1103,7 +1125,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "2667151",
-    "mwh": 10
+    "mwh": 10,
+    "owner": "RRKW Feldheim GmbH \uff06 Co. KG"
   },
   {
     "EinheitMastrNummer": "SEE977720016904",
@@ -1150,7 +1173,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "4750172",
-    "mwh": 10
+    "mwh": 10,
+    "owner": "VERBUND Energy4Business Germany GmbH"
   },
   {
     "EinheitMastrNummer": "SEE984446277410",
@@ -1195,7 +1219,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "3370616",
-    "mwh": 4
+    "mwh": 4,
+    "owner": "ENERPARC Solar Invest 184 GmbH"
   },
   {
     "EinheitMastrNummer": "SEE990521990150",
@@ -1244,7 +1269,8 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "3430313",
-    "mwh": 15
+    "mwh": 15,
+    "owner": "STEAG Battery System"
   },
   {
     "EinheitMastrNummer": "SEE999790559914",
@@ -1294,6 +1320,7 @@
     "EegAnlagentyp": "8",
     "Technologie": "524",
     "pr_url_id": "3984077",
-    "mwh": 48
+    "mwh": 48,
+    "owner": "EnspireME"
   }
 ]

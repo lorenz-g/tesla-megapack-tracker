@@ -24,6 +24,7 @@ from generate.utils import GovShortData, check_di_difference
 
 EINHEITEN_PATH = "EinheitenStromSpeicher_{number}.xml"
 ANLAGEN_PATH = "AnlagenStromSpeicher_{number}.xml"
+MARKTAKTEURE_PATH = "Marktakteure_{number}.xml"
 
 BASE_DETAIL_URL = "https://www.marktstammdatenregister.de/MaStR/Einheit/Detail/IndexOeffentlich/"
 
@@ -103,6 +104,7 @@ MASTR_DETAIL_IDS_DI = {
     "SEE999790559914": 3984077,
     "SEE977720016904": 4750172,
 }
+
 
 
 
@@ -324,7 +326,7 @@ def gen_short_project(history_di):
         mwh=r["mwh"],
         estimate_mwh="",
         power_mw=r["mw"],
-        owner=r["AnlagenbetreiberMastrNummer"],
+        owner=r["owner"],
         status=r["status"],
         date_first_heard=date_first_heard,
         start_construction=start_construction,
@@ -463,6 +465,28 @@ def get_mwh_from_anlagen(base_path, mastr_ids):
 
     return id_mwh_dict
 
+def get_owner_from_marktakeure(base_path, owner_ids):
+    id_owner_dict = {}
+    r = range(1,21)
+    print(list(r))
+    for i in r:
+        print("\n\nStarting with file %d" % i)
+        with open(os.path.join(base_path, MARKTAKTEURE_PATH.format(number=str(i))), "rb") as f:
+            js = xmltodict.parse(f)
+        for unit in js["Marktakteure"]["Marktakteur"]:
+            if unit["MastrNummer"] in owner_ids:
+                if "Firmenname" not in unit:
+                    print("firmenname gibt es nicht", unit)
+                    name = ""
+                else:
+                    name = unit["Firmenname"]
+                    print(unit["Firmenname"])
+                id_owner_dict[unit["MastrNummer"]] = name
+
+    return id_owner_dict
+
+
+
 def convert_to_details_url_id(mastr_nr):
     """
     https://www.marktstammdatenregister.de/MaStR/Schnellsuche/Schnellsuche?praefix=SEE&mastrNummer=927528071629
@@ -487,7 +511,7 @@ def create_new_filtered_json_file(base_path, month):
     month is the output filename, use the month when you downloaded the dataset. e.g. 2021-10
     """
 
-    start_fresh = True
+    start_fresh = False
 
     if start_fresh:
         # this step takes a lot of time
@@ -502,6 +526,16 @@ def create_new_filtered_json_file(base_path, month):
             large_units = json.load(f)
     
     mastr_ids = [i["EinheitMastrNummer"] for i in large_units]
+    owner_ids = [i["AnlagenbetreiberMastrNummer"] for i in large_units]
+
+    
+    # get the owner names
+    owner_di = get_owner_from_marktakeure(base_path, owner_ids)
+    # can use this as a backup
+    # owner_di = {'ABR901047920507': 'swb Erzeugung AG ＆ Co. KG', 'ABR901203303755': 'enercity AG', 'ABR901241927012': 'KNE Windpark Nr. 12 GmbH ＆ Co. KG', 'ABR907042335667': 'RWE Generation SE', 'ABR911461408246': 'Versorgungsbetriebe Bordesholm GmbH', 'ABR917063786638': 'Allgäuer Überlandwerk GmbH', 'ABR920405658623': 'ENERPARC Solar Invest 184 GmbH', 'ABR921213385473': 'BES Bennewitz GmbH ＆ Co. KG', 'ABR922907721966': 'Coulomb GmbH', 'ABR930916959300': 'SMAREG 1', 'ABR932212103470': 'VERBUND Energy4Business Germany GmbH', 'ABR937155736822': '', 'ABR942217905054': 'ENGIE Deutschland GmbH', 'ABR967895852209': 'Lausitz Energie Kraftwerke AG', 'ABR976700826632': 'BES Groitzsch GmbH＆ Co. KG', 'ABR985310436612': 'EnspireME', 'ABR992411297332': 'Batteriespeicher Chemnitz GmbH ＆ Co. KG', 'ABR996025035908': 'RRKW Feldheim GmbH ＆ Co. KG', 'ABR998735752212': 'STEAG Battery System', 'ABR999566358659': 'be.storaged GmbH'}
+    print(owner_di)
+    for unit in large_units:
+        unit["owner"] = owner_di[unit["AnlagenbetreiberMastrNummer"]]
 
 
     # get the mwh values
