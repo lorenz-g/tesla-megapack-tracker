@@ -33,26 +33,52 @@ def load_file(filename='projects.csv', type_="json"):
 
 
 
-def gen_eia_page(eia_data, projects: Iterable[BatteryProject]):
+def gen_gov_pages(gov_data, projects: Iterable[BatteryProject]):
 
-    gen_ids_from_projects = {p.csv.external_id:p.csv.id for p in projects}
+    info_di = {
+        "usa":{
+            "name_short": "U.S. EIA",
+            "name_long": "U.S. Energy Information Administration (EIA)",
+            "template_name": "gov-us-eia.jinja.html",
+            "source_url": "https://www.eia.gov/electricity/monthly/",
+
+        },
+        "uk": {
+            "name_short": "UK REPD",
+            "name_long": "UK Renewable Energy Planning Database (REPD)",
+            "template_name": "gov-uk-repd.jinja.html",
+            "source_url": "https://www.gov.uk/government/publications/renewable-energy-planning-database-monthly-extract",
+
+        },
+        "germany": {
+            "name_short": "DE MaStR",
+            "name_long": "DE Marktstammdatenregister (MaStR)",
+            "template_name": "gov-de-mastr.jinja.html",
+            "source_url": "https://www.marktstammdatenregister.de/MaStR/",
+
+        }
+    }
 
     file_loader = FileSystemLoader('templates')
     env = Environment(loader=file_loader)
     output_dir = 'docs'
-    template_name = "eia.jinja.html"
     
-    extra = {
-        "now": dt.datetime.utcnow(),
-        "summary": eia_data,
-        "gen_ids_from_projects": gen_ids_from_projects,
-    }
 
-    template = env.get_template(template_name)
-    output = template.render(extra=extra, g_l=generate_link) 
-    
-    with open(os.path.join(output_dir, template_name.replace(".jinja", "")), 'w') as f:
-        f.write(output)
+    gen_ids_from_projects = {p.csv.external_id:p.csv.id for p in projects}    
+
+    for country, gov_di in gov_data.items():        
+        extra = {
+            "now": dt.datetime.utcnow(),
+            "summary": gov_di,
+            "gen_ids_from_projects": gen_ids_from_projects,
+        }
+        extra.update(info_di[country])
+
+        template = env.get_template(extra["template_name"])
+        output = template.render(extra=extra, g_l=generate_link) 
+        
+        with open(os.path.join(output_dir, extra["template_name"].replace(".jinja", "")), 'w') as f:
+            f.write(output)
 
 
 
@@ -380,7 +406,7 @@ def main():
     gen_projects_template(tesla_projects, 'index.jinja.html')
     gen_projects_template(projects, 'all-big-batteries.jinja.html')
     gen_individual_pages(projects)
-    gen_eia_page(gov_datasets["usa"], projects)
+    gen_gov_pages(gov_datasets, projects)
     gen_raw_data_files()
     gen_blog()
 
@@ -399,7 +425,7 @@ def main():
     # this does not have to be run every time, just for manual assignment
     # match_eia_projects_with_mpt_projects(eia_data, projects)
     # match_uk_repd_projects_with_mpt_projects(uk_repd_data, projects)
-    match_de_mastr_projects_with_mpt_projects(gov_datasets["germany"], projects)
+    # match_de_mastr_projects_with_mpt_projects(gov_datasets["germany"], projects)
 
 
 if __name__ == "__main__":

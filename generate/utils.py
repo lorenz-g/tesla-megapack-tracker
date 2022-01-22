@@ -34,6 +34,7 @@ class GovShortData:
     long: str = ""
     coords_hint: int = 0 # check the COORDS_EXACT_DICT for the values
     has_multiple_projects: bool = False
+    pr_url: str = ""
 
 
 def check_di_difference(old, new, ignore=None):

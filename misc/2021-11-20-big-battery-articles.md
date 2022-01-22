@@ -24,6 +24,11 @@ tags: updated regularly
   - BloombergNEF Outlook
   - https://about.bnef.com/blog/global-energy-storage-market-set-to-hit-one-terawatt-hour-by-2030/ 
 
+- https://www.nrel.gov/docs/fy22osti/80688.pdf
+  - 2021-01-18
+  - NREL: Grid Operational Impacts of Widespread Storage Deployment
+  - Impact of large scale battery deployments on overall system cost in USA
+  - Scenarioso between 210 and 930GW of storage in 2050
 
 ## Projections about cell costs
 

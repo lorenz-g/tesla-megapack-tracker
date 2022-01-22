@@ -97,6 +97,12 @@
     {% endfor %} 
 </dl>
 
+<dt> Internal / External id </dt>
+<dl>
+    {{p.internal_id}}, {{p.external_id}},
+</dl>
+
+
 {% if p.has_gov_data  and p.country == "usa" %}
 <h3> US EIA data </h3>
 This data is matched from the U.S. Energy Information Administration (EIA) electricity monthly website from planned (Chapter 6.5) and existing (Chapter 6.3) energy projects

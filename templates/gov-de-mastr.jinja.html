@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %} 
+{{ extra.name_short }} big battery summary
+{% endblock %}
+
+
+
+{% block og_props %}
+<meta name="description" content="{{ extra.name_long }} big battery summary">
+
+<meta property="og:title" content="{{ extra.name_short }} big battery summary" />
+<meta property="og:description" content="{{ extra.name_long }} big battery summary" />
+<meta property="og:image" content="https://lorenz-g.github.io/tesla-megapack-tracker/pics/logo.jpg" />
+{% endblock %}
+
+
+
+{% block content %}
+
+<h3> {{ extra.name_short }} Summary <span class="badge bg-info">New</span></h3>
+
+<div class="row">
+    <div class="col-lg-5">
+        {{ extra.name_short }} report from <code>{{ extra.summary.current_month }}</code>
+        <table class="table table-bordered">
+            <tr>
+                <td></td>
+                <td><span class="badge rounded-pill bg-success">operation</span></td>
+                <td>🏗️</td>
+                <td>💻</td>
+            </tr>
+            
+            <tr>
+                <td>Projects count</td>
+                <td>{{ extra.summary.current.operation.count }}</td>
+                <td>{{ extra.summary.current.construction.count }}</td>
+                <td>{{ extra.summary.current.planning.count }}</td>
+            </tr>
+            <tr>
+                <td>Total 🔋 battery power in GW </td>
+                <td>{{ "%.1f" | format(extra.summary.current.operation.gw) }}</td>
+                <td>{{ "%.1f" | format(extra.summary.current.construction.gw) }}</td>
+                <td>{{ "%.1f" | format(extra.summary.current.planning.gw) }}</td>
+            </tr>
+            <tr>
+                <td>Total 🔋 battery capacity in GWh </td>
+                <td>{{ "%.1f" | format(extra.summary.current.operation.gwh) }}</td>
+                <td>{{ "%.1f" | format(extra.summary.current.construction.gwh) }}</td>
+                <td>{{ "%.1f" | format(extra.summary.current.planning.gwh) }}</td>
+            </tr>
+        </table>
+        🏗️ = construction; 💻 = planning<br><br>
+    </div>
+</div>
+<ul>
+    <li>For the <b>{{ extra.name_long }}</b>, you can download a snapshot of the database in XML format at any time from here:
+        <a href ="{{ extra.source_url }}">{{ extra.source_url }}</a></li>
+    <li>The snapshot is filtered by battery projects <b>above 10MW</b> (the capacity is also available, but staying consistent here with the other government datasets)</li>    
+    <li>The dataset give no info about construction status, hence the above is 0</li>
+</ul>
+
+<h3> Monthly big battery changes from {{ extra.name_short }} reports </h3>
+
+<ul>
+    <li>Comparing the reports to show the changes throughout the months.</li>
+    <li>Projects are sorted by the max power output.</li>
+    <li>✅ indicates {{ extra.name_short }} project is also shown on the map on the 
+        <a href="all-big-batteries.html">All Big Batteries page</a>. You can click on the ✅ to get to the detail page.</li>
+</ul>
+
+
+
+
+{% for month in extra.summary.monthly_diffs%}
+
+<br>
+<h4>{{ month.month}}</h4>
+New projects ({{ month.new | length}}): <br>
+{% for pr in month.new %}
+    {% set pr_sh = extra.summary.projects_short[pr.EinheitMastrNummer] %}
+    {{ pr_sh.power_mw}} MW - {{ pr_sh.status }} - {{ pr_sh.name }} - 
+    {{pr_sh.external_id}}
+    <a href="projects/{{extra.gen_ids_from_projects[pr_sh.external_id]}}.html">✅</a><br>    
+{% endfor %}
+
+
+{% if month.disappeared | length > 0 %}
+<br>
+Disappeared projects ({{ month.disappeared | length}}): <br>
+{% for pr in month.disappeared %}
+    {% set pr_sh = extra.summary.projects_short[pr.EinheitMastrNummer] %}
+    {{ pr_sh.power_mw}} MW - {{ pr_sh.status }} - {{ pr_sh.name }} - 
+    {{pr_sh.external_id}}
+    <a href="projects/{{extra.gen_ids_from_projects[pr_sh.external_id]}}.html">✅</a><br>    
+{% endfor %}
+{% endif %}
+
+<br>
+Updated projects ({{ month.updated | length}}):<br>
+{% for pr, changes in month.updated %}
+<div class="mb-2">
+    {% set pr_sh = extra.summary.projects_short[pr.EinheitMastrNummer] %}
+    {{ pr_sh.power_mw}} MW - {{ pr_sh.status }} - {{ pr_sh.name }} - 
+    {{pr_sh.external_id}}
+    <a href="projects/{{extra.gen_ids_from_projects[pr_sh.external_id]}}.html">✅</a><br>
+    {% for change in changes %}
+        &nbsp;&nbsp;{{ change.name }}: {{ change.from }} -> {{ change.to }} {{ change.extra | safe }}<br>
+    {% endfor %}
+</div>
+{% endfor %}
+
+{% endfor %}
+
+
+{% endblock %}

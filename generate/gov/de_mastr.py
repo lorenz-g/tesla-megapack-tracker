@@ -10,19 +10,22 @@ import time
 import json
 import pprint
 import datetime as dt
-from generate.battery_project import BatteryProject
 
+import requests
+
+from generate.battery_project import BatteryProject
 from generate.utils import GovShortData, check_di_difference
+
 
 
 # EinheitenStromSpeicher_1.xml ca 100k entries
 # EinheitenStromSpeicher_4.xml is good for testing as it is only 3.5MB
 
 
+EINHEITEN_PATH = "/EinheitenStromSpeicher_{number}.xml"
+ANLAGEN_PATH = "/AnlagenStromSpeicher_{number}.xml"
 
-BASE_PATH = "path/to/Gesamtdatenexport_20211104__faea4c0e41fb4ec2b57f7f908b3b569e"
-EINHEITEN_PATH = BASE_PATH + "/EinheitenStromSpeicher_{number}.xml"
-ANLAGEN_PATH = BASE_PATH + "/AnlagenStromSpeicher_{number}.xml"
+BASE_DETAIL_URL = "https://www.marktstammdatenregister.de/MaStR/Einheit/Detail/IndexOeffentlich/"
 
 technology_dict = {
     "524": "battery",
@@ -67,6 +70,39 @@ BUNDESLAND_DI = {
     # '1414': "",
     '1415': "thuringia",
 }
+
+# mapping to go to the details url (to prevent calling the website that often which slows things down)
+# move to file if it becomes too big
+MASTR_DETAIL_IDS_DI = {
+    "SEE927528071629": 3179493,
+    "SEE953605889740": 2568940,
+    "SEE900291433160": 2377745,
+    "SEE905490507995": 2607685,
+    "SEE905843309764": 4667064,
+    "SEE905930139120": 2725831,
+    "SEE908096553144": 3430593,
+    "SEE910324388312": 4139056,
+    "SEE913862454280": 2023224,
+    "SEE919443669678": 3429839,
+    "SEE931375347240": 3059314,
+    "SEE933095868289": 4273037,
+    "SEE935506652999": 2940061,
+    "SEE937857006797": 3371345,
+    "SEE940316838242": 3638550,
+    "SEE941708872783": 3395953,
+    "SEE946919525862": 4680516,
+    "SEE963081865633": 2562804,
+    "SEE964940893804": 3430514,
+    "SEE966091400436": 2607339,
+    "SEE971138728251": 3430427,
+    "SEE971932533266": 4667306,
+    "SEE976362409624": 2562905,
+    "SEE976927444749": 2667151,
+    "SEE984446277410": 3370616,
+    "SEE990521990150": 3430313,
+    "SEE999790559914": 3984077,
+}
+
 
 
 """
@@ -159,16 +195,22 @@ def stats_de_mastr_data():
             "disappeared": []
         }
 
+        s_monthly[month] = {
+            "planning": {"count": 0, "gw": 0, "gwh": 0},
+            "construction": {"count": 0, "gw": 0, "gwh": 0},
+            "operation": {"count": 0, "gw": 0, "gwh": 0}
+        }
+
         for r in rows:
             # TODO: use netto or bruttoleisung here, not sure?
             # nettoleistung = min(bruttoleistung, wechselrichterleistung), so I guess nettoleistung is better
             r["mw"] = cast_to_mega(r["Nettonennleistung"])
             r["status"] = STATUS_DI[r["EinheitBetriebsstatus"]]
 
-            if r["status"] not in s_monthly[month]:
-                s_monthly[month][r["status"]] = {"count": 0, "gw": 0}
+            
             s_monthly[month][r["status"]]["count"] += 1
             s_monthly[month][r["status"]]["gw"] += int(r["mw"]) / 1000
+            s_monthly[month][r["status"]]["gwh"] += int(r["mwh"]) / 1000
 
             ref = r["EinheitMastrNummer"]
             report_di[ref] = r
@@ -290,7 +332,8 @@ def gen_short_project(history_di):
         lat=r["Breitengrad"],
         long=r["Laengengrad"],
         # TODO: check if projects are really exact and we can maybe put a 1 here
-        coords_hint=1
+        coords_hint=1,
+        pr_url=BASE_DETAIL_URL + str(r["pr_url_id"])
     )
 
 
@@ -389,6 +432,10 @@ def check_for_large_units(filename):
             print("keyerror", unit)
             continue
         
+        # prepare the data a bit here already
+        unit["pr_url_id"] = convert_to_details_url_id(unit["EinheitMastrNummer"])
+
+
         print(to_print)
         large_units.append(unit)
 
@@ -401,34 +448,76 @@ def check_for_large_units(filename):
 
     return large_units
 
-def check_all():
-    large_units = []
-    for i in [1,2,3,4]:
-        print("\n\nStarting with file %d" % i)
-        units = check_for_large_units(EINHEITEN_PATH.format(number=str(i)))
-        large_units.extend(units)
+def get_mwh_from_anlagen(base_path, mastr_ids):
     
-    with open("large-units.json", "w") as f:
-        json.dump(large_units, f)
-
-
-def get_mwh_from_anlagen(unit_list):
-    mast_ids = [i["EinheitMastrNummer"] for i in unit_list]
     id_mwh_dict = {}
-    print(mast_ids)
     for i in [1,2,3,4]:
         print("\n\nStarting with file %d" % i)
-        with open(ANLAGEN_PATH.format(number=str(i)), "rb") as f:
+        with open(os.path.join(base_path,ANLAGEN_PATH.format(number=str(i))), "rb") as f:
             js = xmltodict.parse(f)
         for unit in js["AnlagenStromSpeicher"]["AnlageStromSpeicher"]:
-            if unit["VerknuepfteEinheitenMaStRNummern"] in mast_ids:
+            if unit["VerknuepfteEinheitenMaStRNummern"] in mastr_ids:
                 print(unit["NutzbareSpeicherkapazitaet"])
                 if unit["VerknuepfteEinheitenMaStRNummern"] in id_mwh_dict:
                     print(unit["VerknuepfteEinheitenMaStRNummern"], "already in dict")
                 id_mwh_dict[unit["VerknuepfteEinheitenMaStRNummern"]] = int(float(unit["NutzbareSpeicherkapazitaet"]) / 1000)
 
-    print(id_mwh_dict)
-     
+    return id_mwh_dict
+
+def convert_to_details_url_id(mastr_nr):
+    """
+    https://www.marktstammdatenregister.de/MaStR/Schnellsuche/Schnellsuche?praefix=SEE&mastrNummer=927528071629
+    {"url":"/MaStR/Einheit/Detail/IndexOeffentlich/3179493"}
+    https://www.marktstammdatenregister.de/MaStR/Einheit/Detail/IndexOeffentlich/3179493
+    """
+    if mastr_nr in MASTR_DETAIL_IDS_DI:
+        id_ = MASTR_DETAIL_IDS_DI[mastr_nr]
+    else:
+        url = "https://www.marktstammdatenregister.de/MaStR/Schnellsuche/Schnellsuche?praefix=SEE&mastrNummer=" + mastr_nr[3:]
+        r = requests.get(url)
+        id_ = r.json()["url"].split("/")[-1]
+        print('"%s": %s,' % (mastr_nr, id_))
+
+    return str(id_)
+
+
+def create_new_filtered_json_file(base_path, month):
+    """
+    execute this function to if you have a new dataset download
+    
+    month is the output filename, use the month when you downloaded the dataset. e.g. 2021-10
+    """
+
+    large_units = []
+    for i in [1,2,3,4]:
+        print("\n\nStarting with file %d" % i)
+        units = check_for_large_units(os.path.join(base_path,EINHEITEN_PATH.format(number=str(i))))
+        large_units.extend(units)
+
+    mastr_ids = [i["EinheitMastrNummer"] for i in units]
+    
+    # get the mwh values
+    mwh_di = get_mwh_from_anlagen(base_path, mastr_ids)
+    for unit in units:
+        unit["mwh"] = mwh_di[unit["EinheitMastrNummer"]]
+
+    # get the detail page ids
+    for unit in units:
+        unit["pr_url_id"] = convert_to_details_url_id(unit["EinheitMastrNummer"])
+
+
+    out_file = "misc/de-mastr/filtered/%s.json" % month
+    if os.path.exists(out_file):
+        print("file already exists, not overwritting it", out_file)
+    else:
+        with open(out_file, "w") as f:
+            json.dump(large_units, f, indent=2)
+    
+    # just for debugging
+    with open("mastr-test.json", "w") as f:
+            json.dump(large_units, f, indent=2)
+
+
 
 def pprint_units():
     with open("large-units.json") as f:
@@ -439,8 +528,6 @@ def pprint_units():
         # pprint.pprint(js)
     return js
 
-
-
 def temp():
     # can delete this again, just a way to merge the anlagen and einheiten
     with open("misc/de-mastr/filtered/2021-11.json") as f:
@@ -449,17 +536,14 @@ def temp():
         print([i["SpeMastrNummer"] for i in js])
         print("number of projects", len(js))
         # pprint.pprint(js)
-
-    with open("misc/de-mastr/filtered/mwh.json") as f:
-        mwh = json.load(f)
     
-    for i in js:
-        i["mwh"] = mwh[i["EinheitMastrNummer"]]
+    for unit in js:
+        unit["pr_url_id"] = convert_to_details_url_id(unit["EinheitMastrNummer"])
 
+    # with open("misc/de-mastr/filtered/2021-11.json", "w") as f:
+    #     # todo: keep the indent for better readability
+    #     json.dump(js, f, indent=2)
 
-    with open("misc/de-mastr/filtered/2021-11.json", "w") as f:
-        # todo: keep the indent for better readability
-        json.dump(js, f, indent=2)
 
 
 
@@ -476,5 +560,4 @@ if __name__ == "__main__":
     # check_all()
     # li = pprint_units()
     # get_mwh_from_anlagen(li)
-    temp()
-    
+    pass

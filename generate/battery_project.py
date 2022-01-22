@@ -159,8 +159,6 @@ class CsvProjectData:
     link4: str
 
 
-
-
 class BatteryProject:
     """ Class for a project to add helper and styling functions 
     that make it easier to work with the projects
@@ -180,6 +178,7 @@ class BatteryProject:
         pass
         # the dict from the projects.csv file and turn into dataclass for type hints
         csv = CsvProjectData(**csv_di)
+        self.internal_id = csv.id
         
         # government data dict
         self.gov = gov
@@ -198,6 +197,7 @@ class BatteryProject:
         # if gov and csv.overwrite == "1":
         if gov:
             self.status = gov.status
+            self.external_id = gov.external_id
 
             self.date_first_heard = gov.date_first_heard
             self.start_construction = gov.start_construction
@@ -213,7 +213,8 @@ class BatteryProject:
             mwh_estimate = gov.estimate_mwh
         else:
             self.status = csv.status
-        
+            self.external_id = ""
+
             self.date_first_heard = csv.date_first_heard    
             self.start_construction = csv.start_construction
             self.start_operation = csv.start_operation
@@ -322,6 +323,9 @@ class BatteryProject:
         
         self.links = [csv.link1, csv.link2, csv.link3, csv.link4]
         self.links = [l for l in self.links if l != ""]
+        
+        if gov and gov.pr_url:
+            self.links.append(gov.pr_url)
         
         self.csv = csv
 
