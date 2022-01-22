@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" href="/tesla-megapack-tracker/favicon.ico">
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Datatables CSS https://cdn.datatables.net/ -->
+    <link href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <!-- leaflet js css -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+
+     
+
+    <title>
+         
+DE MaStR big battery summary
+
+    </title>
+
+    
+<meta name="description" content="DE Marktstammdatenregister (MaStR) big battery summary">
+
+<meta property="og:title" content="DE MaStR big battery summary" />
+<meta property="og:description" content="DE Marktstammdatenregister (MaStR) big battery summary" />
+<meta property="og:image" content="https://lorenz-g.github.io/tesla-megapack-tracker/pics/logo.jpg" />
+
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow p-3 mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/tesla-megapack-tracker/">
+                <img src="/tesla-megapack-tracker/pics/logo.jpg" alt="logo" width="30" height="30">
+                Tesla Megapack Tracker
+            </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            
+            <ul class="navbar-nav mb-2 mb-lg-0">
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Government data
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-us-eia.html">🇺🇸 US EIA data</a></li>
+                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-uk-repd.html">🇬🇧 UK REPD data <span class="badge bg-info">New</span></a></li>
+                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-de-mastr.html">🇩🇪 DE MaStR data <span class="badge bg-info">New</span></a></li>
+                </ul>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/blog.html">Blog<span class="badge bg-info">New</span></a></li>
+
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#contact">Contact</a></li>
+              
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <div class="container-xl">
+        
+
+<h3> DE MaStR Summary <span class="badge bg-info">New</span></h3>
+
+<div class="row">
+    <div class="col-lg-5">
+        DE MaStR report from <code>2021-11</code>
+        <table class="table table-bordered">
+            <tr>
+                <td></td>
+                <td><span class="badge rounded-pill bg-success">operation</span></td>
+                <td>🏗️</td>
+                <td>💻</td>
+            </tr>
+            
+            <tr>
+                <td>Projects count</td>
+                <td>21</td>
+                <td>0</td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td>Total 🔋 battery power in GW </td>
+                <td>0.4</td>
+                <td>0.0</td>
+                <td>0.2</td>
+            </tr>
+            <tr>
+                <td>Total 🔋 battery capacity in GWh </td>
+                <td>0.4</td>
+                <td>0.0</td>
+                <td>0.1</td>
+            </tr>
+        </table>
+        🏗️ = construction; 💻 = planning<br><br>
+    </div>
+</div>
+<ul>
+    <li>For the <b>DE Marktstammdatenregister (MaStR)</b>, you can download a snapshot of the database in XML format at any time from here:
+        <a href ="https://www.marktstammdatenregister.de/MaStR/">https://www.marktstammdatenregister.de/MaStR/</a></li>
+    <li>The snapshot is filtered by battery projects <b>above 10MW</b> (the capacity is also available, but staying consistent here with the other government datasets)</li>    
+</ul>
+
+<h3> Monthly big battery changes from DE MaStR reports </h3>
+
+<ul>
+    <li>Comparing the reports to show the changes throughout the months.</li>
+    <li>Projects are sorted by the max power output.</li>
+    <li>✅ indicates DE MaStR project is also shown on the map on the 
+        <a href="all-big-batteries.html">All Big Batteries page</a>. You can click on the ✅ to get to the detail page.</li>
+</ul>
+
+
+
+
+
+
+<br>
+<h4>2021-11</h4>
+New projects (26): <br>
+
+    
+    72 MW - planning - Batteriespeicher Werne - 
+    SEE971932533266
+    <a href="projects/543.html">✅</a><br>    
+
+    
+    66 MW - operation - Big Battery Lausitz - 
+    SEE905930139120
+    <a href="projects/526.html">✅</a><br>    
+
+    
+    48 MW - operation - BESS Jardelund - 
+    SEE999790559914
+    <a href="projects/90.html">✅</a><br>    
+
+    
+    45 MW - planning - Batteriespeicher Emsland - 
+    SEE905843309764
+    <a href="projects/525.html">✅</a><br>    
+
+    
+    18 MW - operation - Hybridregelkraftwerk - 
+    SEE913862454280
+    <a href="projects/529.html">✅</a><br>    
+
+    
+    17 MW - operation - Q_ESS_Elverlingsen - 
+    SEE966091400436
+    <a href="projects/541.html">✅</a><br>    
+
+    
+    16 MW - operation - Hybridspeicher AU - 
+    SEE900291433160
+    <a href="projects/524.html">✅</a><br>    
+
+    
+    16 MW - operation - BES BEN - 
+    SEE963081865633
+    <a href="projects/539.html">✅</a><br>    
+
+    
+    16 MW - operation - BES GRO - 
+    SEE976362409624
+    <a href="projects/544.html">✅</a><br>    
+
+    
+    15 MW - operation - GBS 2 KW Bexbach - 
+    SEE908096553144
+    <a href="projects/527.html">✅</a><br>    
+
+    
+    15 MW - operation - Batteriespeicher Chemnitz GmbH ＆ Co. KG - 
+    SEE910324388312
+    <a href="projects/528.html">✅</a><br>    
+
+    
+    15 MW - operation - GBS KW Fenne - 
+    SEE919443669678
+    <a href="projects/530.html">✅</a><br>    
+
+    
+    15 MW - operation - Batteriespeicherkraftwerk - 
+    SEE933095868289
+    <a href="projects/532.html">✅</a><br>    
+
+    
+    15 MW - operation - GBS KW Weiher - 
+    SEE941708872783
+    <a href="projects/536.html">✅</a><br>    
+
+    
+    15 MW - operation - GBS KW Walsum - 
+    SEE964940893804
+    <a href="projects/540.html">✅</a><br>    
+
+    
+    15 MW - operation - GBS KW Herne - 
+    SEE971138728251
+    <a href="projects/542.html">✅</a><br>    
+
+    
+    15 MW - operation - GBS KW Bexbach - 
+    SEE990521990150
+    <a href="projects/547.html">✅</a><br>    
+
+    
+    14 MW - operation - Batteriespeicher Herrenhausen - 
+    SEE953605889740
+    <a href="projects/538.html">✅</a><br>    
+
+    
+    13 MW - planning - Im Buckeberg 62 Stromspeicher - 
+    SEE946919525862
+    <a href="projects/537.html">✅</a><br>    
+
+    
+    13 MW - planning - Büttel Speicher - 
+    SEE984446277410
+    <a href="projects/546.html">✅</a><br>    
+
+    
+    12 MW - operation - 70000000.00 - 
+    SEE940316838242
+    <a href="projects/535.html">✅</a><br>    
+
+    
+    11 MW - operation - Q_ESS_Luenen - 
+    SEE905490507995
+    <a href="projects/86.html">✅</a><br>    
+
+    
+    11 MW - operation - Energiewende-Speicher - 
+    SEE935506652999
+    <a href="projects/533.html">✅</a><br>    
+
+    
+    10 MW - operation - SMAREG 1 - 
+    SEE931375347240
+    <a href="projects/531.html">✅</a><br>    
+
+    
+    10 MW - planning - WBS-Tarzow - 
+    SEE937857006797
+    <a href="projects/534.html">✅</a><br>    
+
+    
+    10 MW - operation - RRKW Feldheim - 
+    SEE976927444749
+    <a href="projects/545.html">✅</a><br>    
+
+
+
+
+
+<br>
+Updated projects (0):<br>
+
+
+
+
+
+      
+    </div> <!-- end container-xl-->
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- leafletjs  -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- script to load in the project length via ajax -->
+    <script>
+      $(document).ready(function() {
+        $.ajax({url: "/tesla-megapack-tracker/ajax-data.json", success: function(result){
+          $("#project-length-tesla").html(result.project_length.tesla_str);
+          $("#project-length-all").html(result.project_length.all_str); 
+        }});
+      });    
+    </script>
+
+      
+  </body>
+</html>

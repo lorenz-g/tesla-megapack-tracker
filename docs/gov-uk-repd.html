@@ -1,0 +1,1482 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" href="/tesla-megapack-tracker/favicon.ico">
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Datatables CSS https://cdn.datatables.net/ -->
+    <link href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <!-- leaflet js css -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+
+     
+
+    <title>
+         
+UK REPD big battery summary
+
+    </title>
+
+    
+<meta name="description" content="UK Renewable Energy Planning Database (REPD) big battery summary">
+
+<meta property="og:title" content="UK REPD big battery summary" />
+<meta property="og:description" content="UK Renewable Energy Planning Database (REPD) big battery summary" />
+<meta property="og:image" content="https://lorenz-g.github.io/tesla-megapack-tracker/pics/logo.jpg" />
+
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow p-3 mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/tesla-megapack-tracker/">
+                <img src="/tesla-megapack-tracker/pics/logo.jpg" alt="logo" width="30" height="30">
+                Tesla Megapack Tracker
+            </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            
+            <ul class="navbar-nav mb-2 mb-lg-0">
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Government data
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-us-eia.html">🇺🇸 US EIA data</a></li>
+                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-uk-repd.html">🇬🇧 UK REPD data <span class="badge bg-info">New</span></a></li>
+                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-de-mastr.html">🇩🇪 DE MaStR data <span class="badge bg-info">New</span></a></li>
+                </ul>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/blog.html">Blog<span class="badge bg-info">New</span></a></li>
+
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#contact">Contact</a></li>
+              
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <div class="container-xl">
+        
+
+<h3> UK REPD Summary <span class="badge bg-info">New</span></h3>
+
+<div class="row">
+    <div class="col-lg-5">
+        UK REPD report from <code>2021-09</code>
+        <table class="table table-bordered">
+            <tr>
+                <td></td>
+                <td><span class="badge rounded-pill bg-success">operation</span></td>
+                <td>🏗️</td>
+                <td>💻</td>
+            </tr>
+            
+            <tr>
+                <td>Projects count</td>
+                <td>25</td>
+                <td>21</td>
+                <td>219</td>
+            </tr>
+            <tr>
+                <td>Total 🔋 battery power in GW </td>
+                <td>0.6</td>
+                <td>0.7</td>
+                <td>10.0</td>
+            </tr>
+        </table>
+        🏗️ = construction; 💻 = planning<br><br>
+    </div>
+</div>
+<ul>
+    <li>The <b>UK Renewable Energy Planning Database (REPD)</b> uploads snapshots of the database here roughly every quarter: 
+        <a href ="https://www.gov.uk/government/publications/renewable-energy-planning-database-monthly-extract">https://www.gov.uk/government/publications/renewable-energy-planning-database-monthly-extract</a></li>
+    <li>The snapshot is filtered by battery projects <b>above 10MW</b> (unfortunately the capacity is not in the reports)</li>    
+</ul>
+
+<h3> Monthly big battery changes from UK REPD reports </h3>
+
+<ul>
+    <li>Comparing the reports to show the changes throughout the months.</li>
+    <li>Projects are sorted by the max power output.</li>
+    <li>✅ indicates UK REPD project is also shown on the map on the 
+        <a href="all-big-batteries.html">All Big Batteries page</a>. You can click on the ✅ to get to the detail page.</li>
+</ul>
+
+
+
+
+
+
+<br>
+<h4>2021-09</h4>
+New projects (265): <br>
+
+    
+    99 MW - planning - Dollymans Storage - 
+    7088
+    <a href="projects/335.html">✅</a><br>    
+
+    
+    99 MW - planning - Skelton Battery Storage Facility - 
+    8914
+    <a href="projects/473.html">✅</a><br>    
+
+    
+    99 MW - planning - Bay Gateway - Battery Storage Facility - 
+    9199
+    <a href="projects/491.html">✅</a><br>    
+
+    
+    95 MW - planning - Winterton Road - Battery Energy Storage - 
+    9608
+    <a href="projects/515.html">✅</a><br>    
+
+    
+    90 MW - planning - Caldwell Road - Battery Storage - 
+    9507
+    <a href="projects/508.html">✅</a><br>    
+
+    
+    80 MW - planning - Aikengall II Community Wind Farm Battery - 
+    7015
+    <a href="projects/294.html">✅</a><br>    
+
+    
+    80 MW - planning - Trondheim Way Battery energy storage - 
+    8455
+    <a href="projects/467.html">✅</a><br>    
+
+    
+    71 MW - planning - Richborough Energy Park - Phase 2 - 
+    9626
+    <a href="projects/516.html">✅</a><br>    
+
+    
+    70 MW - planning - Widow Hill, Balderstone Lane - Battery Energy Storage System - 
+    9340
+    <a href="projects/498.html">✅</a><br>    
+
+    
+    62 MW - planning - Wentlooge Renewable Energy Hub - 
+    7192
+    <a href="projects/364.html">✅</a><br>    
+
+    
+    57 MW - planning - Capenhurst Lane - 
+    8283
+    <a href="projects/460.html">✅</a><br>    
+
+    
+    57 MW - planning - National Grids Rainhill Substation Battery storage facility - 
+    8439
+    <a href="projects/466.html">✅</a><br>    
+
+    
+    57 MW - planning - Capenhurst Lane, Capenhurst - Battery storage - 
+    9377
+    <a href="projects/503.html">✅</a><br>    
+
+    
+    57 MW - planning - Slough Road - Battery Storage - 
+    9774
+    <a href="projects/523.html">✅</a><br>    
+
+    
+    50 MW - planning - Minety North - 
+    6952
+    <a href="projects/286.html">✅</a><br>    
+
+    
+    50 MW - planning - Melksham Substation East Storage - 
+    6953
+    <a href="projects/287.html">✅</a><br>    
+
+    
+    50 MW - planning - Melksham Substation West Storage - 
+    6955
+    <a href="projects/289.html">✅</a><br>    
+
+    
+    50 MW - planning - Wolverhampton West Sub Station - 
+    6977
+    <a href="projects/292.html">✅</a><br>    
+
+    
+    50 MW - construction - Portadown Road - 
+    7047
+    <a href="projects/311.html">✅</a><br>    
+
+    
+    50 MW - construction - Dungannon Energy Storage System - 
+    7050
+    <a href="projects/312.html">✅</a><br>    
+
+    
+    50 MW - planning - Penwortham Sub Station - 
+    7119
+    <a href="projects/344.html">✅</a><br>    
+
+    
+    50 MW - planning - Whitelee Wind Farm Battery Storage Extension - 
+    7174
+    <a href="projects/359.html">✅</a><br>    
+
+    
+    50 MW - planning - Minety South Battery Storage - 
+    7184
+    <a href="projects/362.html">✅</a><br>    
+
+    
+    50 MW - planning - West Didsbury Battery Storage - 
+    7185
+    <a href="projects/363.html">✅</a><br>    
+
+    
+    50 MW - construction - Stonehill Energy Storage - 
+    7773
+    <a href="projects/412.html">✅</a><br>    
+
+    
+    50 MW - planning - Cottom Power Station - 
+    8278
+    <a href="projects/459.html">✅</a><br>    
+
+    
+    50 MW - planning - Dersalloch Battery Storage Facility - 
+    8927
+    <a href="projects/475.html">✅</a><br>    
+
+    
+    50 MW - planning - Upton Lane, Nursling - Battery Storage Facility - 
+    9760
+    <a href="projects/521.html">✅</a><br>    
+
+    
+    49 MW - operation - Pelham - 
+    6898
+    <a href="projects/260.html">✅</a><br>    
+
+    
+    49 MW - operation - Roosecote - 
+    6912
+    <a href="projects/264.html">✅</a><br>    
+
+    
+    49 MW - operation - West Burton - 
+    6920
+    <a href="projects/269.html">✅</a><br>    
+
+    
+    49 MW - planning - Norton - 
+    6923
+    <a href="projects/276.html">✅</a><br>    
+
+    
+    49 MW - planning - Former Rugeley Power Station - 
+    6981
+    <a href="projects/293.html">✅</a><br>    
+
+    
+    49 MW - planning - Stony Energy Storage Facility - 
+    7001
+    <a href="projects/297.html">✅</a><br>    
+
+    
+    49 MW - planning - Creyke Substation - 
+    7005
+    <a href="projects/299.html">✅</a><br>    
+
+    
+    49 MW - planning - Ravensroost Farm - 
+    7014
+    <a href="projects/302.html">✅</a><br>    
+
+    
+    49 MW - planning - Nether Moor Field - 
+    7019
+    <a href="projects/305.html">✅</a><br>    
+
+    
+    49 MW - planning - Norwich Substation Storage Facility - 
+    7021
+    <a href="projects/306.html">✅</a><br>    
+
+    
+    49 MW - planning - Mannington Battery Storage Plant - 
+    7024
+    <a href="projects/307.html">✅</a><br>    
+
+    
+    49 MW - planning - Charleywood Road, Knowsley Industrial Park - 
+    7026
+    <a href="projects/308.html">✅</a><br>    
+
+    
+    49 MW - construction - Enderby Storage, Redcomb Farm - 
+    7044
+    <a href="projects/309.html">✅</a><br>    
+
+    
+    49 MW - planning - Middleton Clean Energy Plant - 
+    7029
+    <a href="projects/310.html">✅</a><br>    
+
+    
+    49 MW - planning - Salt End Lane - 
+    7039
+    <a href="projects/316.html">✅</a><br>    
+
+    
+    49 MW - planning - Ellbridge Lane - 
+    7051
+    <a href="projects/320.html">✅</a><br>    
+
+    
+    49 MW - planning - Elland Storage Project - 
+    7053
+    <a href="projects/321.html">✅</a><br>    
+
+    
+    49 MW - planning - Chapel Farm - 
+    7058
+    <a href="projects/324.html">✅</a><br>    
+
+    
+    49 MW - planning - Cottam Power Station - 
+    7066
+    <a href="projects/326.html">✅</a><br>    
+
+    
+    49 MW - planning - Riverford Farm - 
+    7078
+    <a href="projects/330.html">✅</a><br>    
+
+    
+    49 MW - planning - Sundridge Hill - 
+    7081
+    <a href="projects/331.html">✅</a><br>    
+
+    
+    49 MW - construction - Land Adjacent to 4 Redcote Lane (Armley) - 
+    7111
+    <a href="projects/334.html">✅</a><br>    
+
+    
+    49 MW - planning - Grendon Storage - 
+    7089
+    <a href="projects/336.html">✅</a><br>    
+
+    
+    49 MW - operation - Creyke Beck - 
+    7122
+    <a href="projects/338.html">✅</a><br>    
+
+    
+    49 MW - planning - Taunton Substation  - 
+    7153
+    <a href="projects/353.html">✅</a><br>    
+
+    
+    49 MW - planning - Braintree Road Substation - 
+    7161
+    <a href="projects/356.html">✅</a><br>    
+
+    
+    49 MW - planning - Osbaldwick Substation - 
+    7172
+    <a href="projects/358.html">✅</a><br>    
+
+    
+    49 MW - planning - Land North of Actrees Solar Farm - 
+    7230
+    <a href="projects/368.html">✅</a><br>    
+
+    
+    49 MW - planning - Burwell Main Sub-Station - 
+    7272
+    <a href="projects/125.html">✅</a><br>    
+
+    
+    49 MW - planning - Sundon Substation - 
+    7283
+    <a href="projects/370.html">✅</a><br>    
+
+    
+    49 MW - construction - Kemsley Substation - 
+    7368
+    <a href="projects/92.html">✅</a><br>    
+
+    
+    49 MW - planning - Tollgate Farm Battery Storage (Resubmission) - 
+    7335
+    <a href="projects/375.html">✅</a><br>    
+
+    
+    49 MW - planning - Creyke Beck Substation - 
+    7360
+    <a href="projects/376.html">✅</a><br>    
+
+    
+    49 MW - planning - Snarlton Farm - 
+    7380
+    <a href="projects/377.html">✅</a><br>    
+
+    
+    49 MW - planning - Harker Grid Sub Station - 
+    7462
+    <a href="projects/385.html">✅</a><br>    
+
+    
+    49 MW - planning - Bramford Substation - 
+    7479
+    <a href="projects/386.html">✅</a><br>    
+
+    
+    49 MW - planning - Salisbury Substation - 
+    7510
+    <a href="projects/388.html">✅</a><br>    
+
+    
+    49 MW - planning - Lackenby (Resubmission) - 
+    7518
+    <a href="projects/389.html">✅</a><br>    
+
+    
+    49 MW - construction - Cowley electricity sub-station - 
+    7571
+    <a href="projects/391.html">✅</a><br>    
+
+    
+    49 MW - planning - Bradford West Substation (Harrop Edge Farm Resubmission) - 
+    7577
+    <a href="projects/397.html">✅</a><br>    
+
+    
+    49 MW - planning - Dunsinane Industrial Estate - 
+    7591
+    <a href="projects/398.html">✅</a><br>    
+
+    
+    49 MW - planning - Crown Farm - 
+    7606
+    <a href="projects/399.html">✅</a><br>    
+
+    
+    49 MW - planning - Model Farm - 
+    7609
+    <a href="projects/401.html">✅</a><br>    
+
+    
+    49 MW - planning - Flower Farm - 
+    7614
+    <a href="projects/402.html">✅</a><br>    
+
+    
+    49 MW - construction - Lister Drive - 
+    7740
+    <a href="projects/408.html">✅</a><br>    
+
+    
+    49 MW - planning - Rye Common - 
+    7737
+    <a href="projects/410.html">✅</a><br>    
+
+    
+    49 MW - planning - Liverpool Energy Management Facility - 
+    7772
+    <a href="projects/414.html">✅</a><br>    
+
+    
+    49 MW - planning - Newton Wood Farm - 
+    7780
+    <a href="projects/415.html">✅</a><br>    
+
+    
+    49 MW - planning - Titchfield Lane - 
+    7828
+    <a href="projects/420.html">✅</a><br>    
+
+    
+    49 MW - planning - Coventry National Grid Substation - 
+    7885
+    <a href="projects/423.html">✅</a><br>    
+
+    
+    49 MW - operation - Dundee Technology Park - 
+    7946
+    <a href="projects/424.html">✅</a><br>    
+
+    
+    49 MW - planning - Reach Road - 
+    7906
+    <a href="projects/425.html">✅</a><br>    
+
+    
+    49 MW - planning - Bustleholme Substation - 
+    7907
+    <a href="projects/426.html">✅</a><br>    
+
+    
+    49 MW - planning - Minety Substation - 
+    7942
+    <a href="projects/427.html">✅</a><br>    
+
+    
+    49 MW - construction - Unit 5 XL Business Park - 
+    7985
+    <a href="projects/428.html">✅</a><br>    
+
+    
+    49 MW - planning - Mill Hill National Grid Substation - 
+    8009
+    <a href="projects/437.html">✅</a><br>    
+
+    
+    49 MW - planning - National Grid Minety Substation - 
+    8021
+    <a href="projects/438.html">✅</a><br>    
+
+    
+    49 MW - planning - Colinglen Road Battery - 
+    8033
+    <a href="projects/439.html">✅</a><br>    
+
+    
+    49 MW - planning - National Grid Axminster Substation - 
+    8036
+    <a href="projects/440.html">✅</a><br>    
+
+    
+    49 MW - planning - National Grid Enderby Substation - 
+    8037
+    <a href="projects/441.html">✅</a><br>    
+
+    
+    49 MW - planning - Welkin Mill - 
+    8055
+    <a href="projects/443.html">✅</a><br>    
+
+    
+    49 MW - planning - Torrdhuin, Auchteraw Battery Storage Facility - 
+    8096
+    <a href="projects/445.html">✅</a><br>    
+
+    
+    49 MW - planning - Drumcross Battery Storage - 
+    8155
+    <a href="projects/449.html">✅</a><br>    
+
+    
+    49 MW - planning - Richborough Energy Park - 
+    8195
+    <a href="projects/450.html">✅</a><br>    
+
+    
+    49 MW - planning - Platchaig House, Kilmorack - Battery Storage Facility - 
+    8248
+    <a href="projects/453.html">✅</a><br>    
+
+    
+    49 MW - planning - Brentwood nergy Storage System - 
+    8249
+    <a href="projects/454.html">✅</a><br>    
+
+    
+    49 MW - planning - Park Farm, Herongate Solar Photovoltaic PV Farm - 
+    8358
+    <a href="projects/461.html">✅</a><br>    
+
+    
+    49 MW - planning - Old Gallows Road - Battery storage - 
+    8368
+    <a href="projects/462.html">✅</a><br>    
+
+    
+    49 MW - planning - Doverdale - Solar Farm & Battery Storage - 
+    8529
+    <a href="projects/468.html">✅</a><br>    
+
+    
+    49 MW - planning - Howick Hall Farm - Battery Storage Facility - 
+    8829
+    <a href="projects/470.html">✅</a><br>    
+
+    
+    49 MW - planning - Holt Road - Battery Energy Storage System - 
+    8833
+    <a href="projects/471.html">✅</a><br>    
+
+    
+    49 MW - planning - Bolfornought Farm Battery Storage Facility - 
+    8912
+    <a href="projects/472.html">✅</a><br>    
+
+    
+    49 MW - planning - Whitehills Energy Storage Facility - 
+    8916
+    <a href="projects/474.html">✅</a><br>    
+
+    
+    49 MW - planning - Greens Farm - Battery energy storage - 
+    9012
+    <a href="projects/481.html">✅</a><br>    
+
+    
+    49 MW - planning - Bronwylfa Road, Talwrn - Battery Storage Facility - 
+    9052
+    <a href="projects/484.html">✅</a><br>    
+
+    
+    49 MW - planning - Purlieus Farm, Minety - Battery Storage Facility - 
+    9063
+    <a href="projects/486.html">✅</a><br>    
+
+    
+    49 MW - planning - Sundon Substation - 49.9MW Battery Storage - 
+    9315
+    <a href="projects/497.html">✅</a><br>    
+
+    
+    49 MW - planning - Grendon Lakes - Battery Storage - 
+    9341
+    <a href="projects/499.html">✅</a><br>    
+
+    
+    49 MW - planning - Admiralty Road - Battery Energy Storage Facility - 
+    9470
+    <a href="projects/506.html">✅</a><br>    
+
+    
+    49 MW - planning - Wishaw 49.9 Battery Storage Facility - 
+    9522
+    <a href="projects/509.html">✅</a><br>    
+
+    
+    49 MW - planning - Bredbury Substation - Battery Storage Facility - 
+    9653
+    <a href="projects/517.html">✅</a><br>    
+
+    
+    48 MW - planning - Classic Marble Showers Site - 
+    7208
+    <a href="projects/365.html">✅</a><br>    
+
+    
+    45 MW - planning - Pleasance Road - 
+    7217
+    <a href="projects/366.html">✅</a><br>    
+
+    
+    41 MW - operation - Bloxwich Battery - 
+    8160
+    <a href="projects/447.html">✅</a><br>    
+
+    
+    40 MW - planning - Breach Farm - Energy Barn - 
+    6914
+    <a href="projects/275.html">✅</a><br>    
+
+    
+    40 MW - planning - Tofts Lane - 
+    6942
+    <a href="projects/281.html">✅</a><br>    
+
+    
+    40 MW - planning - Norwich Road Industrial Estate - 
+    6958
+    <a href="projects/290.html">✅</a><br>    
+
+    
+    40 MW - construction - Land off Queenborough Road - 
+    7003
+    <a href="projects/291.html">✅</a><br>    
+
+    
+    40 MW - construction - Bilbo Solar Farm Energy Storage  - 
+    7020
+    <a href="projects/296.html">✅</a><br>    
+
+    
+    40 MW - planning - Maldon Hall - 
+    7095
+    <a href="projects/337.html">✅</a><br>    
+
+    
+    40 MW - planning - Rubber and Allied Products - 
+    7096
+    <a href="projects/339.html">✅</a><br>    
+
+    
+    40 MW - operation - Huggin's Hall - 
+    7129
+    <a href="projects/341.html">✅</a><br>    
+
+    
+    40 MW - planning - Carnegie Road (Phase 2) - 
+    7403
+    <a href="projects/381.html">✅</a><br>    
+
+    
+    40 MW - construction - Greenfield Road - 
+    7570
+    <a href="projects/390.html">✅</a><br>    
+
+    
+    40 MW - planning - Hawthorne Road - 
+    7800
+    <a href="projects/416.html">✅</a><br>    
+
+    
+    40 MW - planning - Whitehouse Farm Energy Barn - 
+    7987
+    <a href="projects/434.html">✅</a><br>    
+
+    
+    40 MW - construction - Loudwater Battery Storage Site - 
+    8142
+    <a href="projects/444.html">✅</a><br>    
+
+    
+    40 MW - planning - Newlands Farm Battery Storage Facility Phase 2 - 
+    8264
+    <a href="projects/455.html">✅</a><br>    
+
+    
+    40 MW - planning - Rusholme Grange Resubmission - 
+    9121
+    <a href="projects/489.html">✅</a><br>    
+
+    
+    40 MW - planning - Forest Gate - Solar Farm & Battery Storage - 
+    9230
+    <a href="projects/493.html">✅</a><br>    
+
+    
+    40 MW - planning - Leigh Delamere - Solar farm & Battery storage - 
+    9238
+    <a href="projects/494.html">✅</a><br>    
+
+    
+    40 MW - planning - Astra Centre, Royal Barn Road - Energy Storage - 
+    9584
+    <a href="projects/514.html">✅</a><br>    
+
+    
+    40 MW - planning - Tanners Lane - 40 MW Battery Energy Storage Facility (Phase One) - 
+    9708
+    <a href="projects/520.html">✅</a><br>    
+
+    
+    38 MW - planning - Maiden, Annfield Plain - Energy Storage - 
+    9036
+    <a href="projects/482.html">✅</a><br>    
+
+    
+    37 MW - planning - STOR Field 9 - 
+    7018
+    <a href="projects/304.html">✅</a><br>    
+
+    
+    36 MW - planning - Lisnabreeny Road - 
+    7556
+    <a href="projects/392.html">✅</a><br>    
+
+    
+    350 MW - planning - Cleve Hill Solar Project - 
+    7856
+    <a href="projects/421.html">✅</a><br>    
+
+    
+    35 MW - operation - Port of Tyne - 
+    6976
+    <a href="projects/282.html">✅</a><br>    
+
+    
+    349 MW - planning - Dunton Hall - Battery Energy Storage System - 
+    9427
+    <a href="projects/505.html">✅</a><br>    
+
+    
+    32 MW - planning - Kirkhaw Lane Battery Storage - 
+    8430
+    <a href="projects/464.html">✅</a><br>    
+
+    
+    30 MW - planning - Gloucestershire Science and Technology Park - 
+    7067
+    <a href="projects/327.html">✅</a><br>    
+
+    
+    30 MW - construction - Fideoak Mills - 
+    7152
+    <a href="projects/343.html">✅</a><br>    
+
+    
+    30 MW - planning - Catsbrain Farm - 
+    7988
+    <a href="projects/435.html">✅</a><br>    
+
+    
+    30 MW - planning - Roaring Hill (Resubmission) - 
+    7989
+    <a href="projects/436.html">✅</a><br>    
+
+    
+    30 MW - planning - Blackpark Energy Storage (Resubmission) - 
+    8105
+    <a href="projects/448.html">✅</a><br>    
+
+    
+    30 MW - planning - Farburn Place - Energy Storage Facility - 
+    8385
+    <a href="projects/463.html">✅</a><br>    
+
+    
+    30 MW - planning - Weirs Drove, Burwell - Battery Storage Facility - 
+    9292
+    <a href="projects/496.html">✅</a><br>    
+
+    
+    29 MW - planning - Land at Derwenthaugh Eco Park - 
+    7054
+    <a href="projects/322.html">✅</a><br>    
+
+    
+    29 MW - planning - Land SW of Shilton Cottage - 
+    7134
+    <a href="projects/349.html">✅</a><br>    
+
+    
+    29 MW - planning - Drumfad Wood - 
+    7165
+    <a href="projects/357.html">✅</a><br>    
+
+    
+    29 MW - planning - Fordtown Energy Storage (Resubmission) - 
+    7764
+    <a href="projects/413.html">✅</a><br>    
+
+    
+    29 MW - planning - Learielaw Farm - 
+    7970
+    <a href="projects/430.html">✅</a><br>    
+
+    
+    28 MW - planning - Lower Dunton Road Battery Storage Facility - 
+    8213
+    <a href="projects/451.html">✅</a><br>    
+
+    
+    27 MW - operation - Boscar Grange Farm - 
+    7332
+    <a href="projects/371.html">✅</a><br>    
+
+    
+    26 MW - planning - Manor Farm - 
+    7820
+    <a href="projects/418.html">✅</a><br>    
+
+    
+    25 MW - operation - Tynemouth Energy Storage System (TESS) - 
+    6925
+    <a href="projects/270.html">✅</a><br>    
+
+    
+    25 MW - planning - Fraserburgh Development - 
+    7041
+    <a href="projects/317.html">✅</a><br>    
+
+    
+    25 MW - planning - Clauchrie Windfarm Battery - 
+    7804
+    <a href="projects/417.html">✅</a><br>    
+
+    
+    25 MW - planning - Bristol Avenue - Battery Energy Storage Facility - 
+    8809
+    <a href="projects/469.html">✅</a><br>    
+
+    
+    25 MW - planning - Stainland Road, Salterhebble - Battery Storage Facility - 
+    9397
+    <a href="projects/504.html">✅</a><br>    
+
+    
+    25 MW - planning - Davies Road - Battery Storage - 
+    9563
+    <a href="projects/512.html">✅</a><br>    
+
+    
+    25 MW - planning - Middlewich Road - Solar Photovoltaics & Battery Storage - 
+    9565
+    <a href="projects/513.html">✅</a><br>    
+
+    
+    24 MW - planning - The Hollies - 
+    6946
+    <a href="projects/285.html">✅</a><br>    
+
+    
+    24 MW - planning - Mauxhall Farm - 
+    7827
+    <a href="projects/419.html">✅</a><br>    
+
+    
+    23 MW - planning - Asfordby Business Park (1) - 
+    6932
+    <a href="projects/279.html">✅</a><br>    
+
+    
+    22 MW - operation - Pen y Cymoedd Energy Storage - 
+    6927
+    <a href="projects/272.html">✅</a><br>    
+
+    
+    22 MW - planning - Barton Hill Industrial Park - Battery Energy Storage Facility - 
+    9046
+    <a href="projects/483.html">✅</a><br>    
+
+    
+    200 MW - planning - Drax Re-Power - 
+    7017
+    <a href="projects/303.html">✅</a><br>    
+
+    
+    200 MW - planning - Bolney Substation - Battery Storage - 
+    8986
+    <a href="projects/476.html">✅</a><br>    
+
+    
+    200 MW - planning - Heysham Energy Storage Project - 
+    9545
+    <a href="projects/510.html">✅</a><br>    
+
+    
+    20 MW - operation - Broxburn  - 
+    6910
+    <a href="projects/262.html">✅</a><br>    
+
+    
+    20 MW - operation - Land to the west of Clay Hill Pit / Larport Farm - 
+    6911
+    <a href="projects/263.html">✅</a><br>    
+
+    
+    20 MW - operation - Noriker Power Staunch - 
+    6918
+    <a href="projects/268.html">✅</a><br>    
+
+    
+    20 MW - construction - Chelveston Renewable Energy Park - 
+    6941
+    <a href="projects/273.html">✅</a><br>    
+
+    
+    20 MW - operation - Claredown Farm - 
+    6945
+    <a href="projects/274.html">✅</a><br>    
+
+    
+    20 MW - planning - Traston Road - 
+    6929
+    <a href="projects/277.html">✅</a><br>    
+
+    
+    20 MW - planning - Bristol Road - 
+    6930
+    <a href="projects/278.html">✅</a><br>    
+
+    
+    20 MW - planning - Ray Battery Storage Facility - 
+    6943
+    <a href="projects/283.html">✅</a><br>    
+
+    
+    20 MW - planning - Aven Industrial Estate - 
+    7007
+    <a href="projects/300.html">✅</a><br>    
+
+    
+    20 MW - planning - Leighton Hall Farm - 
+    7032
+    <a href="projects/313.html">✅</a><br>    
+
+    
+    20 MW - planning - Riverside Energy Park - 
+    7036
+    <a href="projects/315.html">✅</a><br>    
+
+    
+    20 MW - planning - Land To The East Of Wholeflats Road (Grangemouth) - 
+    7043
+    <a href="projects/318.html">✅</a><br>    
+
+    
+    20 MW - planning - Perseverance Road - 
+    7061
+    <a href="projects/325.html">✅</a><br>    
+
+    
+    20 MW - planning - Kilshaw Street - 
+    7072
+    <a href="projects/329.html">✅</a><br>    
+
+    
+    20 MW - operation - Land at Carnegie Road - 
+    7155
+    <a href="projects/345.html">✅</a><br>    
+
+    
+    20 MW - planning - Beaufort Road - 
+    7128
+    <a href="projects/346.html">✅</a><br>    
+
+    
+    20 MW - planning - Calow Green Farm - 
+    7140
+    <a href="projects/350.html">✅</a><br>    
+
+    
+    20 MW - planning - Kirkhaw Lane - Resubmission - 
+    7149
+    <a href="projects/352.html">✅</a><br>    
+
+    
+    20 MW - planning - Blackpark Farm  - 
+    7226
+    <a href="projects/367.html">✅</a><br>    
+
+    
+    20 MW - planning - Troston Loch Wind Farm - 
+    7333
+    <a href="projects/374.html">✅</a><br>    
+
+    
+    20 MW - planning - Plot 2B EurolinkV - 
+    7383
+    <a href="projects/378.html">✅</a><br>    
+
+    
+    20 MW - operation - Lascar Works  - 
+    7464
+    <a href="projects/383.html">✅</a><br>    
+
+    
+    20 MW - planning - Douglas West Wind Farm (extension) - 
+    7460
+    <a href="projects/384.html">✅</a><br>    
+
+    
+    20 MW - planning - Brook Farm - 
+    7498
+    <a href="projects/387.html">✅</a><br>    
+
+    
+    20 MW - planning - Hagshaw Hill - 
+    7572
+    <a href="projects/393.html">✅</a><br>    
+
+    
+    20 MW - planning - Ardoch Farm - 
+    7575
+    <a href="projects/396.html">✅</a><br>    
+
+    
+    20 MW - construction - Gipsy Lane - 
+    7632
+    <a href="projects/400.html">✅</a><br>    
+
+    
+    20 MW - construction - Energy Centre Royal Mint - 
+    7684
+    <a href="projects/403.html">✅</a><br>    
+
+    
+    20 MW - planning - Feeder Road - 
+    7663
+    <a href="projects/405.html">✅</a><br>    
+
+    
+    20 MW - planning - Basing Road - 
+    7746
+    <a href="projects/411.html">✅</a><br>    
+
+    
+    20 MW - planning - Arecleoch Wind Farm (extension) - 
+    7882
+    <a href="projects/422.html">✅</a><br>    
+
+    
+    20 MW - planning - Perserverance Road (Resubmission) - 
+    7966
+    <a href="projects/429.html">✅</a><br>    
+
+    
+    20 MW - planning - SHB Hire Ltd - 
+    8099
+    <a href="projects/446.html">✅</a><br>    
+
+    
+    20 MW - planning - Gerrards Cross Sewage Treatment Works - 
+    8271
+    <a href="projects/458.html">✅</a><br>    
+
+    
+    20 MW - planning - Hull East Stor Generation Compound - Battery energy storage - 
+    9006
+    <a href="projects/478.html">✅</a><br>    
+
+    
+    20 MW - planning - Standby Embedded Stor Power Plant - Battery storage - 
+    9010
+    <a href="projects/480.html">✅</a><br>    
+
+    
+    20 MW - planning - South Fambridge Hall - Solar farm & Battery storage - 
+    9274
+    <a href="projects/495.html">✅</a><br>    
+
+    
+    20 MW - planning - Tiddlywink Barn Battery Storage Power Plant - 
+    9552
+    <a href="projects/511.html">✅</a><br>    
+
+    
+    20 MW - planning - The Brickmakers Arms Battery - 
+    9668
+    <a href="projects/518.html">✅</a><br>    
+
+    
+    19 MW - planning - Roaring Hill Energy Storage Facility - 
+    7002
+    <a href="projects/298.html">✅</a><br>    
+
+    
+    19 MW - planning - Land North of Thornton Road - 
+    7131
+    <a href="projects/347.html">✅</a><br>    
+
+    
+    19 MW - planning - North West Of Jameston Farm - 
+    7133
+    <a href="projects/348.html">✅</a><br>    
+
+    
+    19 MW - planning - Jamesfield Organic Centre - 
+    7315
+    <a href="projects/373.html">✅</a><br>    
+
+    
+    19 MW - planning - Balsillie Avenue - Roaring Hill Energy Storage Facility - 
+    9224
+    <a href="projects/492.html">✅</a><br>    
+
+    
+    18 MW - planning - Severn Road - 
+    7085
+    <a href="projects/332.html">✅</a><br>    
+
+    
+    18 MW - planning - Callywhite Lane Commercial Estate - 
+    7087
+    <a href="projects/333.html">✅</a><br>    
+
+    
+    18 MW - planning - Aurora Solar Farm - 
+    7385
+    <a href="projects/379.html">✅</a><br>    
+
+    
+    18 MW - planning - Churchtown Solar Farm Battery Storage - 
+    7726
+    <a href="projects/409.html">✅</a><br>    
+
+    
+    18 MW - planning - Whaddon Lane, Hilperton - 
+    9057
+    <a href="projects/485.html">✅</a><br>    
+
+    
+    16 MW - planning - Maelor Gasworks - Solar Farm & Battery Storage - 
+    9343
+    <a href="projects/500.html">✅</a><br>    
+
+    
+    150 MW - planning - Thurrock Flexible Generation Plant - 
+    7696
+    <a href="projects/407.html">✅</a><br>    
+
+    
+    15 MW - operation - Lockleaze Energy Storage - 
+    6961
+    <a href="projects/280.html">✅</a><br>    
+
+    
+    15 MW - construction - Holes Bay - 
+    7688
+    <a href="projects/404.html">✅</a><br>    
+
+    
+    15 MW - planning - Three Bridges Solar Farm - 
+    8220
+    <a href="projects/452.html">✅</a><br>    
+
+    
+    15 MW - planning - Estuary Farm, Edward Benefer Way - Solar Farm & Battery Storage - 
+    9346
+    <a href="projects/501.html">✅</a><br>    
+
+    
+    14 MW - planning - Guildford Road Battery Storage Facility - 
+    8269
+    <a href="projects/457.html">✅</a><br>    
+
+    
+    13 MW - planning - Leechpool Farm, Norrington Battery Storage - 
+    7183
+    <a href="projects/361.html">✅</a><br>    
+
+    
+    12 MW - planning - Mucklow Hill - 
+    7984
+    <a href="projects/432.html">✅</a><br>    
+
+    
+    12 MW - planning - Stor Generation Plant - Battery Storage - 
+    8998
+    <a href="projects/477.html">✅</a><br>    
+
+    
+    100 MW - planning - Tilbury Energy Centre - 
+    7048
+    <a href="projects/319.html">✅</a><br>    
+
+    
+    100 MW - planning - Harestanes Windfarm - 
+    7395
+    <a href="projects/380.html">✅</a><br>    
+
+    
+    100 MW - planning - Lakeside Energy Storage Facility - 
+    8268
+    <a href="projects/456.html">✅</a><br>    
+
+    
+    100 MW - planning - Minchens Lane Battery Storage Facility - 
+    8434
+    <a href="projects/465.html">✅</a><br>    
+
+    
+    100 MW - planning - Kilgallioch - Battery energy storage - 
+    9007
+    <a href="projects/479.html">✅</a><br>    
+
+    
+    100 MW - planning - Kirkhaw Lane - Battery Storage Energy - 
+    9115
+    <a href="projects/488.html">✅</a><br>    
+
+    
+    100 MW - planning - Daer Wind Farm - 
+    9127
+    <a href="projects/490.html">✅</a><br>    
+
+    
+    100 MW - planning - Kirkhaw Lane - Battery Storage Energy - 
+    9475
+    <a href="projects/507.html">✅</a><br>    
+
+    
+    100 MW - planning - Third Energy UK Gas Limited - Battery Energy Storage - 
+    9691
+    <a href="projects/519.html">✅</a><br>    
+
+    
+    100 MW - planning - Cholmondeley Road - Battery Storage - 
+    9763
+    <a href="projects/522.html">✅</a><br>    
+
+    
+    10 MW - operation - AES Kilroot Station Battery Storage Array - 
+    6845
+    <a href="projects/259.html">✅</a><br>    
+
+    
+    10 MW - operation - Blackburn Meadows  - 
+    6906
+    <a href="projects/261.html">✅</a><br>    
+
+    
+    10 MW - operation - Hill Farm - Energy Barn - 
+    6915
+    <a href="projects/265.html">✅</a><br>    
+
+    
+    10 MW - operation - Kings Barn Farm - Energy Barn - 
+    6916
+    <a href="projects/266.html">✅</a><br>    
+
+    
+    10 MW - operation - Leverton Farm - Energy Barn - 
+    6917
+    <a href="projects/267.html">✅</a><br>    
+
+    
+    10 MW - operation - Nevendon - 
+    6926
+    <a href="projects/271.html">✅</a><br>    
+
+    
+    10 MW - planning - Pikelaw Place - 
+    6944
+    <a href="projects/284.html">✅</a><br>    
+
+    
+    10 MW - construction - Slamseys Energy Storage - 
+    7000
+    <a href="projects/288.html">✅</a><br>    
+
+    
+    10 MW - planning - Rayleigh Transforming Station - 
+    6984
+    <a href="projects/295.html">✅</a><br>    
+
+    
+    10 MW - planning - Litchlake Farm - 
+    7011
+    <a href="projects/301.html">✅</a><br>    
+
+    
+    10 MW - planning - Manton Wood - 
+    7035
+    <a href="projects/314.html">✅</a><br>    
+
+    
+    10 MW - planning - Strichen South - 
+    7056
+    <a href="projects/323.html">✅</a><br>    
+
+    
+    10 MW - planning - Hadham Road - 
+    7068
+    <a href="projects/328.html">✅</a><br>    
+
+    
+    10 MW - planning - Stockbridge Road - 
+    7097
+    <a href="projects/340.html">✅</a><br>    
+
+    
+    10 MW - planning - South Kirkby Business Park - 
+    7109
+    <a href="projects/342.html">✅</a><br>    
+
+    
+    10 MW - planning - Land Adj Harmer Warren Quarry - 
+    7143
+    <a href="projects/351.html">✅</a><br>    
+
+    
+    10 MW - operation - Cleator - 
+    7177
+    <a href="projects/354.html">✅</a><br>    
+
+    
+    10 MW - planning - Greenburn Wind Park - 
+    7159
+    <a href="projects/355.html">✅</a><br>    
+
+    
+    10 MW - planning - Old Green Farm, Alveston Battery Storage - 
+    7182
+    <a href="projects/360.html">✅</a><br>    
+
+    
+    10 MW - planning - Trevol Business Park - 
+    7404
+    <a href="projects/382.html">✅</a><br>    
+
+    
+    10 MW - planning - Shindour Feddal Hill Wood Braco - 
+    7573
+    <a href="projects/394.html">✅</a><br>    
+
+    
+    10 MW - planning - Orchardbank Industrial Estate - 
+    7574
+    <a href="projects/395.html">✅</a><br>    
+
+    
+    10 MW - planning - East Ballochy - 
+    7675
+    <a href="projects/406.html">✅</a><br>    
+
+    
+    10 MW - planning - Park Farm - 
+    7983
+    <a href="projects/431.html">✅</a><br>    
+
+    
+    10 MW - planning - Britannia House - 
+    7986
+    <a href="projects/433.html">✅</a><br>    
+
+    
+    10 MW - construction - Moston Vale - 
+    8085
+    <a href="projects/442.html">✅</a><br>    
+
+    
+    10 MW - planning - Dragonhall Farm, Padanaram - Battery Storage - 
+    9066
+    <a href="projects/487.html">✅</a><br>    
+
+    
+    10 MW - construction - South Farm Solar Park - 
+    9361
+    <a href="projects/502.html">✅</a><br>    
+
+
+
+
+
+<br>
+Updated projects (0):<br>
+
+
+
+
+
+      
+    </div> <!-- end container-xl-->
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- leafletjs  -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- script to load in the project length via ajax -->
+    <script>
+      $(document).ready(function() {
+        $.ajax({url: "/tesla-megapack-tracker/ajax-data.json", success: function(result){
+          $("#project-length-tesla").html(result.project_length.tesla_str);
+          $("#project-length-all").html(result.project_length.all_str); 
+        }});
+      });    
+    </script>
+
+      
+  </body>
+</html>
