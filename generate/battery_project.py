@@ -27,6 +27,7 @@ USE_CASE_EMOJI_LI = [
         ["🚨", "🚨", "incident reported"],
         ["🐌", "🐌", "slow, bureaucracy"],
         ["📊", "📊", "government data available"],
+        ["👦🏽", "👦🏽", "user data available"],
         ["📏", "📏", "mwh estimate based on mw"],
     ]
 
@@ -210,7 +211,12 @@ class BatteryProject:
             self.country = gov.country
             self.mw = gov.power_mw
 
-            mwh_estimate = gov.estimate_mwh
+            # TODO: not sure why the cast to int is needed here as it should only arrive as int by the dataclass
+            mwh_estimate = csv_int(gov.estimate_mwh)
+
+            # for germnay we get mwh
+            if self.country == "germany":
+                self.mwh = gov.mwh
         else:
             self.status = csv.status
             self.external_id = ""
@@ -276,7 +282,7 @@ class BatteryProject:
             self.coords_hint = gov.coords_hint
         
         # for now, overwrite with user data if it exists (TODO: more finegrained overwrites here ust coords_hint)
-        if csv.lat != "":
+        if csv.lat != "" and self.country != "germany":
             self.lat = csv.lat
             self.long = csv.long
             self.coords_hint = csv_int(csv.coords_hint)
@@ -288,6 +294,15 @@ class BatteryProject:
         # zoom z=20 is the maximum, but not sure if it is working
         # TODO: I think this google maps link format is old https://developers.google.com/maps/documentation/urls/get-started
         self.google_maps_link = "http://maps.google.com/maps?z=19&t=k&q=loc:%s+%s" % (self.lat, self.long)
+
+        self.links = [csv.link1, csv.link2, csv.link3, csv.link4]
+        self.links = [l for l in self.links if l != ""]
+        # can assume that when a link is there some user data was added
+        self.user_data = bool(len(self.links) > 0)
+
+        if gov and gov.pr_url:
+            self.links.append(gov.pr_url)
+
 
         emojis = []        
         # the order in which the if cases happen matters as that is the order of the emojis
@@ -313,6 +328,9 @@ class BatteryProject:
         
         if csv.external_id:
             emojis.append("📊")
+
+        if self.user_data:
+            emojis.append("👦🏽")
         
         if self.mwh_is_estimate:
             emojis.append("📏")
@@ -321,11 +339,7 @@ class BatteryProject:
 
         self.flag = COUNTRY_EMOJI_DI.get(csv.country, csv.country)
         
-        self.links = [csv.link1, csv.link2, csv.link3, csv.link4]
-        self.links = [l for l in self.links if l != ""]
         
-        if gov and gov.pr_url:
-            self.links.append(gov.pr_url)
         
         self.csv = csv
 
