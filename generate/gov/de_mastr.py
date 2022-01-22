@@ -22,8 +22,8 @@ from generate.utils import GovShortData, check_di_difference
 # EinheitenStromSpeicher_4.xml is good for testing as it is only 3.5MB
 
 
-EINHEITEN_PATH = "/EinheitenStromSpeicher_{number}.xml"
-ANLAGEN_PATH = "/AnlagenStromSpeicher_{number}.xml"
+EINHEITEN_PATH = "EinheitenStromSpeicher_{number}.xml"
+ANLAGEN_PATH = "AnlagenStromSpeicher_{number}.xml"
 
 BASE_DETAIL_URL = "https://www.marktstammdatenregister.de/MaStR/Einheit/Detail/IndexOeffentlich/"
 
@@ -101,6 +101,7 @@ MASTR_DETAIL_IDS_DI = {
     "SEE984446277410": 3370616,
     "SEE990521990150": 3430313,
     "SEE999790559914": 3984077,
+    "SEE977720016904": 4750172,
 }
 
 
@@ -486,21 +487,30 @@ def create_new_filtered_json_file(base_path, month):
     month is the output filename, use the month when you downloaded the dataset. e.g. 2021-10
     """
 
-    large_units = []
-    for i in [1,2,3,4]:
-        print("\n\nStarting with file %d" % i)
-        units = check_for_large_units(os.path.join(base_path,EINHEITEN_PATH.format(number=str(i))))
-        large_units.extend(units)
+    start_fresh = True
 
-    mastr_ids = [i["EinheitMastrNummer"] for i in units]
+    if start_fresh:
+        # this step takes a lot of time
+        large_units = []
+        for i in [1,2,3,4]:
+            filename = os.path.join(base_path, EINHEITEN_PATH.format(number=str(i)))
+            print("\n\nStarting with file", filename)
+            large_units.extend(check_for_large_units(filename))
+    else:
+        out_file = "misc/de-mastr/filtered/%s.json" % month
+        with open(out_file) as f:
+            large_units = json.load(f)
     
+    mastr_ids = [i["EinheitMastrNummer"] for i in large_units]
+
+
     # get the mwh values
     mwh_di = get_mwh_from_anlagen(base_path, mastr_ids)
-    for unit in units:
+    for unit in large_units:
         unit["mwh"] = mwh_di[unit["EinheitMastrNummer"]]
 
     # get the detail page ids
-    for unit in units:
+    for unit in large_units:
         unit["pr_url_id"] = convert_to_details_url_id(unit["EinheitMastrNummer"])
 
 
@@ -514,8 +524,6 @@ def create_new_filtered_json_file(base_path, month):
     # just for debugging
     with open("mastr-test.json", "w") as f:
             json.dump(large_units, f, indent=2)
-
-
 
 def pprint_units():
     with open("large-units.json") as f:
@@ -544,18 +552,9 @@ def temp():
 
 
 
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
 
-    # preprocessing to get the files that can be checked into git:
-    # check_all()
-    # li = pprint_units()
-    # get_mwh_from_anlagen(li)
+    # run the below commands to process a new download
+    month = "2022-01"
+    create_new_filtered_json_file("/Users/lorenzgruber/Desktop/mastr/%s/extracted" % month, month)
     pass

@@ -10,6 +10,12 @@
 - there is a pdf explaining it: https://www.marktstammdatenregister.de/MaStRHilfe/files/gesamtdatenexport/Dokumentation%20MaStR%20Gesamtdatenexport.pdf
 - the zip is quite large (ca 1gb) and when extracted even larger (ca 19gb) hence it is not part of the repo
 - TODO: write a unzip command that only extracts the relevant files which are:
+
+```
+unzip -j Gesamtdatenexport_20220122__7deb41eb7fee404f8177517ba2978030.zip "EinheitenStromSpeicher_*" "AnlagenStromSpeicher_*" -d extracted
+
+```
+
   
   - `EinheitenStromSpeicher_1.xml` (files 1-4) - contains all basic info
   - `AnlagenStromSpeicher_1.xml` (files 1-4) - contains mwh info
