@@ -240,13 +240,10 @@ def gen_short_project(history_di):
 
 def match_uk_repd_projects_with_mpt_projects(uk_repd_data, projects: Iterable[BatteryProject]):
     """ print a list of projects that can be copied into the projects.csv file """
-
-
     existing_ids = [p.csv.external_id for p in projects if p.country == "uk" and p.csv.external_id != ""]
-
     # list that can be inserted into projects.csv
-    # TODO: probably should try and ignore the ones that I had in the US that are not covered here. 
-    start_id = 259
+    # max internal id plus 1
+    start_id = int([p.csv.id for p in projects][-1]) + 1
     
 
     p: GovShortData # thats a great way to give type hints in the code

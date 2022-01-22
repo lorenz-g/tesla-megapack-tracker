@@ -119,7 +119,7 @@ US_STATES_SHORT_TO_LONG = {
 # those coordinates are picked randomly (trying to put far from other projects so it becomes more obvious)
 US_STATES_TO_EIA_COORDINATES = {
     "alabama" : None,
-    "alaska" : None,
+    "alaska" : (62.054743, -151.102511),
     "arizona" : (36.478429, -109.885254),
     "arkansas" : (36.042289, -91.148071),
     "california" : (41.122677, -121.300049),
@@ -163,7 +163,7 @@ US_STATES_TO_EIA_COORDINATES = {
     "texas" : (33.454054, -95.273438),
     "utah" : None,
     "vermont" : None,
-    "virginia" : None,
+    "virginia" : (38.160223, -77.808750),
     "washington" : None,
     "west virginia" : None,
     "wisconsin" : (45.217776, -88.206482),

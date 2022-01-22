@@ -106,10 +106,10 @@ def eia_location_estimate(id_, state):
     if not coords:
         print("no coordinates for state:", state)
         coords = EIA_COORDS_USA
-
+    
     scaling_factor = 0.02
-    radius = (int(id_/10) - 13) * scaling_factor
-    angle = (id_ % 10) / 10 * 2 * math.pi
+    radius = (id_ % 10 + (id_ % 100) / 10) * scaling_factor
+    angle = (id_ % 20) / 20 * 2 * math.pi
 
     x = radius * math.cos(angle)
     y = radius * math.sin(angle)

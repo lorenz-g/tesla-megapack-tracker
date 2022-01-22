@@ -343,11 +343,9 @@ def match_de_mastr_projects_with_mpt_projects(gov_data, projects: Iterable[Batte
 
     # TODO: can we get rid of the csv here?
     existing_ids = [p.csv.external_id for p in projects if p.country == "germany" and p.csv.external_id != ""]
-    max_internal_id = int([p.csv.id for p in projects][-1])
-
-    # list that can be inserted into projects.csv
-    start_id = max_internal_id + 1
-    print("start id", start_id)
+    
+    # max internal id plus 1
+    start_id = int([p.csv.id for p in projects][-1]) + 1
     
     p: GovShortData # thats a great way to give type hints in the code
     for e_id, p in gov_data["projects_short"].items():

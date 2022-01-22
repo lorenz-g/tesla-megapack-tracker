@@ -10,6 +10,7 @@ from generate.battery_project import USE_CASE_EMOJI_LI, BatteryProject
 from generate.constants import US_STATES_LONG_TO_SHORT, US_STATES_SHORT_TO_LONG
 from generate.gov.de_mastr import match_de_mastr_projects_with_mpt_projects, stats_de_mastr_data
 from generate.gov.uk_repd import match_uk_repd_projects_with_mpt_projects, stats_uk_repd_data
+from generate.gov.us_eia import download_and_extract_eia_data, read_eia_data_all_months
 from generate.utils import generate_link
 
 from typing import Iterable
@@ -324,25 +325,27 @@ def match_eia_projects_with_mpt_projects(eia_data, projects: Iterable[BatteryPro
                 print("could not find state", pr.state)
             
     
-    for state, projects in sorted(pr_by_state.items()):
+    for state, temp_projects in sorted(pr_by_state.items()):
         print("\n\n")
-        print(state)
+        print(US_STATES_SHORT_TO_LONG[state].upper())
         print("eia projects:")
-        eia = sorted(projects["eia"], key=lambda x:x["mw"], reverse=True)
+        eia = sorted(temp_projects["eia"], key=lambda x:x["mw"], reverse=True)
         for p in eia:
             print(p["mw"], p["plant name"], p["plant id"], p["status_simple"])
         
         print("\nmpt projects:")
-        mpt = sorted(projects["mpt"], key=lambda x:x.mw, reverse=True)
+        mpt = sorted(temp_projects["mpt"], key=lambda x:x.mw, reverse=True)
         for p in mpt:
             print(p.mw, p.csv.name)
 
     # list that can be inserted into projects.csv
     # TODO: probably should try and ignore the ones that I had in the US that are not covered here. 
     print("\n\n")
-    start_id = 143
-    for state, projects in sorted(pr_by_state.items()):
-        eia = sorted(projects["eia"], key=lambda x:x["mw"], reverse=True)
+    # max internal id plus 1
+    start_id = int([p.csv.id for p in projects][-1]) + 1
+
+    for state, temp_projects in sorted(pr_by_state.items()):
+        eia = sorted(temp_projects["eia"], key=lambda x:x["mw"], reverse=True)
         for p in eia:
             # estimate a two hour system
             mwh_estimate = str(p["mw"] * 2)
@@ -423,8 +426,8 @@ def main():
         json.dump(ajax_data, f)
 
     # this does not have to be run every time, just for manual assignment
-    # match_eia_projects_with_mpt_projects(eia_data, projects)
-    # match_uk_repd_projects_with_mpt_projects(uk_repd_data, projects)
+    # match_eia_projects_with_mpt_projects(gov_datasets["usa"], projects)
+    # match_uk_repd_projects_with_mpt_projects(gov_datasets["uk"], projects)
     # match_de_mastr_projects_with_mpt_projects(gov_datasets["germany"], projects)
 
 
@@ -432,6 +435,7 @@ if __name__ == "__main__":
     # to download a new report, need to enable those two lines and make sure the month is correct
     # download_and_extract_eia_data()
     # read_eia_data_all_months()
+    
     main()
 
     
