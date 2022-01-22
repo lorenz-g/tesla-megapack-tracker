@@ -50,7 +50,7 @@ function generateBatteryMap(projects, mapId){
     for (var i=0; i < projects.length; i++){
         p = projects[i];
         if (p.coords_exact != true) {
-            warning = `<br><span class="badge bg-danger">${p.coords_hint}</span>`;
+            warning = `<br><span class="badge bg-danger">${p.coords_help_str}</span>`;
         } else {
             warning = "";
         }

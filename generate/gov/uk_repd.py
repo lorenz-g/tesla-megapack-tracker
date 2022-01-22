@@ -220,17 +220,21 @@ def gen_short_project(history_di):
         state=r["Region"].lower(),
         # Wales, Northern Ireland, England, Scotland (treat it as UK)
         country="uk",
+        mwh=0,
         # estimate 1 hour system (in the uk generally a bit less, especially if they were build before 2020)
         estimate_mwh=int(r["mw"]),
         power_mw=int(r["mw"]),
         owner=r["Operator (or Applicant)"],
         status=r["status"],
+        
         date_first_heard=date_first_heard,
         start_construction=start_construction,
         start_operation=start_operation,
         # does not exist in the data source
         start_estimated="",
-        has_multiple_projects=False,
+        lat=r["lat"],
+        long=r["long"],
+        coords_hint=2,
     )
 
 

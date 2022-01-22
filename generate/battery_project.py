@@ -34,12 +34,16 @@ USE_CASE_EMOJI_LI = [
 EIA_COORDS_USA = (39.613588, -101.337891)
 
 
-COORDS_EXACT_DICT = {
-    "-1": "📍 Coords are a guess. Only the state is known",
-    "0": "📍 Coords not known",
-    "1": "✅ Coords are exact (+/- 50m)",
-    "2": "📍 Coords are +/- 1 kilometer",
-    "3": "📍 Coords are +/- 1 kilometer (gov data)",
+
+# TODO: would be good to get them into an ascending order so one could just compare to integers and 
+# the bigger one means it is more exact...
+# TODO: create an enum for the integers
+COORDS_HINT_DICT = {
+    -2: "📍 Coords are a guess. Only the country is known",
+    -1: "📍 Coords are a guess. Only the state is known",
+    0: "📍 Coords not known",
+    1: "✅ Coords are exact (+/- 50m)",
+    2: "📍 Coords are +/- 1 kilometer",
 }
 
 
@@ -115,6 +119,9 @@ def eia_location_estimate(id_, state):
 # good link about dataclasses
 @dataclass
 class CsvProjectData:
+    """
+    Data that is collected manually by users (and sometimes filled with gov data)
+    """
     name: str
     city: str
     id: str
@@ -142,7 +149,7 @@ class CsvProjectData:
     cost_incl_solar: str
     lat: str
     long: str
-    coords_exact: str
+    coords_hint: str
     use_case: str
     notes: str
     project_website: str
@@ -183,7 +190,11 @@ class BatteryProject:
         self.mwh = csv_int(csv.capacity_mwh)
         self.mwh_is_estimate = False
 
+        # TODO: don't use either or here, but just pick gov first and if it is not set, then pick the csv second (only relevant were manual data was filled in)
+        # in that pick first function can print the the differences...
+        # TODO: also add an emoji for manual data (i.e. if the project website or link is filled)
         # merge the government data        
+        # TODO: if the coords are exact then use the user data (e.g. burwell in the uk)
         # if gov and csv.overwrite == "1":
         if gov:
             self.status = gov.status
@@ -250,28 +261,32 @@ class BatteryProject:
             
         self.no_of_battery_units = csv_int(csv.no_of_battery_units)
 
-        # coordinate overwrites
-        if csv.overwrite == "1" and csv.lat == "" and csv.country == "usa":
-            self.lat, self.long = eia_location_estimate(csv.id, csv.state)
-            # overwrite of csv, not ideal
-            csv.coords_exact = "-1"
-        elif gov and csv.lat == "" and csv.country == "uk":
-            self.lat = gov_history["current"]["lat"]
-            self.long = gov_history["current"]["long"]
-            # overwrite of csv, not ideal
-            csv.coords_exact = "3"
-        else:
+        self.lat = ""
+        self.long = ""
+        self.coords_hint = -2 
+        
+        if gov:
+            if self.country == "usa":
+                self.lat, self.long = eia_location_estimate(csv.id, gov.state)
+            elif self.country in ("uk", "germany"):
+                self.lat = gov.lat
+                self.long = gov.long
+            
+            self.coords_hint = gov.coords_hint
+        
+        # for now, overwrite with user data if it exists (TODO: more finegrained overwrites here ust coords_hint)
+        if csv.lat != "":
             self.lat = csv.lat
             self.long = csv.long
+            self.coords_hint = csv_int(csv.coords_hint)
         
-        self.coords_exact = True if csv.coords_exact == "1" else False
-        self.coords_hint = COORDS_EXACT_DICT[csv.coords_exact]
+        self.coords_exact = True if self.coords_hint == 1 else False
+        self.coords_help_str = COORDS_HINT_DICT[self.coords_hint]
 
         # https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
         # zoom z=20 is the maximum, but not sure if it is working
         # TODO: I think this google maps link format is old https://developers.google.com/maps/documentation/urls/get-started
         self.google_maps_link = "http://maps.google.com/maps?z=19&t=k&q=loc:%s+%s" % (self.lat, self.long)
-
 
         emojis = []        
         # the order in which the if cases happen matters as that is the order of the emojis

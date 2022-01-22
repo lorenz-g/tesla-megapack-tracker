@@ -192,6 +192,7 @@ def gen_short_project(generator_di):
         external_id=p0["plant id"],
         state=US_STATES_SHORT_TO_LONG[p0["plant state"]],
         country="usa",
+        mwh=0,
         # estimate 2 hour system
         estimate_mwh=2*mw_total,
         power_mw=mw_total,
@@ -202,6 +203,7 @@ def gen_short_project(generator_di):
         start_operation=start_operation,
         start_estimated=start_estimated,
         has_multiple_projects=len(sub_p_cu) > 1,
+        coords_hint=-1
     )
 
 

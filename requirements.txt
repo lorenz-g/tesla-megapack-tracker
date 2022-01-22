@@ -11,3 +11,6 @@ requests
 # for the blog
 bs4
 markdown
+
+# for parsing xml
+xmltodict

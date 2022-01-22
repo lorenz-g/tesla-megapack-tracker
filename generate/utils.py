@@ -13,11 +13,13 @@ def generate_link(ip):
 # common dataclass for all government projects
 @dataclass
 class GovShortData:
+    # non default arguments
     data_source: str
     name: str
     external_id: str
     state: str
     country: str
+    mwh: int
     estimate_mwh: int
     power_mw: int
     owner: str
@@ -26,7 +28,12 @@ class GovShortData:
     start_construction: str
     start_operation: str
     start_estimated: str
-    has_multiple_projects: bool
+    
+    # default arguments (need be be after the default arguments)
+    lat: str = ""
+    long: str = ""
+    coords_hint: int = 0 # check the COORDS_EXACT_DICT for the values
+    has_multiple_projects: bool = False
 
 
 def check_di_difference(old, new, ignore=None):

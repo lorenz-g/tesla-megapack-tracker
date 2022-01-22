@@ -8,6 +8,7 @@ from collections import defaultdict
 from generate.blog import gen_blog
 from generate.battery_project import USE_CASE_EMOJI_LI, BatteryProject
 from generate.constants import US_STATES_LONG_TO_SHORT, US_STATES_SHORT_TO_LONG
+from generate.gov.de_mastr import match_de_mastr_projects_with_mpt_projects, stats_de_mastr_data
 from generate.gov.uk_repd import match_uk_repd_projects_with_mpt_projects, stats_uk_repd_data
 from generate.utils import generate_link
 
@@ -347,8 +348,17 @@ def main():
     
     # 1) Load an prepare data
     csv_projects = load_file("projects.csv")
-    eia_data = stats_eia_data()
-    uk_repd_data = stats_uk_repd_data()
+    # eia_data = 
+    # uk_repd_data = 
+    # de_mastr_data = 
+    
+    gov_datasets = {
+        "usa": stats_eia_data(),
+        "uk": stats_uk_repd_data(),
+        "germany": stats_de_mastr_data(),
+    }
+
+
     projects = []
     for p in csv_projects:
         # skip for an empty row (sometimes the case at the end)
@@ -357,12 +367,10 @@ def main():
 
         gov = None
         gov_history = None
-        if p["country"] == "usa" and p["external_id"]:
-            gov = eia_data["projects_short"][p["external_id"]]
-            gov_history = eia_data["projects"][p["external_id"]]
-        elif p["country"] == "uk" and p["external_id"]:
-            gov = uk_repd_data["projects_short"][p["external_id"]]
-            gov_history = uk_repd_data["projects"][p["external_id"]]
+
+        if p["country"] in gov_datasets and p["external_id"]:
+            gov = gov_datasets[p["country"]]["projects_short"][p["external_id"]]
+            gov_history = gov_datasets[p["country"]]["projects"][p["external_id"]]
 
         projects.append(BatteryProject(p, gov, gov_history))
 
@@ -372,7 +380,7 @@ def main():
     gen_projects_template(tesla_projects, 'index.jinja.html')
     gen_projects_template(projects, 'all-big-batteries.jinja.html')
     gen_individual_pages(projects)
-    gen_eia_page(eia_data, projects)
+    gen_eia_page(gov_datasets["usa"], projects)
     gen_raw_data_files()
     gen_blog()
 
@@ -391,6 +399,7 @@ def main():
     # this does not have to be run every time, just for manual assignment
     # match_eia_projects_with_mpt_projects(eia_data, projects)
     # match_uk_repd_projects_with_mpt_projects(uk_repd_data, projects)
+    match_de_mastr_projects_with_mpt_projects(gov_datasets["germany"], projects)
 
 
 if __name__ == "__main__":
