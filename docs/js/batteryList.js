@@ -24,8 +24,8 @@ function generateBatteryList(order, columns, summary, listId){
             }
             else {
                 $('tfoot th').eq(0).html(`Total (${summary.totals_row.count} projects)`);
-                $('tfoot th').eq(6).html(`${summary.totals_row.mwh}`);
-                $('tfoot th').eq(7).html(`${summary.totals_row.mw}`);
+                $('tfoot th').eq(columns[0]).html(`${summary.totals_row.mwh}`);
+                $('tfoot th').eq(columns[1]).html(`${summary.totals_row.mw}`);
             }
         } //end footerCallback
     });
