@@ -39,6 +39,15 @@ EIA_COORDS_USA = (39.613588, -101.337891)
 # TODO: would be good to get them into an ascending order so one could just compare to integers and 
 # the bigger one means it is more exact...
 # TODO: create an enum for the integers
+# use words in the csv, otherwise this is not easy. And use those names in the csv, much easier...
+# e.g. country_known, state_known, city_known, location_know, 
+
+# country
+# state
+# city_region  # city or region is known (+= 20km)
+# location (+- 1km)
+# location_exact (+- 50m)
+
 COORDS_HINT_DICT = {
     -2: "📍 Coords are a guess. Only the country is known",
     -1: "📍 Coords are a guess. Only the state is known",
@@ -150,7 +159,9 @@ class CsvProjectData:
     cost_incl_solar: str
     lat: str
     long: str
+    # for the time being, there are two, but will be 1 again soon
     coords_hint: str
+    coords_hint_2: str
     use_case: str
     notes: str
     project_website: str
