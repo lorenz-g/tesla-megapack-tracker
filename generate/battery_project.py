@@ -27,7 +27,7 @@ USE_CASE_EMOJI_LI = [
         ["🚨", "🚨", "incident reported"],
         ["🐌", "🐌", "slow, bureaucracy"],
         ["📊", "📊", "government data available"],
-        ["👦🏽", "👦🏽", "user data available"],
+        ["👤", "👤", "user data available"],
         ["📏", "📏", "mwh estimate based on mw"],
     ]
 
@@ -341,7 +341,7 @@ class BatteryProject:
             emojis.append("📊")
 
         if self.user_data:
-            emojis.append("👦🏽")
+            emojis.append("👤")
         
         if self.mwh_is_estimate:
             emojis.append("📏")
