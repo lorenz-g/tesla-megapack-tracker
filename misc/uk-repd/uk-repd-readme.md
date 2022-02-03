@@ -4,6 +4,10 @@
   - there is a csv and an excel version with for easy filtering
   - it has coordinates called x and y - need to check how to integrate that. 
 
+TODO: one can also download historic versions from here:
+https://data.gov.uk/dataset/a5b0ed13-c960-49ce-b1f6-3a6bbe0db1b7/renewable-energy-planning-database-repd
+
+
 - conversion of x and y coordinates given:
   - https://gridreferencefinder.com/#gr=TL0324326320|503243_s__c__s_226320|1
   - This is the library used http://www.nearby.org.uk/tests/GeoTools2.html
