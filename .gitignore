@@ -1,6 +1,8 @@
 # for this repo
 watchexec
 tmp_zip
+*.DS_Store
+.vscode
 
 
 # python gitignore file from github
