@@ -125,7 +125,7 @@ US_STATES_TO_EIA_COORDINATES = {
     "california" : (41.122677, -121.300049),
     "colorado" : (40.632576, -102.716675),
     "connecticut" : (41.904185, -72.03186),
-    "delaware" : None,
+    "delaware" : (38.999447, -75.405483),
     "florida" : (30.131984, -82.147522),
     "georgia" : (32.20459, -81.999207),
     "hawaii" : (19.611845, -155.513535),

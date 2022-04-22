@@ -332,6 +332,7 @@ def download_and_extract_eia_data():
     years = [
         # [2020, [9,12]], # before 9, there is a key error net summer capacity (mw), not digging further here
         [2021, [8, 13]],
+        [2022, [1, 13]],
     ]
     base_url = "https://www.eia.gov/electricity/monthly/archive/%s.zip"
     tables = ['Table_6_03.xlsx', 'Table_6_05.xlsx']

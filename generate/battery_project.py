@@ -264,17 +264,16 @@ class BatteryProject:
         self.in_planning = self.status == "planning"
         
         # merge the start operation and estimated start here
-        if csv.start_operation:
-            self.go_live = csv.start_operation
+        # TODO: should have an indication where the data is coming from
+        if self.start_operation:
+            self.go_live = self.start_operation
             self.go_live_year_int = int(self.go_live[:4])
-        elif csv.start_estimated:
-            self.go_live = "0 ~  " + csv.start_estimated
-            self.go_live_year_int = int(csv.start_estimated[:4])
+        elif self.start_estimated:
+            self.go_live = "0 ~  " + self.start_estimated
+            self.go_live_year_int = int(self.start_estimated[:4])
         else:
             self.go_live = ""
             self.go_live_year_int = None
-
-        
 
             
         self.no_of_battery_units = csv_int(csv.no_of_battery_units)
@@ -360,7 +359,8 @@ class BatteryProject:
 
 
     def __repr__(self) -> str:
-        return "<BatteryProject %s - %s>" % (self.csv.id, self.csv.name)
+        e_id = self.gov.id if self.gov else ""
+        return "<BatteryProject %s / %s - %s>" % (self.csv.id, e_id, self.csv.name)
 
 
     def to_dict(self):

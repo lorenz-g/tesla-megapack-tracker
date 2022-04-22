@@ -322,7 +322,7 @@ def match_eia_projects_with_mpt_projects(eia_data, projects: Iterable[BatteryPro
             if state_short:
                 pr_by_state[state_short]["mpt"].append(pr)
             else:
-                print("could not find state", pr.state)
+                print("could not find state", pr.state, pr)
             
     
     for state, temp_projects in sorted(pr_by_state.items()):
