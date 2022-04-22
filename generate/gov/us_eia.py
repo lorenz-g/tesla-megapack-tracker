@@ -58,7 +58,7 @@ def stats_eia_data():
                 # need to check for changes here
                 dif = check_di_difference(
                     last_report[p_id][g_id], r, 
-                    ignore=["month", "year", "status_simple", "net summer capacity (mw)"]
+                    ignore=["month", "year", "net summer capacity (mw)"]
                 )
 
                 if dif:

@@ -5,7 +5,7 @@ import math
 import logging
 
 from generate.constants import COUNTRY_EMOJI_DI, US_STATES_TO_EIA_COORDINATES
-from generate.utils import GovShortData
+from generate.utils import GovShortData, construction_time
 
 l = logging.getLogger("battery_project")
 
@@ -275,7 +275,10 @@ class BatteryProject:
             self.go_live = ""
             self.go_live_year_int = None
 
-            
+        self.construction_time_month = construction_time(self.start_construction, self.start_operation)
+        # TODO: there are some that are negative, look at them again
+        self.construction_speed_mwh_per_month = int(self.mwh / self.construction_time_month) if self.construction_time_month else None
+
         self.no_of_battery_units = csv_int(csv.no_of_battery_units)
 
         self.lat = ""

@@ -42,6 +42,14 @@
                 <td>Estimated start</td>
                 <td>{{ p.start_estimated }}</td>
             </tr>
+            <tr>
+                <td>Construction time</td>
+                <td>
+                    {% if p.construction_time_month %}
+                    {{ p.construction_time_month }} months -> {{p.construction_speed_mwh_per_month}} MWh/m
+                    {% endif %}
+                </td>
+            </tr>
         </table>
     </div>
 </div>
@@ -99,7 +107,7 @@
 
 <dt> Internal / External id </dt>
 <dl>
-    {{p.internal_id}}, {{p.external_id}},
+    {{p.internal_id}} / {{p.external_id}}
 </dl>
 
 
