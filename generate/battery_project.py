@@ -311,7 +311,7 @@ class BatteryProject:
         self.links = [csv.link1, csv.link2, csv.link3, csv.link4]
         self.links = [l for l in self.links if l != ""]
         # can assume that when a link is there some user data was added
-        self.user_data = bool(len(self.links) > 0)
+        self.user_data = bool(len(self.links) > 0) or csv.project_website != ""
 
         if gov and gov.pr_url:
             self.links.append(gov.pr_url)
