@@ -89,10 +89,14 @@ def stats_eia_data():
 
         
         # find projects that disappeared
+        # note that the table 6_03 with the operational projects is emptied every year (i.e. in the March report)
+        # but we want to exclude those projects 
         for p_id, v in last_report.items():
             for g_id, r in v.items():
                 if not (p_id in report_di and g_id in report_di[p_id]):
-                    monthly_changes["disappeared"].append(r)
+                    if r["status"] != "operation":
+                        # TODO: should change the status of projects of the projects that disappeared and should not show them in the list anymore...
+                        monthly_changes["disappeared"].append(r)
 
         monthly_changes["new"] = sorted(monthly_changes["new"], key=lambda x:x["mw"], reverse=True)
         monthly_changes["updated"] = sorted(monthly_changes["updated"], key=lambda x:x[0]["mw"], reverse=True)
@@ -209,6 +213,7 @@ def gen_short_project(generator_di):
 
 
 def read_eia_data_all_months():
+    print("\n\n------- function: read_eia_data_all_months")
     folders = [str(f) for f in Path("misc/eia-data/original/").iterdir()]
     for folder in folders:
         if ".DS_Store" in folder:
@@ -265,7 +270,6 @@ def read_eia_data_single_month(folder):
 
         print(file)
         db = xl.readxl(file)
-        print(db)
         ws = db.ws(db.ws_names[0])
 
         # ignore first row and use second row as column names
@@ -281,8 +285,16 @@ def read_eia_data_single_month(folder):
             # similar to a csv dict reader
             pr = {column_names[i]: row[i] for i in range(col_len)}
             
-            # only battery projects and projects of more than 10MW
-            if not (pr["technology"] == "Batteries" and float(pr["net summer capacity (mw)"]) >= 10):
+            # only battery projects
+            if not pr["technology"] == "Batteries":
+                continue
+            
+            if isinstance(pr["net summer capacity (mw)"], str):
+                continue
+            
+            # only projects with more than 10 MW
+            # the library auto converts to float or int if it detects sth
+            if pr["net summer capacity (mw)"] < 10:
                 continue
             
             # need to add this manually
@@ -332,10 +344,11 @@ def download_and_extract_eia_data():
 
     seems like the table 6_03 did not exist in 2020
     """
+    print("\n\n------ function: download_and_extract_eia_data ")
 
     years = [
         # [2020, [9,12]], # before 9, there is a key error net summer capacity (mw), not digging further here
-        [2021, [8, 13]],
+        # [2021, [8, 13]],
         [2022, [1, 13]],
     ]
     base_url = "https://www.eia.gov/electricity/monthly/archive/%s.zip"

@@ -1,3 +1,4 @@
+import sys
 import csv
 import pprint
 import os
@@ -381,7 +382,7 @@ def match_eia_projects_with_mpt_projects(eia_data, projects: Iterable[BatteryPro
 
 
     
-def main():
+def main(match_country):
     
     # 1) Load an prepare data
     csv_projects = load_file("projects.csv")
@@ -430,17 +431,29 @@ def main():
     with open("docs/ajax-data.json", "w") as f:
         json.dump(ajax_data, f)
 
+
+    # 3) Match and print project that are not in projects.csv
     # this does not have to be run every time, just for manual assignment
-    # match_eia_projects_with_mpt_projects(gov_datasets["usa"], projects)
-    # match_uk_repd_projects_with_mpt_projects(gov_datasets["uk"], projects)
-    # match_de_mastr_projects_with_mpt_projects(gov_datasets["germany"], projects)
+    match_functions = {
+        "usa": match_eia_projects_with_mpt_projects,
+        "uk": match_uk_repd_projects_with_mpt_projects,
+        "germany": match_de_mastr_projects_with_mpt_projects,
+    }
+    if match_country:
+        match_functions[match_country](gov_datasets[match_country], projects)
 
 
 if __name__ == "__main__":
-    # to download a new report, need to enable those two lines and make sure the month is correct
-    # download_and_extract_eia_data()
-    # read_eia_data_all_months()
+    if len(sys.argv) > 1 and sys.argv[1] in ("usa", "uk", "germany"):
+        match_country = sys.argv[1]
+    else:
+        match_country = None
     
-    main()
+    if match_country == "usa":
+        # to download a new report, need to enable those two lines and make sure the month is correct
+        download_and_extract_eia_data()
+        read_eia_data_all_months()
+
+    main(match_country)
 
     
