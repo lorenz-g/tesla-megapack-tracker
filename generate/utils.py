@@ -58,11 +58,13 @@ def check_di_difference(old, new, ignore=None):
             word = 'delayed' if month_delta > 0 else 'accelerated'
             month = "month" if abs(month_delta) == 1 else "months"
             extra = '<span class="badge rounded-pill bg-%s">%s by %d %s</span>' % (pill_bg, word, abs(month_delta), month)
-        if k == 'status_simple' and new[k] == "operation":
+        
+        # TODO: for the us, using status_simple and the uk using status, use the same for all
+        if k in ('status_simple', 'status') and new[k] == "operation":
             # celebrate
             extra = "🍾 🎉 🍸"
 
-        if k == 'status_simple' and new[k] == "construction":
+        if k in ('status_simple', 'status') and new[k] == "construction":
             extra = "🏗️"
 
         if new[k] != v:

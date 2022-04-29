@@ -58,8 +58,8 @@
 <ul>
     <li>Comparing the reports to show the changes throughout the months.</li>
     <li>Projects are sorted by the max power output.</li>
-    <li>✅ indicates {{ extra.name_short }} project is also shown on the map on the 
-        <a href="all-big-batteries.html">All Big Batteries page</a>. You can click on the ✅ to get to the detail page.</li>
+    <li>All projects below are also listed on the <a href="all-big-batteries.html">All Big Batteries page</a></li>
+    <li>Click on the reference number to get to the detail page of the project</li>
 </ul>
 
 
@@ -71,10 +71,9 @@
 <h4>{{ month.month}}</h4>
 New projects ({{ month.new | length}}): <br>
 {% for pr in month.new %}
-    {% set pr_sh = extra.summary.projects_short[pr.Ref] %}
-    {{ pr_sh.power_mw}} MW - {{ pr_sh.status }} - {{ pr_sh.name }} - 
-    {{pr_sh.external_id}}
-    <a href="projects/{{extra.gen_ids_from_projects[pr_sh.external_id]}}.html">✅</a><br>    
+    {% set pr_sh = extra.summary.projects_short[pr["Ref ID"]] %}
+    {{ pr_sh.power_mw}} MW - {{ pr_sh.status }} - {{ pr_sh.state}} - {{ pr_sh.name }} - 
+    <a href="projects/{{extra.gen_ids_from_projects[pr_sh.external_id]}}.html">{{pr_sh.external_id}}</a><br>    
 {% endfor %}
 
 
@@ -82,10 +81,9 @@ New projects ({{ month.new | length}}): <br>
 <br>
 Disappeared projects ({{ month.disappeared | length}}): <br>
 {% for pr in month.disappeared %}
-    {% set pr_sh = extra.summary.projects_short[pr.Ref] %}
-    {{ pr_sh.power_mw}} MW - {{ pr_sh.status }} - {{ pr_sh.name }} - 
-    {{pr_sh.external_id}}
-    <a href="projects/{{extra.gen_ids_from_projects[pr_sh.external_id]}}.html">✅</a><br>    
+    {% set pr_sh = extra.summary.projects_short[pr["Ref ID"]] %}
+    {{ pr_sh.power_mw}} MW - {{ pr_sh.status }} - {{ pr_sh.state}} - {{ pr_sh.name }} - 
+    <a href="projects/{{extra.gen_ids_from_projects[pr_sh.external_id]}}.html">{{pr_sh.external_id}}</a><br>    
 {% endfor %}
 {% endif %}
 
@@ -93,10 +91,9 @@ Disappeared projects ({{ month.disappeared | length}}): <br>
 Updated projects ({{ month.updated | length}}):<br>
 {% for pr, changes in month.updated %}
 <div class="mb-2">
-    {% set pr_sh = extra.summary.projects_short[pr.Ref] %}
-    {{ pr_sh.power_mw}} MW - {{ pr_sh.status }} - {{ pr_sh.name }} - 
-    {{pr_sh.external_id}}
-    <a href="projects/{{extra.gen_ids_from_projects[pr_sh.external_id]}}.html">✅</a><br>
+    {% set pr_sh = extra.summary.projects_short[pr["Ref ID"]] %}
+    {{ pr_sh.power_mw}} MW - {{ pr_sh.status }} - {{ pr_sh.state}} - {{ pr_sh.name }} - 
+    <a href="projects/{{extra.gen_ids_from_projects[pr_sh.external_id]}}.html">{{pr_sh.external_id}}</a><br>    
     {% for change in changes %}
         &nbsp;&nbsp;{{ change.name }}: {{ change.from }} -> {{ change.to }} {{ change.extra | safe }}<br>
     {% endfor %}

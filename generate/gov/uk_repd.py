@@ -10,8 +10,6 @@ from generate.battery_project import BatteryProject
 from generate.bng_to_latlong import OSGB36toWGS84
 from generate.utils import GovShortData, check_di_difference
 
-in_filename = "misc/uk-repd/original/renewable-energy-planning-database-q3-september-2021.csv"
-out_filename = "misc/uk-repd/filtered/2021-09.csv"
 
 # for simplicity introducing cancelled state here but filtering it out. 
 STATUS_DI = {
@@ -26,14 +24,17 @@ STATUS_DI = {
 }
 
 
-def generate_filtered_csv():
+def generate_filtered_csv(in_filename, out_filename):
     projects_li = []
     mw_total = 0
     i = 0
 
     pr_by_status = defaultdict(lambda: {"cnt": 0, "mw": 0})
 
-    with open(in_filename) as f:
+    # in case getting a unicode decode error, might be useful to read as binary with rb
+    # and printing the location and then deleting the character. 
+    # happened with the q4 2021 report with one char. 
+    with open(in_filename, 'r') as f:
         reader = csv.DictReader(f)
         for row in reader:
             i+=1
@@ -54,6 +55,12 @@ def generate_filtered_csv():
             pr_by_status[status]["mw"] += mw
             
             if status == "cancelled":
+                continue
+            
+            # only one affected: 6830 10162 Ochiltree - Battery Sorage 
+            # to laze to implement behavior if no coords are given. 
+            if row["X-coordinate"] == "":
+                print(i, row["Ref ID"], row["Site Name"], "does not have coords, skipping this one")
                 continue
 
             lat_long = OSGB36toWGS84(int(row["X-coordinate"]), int(row["Y-coordinate"])) 
@@ -111,8 +118,7 @@ def stats_uk_repd_data():
                 s_monthly[month][r["status"]] = {"count": 0, "gw": 0}
             s_monthly[month][r["status"]]["count"] += 1
             s_monthly[month][r["status"]]["gw"] += int(r["mw"]) / 1000
-
-            ref = r["Ref"]
+            ref = r["Ref ID"]
             report_di[ref] = r
 
             if ref in last_report:
@@ -216,7 +222,7 @@ def gen_short_project(history_di):
     return GovShortData(
         data_source="uk_repd",
         name=r["Site Name"],
-        external_id=r["Ref"],
+        external_id=r["Ref ID"],
         state=r["Region"].lower(),
         # Wales, Northern Ireland, England, Scotland (treat it as UK)
         country="uk",
@@ -267,6 +273,8 @@ def match_uk_repd_projects_with_mpt_projects(uk_repd_data, projects: Iterable[Ba
 
 if __name__ == "__main__":
     # only runt it with new gov data
-    generate_filtered_csv()
+    in_filename = "misc/uk-repd/original/renewable-energy-planning-database-q4-december-2021.csv"
+    out_filename = "misc/uk-repd/filtered/2021-12.csv"
+    generate_filtered_csv(in_filename, out_filename)
     
     # stats_uk_repd_data()
