@@ -38,23 +38,29 @@ def gen_gov_pages(gov_data, projects: Iterable[BatteryProject]):
 
     info_di = {
         "usa":{
+            "id": "us",
+            "flag": "🇺🇸",
             "name_short": "U.S. EIA",
             "name_long": "U.S. Energy Information Administration (EIA)",
-            "template_name": "gov-us-eia.jinja.html",
+            "output_filename": "us-eia",
             "source_url": "https://www.eia.gov/electricity/monthly/",
 
         },
         "uk": {
+            "id": "uk",
+            "flag": "🇬🇧",
             "name_short": "UK REPD",
             "name_long": "UK Renewable Energy Planning Database (REPD)",
-            "template_name": "gov-uk-repd.jinja.html",
+            "output_filename": "uk-repd",
             "source_url": "https://www.gov.uk/government/publications/renewable-energy-planning-database-monthly-extract",
 
         },
         "germany": {
+            "id": "de",
+            "flag": "🇩🇪",
             "name_short": "DE MaStR",
             "name_long": "DE Marktstammdatenregister (MaStR)",
-            "template_name": "gov-de-mastr.jinja.html",
+            "output_filename": "de-mastr",
             "source_url": "https://www.marktstammdatenregister.de/MaStR/",
 
         }
@@ -67,6 +73,7 @@ def gen_gov_pages(gov_data, projects: Iterable[BatteryProject]):
 
     gen_ids_from_projects = {p.csv.external_id:p.csv.id for p in projects}    
 
+    template_name = "gov-page.jinja.html"
     for country, gov_di in gov_data.items():        
         extra = {
             "now": dt.datetime.utcnow(),
@@ -75,10 +82,11 @@ def gen_gov_pages(gov_data, projects: Iterable[BatteryProject]):
         }
         extra.update(info_di[country])
 
-        template = env.get_template(extra["template_name"])
+        template = env.get_template("gov-page.jinja.html")
         output = template.render(extra=extra, g_l=generate_link) 
         
-        with open(os.path.join(output_dir, extra["template_name"].replace(".jinja", "")), 'w') as f:
+        out_file = os.path.join(output_dir, "gov-%s.html" % extra["output_filename"])
+        with open(out_file, 'w') as f:
             f.write(output)
 
 
@@ -377,9 +385,6 @@ def main():
     
     # 1) Load an prepare data
     csv_projects = load_file("projects.csv")
-    # eia_data = 
-    # uk_repd_data = 
-    # de_mastr_data = 
     
     gov_datasets = {
         "usa": stats_eia_data(),

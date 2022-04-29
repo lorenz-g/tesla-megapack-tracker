@@ -113,7 +113,12 @@ def stats_uk_repd_data():
             "disappeared": []
         }
 
-        for r in rows:            
+        for r in rows:
+            # every gov project should have a ext_id and status
+            r["ext_id"] = r["Ref ID"]
+            
+            r["mw"] = int(r["mw"])
+
             if r["status"] not in s_monthly[month]:
                 s_monthly[month][r["status"]] = {"count": 0, "gw": 0}
             s_monthly[month][r["status"]]["count"] += 1

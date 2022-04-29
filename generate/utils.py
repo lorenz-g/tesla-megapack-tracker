@@ -59,14 +59,13 @@ def check_di_difference(old, new, ignore=None):
             month = "month" if abs(month_delta) == 1 else "months"
             extra = '<span class="badge rounded-pill bg-%s">%s by %d %s</span>' % (pill_bg, word, abs(month_delta), month)
         
-        # TODO: for the us, using status_simple and the uk using status, use the same for all
-        if k in ('status_simple', 'status') and new[k] == "operation":
-            # celebrate
-            extra = "🍾 🎉 🍸"
-
-        if k in ('status_simple', 'status') and new[k] == "construction":
-            extra = "🏗️"
-
+        if k == 'status':
+            if new[k] == "operation":
+                # celebrate
+                extra = "🍾 🎉 🍸"
+            elif new[k] == "construction":
+                extra = "🏗️"
+            
         if new[k] != v:
             li.append({
                 "name": k,

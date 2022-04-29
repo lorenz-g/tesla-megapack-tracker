@@ -1,0 +1,90 @@
+<!-- this is currently not used, just for testing -->
+
+{% extends "base.html" %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="vendor/uplot-1.6.16/uPlot.min.css">
+{% endblock %}
+
+
+{% block content %}
+
+<h3> US EIA Summary</h3>
+
+<!-- enable to show the a chart -->
+<div id="uPlotArea"></div>
+
+{% endblock %}
+
+
+
+{% block extra_scripts %}
+    <!-- Page level plugins -->
+    <!-- this is a test here, lets see if this will lead to anything -->
+    <script src="vendor/uplot-1.6.16/uPlot.iife.min.js"></script>
+    <script src="vendor/uplot-1.6.16/distr.js"></script>
+    <script src="vendor/uplot-1.6.16/quadtree.js"></script>
+    <script src="vendor/uplot-1.6.16/grouped-bars.js"></script>
+    <script>
+        let xs = ["hello",2,3];
+        let vals = [4,5,6];
+        let vals2 = [10,9,8];
+
+        let data = [
+           xs,
+           vals,
+           vals2,
+           [1,2,3]
+
+        //    xs.map((t, i) => vals[Math.floor(Math.random() * vals.length)]),
+        ];
+
+        let o = {ori: 0, dir: 1, stacked: false}
+        let ori = o.ori;
+        let dir = o.dir;
+        let stacked = o.stacked;
+
+
+        const opts = {
+            width: 600,
+            height: 400,
+            // => is returning a function
+            // tzDate: ts => uPlot.tzDate(new Date(ts * 1e3), "utc"),
+            title: "bla title",
+            axes: [
+                {},
+                {
+                    label: "power in GW",
+                    side: 1,
+                    scale: "default",
+                },
+            ],
+            series: [
+						{},
+						{
+							label: "planning",
+							fill: "#33BB55",
+							scale: 'default',
+						},
+						{
+							label:	"construction",
+							fill: "#B56FAB",
+							scale: 'default',
+						},
+                        {
+							label:	"operation",
+							fill: "#006FAB",
+							scale: 'default',
+						},
+					],
+            plugins: [
+                    seriesBarsPlugin({
+							ori,
+							dir,
+							stacked,
+						}),
+					],
+        };
+        let u = new uPlot(opts, data, document.getElementById("uPlotArea"));
+    </script>
+{% endblock %}

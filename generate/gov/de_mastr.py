@@ -223,6 +223,10 @@ def stats_de_mastr_data():
         }
 
         for r in rows:
+            # every gov project should have a ext_id and status
+            r["ext_id"] = r["EinheitMastrNummer"]
+            # status is already present. 
+
             # TODO: use netto or bruttoleisung here, not sure?
             # nettoleistung = min(bruttoleistung, wechselrichterleistung), so I guess nettoleistung is better
             r["mw"] = cast_to_mega(r["Nettonennleistung"])

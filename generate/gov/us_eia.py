@@ -40,13 +40,13 @@ def stats_eia_data():
         }
 
         for r in rows:
-
+            # every gov project should have a ext_id and status
             r["mw"] = int(float(r["net summer capacity (mw)"]))
-            
-            if r["status_simple"] not in s_monthly[month]:
-                s_monthly[month][r["status_simple"]] = {"count": 0, "gw": 0}
-            s_monthly[month][r["status_simple"]]["count"] += 1
-            s_monthly[month][r["status_simple"]]["gw"] += float(r["net summer capacity (mw)"]) / 1000
+
+            if r["status"] not in s_monthly[month]:
+                s_monthly[month][r["status"]] = {"count": 0, "gw": 0}
+            s_monthly[month][r["status"]]["count"] += 1
+            s_monthly[month][r["status"]]["gw"] += float(r["net summer capacity (mw)"]) / 1000
 
             p_id = r["plant id"]
             g_id = r["generator id"]
@@ -160,7 +160,7 @@ def gen_short_project(generator_di):
     assert len(set(p["plant state"] for p in sub_p_cu)) == 1
 
     mw_total = sum([p["mw"] for p in sub_p_cu])
-    status_li = [p["status_simple"] for p in sub_p_cu]
+    status_li = [p["status"] for p in sub_p_cu]
 
     # chose earliest status in case there are multiple projects
     if "planning" in status_li:
@@ -232,7 +232,7 @@ def read_eia_data_single_month(folder):
     """
 
     # so far only planning, construction, operation used, but the eia data is more detailed
-    status_to_status_simple = {
+    status_verbose_to_status = {
         "(OT) Other": "planning",
         "(L) Regulatory approvals pending. Not under construction": "planning",
         "(T) Regulatory approvals received. Not under construction": "planning",
@@ -292,13 +292,17 @@ def read_eia_data_single_month(folder):
                 # don't need it, can rely on the net summer capacity
                 pr.pop('nameplate capacity (mw)')
 
-            pr["status_simple"] = status_to_status_simple[pr["status"]]
+            # set the status and ext_id which need to be set in every project
+            pr["status_verbose"] = pr["status"]
+            pr["status"] = status_verbose_to_status[pr["status_verbose"]]
+            pr["ext_id"] = pr["plant id"]
+
             pr["date"] = "%d-%02d" % (pr["year"], pr["month"])
             
             # print(pr)
             projects[pr["plant id"]].append(pr)
             projects_li.append(pr)
-            counts[pr["status_simple"]] += 1
+            counts[pr["status"]] += 1
     
     print(counts)
     
@@ -366,10 +370,10 @@ if __name__ == "__main__":
         name =  current["plant name"]
 
         # if genetor_ids[0]["current_month"] != "2021-10":
-        #     print(name, genetor_ids[0]["current_month"], current["status_simple"], current["mw"])
+        #     print(name, genetor_ids[0]["current_month"], current["status"], current["mw"])
 
         if len(v) > 1:
-            print(name, genetor_ids[0]["current_month"], current["status_simple"], current["mw"])
+            print(name, genetor_ids[0]["current_month"], current["status"], current["mw"])
         #     if "Stanton" in name:
         #         pprint.pprint(list(v.values()))
 
