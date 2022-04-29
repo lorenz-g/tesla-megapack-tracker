@@ -47,7 +47,14 @@
   
 - better table on mobile...
 
-- 
+- handle projects that disappear
+
+
+
+
+
+
+
 
 
 
