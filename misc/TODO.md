@@ -49,6 +49,16 @@
 
 - handle projects that disappear
 
+- how to deal with projects like the edwards sanborn? (could also just leave them as is...)
+  - many small projects in the eia data
+  - but the media refers to it as one big one
+  - could add a `group with` column in the CSV and then those projects will be shown as one?
+  - could still generate the detail page for all (but then say thats not the main page)
+  - in terms of overall status and dates always use the last ones
+  - figure out how many are affected
+  - use the gps coords of the main project
+  - either put `self` or the id in the main project `group with` column to see
+
 
 
 
