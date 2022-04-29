@@ -340,7 +340,7 @@ def match_eia_projects_with_mpt_projects(eia_data, projects: Iterable[BatteryPro
         print("eia projects:")
         eia = sorted(temp_projects["eia"], key=lambda x:x["mw"], reverse=True)
         for p in eia:
-            print(p["mw"], p["plant name"], p["plant id"], p["status_simple"])
+            print(p["mw"], p["plant name"], p["plant id"], p["status"])
         
         print("\nmpt projects:")
         mpt = sorted(temp_projects["mpt"], key=lambda x:x.mw, reverse=True)
@@ -363,7 +363,7 @@ def match_eia_projects_with_mpt_projects(eia_data, projects: Iterable[BatteryPro
             start_operation = ""
             start_estimated = ""
 
-            if p["status_simple"] == "operation":
+            if p["status"] == "operation":
                 start_operation = p["date"] + "-01"
             else:
                 start_estimated = p["date"]
@@ -373,7 +373,7 @@ def match_eia_projects_with_mpt_projects(eia_data, projects: Iterable[BatteryPro
                 US_STATES_SHORT_TO_LONG[state], "usa", "", mwh_estimate,
                 str(p["mw"]), "", p["entity name"], 
                 "", "", "", "", "",
-                p["status_simple"], 
+                p["status"], 
                 "", "",
                 start_operation, start_estimated, 
             ]
@@ -452,7 +452,8 @@ if __name__ == "__main__":
     if match_country == "usa":
         # to download a new report, need to enable those two lines and make sure the month is correct
         download_and_extract_eia_data()
-        read_eia_data_all_months()
+        # only need this to reprocess the downloaded files
+        # read_eia_data_all_months()
 
     main(match_country)
 

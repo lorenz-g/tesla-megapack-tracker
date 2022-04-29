@@ -157,7 +157,7 @@ US_STATES_TO_EIA_COORDINATES = {
     "oregon" : (45.602253, -118.135986),
     "pennsylvania" : None,
     "rhode island" : None,
-    "south carolina" : None,
+    "south carolina" : (34.606760, -79.792266),
     "south dakota" : None,
     "tennessee" : (36.315642, -83.082733),
     "texas" : (33.454054, -95.273438),

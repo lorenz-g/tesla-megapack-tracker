@@ -363,7 +363,12 @@ def download_and_extract_eia_data():
                 print("got %s code, ignoring it" % (r.status_code))
                 continue
             
-            file = zipfile.ZipFile(io.BytesIO(r.content))
+            try:
+                file = zipfile.ZipFile(io.BytesIO(r.content))
+            except zipfile.BadZipFile:
+                # can return here as this will be the first month where data is not available
+                print("bad zip file, month not available yet")
+                return
         
             for table in tables:
                 zi = file.getinfo(table)
