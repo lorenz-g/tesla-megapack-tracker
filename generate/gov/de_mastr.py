@@ -121,6 +121,7 @@ MASTR_DETAIL_IDS_DI = {
     "SEE990521990150": 3430313,
     "SEE999790559914": 3984077,
     "SEE977720016904": 4750172,
+    "SEE982806373970": 5001456,
 }
 
 
@@ -712,18 +713,6 @@ def create_summary_from_small_units_csv(csv_path, month):
                         "%.1f" % d["kw_avg"],
                     ]
                     print(",".join(li))
-            
-
-
-
-
-    
-
-
-
-
-
-
 
 
 def get_capacity_from_anlagen(base_path, mastr_ids, rtype='mwh'):
@@ -796,14 +785,12 @@ def convert_to_details_url_id(mastr_nr):
     return str(id_)
 
 
-def create_new_filtered_json_file(base_path, month):
+def create_new_filtered_json_file(base_path, month, start_fresh=False):
     """
     execute this function to if you have a new dataset download
     
     month is the output filename, use the month when you downloaded the dataset. e.g. 2021-10
     """
-
-    start_fresh = False
 
     if start_fresh:
         # this step takes a lot of time
@@ -881,11 +868,11 @@ def temp():
 if __name__ == "__main__":
 
     # run the below commands to process a new download for large batteries
-    # month = "2022-03"
-    # create_new_filtered_json_file("/Users/lorenz/Desktop/marktstammdaten/%s/extracted" % month, month)
+    month = "2022-05"
+    create_new_filtered_json_file("/Users/lorenz/Desktop/marktstammdaten/%s/extracted" % month, month, start_fresh=True)
     
     # run the below commands to process a new download for small batteries
-    month = "2022-03"
+    # month = "2022-03"
     # create_csv_for_small_units("/Users/lorenz/Desktop/marktstammdaten/%s/extracted" % month, month)
-    create_summary_from_small_units_csv("misc/de-mastr/small-batteries/%s.csv" % month, month)
+    # create_summary_from_small_units_csv("misc/de-mastr/small-batteries/%s.csv" % month, month)
 
