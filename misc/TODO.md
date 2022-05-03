@@ -59,6 +59,7 @@
   - use the gps coords of the main project
   - either put `self` or the id in the main project `group with` column to see
 
+- run a check to see if some coords are too close to each other or not
 
 
 

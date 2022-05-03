@@ -20,6 +20,7 @@ STATUS_DI = {
     "Awaiting Construction": "planning",
     "Planning Permission Expired": "cancelled",
     "Application Refused": "cancelled",
+    "Appeal Refused": "cancelled",
     "Operational": "operation",
 }
 
@@ -33,7 +34,7 @@ def generate_filtered_csv(in_filename, out_filename):
 
     # in case getting a unicode decode error, might be useful to read as binary with rb
     # and printing the location and then deleting the character. 
-    # happened with the q4 2021 report with one char. 
+    # happened with the q4 21 and q1 22 report with one char. 
     with open(in_filename, 'r') as f:
         reader = csv.DictReader(f)
         for row in reader:
@@ -116,7 +117,7 @@ def stats_uk_repd_data():
         for r in rows:
             # every gov project should have a ext_id and status
             r["ext_id"] = r["Ref ID"]
-            
+
             r["mw"] = int(r["mw"])
 
             if r["status"] not in s_monthly[month]:
@@ -278,8 +279,8 @@ def match_uk_repd_projects_with_mpt_projects(uk_repd_data, projects: Iterable[Ba
 
 if __name__ == "__main__":
     # only runt it with new gov data
-    in_filename = "misc/uk-repd/original/renewable-energy-planning-database-q4-december-2021.csv"
-    out_filename = "misc/uk-repd/filtered/2021-12.csv"
+    in_filename = "misc/uk-repd/original/renewable-energy-planning-database-q1-april-2022.csv"
+    out_filename = "misc/uk-repd/filtered/2022-04.csv"
     generate_filtered_csv(in_filename, out_filename)
     
     # stats_uk_repd_data()
