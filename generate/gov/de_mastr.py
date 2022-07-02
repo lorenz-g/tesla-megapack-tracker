@@ -16,7 +16,7 @@ import datetime as dt
 import requests
 
 from generate.battery_project import BatteryProject
-from generate.utils import GovShortData, check_di_difference
+from generate.utils import GovShortData, check_di_difference, create_summary_for_gov_projects
 
 
 
@@ -198,7 +198,6 @@ def stats_de_mastr_data():
     
     monthly_diffs = []
     last_report = {}
-    s_monthly = defaultdict(dict)
 
     # projects with their history
     projects_di = defaultdict(dict)
@@ -217,12 +216,6 @@ def stats_de_mastr_data():
             "disappeared": []
         }
 
-        s_monthly[month] = {
-            "planning": {"count": 0, "gw": 0, "gwh": 0},
-            "construction": {"count": 0, "gw": 0, "gwh": 0},
-            "operation": {"count": 0, "gw": 0, "gwh": 0}
-        }
-
         for r in rows:
             # every gov project should have a ext_id and status
             r["ext_id"] = r["EinheitMastrNummer"]
@@ -232,11 +225,6 @@ def stats_de_mastr_data():
             # nettoleistung = min(bruttoleistung, wechselrichterleistung), so I guess nettoleistung is better
             r["mw"] = cast_to_mega(r["Nettonennleistung"])
             r["status"] = STATUS_DI[r["EinheitBetriebsstatus"]]
-
-            
-            s_monthly[month][r["status"]]["count"] += 1
-            s_monthly[month][r["status"]]["gw"] += int(r["mw"]) / 1000
-            s_monthly[month][r["status"]]["gwh"] += int(r["mwh"]) / 1000
 
             ref = r["EinheitMastrNummer"]
             report_di[ref] = r
@@ -308,11 +296,8 @@ def stats_de_mastr_data():
     for k,v in projects_di.items():
         projects_short[k] = gen_short_project(v)
     
-    # for k,v in s_monthly.items():
-    #     print(k,v)
-
     summary = {
-        "current": s_monthly[months[-1]],
+        "current": create_summary_for_gov_projects(projects_short.values()),
         "current_month": months[-1],
         # want the in descending order
         "monthly_diffs": monthly_diffs[::-1],

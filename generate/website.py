@@ -1,6 +1,5 @@
 import sys
 import csv
-import pprint
 import os
 import json
 from jinja2 import Environment, FileSystemLoader
@@ -71,10 +70,7 @@ def gen_gov_pages(gov_data, projects: Iterable[BatteryProject]):
     env = Environment(loader=file_loader)
     output_dir = 'docs'
     
-
     gen_ids_from_projects = {p.csv.external_id:p.csv.id for p in projects}    
-
-    template_name = "gov-page.jinja.html"
     for country, gov_di in gov_data.items():        
         extra = {
             "now": dt.datetime.utcnow(),

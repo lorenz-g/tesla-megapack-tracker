@@ -11,16 +11,20 @@ import pylightxl as xl
 import requests
 from generate.constants import US_STATES_SHORT_TO_LONG
 
-from generate.utils import GovShortData, check_di_difference
+from generate.utils import GovShortData, check_di_difference, create_summary_for_gov_projects
 
 def stats_eia_data():
+    """
+    for the eia data, whenever a new year happens the projects that went into operation in the previous
+    year are dropped from the table. 
+    
+    """
     folder = "misc/eia-data/merged/"
     filenames = sorted(os.listdir(folder))
     months = [f.split(".")[0] for f in filenames]
     
     monthly_diffs = []
     last_report = {}
-    s_monthly = defaultdict(dict)
 
     # projects with their history
     projects_di = defaultdict(dict)
@@ -42,12 +46,6 @@ def stats_eia_data():
         for r in rows:
             # every gov project should have a ext_id and status
             r["mw"] = int(float(r["net summer capacity (mw)"]))
-
-            if r["status"] not in s_monthly[month]:
-                s_monthly[month][r["status"]] = {"count": 0, "gw": 0}
-            s_monthly[month][r["status"]]["count"] += 1
-            s_monthly[month][r["status"]]["gw"] += float(r["net summer capacity (mw)"]) / 1000
-
             p_id = r["plant id"]
             g_id = r["generator id"]
             if p_id not in report_di:
@@ -86,8 +84,7 @@ def stats_eia_data():
             projects_di[p_id][g_id]["current"] = r
             projects_di[p_id][g_id]["current_month"] = month
 
-
-        
+    
         # find projects that disappeared
         # note that the table 6_03 with the operational projects is emptied every year (i.e. in the March report)
         # but we want to exclude those projects 
@@ -111,11 +108,8 @@ def stats_eia_data():
     for k,v in projects_di.items():
         projects_short[k] = gen_short_project(v)
     
-    # for k,v in s_monthly.items():
-    #     print(k,v)
-
     summary = {
-        "current": s_monthly[months[-1]],
+        "current": create_summary_for_gov_projects(projects_short.values()),
         "current_month": months[-1],
         # want the in descending order
         "monthly_diffs": monthly_diffs[::-1],

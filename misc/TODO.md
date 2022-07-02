@@ -72,3 +72,4 @@
 # DONE
 
 - add changelog blog and refer to it from the readme
+- fix bug for eia data that where old projects in operation disappear from the summary

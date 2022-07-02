@@ -8,7 +8,7 @@ import datetime as dt
 from generate.battery_project import BatteryProject
 
 from generate.bng_to_latlong import OSGB36toWGS84
-from generate.utils import GovShortData, check_di_difference
+from generate.utils import GovShortData, check_di_difference, create_summary_for_gov_projects
 
 
 # for simplicity introducing cancelled state here but filtering it out. 
@@ -95,7 +95,6 @@ def stats_uk_repd_data():
     
     monthly_diffs = []
     last_report = {}
-    s_monthly = defaultdict(dict)
 
     # projects with their history
     projects_di = defaultdict(dict)
@@ -117,13 +116,7 @@ def stats_uk_repd_data():
         for r in rows:
             # every gov project should have a ext_id and status
             r["ext_id"] = r["Ref ID"]
-
             r["mw"] = int(r["mw"])
-
-            if r["status"] not in s_monthly[month]:
-                s_monthly[month][r["status"]] = {"count": 0, "gw": 0}
-            s_monthly[month][r["status"]]["count"] += 1
-            s_monthly[month][r["status"]]["gw"] += int(r["mw"]) / 1000
             ref = r["Ref ID"]
             report_di[ref] = r
 
@@ -183,12 +176,9 @@ def stats_uk_repd_data():
     projects_short = {}
     for k,v in projects_di.items():
         projects_short[k] = gen_short_project(v)
-    
-    # for k,v in s_monthly.items():
-    #     print(k,v)
 
     summary = {
-        "current": s_monthly[months[-1]],
+        "current": create_summary_for_gov_projects(projects_short.values()),
         "current_month": months[-1],
         # want the in descending order
         "monthly_diffs": monthly_diffs[::-1],

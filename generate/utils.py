@@ -1,4 +1,6 @@
+from collections import defaultdict
 from dataclasses import dataclass
+from typing import List
 import datetime as dt
 
 # when using links need to prefix that everywhere
@@ -100,4 +102,15 @@ def construction_time(start_construction: str, start_operation: str):
     start_o = dt.datetime.strptime(start_operation, format)
 
     return diff_month(start_o, start_c)
+
+
+def create_summary_for_gov_projects(projects: List[GovShortData]):
+    # generate the statistics for all the gov projects based on their status
+    summary = defaultdict(lambda : {"count": 0, "gw": 0, "gwh": 0})
+    for p in projects:
+        summary[p.status]["count"] += 1
+        summary[p.status]["gw"] += p.power_mw / 1000
+        summary[p.status]["gwh"] += p.mwh / 1000
+    
+    return summary
     
