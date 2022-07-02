@@ -25,6 +25,7 @@
 <div class="">
     {{ blog_html | safe}}
 </div>
+<br><br><br>
 <p>
     First published: {{meta.date[0]}} {% if "updated regularly" in meta.tags %} <br> Last updated: {{ meta.date_last_modified[0] }} {% endif%}
     <br>Author: {{meta.author[0]}}

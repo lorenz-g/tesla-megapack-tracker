@@ -1,7 +1,7 @@
 ---
 author: Lorenz
 date: 2021-11-19
-date_last_modified: 2021-11-20
+date_last_modified: 2022-07-02
 title: Big battery information sources
 description: Collection of website / accounts to stay up to date with big battery installations. 
 thumb: not-used.jpg
@@ -48,6 +48,11 @@ tags: updated regularly
 - Global Energy Storage Database (GESDB)
   - https://www.sandia.gov/ess-ssl/global-energy-storage-database-home/
   - one big excel list, however was last updated only in 2020
+- **Open Infra Map**
+  - https://openinframap.org/#4.57/48.62/8.15
+  - has quite a few battery projects integrated. Great to see the nearby substations / pv parks on there
+- Global Solar power tracker
+  - https://globalenergymonitor.org/projects/global-solar-power-tracker/
 - Twitter (general battery accounts)
   - https://twitter.com/AukeHoekstra
   - 
