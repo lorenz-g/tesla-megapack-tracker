@@ -40,7 +40,7 @@ EIA_COORDS_USA = (39.613588, -101.337891)
 # the bigger one means it is more exact...
 # TODO: create an enum for the integers
 # use words in the csv, otherwise this is not easy. And use those names in the csv, much easier...
-# e.g. country_known, state_known, city_known, location_know, 
+# e.g. country_known, state_known, city_known, site_know_1km, location_exact_50m, 
 
 # country
 # state
@@ -53,7 +53,8 @@ COORDS_HINT_DICT = {
     -1: "📍 Coords are a guess. Only the state is known",
     0: "📍 Coords not known",
     1: "✅ Coords are exact (+/- 50m)",
-    2: "📍 Coords are +/- 1 kilometer",
+    2: "📍 The site is known, coords are +/- 1 kilometer",
+    3: "📍 Coords are a guess. Only the city is known",
 }
 
 
@@ -362,7 +363,7 @@ class BatteryProject:
 
 
     def __repr__(self) -> str:
-        e_id = self.gov.id if self.gov else ""
+        e_id = self.gov.external_id if self.gov else ""
         return "<BatteryProject %s / %s - %s>" % (self.csv.id, e_id, self.csv.name)
 
 

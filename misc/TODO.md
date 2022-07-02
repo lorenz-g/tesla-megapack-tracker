@@ -62,7 +62,13 @@
 - run a check to see if some coords are too close to each other or not
 
 
+- for eia hybrid projects, they solar system has the same plant id ad the battery
+  - e.g. sof the townsite solar project in the 2022-02 table 6_03 it says the PV has 160 MW
 
+- when adding projects from governments
+  - could just add a government name column and only add that, the external id and the id. 
+  - then have to think about how to label where the data comes from...
+  - could just use the emojis again
 
 
 
