@@ -136,7 +136,7 @@ def gen_cars_vs_stationary():
         di[year]["stat_mwh"] += ess
 
         # need to find th max for the percentages
-        m = max(di[year]["sx_mwh"] + di[year]["y3_mwh"], di[year]["stat_mwh"])
+        m = di[year]["sx_mwh"] + di[year]["y3_mwh"] + di[year]["stat_mwh"]
         if m > max_mwh:
             max_mwh = m
         
