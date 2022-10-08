@@ -46,7 +46,7 @@ Batterie Eisenach (10MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Batterie Eisenach (10MWh)
     <div class="container-xl">
         
 
-<h3> Batterie Eisenach 📊 </h3>
+<h3> Batterie Eisenach <span data-toggle="tooltip" data-placement="top" title="government data available">📊</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="badge rounded-pill bg-success">operation</span> </dl>
@@ -140,6 +140,13 @@ Batterie Eisenach (10MWh)
     <br> ✅ Coords are exact (+/- 50m)
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -182,9 +189,37 @@ Batterie Eisenach (10MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": true, "coords_help_str": "\u2705 Coords are exact (+/- 50m)", "coords_hint": 1, "country": "germany", "csv": {"capacity_mwh": "10", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "germany", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "", "external_id": "SEE982806373970", "id": "678", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Batterie Eisenach", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "", "power_mw": "10", "project_website": "", "start_construction": "", "start_estimated": "", "start_operation": "2022-04-08", "state": "thuringia", "status": "operation", "type": "", "use_case": ""}, "date_first_heard": "", "emojis": "\ud83d\udcca", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e", "external_id": "SEE982806373970", "flag": "\ud83c\udde9\ud83c\uddea", "go_live": "2022-04-08", "go_live_year_int": 2022, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:50.978959+10.292710", "gov": {"coords_hint": 1, "country": "germany", "data_source": "de_mastr", "date_first_heard": "", "estimate_mwh": "", "external_id": "SEE982806373970", "has_multiple_projects": false, "lat": "50.978959", "long": "10.292710", "mwh": 10, "name": "Batterie Eisenach", "owner": "VERBUND Energy4Business Germany GmbH", "power_mw": 10, "pr_url": "https://www.marktstammdatenregister.de/MaStR/Einheit/Detail/IndexOeffentlich/5001456", "start_construction": "", "start_estimated": "", "start_operation": "2022-04-08", "state": "thuringia", "status": "operation"}, "gov_history": {"changes": [], "current": {"AcDcKoppelung": "693", "AnlagenbetreiberMastrNummer": "ABR932212103470", "AnschlussAnHoechstOderHochSpannung": "0", "Batterietechnologie": "727", "Breitengrad": "50.978959", "Bruttoleistung": "10350.000", "Bundesland": "1415", "DatumLetzteAktualisierung": "2022-04-26T05:50:01.7340442", "EegAnlagentyp": "8", "EinheitBetriebsstatus": "35", "EinheitMastrNummer": "SEE982806373970", "EinheitSystemstatus": "472", "Einspeisungsart": "688", "Energietraeger": "2496", "FernsteuerbarkeitDr": "1", "FernsteuerbarkeitDv": "1", "FernsteuerbarkeitNb": "1", "Gemeinde": "Eisenach", "Gemeindeschluessel": "16056000", "Hausnummer": "15", "HausnummerNichtGefunden": "0", "Hausnummer_nv": "0", "Inbetriebnahmedatum": "2022-04-08", "Kraftwerksnummer_nv": "0", "Laengengrad": "10.292710", "Land": "84", "Landkreis": "Eisenach", "LokationMaStRNummer": "SEL901500514236", "NameStromerzeugungseinheit": "Batterie Eisenach", "Nettonennleistung": "10350.000", "NetzbetreiberpruefungDatum": "2022-04-26", "NetzbetreiberpruefungStatus": "0", "NichtVorhandenInMigriertenEinheiten": "0", "Notstromaggregat": "0", "Ort": "Eisenach", "Postleitzahl": "99817", "Registrierungsdatum": "2022-04-26", "SpeMastrNummer": "SSE916426432625", "Strasse": "Adam-Opel-Stra\u00dfe", "StrasseNichtGefunden": "0", "Technologie": "524", "Weic_nv": "0", "ZugeordnenteWirkleistungWechselrichter": "10350.000", "ext_id": "SEE982806373970", "mw": 10, "mwh": 10, "owner": "VERBUND Energy4Business Germany GmbH", "pr_url_id": "5001456", "status": "operation"}, "current_month": "2022-05", "dates": {"first_heard": "", "start_construction": "", "start_estimated": "", "start_operation": "2022-04-08"}, "first": {"AcDcKoppelung": "693", "AnlagenbetreiberMastrNummer": "ABR932212103470", "AnschlussAnHoechstOderHochSpannung": "0", "Batterietechnologie": "727", "Breitengrad": "50.978959", "Bruttoleistung": "10350.000", "Bundesland": "1415", "DatumLetzteAktualisierung": "2022-04-26T05:50:01.7340442", "EegAnlagentyp": "8", "EinheitBetriebsstatus": "35", "EinheitMastrNummer": "SEE982806373970", "EinheitSystemstatus": "472", "Einspeisungsart": "688", "Energietraeger": "2496", "FernsteuerbarkeitDr": "1", "FernsteuerbarkeitDv": "1", "FernsteuerbarkeitNb": "1", "Gemeinde": "Eisenach", "Gemeindeschluessel": "16056000", "Hausnummer": "15", "HausnummerNichtGefunden": "0", "Hausnummer_nv": "0", "Inbetriebnahmedatum": "2022-04-08", "Kraftwerksnummer_nv": "0", "Laengengrad": "10.292710", "Land": "84", "Landkreis": "Eisenach", "LokationMaStRNummer": "SEL901500514236", "NameStromerzeugungseinheit": "Batterie Eisenach", "Nettonennleistung": "10350.000", "NetzbetreiberpruefungDatum": "2022-04-26", "NetzbetreiberpruefungStatus": "0", "NichtVorhandenInMigriertenEinheiten": "0", "Notstromaggregat": "0", "Ort": "Eisenach", "Postleitzahl": "99817", "Registrierungsdatum": "2022-04-26", "SpeMastrNummer": "SSE916426432625", "Strasse": "Adam-Opel-Stra\u00dfe", "StrasseNichtGefunden": "0", "Technologie": "524", "Weic_nv": "0", "ZugeordnenteWirkleistungWechselrichter": "10350.000", "ext_id": "SEE982806373970", "mw": 10, "mwh": 10, "owner": "VERBUND Energy4Business Germany GmbH", "pr_url_id": "5001456", "status": "operation"}, "first_month": "2022-05"}, "has_gov_data": true, "in_construction": false, "in_operation": true, "in_planning": false, "internal_id": "678", "is_megapack": false, "is_tesla": false, "lat": "50.978959", "links": ["https://www.marktstammdatenregister.de/MaStR/Einheit/Detail/IndexOeffentlich/5001456"], "long": "10.292710", "mw": 10, "mwh": 10, "mwh_is_estimate": false, "name": "Batterie Eisenach", "name_short": "Batterie Eisenach", "no_of_battery_units": 0, "notes_split": [""], "owner": "VERBUND Energy4Business Germany GmbH", "start_construction": "", "start_estimated": "", "start_operation": "2022-04-08", "state": "thuringia", "status": "operation", "status_class": "badge rounded-pill bg-success", "user_data": false}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

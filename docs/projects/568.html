@@ -46,7 +46,7 @@ Great Western Battery (1000MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Great Western Battery (1000MWh)
     <div class="container-xl">
         
 
-<h3> Great Western Battery ❤️⚡👤 </h3>
+<h3> Great Western Battery <span data-toggle="tooltip" data-placement="top" title="more than 1000 MWh / 1GWh">❤️</span><span data-toggle="tooltip" data-placement="top" title="more than 100 MWh">⚡</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">planning</span> </dl>
@@ -140,6 +140,13 @@ Great Western Battery (1000MWh)
     <br> ✅ Coords are exact (+/- 50m)
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -186,9 +193,37 @@ Great Western Battery (1000MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": true, "coords_help_str": "\u2705 Coords are exact (+/- 50m)", "coords_hint": 1, "country": "australia", "csv": {"capacity_mwh": "1000", "cells": "", "city": "Wallerawang", "coords_hint": "1", "coords_hint_2": "location_exact", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "australia", "customer": "", "date_first_heard": "2021-01-18", "developer": "", "estimate_mwh": "", "external_id": "", "id": "568", "lat": "-33.397397", "link1": "https://www.energy-storage.news/great-western-battery-1000mwh-project-proposed-to-aid-reliability-in-australias-post-coal-age/", "link2": "https://www.pv-magazine.com/2021/12/17/greenspot-plans-500-mw-1000-mwh-battery-at-former-coal-fired-power-plant-in-australia/", "link3": "https://majorprojects.planningportal.nsw.gov.au/prweb/PRRestService/mp/01/getContent?AttachRef=SSD-12346552%2120201223T043129.182%20GMT", "link4": "", "long": "150.067853", "manufacturer": "", "name": "Great Western Battery", "no_of_battery_units": "", "notes": "exact location from scoping report pdf", "overwrite": "", "owner": "neoen", "power_mw": "500", "project_website": "https://greatwesternbattery.com.au", "start_construction": "", "start_estimated": "2023", "start_operation": "", "state": "new south wales", "status": "planning", "type": "", "use_case": "coal plant replacement"}, "date_first_heard": "2021-01-18", "emojis": "\u2764\ufe0f\u26a1\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"more than 1000 MWh / 1GWh\"\u003e\u2764\ufe0f\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"more than 100 MWh\"\u003e\u26a1\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "", "flag": "\ud83c\udde6\ud83c\uddfa", "go_live": "0 ~  2023", "go_live_year_int": 2023, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:-33.397397+150.067853", "gov": {}, "gov_history": null, "has_gov_data": false, "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "568", "is_megapack": false, "is_tesla": false, "lat": "-33.397397", "links": ["https://www.energy-storage.news/great-western-battery-1000mwh-project-proposed-to-aid-reliability-in-australias-post-coal-age/", "https://www.pv-magazine.com/2021/12/17/greenspot-plans-500-mw-1000-mwh-battery-at-former-coal-fired-power-plant-in-australia/", "https://majorprojects.planningportal.nsw.gov.au/prweb/PRRestService/mp/01/getContent?AttachRef=SSD-12346552%2120201223T043129.182%20GMT"], "long": "150.067853", "mw": 500, "mwh": 1000, "mwh_is_estimate": false, "name": "Great Western Battery", "name_short": "Great Western Battery", "no_of_battery_units": 0, "notes_split": ["exact location from scoping report pdf"], "owner": "neoen", "start_construction": "", "start_estimated": "2023", "start_operation": "", "state": "new south wales", "status": "planning", "status_class": "", "user_data": true}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

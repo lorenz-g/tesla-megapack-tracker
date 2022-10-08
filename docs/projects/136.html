@@ -46,7 +46,7 @@ Liddell (0MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Liddell (0MWh)
     <div class="container-xl">
         
 
-<h3> Liddell 📍⚡👤 </h3>
+<h3> Liddell <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="more than 100 MWh">⚡</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">planning</span> </dl>
@@ -140,6 +140,13 @@ Liddell (0MWh)
     <br> 📍 Coords not known
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -182,9 +189,37 @@ Liddell (0MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords not known", "coords_hint": 0, "country": "australia", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "0", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "australia", "customer": "", "date_first_heard": "2021-05-07", "developer": "", "estimate_mwh": "", "external_id": "", "id": "136", "lat": "-32.371786", "link1": "https://www.pv-magazine-australia.com/2021/05/07/agl-pushes-ahead-with-renewable-energy-plans-for-liddell-site/", "link2": "", "link3": "", "link4": "", "long": "150.972683", "manufacturer": "", "name": "Liddell", "no_of_battery_units": "", "notes": "could not find mwh info", "overwrite": "", "owner": "AGL Energy Limited", "power_mw": "150", "project_website": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "new south wales", "status": "planning", "type": "", "use_case": "at coal power plant"}, "date_first_heard": "2021-05-07", "emojis": "\ud83d\udccd\u26a1\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"more than 100 MWh\"\u003e\u26a1\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "", "flag": "\ud83c\udde6\ud83c\uddfa", "go_live": "", "go_live_year_int": null, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:-32.371786+150.972683", "gov": {}, "gov_history": null, "has_gov_data": false, "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "136", "is_megapack": false, "is_tesla": false, "lat": "-32.371786", "links": ["https://www.pv-magazine-australia.com/2021/05/07/agl-pushes-ahead-with-renewable-energy-plans-for-liddell-site/"], "long": "150.972683", "mw": 150, "mwh": 0, "mwh_is_estimate": false, "name": "Liddell", "name_short": "Liddell", "no_of_battery_units": 0, "notes_split": ["could not find mwh info"], "owner": "AGL Energy Limited", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "new south wales", "status": "planning", "status_class": "", "user_data": true}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

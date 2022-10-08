@@ -46,7 +46,7 @@ Fordtown Energy Storage (Resubmission) (19MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Fordtown Energy Storage (Resubmission) (19MWh)
     <div class="container-xl">
         
 
-<h3> Fordtown Energy Storage (Resubmission) 📍📊📏 </h3>
+<h3> Fordtown Energy Storage (Resubmission) <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">planning</span> </dl>
@@ -140,6 +140,13 @@ Fordtown Energy Storage (Resubmission) (19MWh)
     <br> 📍 The site is known, coords are +/- 1 kilometer
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -180,9 +187,37 @@ Fordtown Energy Storage (Resubmission) (19MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd The site is known, coords are +/- 1 kilometer", "coords_hint": 2, "country": "uk", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "uk", "customer": "", "date_first_heard": "2021-02-24", "developer": "", "estimate_mwh": "49", "external_id": "10239", "id": "611", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Fordtown Energy Storage (Resubmission)", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "Intelligent Land Investments (ILI)", "power_mw": "49", "project_website": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "scotland", "status": "planning", "type": "", "use_case": ""}, "date_first_heard": "2021-02-24", "emojis": "\ud83d\udccd\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "10239", "flag": "\ud83c\uddec\ud83c\udde7", "go_live": "", "go_live_year_int": null, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:57.221396+-2.366114", "gov": {"coords_hint": 2, "country": "uk", "data_source": "uk_repd", "date_first_heard": "2021-02-24", "estimate_mwh": 19, "external_id": "10239", "has_multiple_projects": false, "lat": "57.221396", "long": "-2.366114", "mwh": 0, "name": "Fordtown Energy Storage (Resubmission)", "owner": "Intelligent Land Investments (ILI)", "power_mw": 19, "pr_url": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "scotland", "status": "planning"}, "gov_history": {"changes": [{"li": [{"extra": "", "from": "49.90", "name": "Installed Capacity (MWelec)", "to": "19.90"}, {"extra": "", "from": 49, "name": "mw", "to": 19}], "month": "2022-04"}], "current": {"": "", "Address": "Fordtown, Kintore, Inverurie, Grampian", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "No", "CfD Capacity (MW)": "", "Country": "Scotland", "County": "Aberdeenshire", "Development Status": "Planning Permission Granted", "Development Status (short)": "Awaiting Construction", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "19.90", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Intelligent Land Investments (ILI)", "Planning Application Reference": "APP/2020/1673", "Planning Application Submitted": "04/09/2020", "Planning Application Withdrawn": "", "Planning Authority": "Aberdeenshire Council", "Planning Permission Expired": "", "Planning Permission Granted": "24/02/2021", "Planning Permission Refused": "", "Post Code": "AB51 0XJ", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "10/12/2021", "Ref ID": "10239", "Region": "Scotland", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Fordtown Energy Storage (Resubmission)", "Storage Co-location REPD Ref ID": "", "Storage Type": "Stand-alone Storage", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "", "X-coordinate": "377990", "Y-coordinate": "814576", "ext_id": "10239", "lat": "57.221396", "long": "-2.366114", "mw": 19, "status": "planning"}, "current_month": "2022-04", "dates": {"first_heard": "2021-12-10", "start_construction": "", "start_operation": ""}, "first": {"": "", "Address": "Fordtown, Kintore, Inverurie, Grampian", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "No", "CfD Capacity (MW)": "", "Country": "Scotland", "County": "Aberdeenshire", "Development Status": "Planning Permission Granted", "Development Status (short)": "Awaiting Construction", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "49.90", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Intelligent Land Investments (ILI)", "Planning Application Reference": "APP/2020/1673", "Planning Application Submitted": "04/09/2020", "Planning Application Withdrawn": "", "Planning Authority": "Aberdeenshire Council", "Planning Permission Expired": "", "Planning Permission Granted": "24/02/2021", "Planning Permission Refused": "", "Post Code": "AB51 0XJ", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "10/12/2021", "Ref ID": "10239", "Region": "Scotland", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Fordtown Energy Storage (Resubmission)", "Storage Co-location REPD Ref ID": "", "Storage Type": "Stand-alone Storage", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "", "X-coordinate": "377990", "Y-coordinate": "814576", "ext_id": "10239", "lat": "57.221396", "long": "-2.366114", "mw": 49, "status": "planning"}, "first_month": "2021-12"}, "has_gov_data": true, "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "611", "is_megapack": false, "is_tesla": false, "lat": "57.221396", "links": [], "long": "-2.366114", "mw": 19, "mwh": 19, "mwh_is_estimate": true, "name": "Fordtown Energy Storage (Resubmission)", "name_short": "Fordtown Energy Storage (...", "no_of_battery_units": 0, "notes_split": [""], "owner": "Intelligent Land Investments (ILI)", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "scotland", "status": "planning", "status_class": "", "user_data": false}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

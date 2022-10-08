@@ -46,7 +46,7 @@ Manatee (900MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Manatee (900MWh)
     <div class="container-xl">
         
 
-<h3> Manatee Solar Energy Center ⚡☀️📊👤 </h3>
+<h3> Manatee Solar Energy Center <span data-toggle="tooltip" data-placement="top" title="more than 100 MWh">⚡</span><span data-toggle="tooltip" data-placement="top" title="attached to solar farm">☀️</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="badge rounded-pill bg-success">operation</span> </dl>
@@ -141,6 +141,13 @@ Manatee (900MWh)
     27.598383, -82.349213 
     <br> ✅ Coords are exact (+/- 50m)
 </dl>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
 
 
 <dt>Notes </dt>
@@ -242,9 +249,37 @@ Info from the <code>2022-02</code> report (Project first appeared in the <code>2
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": 90, "construction_time_month": 10, "coords_exact": true, "coords_help_str": "\u2705 Coords are exact (+/- 50m)", "coords_hint": 1, "country": "usa", "csv": {"capacity_mwh": "900", "cells": "", "city": "Parrish / Manatee County", "coords_hint": "1", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "Florida Power and Light (FPL)", "date_first_heard": "2019-03-01", "developer": "", "estimate_mwh": "", "external_id": "60014", "id": "71", "lat": "27.598383", "link1": "https://www.world-energy.org/article/19846.html", "link2": "https://www.youtube.com/watch?v=ZYbvXAS9buQ", "link3": "https://www.energy-storage.news/work-begins-on-409mw-900mwh-florida-battery-project-to-ease-natural-gas-plants-into-retirement/", "link4": "", "long": "-82.349213", "manufacturer": "", "name": "Manatee", "no_of_battery_units": "", "notes": "Already 75% complete in August 2021, 132 shipping containers", "overwrite": "", "owner": "", "power_mw": "409", "project_website": "", "start_construction": "2021-02-02", "start_estimated": "", "start_operation": "", "state": "florida", "status": "construction", "type": "", "use_case": "solar farm support"}, "date_first_heard": "2020-09", "emojis": "\u26a1\u2600\ufe0f\ud83d\udcca\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"more than 100 MWh\"\u003e\u26a1\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"attached to solar farm\"\u003e\u2600\ufe0f\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "60014", "flag": "\ud83c\uddfa\ud83c\uddf8", "go_live": "2021-11", "go_live_year_int": 2021, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:27.598383+-82.349213", "gov": {"coords_hint": -1, "country": "usa", "data_source": "us_eia", "date_first_heard": "2020-09", "estimate_mwh": 818, "external_id": "60014", "has_multiple_projects": false, "lat": "", "long": "", "mwh": 0, "name": "Manatee Solar Energy Center", "owner": "Florida Power \u0026 Light Co", "power_mw": 409, "pr_url": "", "start_construction": "2021-01", "start_estimated": "", "start_operation": "2021-11", "state": "florida", "status": "operation"}, "gov_history": {"BMS": {"changes": [{"li": [{"extra": "\ud83c\udfd7\ufe0f", "from": "planning", "name": "status", "to": "construction"}, {"extra": "", "from": "(P) Planned for installation, but regulatory approvals not initiated", "name": "status_verbose", "to": "(U) Under construction, less than or equal to 50 percent complete"}], "month": "2021-01"}, {"li": [{"extra": "", "from": "(U) Under construction, less than or equal to 50 percent complete", "name": "status_verbose", "to": "(V) Under construction, more than 50 percent complete"}], "month": "2021-08"}, {"li": [{"extra": "\ud83c\udf7e \ud83c\udf89 \ud83c\udf78", "from": "construction", "name": "status", "to": "operation"}, {"extra": "", "from": "(V) Under construction, more than 50 percent complete", "name": "status_verbose", "to": "operation"}], "month": "2022-01"}], "current": {"date": "2021-11", "energy source code": "MWH", "entity id": "6452", "entity name": "Florida Power \u0026 Light Co", "ext_id": "60014", "generator id": "BMS", "month": "11", "mw": 409, "net summer capacity (mw)": "409", "plant id": "60014", "plant name": "Manatee Solar Energy Center", "plant producer type": "Electric Utility", "plant state": "FL", "prime mover code": "BA", "status": "operation", "status_verbose": "operation", "technology": "Batteries", "year": "2021"}, "current_month": "2022-02", "dates": {"first_heard": "2020-09", "start_construction": "2021-01"}, "first": {"date": "2021-11", "energy source code": "MWH", "entity id": "6452", "entity name": "Florida Power \u0026 Light Co", "ext_id": "60014", "generator id": "BMS", "month": "11", "mw": 409, "net summer capacity (mw)": "409", "plant id": "60014", "plant name": "Manatee Solar Energy Center", "plant producer type": "Electric Utility", "plant state": "FL", "prime mover code": "BA", "status": "planning", "status_verbose": "(P) Planned for installation, but regulatory approvals not initiated", "technology": "Batteries", "year": "2021"}, "first_month": "2020-09"}}, "has_gov_data": true, "in_construction": false, "in_operation": true, "in_planning": false, "internal_id": "71", "is_megapack": false, "is_tesla": false, "lat": "27.598383", "links": ["https://www.world-energy.org/article/19846.html", "https://www.youtube.com/watch?v=ZYbvXAS9buQ", "https://www.energy-storage.news/work-begins-on-409mw-900mwh-florida-battery-project-to-ease-natural-gas-plants-into-retirement/"], "long": "-82.349213", "mw": 409, "mwh": 900, "mwh_is_estimate": false, "name": "Manatee Solar Energy Center", "name_short": "Manatee Solar Energy Cent...", "no_of_battery_units": 0, "notes_split": ["Already 75% complete in August 2021, 132 shipping containers"], "owner": "Florida Power \u0026 Light Co", "start_construction": "2021-01", "start_estimated": "", "start_operation": "2021-11", "state": "florida", "status": "operation", "status_class": "badge rounded-pill bg-success", "user_data": true}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

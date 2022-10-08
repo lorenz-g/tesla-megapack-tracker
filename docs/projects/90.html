@@ -46,7 +46,7 @@ Jardelund (48MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Jardelund (48MWh)
     <div class="container-xl">
         
 
-<h3> BESS Jardelund 📊👤 </h3>
+<h3> BESS Jardelund <span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="badge rounded-pill bg-success">operation</span> </dl>
@@ -140,6 +140,13 @@ Jardelund (48MWh)
     <br> ✅ Coords are exact (+/- 50m)
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -186,9 +193,37 @@ Jardelund (48MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": true, "coords_help_str": "\u2705 Coords are exact (+/- 50m)", "coords_hint": 1, "country": "germany", "csv": {"capacity_mwh": "51", "cells": "", "city": "Jardelund", "coords_hint": "1", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "germany", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "", "external_id": "SEE999790559914", "id": "90", "lat": "54.851435", "link1": "https://www.youtube.com/watch?v=UheTmGO7BN0", "link2": "https://www.energy-storage.news/50mwh-battery-completed-in-germany-claims-europes-largest-crown/", "link3": "", "link4": "", "long": "9.194775", "manufacturer": "NEC Energy Solutions (LG)", "name": "Jardelund", "no_of_battery_units": "", "notes": "according to energy-storage.news, NEC Energy Solutions was acquired by LG Energy solutions in September 2021", "overwrite": "", "owner": "EnspireME (JV Eneco / Mitsubishi)", "power_mw": "48", "project_website": "https://www.neces.com/project/jardelund-germany-48-mw-51-mwh-2/", "start_construction": "2017-10-01", "start_estimated": "", "start_operation": "2018-04-01", "state": "schleswig-holstein", "status": "operation", "type": "", "use_case": "frequency balancing"}, "date_first_heard": "", "emojis": "\ud83d\udcca\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "SEE999790559914", "flag": "\ud83c\udde9\ud83c\uddea", "go_live": "2018-04-01", "go_live_year_int": 2018, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:54.850889+9.194541", "gov": {"coords_hint": 1, "country": "germany", "data_source": "de_mastr", "date_first_heard": "", "estimate_mwh": "", "external_id": "SEE999790559914", "has_multiple_projects": false, "lat": "54.850889", "long": "9.194541", "mwh": 48, "name": "BESS Jardelund", "owner": "EnspireME", "power_mw": 48, "pr_url": "https://www.marktstammdatenregister.de/MaStR/Einheit/Detail/IndexOeffentlich/3984077", "start_construction": "", "start_estimated": "", "start_operation": "2018-04-01", "state": "schleswig-holstein", "status": "operation"}, "gov_history": {"changes": [], "current": {"AcDcKoppelung": "693", "AnlagenbetreiberMastrNummer": "ABR985310436612", "AnschlussAnHoechstOderHochSpannung": "1", "Batterietechnologie": "727", "Breitengrad": "54.850889", "Bruttoleistung": "48000.000", "Bundesland": "1411", "DatumLetzteAktualisierung": "2021-01-18T13:43:38.4221011", "EegAnlagentyp": "8", "EinheitBetriebsstatus": "35", "EinheitMastrNummer": "SEE999790559914", "EinheitSystemstatus": "472", "Einsatzverantwortlicher": "9903067000008", "Einspeisungsart": "688", "Energietraeger": "2496", "FernsteuerbarkeitDr": "0", "FernsteuerbarkeitDv": "1", "FernsteuerbarkeitNb": "1", "Gemeinde": "Jardelund", "Gemeindeschluessel": "01059129", "Hausnummer": "3 A", "HausnummerNichtGefunden": "0", "Hausnummer_nv": "0", "Inbetriebnahmedatum": "2018-04-01", "Kraftwerksnummer": "BNA1942", "Kraftwerksnummer_nv": "0", "Laengengrad": "9.194541", "Land": "84", "Landkreis": "Schleswig-Flensburg", "LokationMaStRNummer": "SEL926192843211", "NameStromerzeugungseinheit": "BESS Jardelund", "Nettonennleistung": "48000.000", "NetzbetreiberpruefungDatum": "2021-02-12", "NetzbetreiberpruefungStatus": "1", "NichtVorhandenInMigriertenEinheiten": "0", "Notstromaggregat": "0", "Ort": "Jardelund", "Postleitzahl": "24994", "Registrierungsdatum": "2021-01-18", "SpeMastrNummer": "SSE963357090257", "Strasse": "Grenzstra\u00dfe", "StrasseNichtGefunden": "0", "Technologie": "524", "Weic": "11W0-0000-0117-U", "Weic_nv": "0", "ZugeordnenteWirkleistungWechselrichter": "52800.000", "ext_id": "SEE999790559914", "mw": 48, "mwh": 48, "owner": "EnspireME", "pr_url_id": "3984077", "status": "operation"}, "current_month": "2022-05", "dates": {"first_heard": "", "start_construction": "", "start_estimated": "", "start_operation": "2018-04-01"}, "first": {"AcDcKoppelung": "693", "AnlagenbetreiberMastrNummer": "ABR985310436612", "AnschlussAnHoechstOderHochSpannung": "1", "Batterietechnologie": "727", "Breitengrad": "54.850889", "Bruttoleistung": "48000.000", "Bundesland": "1411", "DatumLetzteAktualisierung": "2021-01-18T13:43:38.4221011", "EegAnlagentyp": "8", "EinheitBetriebsstatus": "35", "EinheitMastrNummer": "SEE999790559914", "EinheitSystemstatus": "472", "Einsatzverantwortlicher": "9903067000008", "Einspeisungsart": "688", "Energietraeger": "2496", "FernsteuerbarkeitDr": "0", "FernsteuerbarkeitDv": "1", "FernsteuerbarkeitNb": "1", "Gemeinde": "Jardelund", "Gemeindeschluessel": "01059129", "Hausnummer": "3 A", "HausnummerNichtGefunden": "0", "Hausnummer_nv": "0", "Inbetriebnahmedatum": "2018-04-01", "Kraftwerksnummer": "BNA1942", "Kraftwerksnummer_nv": "0", "Laengengrad": "9.194541", "Land": "84", "Landkreis": "Schleswig-Flensburg", "LokationMaStRNummer": "SEL926192843211", "NameStromerzeugungseinheit": "BESS Jardelund", "Nettonennleistung": "48000.000", "NetzbetreiberpruefungDatum": "2021-02-12", "NetzbetreiberpruefungStatus": "1", "NichtVorhandenInMigriertenEinheiten": "0", "Notstromaggregat": "0", "Ort": "Jardelund", "Postleitzahl": "24994", "Registrierungsdatum": "2021-01-18", "SpeMastrNummer": "SSE963357090257", "Strasse": "Grenzstra\u00dfe", "StrasseNichtGefunden": "0", "Technologie": "524", "Weic": "11W0-0000-0117-U", "Weic_nv": "0", "ZugeordnenteWirkleistungWechselrichter": "52800.000", "ext_id": "SEE999790559914", "mw": 48, "mwh": 48, "pr_url_id": "3984077", "status": "operation"}, "first_month": "2021-11"}, "has_gov_data": true, "in_construction": false, "in_operation": true, "in_planning": false, "internal_id": "90", "is_megapack": false, "is_tesla": false, "lat": "54.850889", "links": ["https://www.youtube.com/watch?v=UheTmGO7BN0", "https://www.energy-storage.news/50mwh-battery-completed-in-germany-claims-europes-largest-crown/", "https://www.marktstammdatenregister.de/MaStR/Einheit/Detail/IndexOeffentlich/3984077"], "long": "9.194541", "mw": 48, "mwh": 48, "mwh_is_estimate": false, "name": "BESS Jardelund", "name_short": "BESS Jardelund", "no_of_battery_units": 0, "notes_split": ["according to energy-storage.news, NEC Energy Solutions was acquired by LG Energy solutions in September 2021"], "owner": "EnspireME", "start_construction": "", "start_estimated": "", "start_operation": "2018-04-01", "state": "schleswig-holstein", "status": "operation", "status_class": "badge rounded-pill bg-success", "user_data": true}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

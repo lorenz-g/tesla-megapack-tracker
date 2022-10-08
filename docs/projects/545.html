@@ -46,7 +46,7 @@ RRKW Feldheim (10MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ RRKW Feldheim (10MWh)
     <div class="container-xl">
         
 
-<h3> RRKW Feldheim 📊 </h3>
+<h3> RRKW Feldheim <span data-toggle="tooltip" data-placement="top" title="government data available">📊</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="badge rounded-pill bg-success">operation</span> </dl>
@@ -140,6 +140,13 @@ RRKW Feldheim (10MWh)
     <br> ✅ Coords are exact (+/- 50m)
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -182,9 +189,37 @@ RRKW Feldheim (10MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": true, "coords_help_str": "\u2705 Coords are exact (+/- 50m)", "coords_hint": 1, "country": "germany", "csv": {"capacity_mwh": "10", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "germany", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "", "external_id": "SEE976927444749", "id": "545", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "RRKW Feldheim", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "", "power_mw": "10", "project_website": "", "start_construction": "", "start_estimated": "", "start_operation": "2016-07-26", "state": "brandenburg", "status": "operation", "type": "", "use_case": ""}, "date_first_heard": "", "emojis": "\ud83d\udcca", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e", "external_id": "SEE976927444749", "flag": "\ud83c\udde9\ud83c\uddea", "go_live": "2016-07-26", "go_live_year_int": 2016, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:52.009849+12.822563", "gov": {"coords_hint": 1, "country": "germany", "data_source": "de_mastr", "date_first_heard": "", "estimate_mwh": "", "external_id": "SEE976927444749", "has_multiple_projects": false, "lat": "52.009849", "long": "12.822563", "mwh": 10, "name": "RRKW Feldheim", "owner": "RRKW Feldheim GmbH \uff06 Co. KG", "power_mw": 10, "pr_url": "https://www.marktstammdatenregister.de/MaStR/Einheit/Detail/IndexOeffentlich/2667151", "start_construction": "", "start_estimated": "", "start_operation": "2016-07-26", "state": "brandenburg", "status": "operation"}, "gov_history": {"changes": [{"li": [{"extra": "", "from": "2021-10-28", "name": "NetzbetreiberpruefungDatum", "to": "2022-03-03"}], "month": "2022-05"}], "current": {"AcDcKoppelung": "693", "AnlagenbetreiberMastrNummer": "ABR996025035908", "AnschlussAnHoechstOderHochSpannung": "1", "Batterietechnologie": "727", "BestandteilGrenzkraftwerk": "0", "Breitengrad": "52.009849", "Bruttoleistung": "10000.000", "Bundesland": "1400", "DatumLetzteAktualisierung": "2020-01-08T14:16:54.1030683", "EegAnlagentyp": "8", "EinheitBetriebsstatus": "35", "EinheitMastrNummer": "SEE976927444749", "EinheitSystemstatus": "472", "Einsatzverantwortlicher": "1234567891234", "Einspeisungsart": "688", "Energietraeger": "2496", "FernsteuerbarkeitDr": "1", "FernsteuerbarkeitDv": "1", "FernsteuerbarkeitNb": "1", "Gemeinde": "Treuenbrietzen", "Gemeindeschluessel": "12069632", "Hausnummer": "15 b", "HausnummerNichtGefunden": "0", "Hausnummer_nv": "0", "Inbetriebnahmedatum": "2016-07-26", "Kraftwerksnummer_nv": "1", "Laengengrad": "12.822563", "Land": "84", "Landkreis": "Potsdam-Mittelmark", "LokationMaStRNummer": "SEL934579389085", "NameStromerzeugungseinheit": "RRKW Feldheim", "Nettonennleistung": "10000.000", "NetzbetreiberpruefungDatum": "2022-03-03", "NetzbetreiberpruefungStatus": "0", "NichtVorhandenInMigriertenEinheiten": "0", "Notstromaggregat": "0", "Ort": "Treuenbrietzen", "Postleitzahl": "14929", "Registrierungsdatum": "2020-01-08", "SpeMastrNummer": "SSE948227511988", "Strasse": "Hinter den G\u00e4rten", "StrasseNichtGefunden": "0", "Technologie": "524", "Weic_nv": "1", "ZugeordnenteWirkleistungWechselrichter": "10000.000", "ext_id": "SEE976927444749", "mw": 10, "mwh": 10, "owner": "RRKW Feldheim GmbH \uff06 Co. KG", "pr_url_id": "2667151", "status": "operation"}, "current_month": "2022-05", "dates": {"first_heard": "", "start_construction": "", "start_estimated": "", "start_operation": "2016-07-26"}, "first": {"AcDcKoppelung": "693", "AnlagenbetreiberMastrNummer": "ABR996025035908", "AnschlussAnHoechstOderHochSpannung": "1", "Batterietechnologie": "727", "BestandteilGrenzkraftwerk": "0", "Breitengrad": "52.009849", "Bruttoleistung": "10000.000", "Bundesland": "1400", "DatumLetzteAktualisierung": "2020-01-08T14:16:54.1030683", "EegAnlagentyp": "8", "EinheitBetriebsstatus": "35", "EinheitMastrNummer": "SEE976927444749", "EinheitSystemstatus": "472", "Einsatzverantwortlicher": "1234567891234", "Einspeisungsart": "688", "Energietraeger": "2496", "FernsteuerbarkeitDr": "1", "FernsteuerbarkeitDv": "1", "FernsteuerbarkeitNb": "1", "Gemeinde": "Treuenbrietzen", "Gemeindeschluessel": "12069632", "Hausnummer": "15 b", "HausnummerNichtGefunden": "0", "Hausnummer_nv": "0", "Inbetriebnahmedatum": "2016-07-26", "Kraftwerksnummer_nv": "1", "Laengengrad": "12.822563", "Land": "84", "Landkreis": "Potsdam-Mittelmark", "LokationMaStRNummer": "SEL934579389085", "NameStromerzeugungseinheit": "RRKW Feldheim", "Nettonennleistung": "10000.000", "NetzbetreiberpruefungDatum": "2021-10-28", "NetzbetreiberpruefungStatus": "0", "NichtVorhandenInMigriertenEinheiten": "0", "Notstromaggregat": "0", "Ort": "Treuenbrietzen", "Postleitzahl": "14929", "Registrierungsdatum": "2020-01-08", "SpeMastrNummer": "SSE948227511988", "Strasse": "Hinter den G\u00e4rten", "StrasseNichtGefunden": "0", "Technologie": "524", "Weic_nv": "1", "ZugeordnenteWirkleistungWechselrichter": "10000.000", "ext_id": "SEE976927444749", "mw": 10, "mwh": 10, "pr_url_id": "2667151", "status": "operation"}, "first_month": "2021-11"}, "has_gov_data": true, "in_construction": false, "in_operation": true, "in_planning": false, "internal_id": "545", "is_megapack": false, "is_tesla": false, "lat": "52.009849", "links": ["https://www.marktstammdatenregister.de/MaStR/Einheit/Detail/IndexOeffentlich/2667151"], "long": "12.822563", "mw": 10, "mwh": 10, "mwh_is_estimate": false, "name": "RRKW Feldheim", "name_short": "RRKW Feldheim", "no_of_battery_units": 0, "notes_split": [""], "owner": "RRKW Feldheim GmbH \uff06 Co. KG", "start_construction": "", "start_estimated": "", "start_operation": "2016-07-26", "state": "brandenburg", "status": "operation", "status_class": "badge rounded-pill bg-success", "user_data": false}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

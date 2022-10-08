@@ -46,7 +46,7 @@ Hot Pot (1120MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Hot Pot (1120MWh)
     <div class="container-xl">
         
 
-<h3> Hot Pot 📍❤️⚡☀️👤 </h3>
+<h3> Hot Pot <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="more than 1000 MWh / 1GWh">❤️</span><span data-toggle="tooltip" data-placement="top" title="more than 100 MWh">⚡</span><span data-toggle="tooltip" data-placement="top" title="attached to solar farm">☀️</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">planning</span> </dl>
@@ -140,6 +140,13 @@ Hot Pot (1120MWh)
     <br> 📍 Coords not known
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -186,9 +193,37 @@ Hot Pot (1120MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords not known", "coords_hint": 0, "country": "usa", "csv": {"capacity_mwh": "1120", "cells": "", "city": "Humboldt County", "coords_hint": "0", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "", "date_first_heard": "2021-06-03", "developer": "Primergy Solar (Quinbrook)", "estimate_mwh": "", "external_id": "", "id": "107", "lat": "40.886191", "link1": "https://www.energy-storage.news/solar-plus-batteries-chosen-to-replace-522mw-nevada-coal-plant/", "link2": "https://eplanning.blm.gov/eplanning-ui/project/2013178/510", "link3": "https://renewablesnow.com/news/avangrid-renewables-primergy-to-jointly-push-600-mw-nevada-solar-storage-portfolio-748533/", "link4": "", "long": "-117.104592", "manufacturer": "", "name": "Hot Pot", "no_of_battery_units": "", "notes": "in the planning doc the project name also includes iron pot 2 solar plant", "overwrite": "", "owner": "NV Energy", "power_mw": "280", "project_website": "", "start_construction": "", "start_estimated": "2024Q4", "start_operation": "", "state": "nevada", "status": "planning", "type": "", "use_case": "350MW solar farm support"}, "date_first_heard": "2021-06-03", "emojis": "\ud83d\udccd\u2764\ufe0f\u26a1\u2600\ufe0f\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"more than 1000 MWh / 1GWh\"\u003e\u2764\ufe0f\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"more than 100 MWh\"\u003e\u26a1\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"attached to solar farm\"\u003e\u2600\ufe0f\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "", "flag": "\ud83c\uddfa\ud83c\uddf8", "go_live": "0 ~  2024Q4", "go_live_year_int": 2024, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:40.886191+-117.104592", "gov": {}, "gov_history": null, "has_gov_data": false, "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "107", "is_megapack": false, "is_tesla": false, "lat": "40.886191", "links": ["https://www.energy-storage.news/solar-plus-batteries-chosen-to-replace-522mw-nevada-coal-plant/", "https://eplanning.blm.gov/eplanning-ui/project/2013178/510", "https://renewablesnow.com/news/avangrid-renewables-primergy-to-jointly-push-600-mw-nevada-solar-storage-portfolio-748533/"], "long": "-117.104592", "mw": 280, "mwh": 1120, "mwh_is_estimate": false, "name": "Hot Pot", "name_short": "Hot Pot", "no_of_battery_units": 0, "notes_split": ["in the planning doc the project name also includes iron pot 2 solar plant"], "owner": "NV Energy", "start_construction": "", "start_estimated": "2024Q4", "start_operation": "", "state": "nevada", "status": "planning", "status_class": "", "user_data": true}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

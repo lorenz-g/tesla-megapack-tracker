@@ -46,7 +46,7 @@ Edwards Sanborn Solar Storage (2445MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Edwards Sanborn Solar Storage (2445MWh)
     <div class="container-xl">
         
 
-<h3> Edwards Sanborn Solar Storage 📍❤️⚡☀️👤 </h3>
+<h3> Edwards Sanborn Solar Storage <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="more than 1000 MWh / 1GWh">❤️</span><span data-toggle="tooltip" data-placement="top" title="more than 100 MWh">⚡</span><span data-toggle="tooltip" data-placement="top" title="attached to solar farm">☀️</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">construction</span> </dl>
@@ -140,6 +140,13 @@ Edwards Sanborn Solar Storage (2445MWh)
     <br> 📍 Coords not known
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -186,9 +193,37 @@ Edwards Sanborn Solar Storage (2445MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords not known", "coords_hint": 0, "country": "usa", "csv": {"capacity_mwh": "2445", "cells": "LG \u0026 Samsung", "city": "Kern County", "coords_hint": "0", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "Terra-Gen", "date_first_heard": "2020-12-10", "developer": "", "estimate_mwh": "", "external_id": "", "id": "68", "lat": "34.911468", "link1": "https://renewablesnow.com/news/terra-gen-secures-usd-800m-for-massive-solar-storage-project-in-california-749635/", "link2": "https://pv-magazine-usa.com/2021/08/02/terra-gen-secures-800-million-in-financing-for-solar-storage-project-in-california/", "link3": "https://pv-magazine-usa.com/2020/12/11/morning-brief-big-home-batteries-from-lg-energy-terra-gen-and-mortenson-start-on-worlds-largest-standalone-solar-and-storage-project/", "link4": "", "long": "-117.889716", "manufacturer": "", "name": "Edwards Sanborn Solar Storage", "no_of_battery_units": "", "notes": "735 MWh in Q3 \u002721, 1501 MWh by Q2 2022.", "overwrite": "", "owner": "", "power_mw": "346", "project_website": "", "start_construction": "2021-02-01", "start_estimated": "2022Q2", "start_operation": "", "state": "california", "status": "construction", "type": "", "use_case": "1118 MW solar farm support"}, "date_first_heard": "2020-12-10", "emojis": "\ud83d\udccd\u2764\ufe0f\u26a1\u2600\ufe0f\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"more than 1000 MWh / 1GWh\"\u003e\u2764\ufe0f\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"more than 100 MWh\"\u003e\u26a1\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"attached to solar farm\"\u003e\u2600\ufe0f\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "", "flag": "\ud83c\uddfa\ud83c\uddf8", "go_live": "0 ~  2022Q2", "go_live_year_int": 2022, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:34.911468+-117.889716", "gov": {}, "gov_history": null, "has_gov_data": false, "in_construction": true, "in_operation": false, "in_planning": false, "internal_id": "68", "is_megapack": false, "is_tesla": false, "lat": "34.911468", "links": ["https://renewablesnow.com/news/terra-gen-secures-usd-800m-for-massive-solar-storage-project-in-california-749635/", "https://pv-magazine-usa.com/2021/08/02/terra-gen-secures-800-million-in-financing-for-solar-storage-project-in-california/", "https://pv-magazine-usa.com/2020/12/11/morning-brief-big-home-batteries-from-lg-energy-terra-gen-and-mortenson-start-on-worlds-largest-standalone-solar-and-storage-project/"], "long": "-117.889716", "mw": 346, "mwh": 2445, "mwh_is_estimate": false, "name": "Edwards Sanborn Solar Storage", "name_short": "Edwards Sanborn Solar Sto...", "no_of_battery_units": 0, "notes_split": ["735 MWh in Q3 \u002721, 1501 MWh by Q2 2022."], "owner": "", "start_construction": "2021-02-01", "start_estimated": "2022Q2", "start_operation": "", "state": "california", "status": "construction", "status_class": "", "user_data": true}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

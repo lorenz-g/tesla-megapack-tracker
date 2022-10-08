@@ -46,7 +46,7 @@ Kauai Island (52MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Kauai Island (52MWh)
     <div class="container-xl">
         
 
-<h3> Kauai Island ☀️🏝️👤 </h3>
+<h3> Kauai Island <span data-toggle="tooltip" data-placement="top" title="attached to solar farm">☀️</span><span data-toggle="tooltip" data-placement="top" title="island installation">🏝️</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="badge rounded-pill bg-success">operation</span> </dl>
@@ -140,6 +140,13 @@ Kauai Island (52MWh)
     <br> ✅ Coords are exact (+/- 50m)
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -186,9 +193,37 @@ Kauai Island (52MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": true, "coords_help_str": "\u2705 Coords are exact (+/- 50m)", "coords_hint": 1, "country": "usa", "csv": {"capacity_mwh": "52", "cells": "", "city": "Kauai", "coords_hint": "1", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "KIUC", "date_first_heard": "", "developer": "", "estimate_mwh": "", "external_id": "", "id": "19", "lat": "21.998353", "link1": "https://www.theverge.com/2017/3/8/14854858/tesla-solar-hawaii-kauai-kiuc-powerpack-battery-generator", "link2": "https://www.youtube.com/watch?v=X45Iv6b5Zs4\u0026t=78s", "link3": "https://en.wikipedia.org/wiki/Kauai", "link4": "", "long": "-159.378905", "manufacturer": "tesla", "name": "Kauai Island", "no_of_battery_units": "272", "notes": "20 year contract to buy energy", "overwrite": "", "owner": "", "power_mw": "", "project_website": "", "start_construction": "", "start_estimated": "", "start_operation": "2017-03-08", "state": "hawaii", "status": "operation", "type": "powerpack", "use_case": "island, 13mw solar farm support"}, "date_first_heard": "", "emojis": "\u2600\ufe0f\ud83c\udfdd\ufe0f\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"attached to solar farm\"\u003e\u2600\ufe0f\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"island installation\"\u003e\ud83c\udfdd\ufe0f\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "", "flag": "\ud83c\uddfa\ud83c\uddf8", "go_live": "2017-03-08", "go_live_year_int": 2017, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:21.998353+-159.378905", "gov": {}, "gov_history": null, "has_gov_data": false, "in_construction": false, "in_operation": true, "in_planning": false, "internal_id": "19", "is_megapack": false, "is_tesla": true, "lat": "21.998353", "links": ["https://www.theverge.com/2017/3/8/14854858/tesla-solar-hawaii-kauai-kiuc-powerpack-battery-generator", "https://www.youtube.com/watch?v=X45Iv6b5Zs4\u0026t=78s", "https://en.wikipedia.org/wiki/Kauai"], "long": "-159.378905", "mw": 0, "mwh": 52, "mwh_is_estimate": false, "name": "Kauai Island", "name_short": "Kauai Island", "no_of_battery_units": 272, "notes_split": ["20 year contract to buy energy"], "owner": "", "start_construction": "", "start_estimated": "", "start_operation": "2017-03-08", "state": "hawaii", "status": "operation", "status_class": "badge rounded-pill bg-success", "user_data": true}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

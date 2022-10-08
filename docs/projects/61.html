@@ -46,7 +46,7 @@ Rexford 1 Solar (540MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Rexford 1 Solar (540MWh)
     <div class="container-xl">
         
 
-<h3> Rexford 1 Solar ⚡☀️👤 </h3>
+<h3> Rexford 1 Solar <span data-toggle="tooltip" data-placement="top" title="more than 100 MWh">⚡</span><span data-toggle="tooltip" data-placement="top" title="attached to solar farm">☀️</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">planning</span> </dl>
@@ -140,6 +140,13 @@ Rexford 1 Solar (540MWh)
     <br> ✅ Coords are exact (+/- 50m)
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -184,9 +191,37 @@ Rexford 1 Solar (540MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": true, "coords_help_str": "\u2705 Coords are exact (+/- 50m)", "coords_hint": 1, "country": "usa", "csv": {"capacity_mwh": "540", "cells": "", "city": "Tulare County", "coords_hint": "1", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "8minute / Clean Power Alliance", "date_first_heard": "2020-09-11", "developer": "", "estimate_mwh": "", "external_id": "", "id": "61", "lat": "35.853593", "link1": "https://www.energy-storage.news/california-community-energy-group-signs-ppa-for-400mw-540mwh-solar-plus-storage-plant/", "link2": "https://tularecounty.ca.gov/rma/index.cfm/planning-building/environmental-planning/environmental-impact-reports/rexford-solar-project-psp-19-073/", "link3": "", "link4": "", "long": "-119.051695", "manufacturer": "", "name": "Rexford 1 Solar", "no_of_battery_units": "", "notes": "already a large solar farm visible on google maps, but the planning doc shows it will be on new locations between existing solar farm", "overwrite": "", "owner": "", "power_mw": "180", "project_website": "https://www.8minute.com/energy-storage/", "start_construction": "", "start_estimated": "2023", "start_operation": "", "state": "california", "status": "planning", "type": "", "use_case": "300MW solar farm support"}, "date_first_heard": "2020-09-11", "emojis": "\u26a1\u2600\ufe0f\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"more than 100 MWh\"\u003e\u26a1\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"attached to solar farm\"\u003e\u2600\ufe0f\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "", "flag": "\ud83c\uddfa\ud83c\uddf8", "go_live": "0 ~  2023", "go_live_year_int": 2023, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:35.853593+-119.051695", "gov": {}, "gov_history": null, "has_gov_data": false, "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "61", "is_megapack": false, "is_tesla": false, "lat": "35.853593", "links": ["https://www.energy-storage.news/california-community-energy-group-signs-ppa-for-400mw-540mwh-solar-plus-storage-plant/", "https://tularecounty.ca.gov/rma/index.cfm/planning-building/environmental-planning/environmental-impact-reports/rexford-solar-project-psp-19-073/"], "long": "-119.051695", "mw": 180, "mwh": 540, "mwh_is_estimate": false, "name": "Rexford 1 Solar", "name_short": "Rexford 1 Solar", "no_of_battery_units": 0, "notes_split": ["already a large solar farm visible on google maps, but the planning doc shows it will be on new locations between existing solar farm"], "owner": "", "start_construction": "", "start_estimated": "2023", "start_operation": "", "state": "california", "status": "planning", "status_class": "", "user_data": true}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

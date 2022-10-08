@@ -46,7 +46,7 @@ Lake Bonney Wind Farm (52MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Lake Bonney Wind Farm (52MWh)
     <div class="container-xl">
         
 
-<h3> Lake Bonney Wind Farm 🌬️👤 </h3>
+<h3> Lake Bonney Wind Farm <span data-toggle="tooltip" data-placement="top" title="attached to wind farm">🌬️</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="badge rounded-pill bg-success">operation</span> </dl>
@@ -140,6 +140,13 @@ Lake Bonney Wind Farm (52MWh)
     <br> ✅ Coords are exact (+/- 50m)
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -184,9 +191,37 @@ Lake Bonney Wind Farm (52MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": true, "coords_help_str": "\u2705 Coords are exact (+/- 50m)", "coords_hint": 1, "country": "australia", "csv": {"capacity_mwh": "52", "cells": "", "city": "", "coords_hint": "1", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "australia", "customer": "Infigen Energy", "date_first_heard": "2018-08-15", "developer": "", "estimate_mwh": "", "external_id": "", "id": "28", "lat": "-37.738826", "link1": "https://electrek.co/2018/08/15/tesla-powerpack-win-contract-battery-system/", "link2": "https://www.pv-magazine.com/2020/01/22/lake-bonney-big-battery-ready-to-supply-teslas-australian-ev-charger-network/", "link3": "", "link4": "", "long": "140.38693", "manufacturer": "tesla", "name": "Lake Bonney Wind Farm", "no_of_battery_units": "", "notes": "", "overwrite": "", "owner": "", "power_mw": "25", "project_website": "", "start_construction": "", "start_estimated": "", "start_operation": "2020-01-22", "state": "south australia", "status": "operation", "type": "powerpack", "use_case": "278MW wind farm support"}, "date_first_heard": "2018-08-15", "emojis": "\ud83c\udf2c\ufe0f\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"attached to wind farm\"\u003e\ud83c\udf2c\ufe0f\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "", "flag": "\ud83c\udde6\ud83c\uddfa", "go_live": "2020-01-22", "go_live_year_int": 2020, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:-37.738826+140.38693", "gov": {}, "gov_history": null, "has_gov_data": false, "in_construction": false, "in_operation": true, "in_planning": false, "internal_id": "28", "is_megapack": false, "is_tesla": true, "lat": "-37.738826", "links": ["https://electrek.co/2018/08/15/tesla-powerpack-win-contract-battery-system/", "https://www.pv-magazine.com/2020/01/22/lake-bonney-big-battery-ready-to-supply-teslas-australian-ev-charger-network/"], "long": "140.38693", "mw": 25, "mwh": 52, "mwh_is_estimate": false, "name": "Lake Bonney Wind Farm", "name_short": "Lake Bonney Wind Farm", "no_of_battery_units": 0, "notes_split": [""], "owner": "", "start_construction": "", "start_estimated": "", "start_operation": "2020-01-22", "state": "south australia", "status": "operation", "status_class": "badge rounded-pill bg-success", "user_data": true}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

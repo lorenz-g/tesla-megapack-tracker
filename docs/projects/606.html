@@ -46,7 +46,7 @@ A981 Fraserburgh - Battery Energy Storage (25MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ A981 Fraserburgh - Battery Energy Storage (25MWh)
     <div class="container-xl">
         
 
-<h3> A981 Fraserburgh - Battery Energy Storage 📍📊📏 </h3>
+<h3> A981 Fraserburgh - Battery Energy Storage <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">planning</span> </dl>
@@ -140,6 +140,13 @@ A981 Fraserburgh - Battery Energy Storage (25MWh)
     <br> 📍 The site is known, coords are +/- 1 kilometer
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -180,9 +187,37 @@ A981 Fraserburgh - Battery Energy Storage (25MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd The site is known, coords are +/- 1 kilometer", "coords_hint": 2, "country": "uk", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "uk", "customer": "", "date_first_heard": "2021-12-29", "developer": "", "estimate_mwh": "25", "external_id": "10222", "id": "606", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "A981 Fraserburgh - Battery Energy Storage", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "Fraserburgh Energy Limited", "power_mw": "25", "project_website": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "scotland", "status": "planning", "type": "", "use_case": ""}, "date_first_heard": "2022-02-21", "emojis": "\ud83d\udccd\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "10222", "flag": "\ud83c\uddec\ud83c\udde7", "go_live": "", "go_live_year_int": null, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:57.671398+-2.026323", "gov": {"coords_hint": 2, "country": "uk", "data_source": "uk_repd", "date_first_heard": "2022-02-21", "estimate_mwh": 25, "external_id": "10222", "has_multiple_projects": false, "lat": "57.671398", "long": "-2.026323", "mwh": 0, "name": "A981 Fraserburgh - Battery Energy Storage", "owner": "Fraserburgh Energy Limited", "power_mw": 25, "pr_url": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "scotland", "status": "planning"}, "gov_history": {"changes": [{"li": [{"extra": "", "from": "29/12/2021", "name": "Record Last Updated (dd/mm/yyyy)", "to": "28/02/2022"}, {"extra": "", "from": "Planning Application Submitted", "name": "Development Status", "to": "Planning Permission Granted"}, {"extra": "", "from": "Application Submitted", "name": "Development Status (short)", "to": "Awaiting Construction"}, {"extra": "", "from": "", "name": "Planning Permission Granted", "to": "21/02/2022"}], "month": "2022-04"}], "current": {"": "", "Address": "E/O A981 Fraserburgh", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "No", "CfD Capacity (MW)": "", "Country": "Scotland", "County": "Aberdeenshire", "Development Status": "Planning Permission Granted", "Development Status (short)": "Awaiting Construction", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "25.00", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Fraserburgh Energy Limited", "Planning Application Reference": "APP/2021/2855", "Planning Application Submitted": "23/12/2021", "Planning Application Withdrawn": "", "Planning Authority": "Aberdeenshire Council", "Planning Permission Expired": "", "Planning Permission Granted": "21/02/2022", "Planning Permission Refused": "", "Post Code": "AB43 8TT", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "28/02/2022", "Ref ID": "10222", "Region": "Scotland", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "A981 Fraserburgh - Battery Energy Storage", "Storage Co-location REPD Ref ID": "", "Storage Type": "Stand-alone Storage", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "", "X-coordinate": "398529", "Y-coordinate": "864614", "ext_id": "10222", "lat": "57.671398", "long": "-2.026323", "mw": 25, "status": "planning"}, "current_month": "2022-04", "dates": {"first_heard": "2021-12-29", "start_construction": "", "start_operation": ""}, "first": {"": "", "Address": "E/O A981 Fraserburgh", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "No", "CfD Capacity (MW)": "", "Country": "Scotland", "County": "Aberdeenshire", "Development Status": "Planning Application Submitted", "Development Status (short)": "Application Submitted", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "25.00", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Fraserburgh Energy Limited", "Planning Application Reference": "APP/2021/2855", "Planning Application Submitted": "23/12/2021", "Planning Application Withdrawn": "", "Planning Authority": "Aberdeenshire Council", "Planning Permission Expired": "", "Planning Permission Granted": "", "Planning Permission Refused": "", "Post Code": "AB43 8TT", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "29/12/2021", "Ref ID": "10222", "Region": "Scotland", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "A981 Fraserburgh - Battery Energy Storage", "Storage Co-location REPD Ref ID": "", "Storage Type": "Stand-alone Storage", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "", "X-coordinate": "398529", "Y-coordinate": "864614", "ext_id": "10222", "lat": "57.671398", "long": "-2.026323", "mw": 25, "status": "planning"}, "first_month": "2021-12"}, "has_gov_data": true, "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "606", "is_megapack": false, "is_tesla": false, "lat": "57.671398", "links": [], "long": "-2.026323", "mw": 25, "mwh": 25, "mwh_is_estimate": true, "name": "A981 Fraserburgh - Battery Energy Storage", "name_short": "A981 Fraserburgh - Batter...", "no_of_battery_units": 0, "notes_split": [""], "owner": "Fraserburgh Energy Limited", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "scotland", "status": "planning", "status_class": "", "user_data": false}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

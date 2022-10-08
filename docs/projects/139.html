@@ -46,7 +46,7 @@ Vilnius (50MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Vilnius (50MWh)
     <div class="container-xl">
         
 
-<h3> Vilnius 📍👤 </h3>
+<h3> Vilnius <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">planning</span> </dl>
@@ -140,6 +140,13 @@ Vilnius (50MWh)
     <br> 📍 Coords not known
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -182,9 +189,37 @@ Vilnius (50MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords not known", "coords_hint": 0, "country": "lithuania", "csv": {"capacity_mwh": "50", "cells": "", "city": "", "coords_hint": "0", "coords_hint_2": "", "cost_currency": "EUR", "cost_incl_solar": "0", "cost_million": "27", "country": "lithuania", "customer": "", "date_first_heard": "2021-12-08", "developer": "", "estimate_mwh": "", "external_id": "", "id": "139", "lat": "54.651925", "link1": "https://www.energy-storage.news/government-led-consortium-launches-200mw-rollout-of-battery-storage-to-aid-lithuanias-transmission-network/", "link2": "", "link3": "", "link4": "", "long": "25.240645", "manufacturer": "fluence", "name": "Vilnius", "no_of_battery_units": "", "notes": "split capacity and costs in 4 projects, only the sum mentioned in article", "overwrite": "", "owner": "EPSO-G / Energy Cells", "power_mw": "50", "project_website": "", "start_construction": "", "start_estimated": "2022Q3", "start_operation": "", "state": "", "status": "planning", "type": "", "use_case": "transmission network support"}, "date_first_heard": "2021-12-08", "emojis": "\ud83d\udccd\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "", "flag": "lithuania", "go_live": "0 ~  2022Q3", "go_live_year_int": 2022, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:54.651925+25.240645", "gov": {}, "gov_history": null, "has_gov_data": false, "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "139", "is_megapack": false, "is_tesla": false, "lat": "54.651925", "links": ["https://www.energy-storage.news/government-led-consortium-launches-200mw-rollout-of-battery-storage-to-aid-lithuanias-transmission-network/"], "long": "25.240645", "mw": 50, "mwh": 50, "mwh_is_estimate": false, "name": "Vilnius", "name_short": "Vilnius", "no_of_battery_units": 0, "notes_split": ["split capacity and costs in 4 projects, only the sum mentioned in article"], "owner": "EPSO-G / Energy Cells", "start_construction": "", "start_estimated": "2022Q3", "start_operation": "", "state": "", "status": "planning", "status_class": "", "user_data": true}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

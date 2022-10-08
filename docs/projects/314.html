@@ -46,7 +46,7 @@ Manton Wood (10MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Manton Wood (10MWh)
     <div class="container-xl">
         
 
-<h3> Manton Wood 📍📊📏 </h3>
+<h3> Manton Wood <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">planning</span> </dl>
@@ -140,6 +140,13 @@ Manton Wood (10MWh)
     <br> 📍 The site is known, coords are +/- 1 kilometer
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -180,9 +187,37 @@ Manton Wood (10MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd The site is known, coords are +/- 1 kilometer", "coords_hint": 2, "country": "uk", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "uk", "customer": "", "date_first_heard": "2017-12-04", "developer": "", "estimate_mwh": "10", "external_id": "7035", "id": "314", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Manton Wood", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "Lark Gas Assets", "power_mw": "10", "project_website": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "east midlands", "status": "planning", "type": "", "use_case": ""}, "date_first_heard": "2017-12-04", "emojis": "\ud83d\udccd\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "7035", "flag": "\ud83c\uddec\ud83c\udde7", "go_live": "", "go_live_year_int": null, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:53.299456+-1.089812", "gov": {"coords_hint": 2, "country": "uk", "data_source": "uk_repd", "date_first_heard": "2017-12-04", "estimate_mwh": 10, "external_id": "7035", "has_multiple_projects": false, "lat": "53.299456", "long": "-1.089812", "mwh": 0, "name": "Manton Wood", "owner": "Lark Gas Assets", "power_mw": 10, "pr_url": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "east midlands", "status": "planning"}, "gov_history": {"changes": [], "current": {"": "", "Address": "Land At Former Manton Colliery, Retford Road, Worksop, Nottinghamshire", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "", "CfD Capacity (MW)": "", "Country": "England", "County": "Nottinghamshire", "Development Status": "Planning Permission Granted", "Development Status (short)": "Awaiting Construction", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "10.00", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Lark Gas Assets", "Planning Application Reference": "17/01303/FUL", "Planning Application Submitted": "09/10/2017", "Planning Application Withdrawn": "", "Planning Authority": "Bassetlaw District Council", "Planning Permission Expired": "", "Planning Permission Granted": "04/12/2017", "Planning Permission Refused": "", "Post Code": "S80 2PU", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "04/06/2020", "Ref ID": "7035", "Region": "East Midlands", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Manton Wood", "Storage Co-location REPD Ref ID": "", "Storage Type": "Co-located with fossil fuel plant", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "", "X-coordinate": "460758", "Y-coordinate": "378442", "ext_id": "7035", "lat": "53.299456", "long": "-1.089812", "mw": 10, "status": "planning"}, "current_month": "2022-04", "dates": {"first_heard": "2020-06-04", "start_construction": "", "start_operation": ""}, "first": {"Address": "Land At Former Manton Colliery, Retford Road, Worksop, Nottinghamshire", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "", "CfD Capacity (MW)": "", "Country": "England", "County": "Nottinghamshire", "Development Status": "Planning Permission Granted", "Development Status (short)": "Awaiting Construction", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "10.00", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Lark Gas Assets", "Planning Application Reference": "17/01303/FUL", "Planning Application Submitted": "09/10/2017", "Planning Application Withdrawn": "", "Planning Authority": "Bassetlaw District Council", "Planning Permission Expired": "", "Planning Permission Granted": "04/12/2017", "Planning Permission Refused": "", "Post Code": "S80 2PU", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "04/06/2020", "Ref ID": "7035", "Region": "East Midlands", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Manton Wood", "Storage Co-location REPD Ref ID": "", "Storage Type": "Co-located with fossil fuel plant", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "", "X-coordinate": "460758", "Y-coordinate": "378442", "ext_id": "7035", "lat": "53.299456", "long": "-1.089812", "mw": 10, "status": "planning"}, "first_month": "2021-09"}, "has_gov_data": true, "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "314", "is_megapack": false, "is_tesla": false, "lat": "53.299456", "links": [], "long": "-1.089812", "mw": 10, "mwh": 10, "mwh_is_estimate": true, "name": "Manton Wood", "name_short": "Manton Wood", "no_of_battery_units": 0, "notes_split": [""], "owner": "Lark Gas Assets", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "east midlands", "status": "planning", "status_class": "", "user_data": false}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

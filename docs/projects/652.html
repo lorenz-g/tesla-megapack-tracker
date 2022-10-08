@@ -46,7 +46,7 @@ Plymouth Stor Generation - Battery storage (20MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Plymouth Stor Generation - Battery storage (20MWh)
     <div class="container-xl">
         
 
-<h3> Plymouth Stor Generation - Battery storage 📍📊📏 </h3>
+<h3> Plymouth Stor Generation - Battery storage <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">planning</span> </dl>
@@ -140,6 +140,13 @@ Plymouth Stor Generation - Battery storage (20MWh)
     <br> 📍 The site is known, coords are +/- 1 kilometer
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -180,9 +187,37 @@ Plymouth Stor Generation - Battery storage (20MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd The site is known, coords are +/- 1 kilometer", "coords_hint": 2, "country": "uk", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "uk", "customer": "", "date_first_heard": "2022-01-21", "developer": "", "estimate_mwh": "20", "external_id": "10432", "id": "652", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Plymouth Stor Generation - Battery storage", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "Green Frog Power 214 Limited", "power_mw": "20", "project_website": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "south west", "status": "planning", "type": "", "use_case": ""}, "date_first_heard": "2022-01-21", "emojis": "\ud83d\udccd\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "10432", "flag": "\ud83c\uddec\ud83c\udde7", "go_live": "", "go_live_year_int": null, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:50.367803+-4.112536", "gov": {"coords_hint": 2, "country": "uk", "data_source": "uk_repd", "date_first_heard": "2022-01-21", "estimate_mwh": 20, "external_id": "10432", "has_multiple_projects": false, "lat": "50.367803", "long": "-4.112536", "mwh": 0, "name": "Plymouth Stor Generation - Battery storage", "owner": "Green Frog Power 214 Limited", "power_mw": 20, "pr_url": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "south west", "status": "planning"}, "gov_history": {"changes": [], "current": {"": "", "Address": "Plymouth Stor Generation, Faraday Road, Plymouth", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "No", "CfD Capacity (MW)": "", "Country": "England", "County": "Devon", "Development Status": "Planning Application Submitted", "Development Status (short)": "Application Submitted", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "20.00", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Green Frog Power 214 Limited", "Planning Application Reference": "21/00757/FUL", "Planning Application Submitted": "23/04/2021", "Planning Application Withdrawn": "", "Planning Authority": "Plymouth City Council", "Planning Permission Expired": "", "Planning Permission Granted": "", "Planning Permission Refused": "", "Post Code": "PL4 0ST", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "21/01/2022", "Ref ID": "10432", "Region": "South West", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Plymouth Stor Generation - Battery storage", "Storage Co-location REPD Ref ID": "", "Storage Type": "Stand-alone Storage", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "", "X-coordinate": "249857", "Y-coordinate": "54123", "ext_id": "10432", "lat": "50.367803", "long": "-4.112536", "mw": 20, "status": "planning"}, "current_month": "2022-04", "dates": {"first_heard": "2022-01-21", "start_construction": "", "start_operation": ""}, "first": {"": "", "Address": "Plymouth Stor Generation, Faraday Road, Plymouth", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "No", "CfD Capacity (MW)": "", "Country": "England", "County": "Devon", "Development Status": "Planning Application Submitted", "Development Status (short)": "Application Submitted", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "20.00", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Green Frog Power 214 Limited", "Planning Application Reference": "21/00757/FUL", "Planning Application Submitted": "23/04/2021", "Planning Application Withdrawn": "", "Planning Authority": "Plymouth City Council", "Planning Permission Expired": "", "Planning Permission Granted": "", "Planning Permission Refused": "", "Post Code": "PL4 0ST", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "21/01/2022", "Ref ID": "10432", "Region": "South West", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Plymouth Stor Generation - Battery storage", "Storage Co-location REPD Ref ID": "", "Storage Type": "Stand-alone Storage", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "", "X-coordinate": "249857", "Y-coordinate": "54123", "ext_id": "10432", "lat": "50.367803", "long": "-4.112536", "mw": 20, "status": "planning"}, "first_month": "2022-04"}, "has_gov_data": true, "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "652", "is_megapack": false, "is_tesla": false, "lat": "50.367803", "links": [], "long": "-4.112536", "mw": 20, "mwh": 20, "mwh_is_estimate": true, "name": "Plymouth Stor Generation - Battery storage", "name_short": "Plymouth Stor Generation ...", "no_of_battery_units": 0, "notes_split": [""], "owner": "Green Frog Power 214 Limited", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "south west", "status": "planning", "status_class": "", "user_data": false}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

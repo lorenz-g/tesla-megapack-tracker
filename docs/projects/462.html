@@ -46,7 +46,7 @@ Old Gallows Road - Battery storage (49MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Old Gallows Road - Battery storage (49MWh)
     <div class="container-xl">
         
 
-<h3> Old Gallows Road - Battery storage 📍📊📏 </h3>
+<h3> Old Gallows Road - Battery storage <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">planning</span> </dl>
@@ -140,6 +140,13 @@ Old Gallows Road - Battery storage (49MWh)
     <br> 📍 The site is known, coords are +/- 1 kilometer
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -180,9 +187,37 @@ Old Gallows Road - Battery storage (49MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd The site is known, coords are +/- 1 kilometer", "coords_hint": 2, "country": "uk", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "uk", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "49", "external_id": "8368", "id": "462", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Old Gallows Road - Battery storage", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "Whirlwind Renewables", "power_mw": "49", "project_website": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "scotland", "status": "planning", "type": "", "use_case": ""}, "date_first_heard": "2021-04-28", "emojis": "\ud83d\udccd\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "8368", "flag": "\ud83c\uddec\ud83c\udde7", "go_live": "", "go_live_year_int": null, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:56.396899+-3.49004", "gov": {"coords_hint": 2, "country": "uk", "data_source": "uk_repd", "date_first_heard": "2021-04-28", "estimate_mwh": 49, "external_id": "8368", "has_multiple_projects": false, "lat": "56.396899", "long": "-3.49004", "mwh": 0, "name": "Old Gallows Road - Battery storage", "owner": "Whirlwind Renewables", "power_mw": 49, "pr_url": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "scotland", "status": "planning"}, "gov_history": {"changes": [], "current": {"": "", "Address": "Old Gallows Road", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "No", "CfD Capacity (MW)": "", "Country": "Scotland", "County": "Perthshire", "Development Status": "Planning Application Submitted", "Development Status (short)": "Application Submitted", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "49.90", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Whirlwind Renewables", "Planning Application Reference": "21/00235/FLM", "Planning Application Submitted": "14/04/2021", "Planning Application Withdrawn": "", "Planning Authority": "Perth and Kinross Council", "Planning Permission Expired": "", "Planning Permission Granted": "", "Planning Permission Refused": "", "Post Code": "PH1", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "28/04/2021", "Ref ID": "8368", "Region": "Scotland", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Old Gallows Road - Battery storage", "Storage Co-location REPD Ref ID": "", "Storage Type": "Stand-alone Storage", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "", "X-coordinate": "308124", "Y-coordinate": "723734", "ext_id": "8368", "lat": "56.396899", "long": "-3.49004", "mw": 49, "status": "planning"}, "current_month": "2022-04", "dates": {"first_heard": "2021-04-28", "start_construction": "", "start_operation": ""}, "first": {"Address": "Old Gallows Road", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "No", "CfD Capacity (MW)": "", "Country": "Scotland", "County": "Perthshire", "Development Status": "Planning Application Submitted", "Development Status (short)": "Application Submitted", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "49.90", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Whirlwind Renewables", "Planning Application Reference": "21/00235/FLM", "Planning Application Submitted": "14/04/2021", "Planning Application Withdrawn": "", "Planning Authority": "Perth and Kinross Council", "Planning Permission Expired": "", "Planning Permission Granted": "", "Planning Permission Refused": "", "Post Code": "PH1", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "28/04/2021", "Ref ID": "8368", "Region": "Scotland", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Old Gallows Road - Battery storage", "Storage Co-location REPD Ref ID": "", "Storage Type": "Stand-alone Storage", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "", "X-coordinate": "308124", "Y-coordinate": "723734", "ext_id": "8368", "lat": "56.396899", "long": "-3.49004", "mw": 49, "status": "planning"}, "first_month": "2021-09"}, "has_gov_data": true, "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "462", "is_megapack": false, "is_tesla": false, "lat": "56.396899", "links": [], "long": "-3.49004", "mw": 49, "mwh": 49, "mwh_is_estimate": true, "name": "Old Gallows Road - Battery storage", "name_short": "Old Gallows Road - Batter...", "no_of_battery_units": 0, "notes_split": [""], "owner": "Whirlwind Renewables", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "scotland", "status": "planning", "status_class": "", "user_data": false}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

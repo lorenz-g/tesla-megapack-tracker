@@ -46,7 +46,7 @@ Cross Town (350MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Cross Town (350MWh)
     <div class="container-xl">
         
 
-<h3> Cross Town 📍⚡👤 </h3>
+<h3> Cross Town <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="more than 100 MWh">⚡</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">planning</span> </dl>
@@ -140,6 +140,13 @@ Cross Town (350MWh)
     <br> 📍 Coords not known
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -184,9 +191,37 @@ Cross Town (350MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords not known", "coords_hint": 0, "country": "usa", "csv": {"capacity_mwh": "350", "cells": "", "city": "Gorham", "coords_hint": "0", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "", "date_first_heard": "2021-02-11", "developer": "", "estimate_mwh": "", "external_id": "", "id": "114", "lat": "43.68383", "link1": "https://www.greentechmedia.com/articles/read/plus-power-breaks-open-new-england-market-for-massive-batteries", "link2": "https://www.pluspower.com/home/crosstown", "link3": "", "link4": "", "long": "-70.39786", "manufacturer": "", "name": "Cross Town", "no_of_battery_units": "", "notes": "pretty sure the coords are correct from the rendered image and the substation found on cross town trail via google maps", "overwrite": "", "owner": "Plus Power", "power_mw": "175", "project_website": "", "start_construction": "", "start_estimated": "2024H1", "start_operation": "", "state": "maine", "status": "planning", "type": "", "use_case": ""}, "date_first_heard": "2021-02-11", "emojis": "\ud83d\udccd\u26a1\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"more than 100 MWh\"\u003e\u26a1\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "", "flag": "\ud83c\uddfa\ud83c\uddf8", "go_live": "0 ~  2024H1", "go_live_year_int": 2024, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:43.68383+-70.39786", "gov": {}, "gov_history": null, "has_gov_data": false, "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "114", "is_megapack": false, "is_tesla": false, "lat": "43.68383", "links": ["https://www.greentechmedia.com/articles/read/plus-power-breaks-open-new-england-market-for-massive-batteries", "https://www.pluspower.com/home/crosstown"], "long": "-70.39786", "mw": 175, "mwh": 350, "mwh_is_estimate": false, "name": "Cross Town", "name_short": "Cross Town", "no_of_battery_units": 0, "notes_split": ["pretty sure the coords are correct from the rendered image and the substation found on cross town trail via google maps"], "owner": "Plus Power", "start_construction": "", "start_estimated": "2024H1", "start_operation": "", "state": "maine", "status": "planning", "status_class": "", "user_data": true}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

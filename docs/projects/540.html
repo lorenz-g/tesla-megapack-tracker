@@ -46,7 +46,7 @@ GBS KW Walsum (15MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ GBS KW Walsum (15MWh)
     <div class="container-xl">
         
 
-<h3> GBS KW Walsum 📊 </h3>
+<h3> GBS KW Walsum <span data-toggle="tooltip" data-placement="top" title="government data available">📊</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="badge rounded-pill bg-success">operation</span> </dl>
@@ -140,6 +140,13 @@ GBS KW Walsum (15MWh)
     <br> ✅ Coords are exact (+/- 50m)
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -182,9 +189,37 @@ GBS KW Walsum (15MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": true, "coords_help_str": "\u2705 Coords are exact (+/- 50m)", "coords_hint": 1, "country": "germany", "csv": {"capacity_mwh": "15", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "germany", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "", "external_id": "SEE964940893804", "id": "540", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "GBS KW Walsum", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "", "power_mw": "15", "project_website": "", "start_construction": "", "start_estimated": "", "start_operation": "2016-09-30", "state": "nrw", "status": "operation", "type": "", "use_case": ""}, "date_first_heard": "", "emojis": "\ud83d\udcca", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e", "external_id": "SEE964940893804", "flag": "\ud83c\udde9\ud83c\uddea", "go_live": "2016-09-30", "go_live_year_int": 2016, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:51.527123+6.711709", "gov": {"coords_hint": 1, "country": "germany", "data_source": "de_mastr", "date_first_heard": "", "estimate_mwh": "", "external_id": "SEE964940893804", "has_multiple_projects": false, "lat": "51.527123", "long": "6.711709", "mwh": 15, "name": "GBS KW Walsum", "owner": "STEAG Battery System", "power_mw": 15, "pr_url": "https://www.marktstammdatenregister.de/MaStR/Einheit/Detail/IndexOeffentlich/3430514", "start_construction": "", "start_estimated": "", "start_operation": "2016-09-30", "state": "nrw", "status": "operation"}, "gov_history": {"changes": [], "current": {"AcDcKoppelung": "693", "AnlagenbetreiberMastrNummer": "ABR998735752212", "AnschlussAnHoechstOderHochSpannung": "1", "Batterietechnologie": "727", "Breitengrad": "51.527123", "Bruttoleistung": "15000.000", "Bundesland": "1409", "DatumLetzteAktualisierung": "2020-09-16T10:52:57.7837543", "EegAnlagentyp": "8", "EinheitBetriebsstatus": "35", "EinheitMastrNummer": "SEE964940893804", "EinheitSystemstatus": "472", "Einsatzverantwortlicher": "9911809000003", "Einspeisungsart": "688", "Energietraeger": "2496", "FernsteuerbarkeitDr": "0", "FernsteuerbarkeitDv": "0", "FernsteuerbarkeitNb": "0", "Gemeinde": "Duisburg", "Gemeindeschluessel": "05112000", "GenMastrNummer": "SGE967676113161", "Hausnummer": "129", "HausnummerNichtGefunden": "0", "Hausnummer_nv": "0", "Inbetriebnahmedatum": "2016-09-30", "Kraftwerksnummer": "BNA1815", "Kraftwerksnummer_nv": "0", "Laengengrad": "6.711709", "Land": "84", "Landkreis": "Duisburg", "LokationMaStRNummer": "SEL914074075270", "NameStromerzeugungseinheit": "GBS KW Walsum", "Nettonennleistung": "15000.000", "NetzbetreiberpruefungDatum": "2020-10-09", "NetzbetreiberpruefungStatus": "1", "NichtVorhandenInMigriertenEinheiten": "0", "Notstromaggregat": "0", "Ort": "Duisburg", "Postleitzahl": "47179", "Registrierungsdatum": "2020-09-16", "SpeMastrNummer": "SSE958726175123", "Strasse": "Dr.-Wilhelm-Roelen-Str.", "StrasseNichtGefunden": "0", "Technologie": "524", "Weic_nv": "1", "ZugeordnenteWirkleistungWechselrichter": "15000.000", "ext_id": "SEE964940893804", "mw": 15, "mwh": 15, "owner": "STEAG Battery System", "pr_url_id": "3430514", "status": "operation"}, "current_month": "2022-05", "dates": {"first_heard": "", "start_construction": "", "start_estimated": "", "start_operation": "2016-09-30"}, "first": {"AcDcKoppelung": "693", "AnlagenbetreiberMastrNummer": "ABR998735752212", "AnschlussAnHoechstOderHochSpannung": "1", "Batterietechnologie": "727", "Breitengrad": "51.527123", "Bruttoleistung": "15000.000", "Bundesland": "1409", "DatumLetzteAktualisierung": "2020-09-16T10:52:57.7837543", "EegAnlagentyp": "8", "EinheitBetriebsstatus": "35", "EinheitMastrNummer": "SEE964940893804", "EinheitSystemstatus": "472", "Einsatzverantwortlicher": "9911809000003", "Einspeisungsart": "688", "Energietraeger": "2496", "FernsteuerbarkeitDr": "0", "FernsteuerbarkeitDv": "0", "FernsteuerbarkeitNb": "0", "Gemeinde": "Duisburg", "Gemeindeschluessel": "05112000", "GenMastrNummer": "SGE967676113161", "Hausnummer": "129", "HausnummerNichtGefunden": "0", "Hausnummer_nv": "0", "Inbetriebnahmedatum": "2016-09-30", "Kraftwerksnummer": "BNA1815", "Kraftwerksnummer_nv": "0", "Laengengrad": "6.711709", "Land": "84", "Landkreis": "Duisburg", "LokationMaStRNummer": "SEL914074075270", "NameStromerzeugungseinheit": "GBS KW Walsum", "Nettonennleistung": "15000.000", "NetzbetreiberpruefungDatum": "2020-10-09", "NetzbetreiberpruefungStatus": "1", "NichtVorhandenInMigriertenEinheiten": "0", "Notstromaggregat": "0", "Ort": "Duisburg", "Postleitzahl": "47179", "Registrierungsdatum": "2020-09-16", "SpeMastrNummer": "SSE958726175123", "Strasse": "Dr.-Wilhelm-Roelen-Str.", "StrasseNichtGefunden": "0", "Technologie": "524", "Weic_nv": "1", "ZugeordnenteWirkleistungWechselrichter": "15000.000", "ext_id": "SEE964940893804", "mw": 15, "mwh": 15, "pr_url_id": "3430514", "status": "operation"}, "first_month": "2021-11"}, "has_gov_data": true, "in_construction": false, "in_operation": true, "in_planning": false, "internal_id": "540", "is_megapack": false, "is_tesla": false, "lat": "51.527123", "links": ["https://www.marktstammdatenregister.de/MaStR/Einheit/Detail/IndexOeffentlich/3430514"], "long": "6.711709", "mw": 15, "mwh": 15, "mwh_is_estimate": false, "name": "GBS KW Walsum", "name_short": "GBS KW Walsum", "no_of_battery_units": 0, "notes_split": [""], "owner": "STEAG Battery System", "start_construction": "", "start_estimated": "", "start_operation": "2016-09-30", "state": "nrw", "status": "operation", "status_class": "badge rounded-pill bg-success", "user_data": false}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

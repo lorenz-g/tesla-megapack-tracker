@@ -46,7 +46,7 @@ GBS KW Fenne (15MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ GBS KW Fenne (15MWh)
     <div class="container-xl">
         
 
-<h3> GBS KW Fenne 📊 </h3>
+<h3> GBS KW Fenne <span data-toggle="tooltip" data-placement="top" title="government data available">📊</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="badge rounded-pill bg-success">operation</span> </dl>
@@ -140,6 +140,13 @@ GBS KW Fenne (15MWh)
     <br> ✅ Coords are exact (+/- 50m)
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -182,9 +189,37 @@ GBS KW Fenne (15MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": true, "coords_help_str": "\u2705 Coords are exact (+/- 50m)", "coords_hint": 1, "country": "germany", "csv": {"capacity_mwh": "15", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "germany", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "", "external_id": "SEE919443669678", "id": "530", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "GBS KW Fenne", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "", "power_mw": "15", "project_website": "", "start_construction": "", "start_estimated": "", "start_operation": "2016-10-09", "state": "saarland", "status": "operation", "type": "", "use_case": ""}, "date_first_heard": "", "emojis": "\ud83d\udcca", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e", "external_id": "SEE919443669678", "flag": "\ud83c\udde9\ud83c\uddea", "go_live": "2016-10-09", "go_live_year_int": 2016, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:49.247195+6.878758", "gov": {"coords_hint": 1, "country": "germany", "data_source": "de_mastr", "date_first_heard": "", "estimate_mwh": "", "external_id": "SEE919443669678", "has_multiple_projects": false, "lat": "49.247195", "long": "6.878758", "mwh": 15, "name": "GBS KW Fenne", "owner": "STEAG Battery System", "power_mw": 15, "pr_url": "https://www.marktstammdatenregister.de/MaStR/Einheit/Detail/IndexOeffentlich/3429839", "start_construction": "", "start_estimated": "", "start_operation": "2016-10-09", "state": "saarland", "status": "operation"}, "gov_history": {"changes": [], "current": {"AcDcKoppelung": "693", "AnlagenbetreiberMastrNummer": "ABR998735752212", "AnschlussAnHoechstOderHochSpannung": "1", "Batterietechnologie": "727", "Breitengrad": "49.247195", "Bruttoleistung": "15000.000", "Bundesland": "1412", "DatumLetzteAktualisierung": "2020-09-16T11:13:40.5301939", "EegAnlagentyp": "8", "EinheitBetriebsstatus": "35", "EinheitMastrNummer": "SEE919443669678", "EinheitSystemstatus": "472", "Einsatzverantwortlicher": "9911809000003", "Einspeisungsart": "688", "Energietraeger": "2496", "FernsteuerbarkeitDr": "0", "FernsteuerbarkeitDv": "0", "FernsteuerbarkeitNb": "0", "Gemeinde": "V\u00f6lklingen", "Gemeindeschluessel": "10041519", "GenMastrNummer": "SGE987642146320", "Hausnummer": "135", "HausnummerNichtGefunden": "0", "Hausnummer_nv": "0", "Inbetriebnahmedatum": "2016-10-09", "Kraftwerksnummer": "BNA1814", "Kraftwerksnummer_nv": "0", "Laengengrad": "6.878758", "Land": "84", "Landkreis": "Regionalverband Saarbr\u00fccken", "LokationMaStRNummer": "SEL949403128662", "NameStromerzeugungseinheit": "GBS KW Fenne", "Nettonennleistung": "15000.000", "NetzbetreiberpruefungDatum": "2020-11-03", "NetzbetreiberpruefungStatus": "1", "NichtVorhandenInMigriertenEinheiten": "0", "Notstromaggregat": "0", "Ort": "V\u00f6lklingen", "Postleitzahl": "66333", "Registrierungsdatum": "2020-09-16", "SpeMastrNummer": "SSE944760568557", "Strasse": "Saarbr\u00fccker Stra\u00dfe", "StrasseNichtGefunden": "0", "Technologie": "524", "Weic_nv": "1", "ZugeordnenteWirkleistungWechselrichter": "15000.000", "ext_id": "SEE919443669678", "mw": 15, "mwh": 15, "owner": "STEAG Battery System", "pr_url_id": "3429839", "status": "operation"}, "current_month": "2022-05", "dates": {"first_heard": "", "start_construction": "", "start_estimated": "", "start_operation": "2016-10-09"}, "first": {"AcDcKoppelung": "693", "AnlagenbetreiberMastrNummer": "ABR998735752212", "AnschlussAnHoechstOderHochSpannung": "1", "Batterietechnologie": "727", "Breitengrad": "49.247195", "Bruttoleistung": "15000.000", "Bundesland": "1412", "DatumLetzteAktualisierung": "2020-09-16T11:13:40.5301939", "EegAnlagentyp": "8", "EinheitBetriebsstatus": "35", "EinheitMastrNummer": "SEE919443669678", "EinheitSystemstatus": "472", "Einsatzverantwortlicher": "9911809000003", "Einspeisungsart": "688", "Energietraeger": "2496", "FernsteuerbarkeitDr": "0", "FernsteuerbarkeitDv": "0", "FernsteuerbarkeitNb": "0", "Gemeinde": "V\u00f6lklingen", "Gemeindeschluessel": "10041519", "GenMastrNummer": "SGE987642146320", "Hausnummer": "135", "HausnummerNichtGefunden": "0", "Hausnummer_nv": "0", "Inbetriebnahmedatum": "2016-10-09", "Kraftwerksnummer": "BNA1814", "Kraftwerksnummer_nv": "0", "Laengengrad": "6.878758", "Land": "84", "Landkreis": "Regionalverband Saarbr\u00fccken", "LokationMaStRNummer": "SEL949403128662", "NameStromerzeugungseinheit": "GBS KW Fenne", "Nettonennleistung": "15000.000", "NetzbetreiberpruefungDatum": "2020-11-03", "NetzbetreiberpruefungStatus": "1", "NichtVorhandenInMigriertenEinheiten": "0", "Notstromaggregat": "0", "Ort": "V\u00f6lklingen", "Postleitzahl": "66333", "Registrierungsdatum": "2020-09-16", "SpeMastrNummer": "SSE944760568557", "Strasse": "Saarbr\u00fccker Stra\u00dfe", "StrasseNichtGefunden": "0", "Technologie": "524", "Weic_nv": "1", "ZugeordnenteWirkleistungWechselrichter": "15000.000", "ext_id": "SEE919443669678", "mw": 15, "mwh": 15, "pr_url_id": "3429839", "status": "operation"}, "first_month": "2021-11"}, "has_gov_data": true, "in_construction": false, "in_operation": true, "in_planning": false, "internal_id": "530", "is_megapack": false, "is_tesla": false, "lat": "49.247195", "links": ["https://www.marktstammdatenregister.de/MaStR/Einheit/Detail/IndexOeffentlich/3429839"], "long": "6.878758", "mw": 15, "mwh": 15, "mwh_is_estimate": false, "name": "GBS KW Fenne", "name_short": "GBS KW Fenne", "no_of_battery_units": 0, "notes_split": [""], "owner": "STEAG Battery System", "start_construction": "", "start_estimated": "", "start_operation": "2016-10-09", "state": "saarland", "status": "operation", "status_class": "badge rounded-pill bg-success", "user_data": false}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

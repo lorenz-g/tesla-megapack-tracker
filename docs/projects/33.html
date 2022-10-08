@@ -46,7 +46,7 @@ Ozop New York (4MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Ozop New York (4MWh)
     <div class="container-xl">
         
 
-<h3> Ozop New York 📍👤 </h3>
+<h3> Ozop New York <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">planning</span> </dl>
@@ -140,6 +140,13 @@ Ozop New York (4MWh)
     <br> 📍 Coords not known
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -184,9 +191,37 @@ Ozop New York (4MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords not known", "coords_hint": 0, "country": "usa", "csv": {"capacity_mwh": "4", "cells": "", "city": "new york city / brooklyn", "coords_hint": "0", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "Ozop Energy Systems", "date_first_heard": "2021-08-25", "developer": "", "estimate_mwh": "", "external_id": "", "id": "33", "lat": "40.645624", "link1": "https://www.globenewswire.com/news-release/2021/08/25/2286612/0/en/Ozop-Energy-Solutions-Inc-to-Utilize-Tesla-MEGAPACK-in-Battery-Storage-System-Design-Updated.html", "link2": "https://www.globenewswire.com/news-release/2021/08/18/2282824/0/en/Ozop-Energy-Solutions-OZSC-Announces-Stem-Smart-Energy-Storage-2MW-4MWh-Project-in-New-York-City.html", "link3": "", "link4": "", "long": "-73.940749", "manufacturer": "tesla", "name": "Ozop New York", "no_of_battery_units": "", "notes": "together with stem athena software", "overwrite": "", "owner": "", "power_mw": "2", "project_website": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "new york", "status": "planning", "type": "powerpack", "use_case": "peak shaving"}, "date_first_heard": "2021-08-25", "emojis": "\ud83d\udccd\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "", "flag": "\ud83c\uddfa\ud83c\uddf8", "go_live": "", "go_live_year_int": null, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:40.645624+-73.940749", "gov": {}, "gov_history": null, "has_gov_data": false, "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "33", "is_megapack": false, "is_tesla": true, "lat": "40.645624", "links": ["https://www.globenewswire.com/news-release/2021/08/25/2286612/0/en/Ozop-Energy-Solutions-Inc-to-Utilize-Tesla-MEGAPACK-in-Battery-Storage-System-Design-Updated.html", "https://www.globenewswire.com/news-release/2021/08/18/2282824/0/en/Ozop-Energy-Solutions-OZSC-Announces-Stem-Smart-Energy-Storage-2MW-4MWh-Project-in-New-York-City.html"], "long": "-73.940749", "mw": 2, "mwh": 4, "mwh_is_estimate": false, "name": "Ozop New York", "name_short": "Ozop New York", "no_of_battery_units": 0, "notes_split": ["together with stem athena software"], "owner": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "new york", "status": "planning", "status_class": "", "user_data": true}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

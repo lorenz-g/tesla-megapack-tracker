@@ -46,7 +46,7 @@ Arlington Energy Center II (264MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Arlington Energy Center II (264MWh)
     <div class="container-xl">
         
 
-<h3> Arlington Energy Center II 📍⚡📊📏 </h3>
+<h3> Arlington Energy Center II <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="more than 100 MWh">⚡</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">construction</span> </dl>
@@ -139,6 +139,13 @@ Arlington Energy Center II (264MWh)
     41.362343242106384, -121.37792128258249 
     <br> 📍 Coords are a guess. Only the state is known
 </dl>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
 
 
 <dt>Notes </dt>
@@ -212,9 +219,37 @@ Info from the <code>2022-04</code> report (Project first appeared in the <code>2
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords are a guess. Only the state is known", "coords_hint": -1, "country": "usa", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "264", "external_id": "64481", "id": "166", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Arlington Energy Center II", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "Arlington Energy Center II", "power_mw": "132", "project_website": "", "start_construction": "", "start_estimated": "2022-08", "start_operation": "", "state": "california", "status": "construction", "type": "", "use_case": ""}, "date_first_heard": "2021-04", "emojis": "\ud83d\udccd\u26a1\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"more than 100 MWh\"\u003e\u26a1\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "64481", "flag": "\ud83c\uddfa\ud83c\uddf8", "go_live": "0 ~  2022-08", "go_live_year_int": 2022, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:41.362343242106384+-121.37792128258249", "gov": {"coords_hint": -1, "country": "usa", "data_source": "us_eia", "date_first_heard": "2021-04", "estimate_mwh": 264, "external_id": "64481", "has_multiple_projects": false, "lat": "", "long": "", "mwh": 0, "name": "Arlington Energy Center II", "owner": "Arlington Energy Center II", "power_mw": 132, "pr_url": "", "start_construction": "", "start_estimated": "2022-08", "start_operation": "", "state": "california", "status": "construction"}, "gov_history": {"AEC2B": {"changes": [], "current": {"date": "2022-08", "energy source code": "MWH", "entity id": "64144", "entity name": "Arlington Energy Center II", "ext_id": "64481", "generator id": "AEC2B", "month": "8", "mw": 132, "net summer capacity (mw)": "132", "plant id": "64481", "plant name": "Arlington Energy Center II", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "construction", "status_verbose": "(U) Under construction, less than or equal to 50 percent complete", "technology": "Batteries", "year": "2022"}, "current_month": "2022-04", "dates": {"first_heard": "2021-04", "start_construction": null}, "first": {"date": "2022-08", "energy source code": "MWH", "entity id": "64144", "entity name": "Arlington Energy Center II", "ext_id": "64481", "generator id": "AEC2B", "month": "8", "mw": 132, "net summer capacity (mw)": "132", "plant id": "64481", "plant name": "Arlington Energy Center II", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "construction", "status_verbose": "(U) Under construction, less than or equal to 50 percent complete", "technology": "Batteries", "year": "2022"}, "first_month": "2021-04"}}, "has_gov_data": true, "in_construction": true, "in_operation": false, "in_planning": false, "internal_id": "166", "is_megapack": false, "is_tesla": false, "lat": "41.362343242106384", "links": [], "long": "-121.37792128258249", "mw": 132, "mwh": 264, "mwh_is_estimate": true, "name": "Arlington Energy Center II", "name_short": "Arlington Energy Center I...", "no_of_battery_units": 0, "notes_split": [""], "owner": "Arlington Energy Center II", "start_construction": "", "start_estimated": "2022-08", "start_operation": "", "state": "california", "status": "construction", "status_class": "", "user_data": false}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

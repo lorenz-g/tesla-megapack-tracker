@@ -46,7 +46,7 @@ Drax Re-Power (200MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Drax Re-Power (200MWh)
     <div class="container-xl">
         
 
-<h3> Drax Re-Power 📍⚡📊📏 </h3>
+<h3> Drax Re-Power <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="more than 100 MWh">⚡</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">planning</span> </dl>
@@ -140,6 +140,13 @@ Drax Re-Power (200MWh)
     <br> 📍 The site is known, coords are +/- 1 kilometer
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -180,9 +187,37 @@ Drax Re-Power (200MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd The site is known, coords are +/- 1 kilometer", "coords_hint": 2, "country": "uk", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "uk", "customer": "", "date_first_heard": "2019-10-04", "developer": "", "estimate_mwh": "200", "external_id": "7017", "id": "303", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Drax Re-Power", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "Drax Group", "power_mw": "200", "project_website": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "yorkshire and humber", "status": "planning", "type": "", "use_case": ""}, "date_first_heard": "2019-10-04", "emojis": "\ud83d\udccd\u26a1\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"more than 100 MWh\"\u003e\u26a1\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "7017", "flag": "\ud83c\uddec\ud83c\udde7", "go_live": "", "go_live_year_int": null, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:53.732262+-0.995254", "gov": {"coords_hint": 2, "country": "uk", "data_source": "uk_repd", "date_first_heard": "2019-10-04", "estimate_mwh": 200, "external_id": "7017", "has_multiple_projects": false, "lat": "53.732262", "long": "-0.995254", "mwh": 0, "name": "Drax Re-Power", "owner": "Drax Group", "power_mw": 200, "pr_url": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "yorkshire and humber", "status": "planning"}, "gov_history": {"changes": [], "current": {"": "", "Address": "New Road, Drax, Selby, North Yorkshire", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "", "CfD Capacity (MW)": "", "Country": "England", "County": "North Yorkshire", "Development Status": "Planning Permission Granted", "Development Status (short)": "Awaiting Construction", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "200.00", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Drax Group", "Planning Application Reference": "", "Planning Application Submitted": "27/06/2018", "Planning Application Withdrawn": "", "Planning Authority": "The Planning Inspectorate - National Infrastructure", "Planning Permission Expired": "", "Planning Permission Granted": "04/10/2019", "Planning Permission Refused": "", "Post Code": "YO8 8PH", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "02/01/2020", "Ref ID": "7017", "Region": "Yorkshire and Humber", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Drax Re-Power", "Storage Co-location REPD Ref ID": "", "Storage Type": "Co-located with fossil fuel plant", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "", "X-coordinate": "466381", "Y-coordinate": "426676", "ext_id": "7017", "lat": "53.732262", "long": "-0.995254", "mw": 200, "status": "planning"}, "current_month": "2022-04", "dates": {"first_heard": "2020-01-02", "start_construction": "", "start_operation": ""}, "first": {"Address": "New Road, Drax, Selby, North Yorkshire", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "", "CfD Capacity (MW)": "", "Country": "England", "County": "North Yorkshire", "Development Status": "Planning Permission Granted", "Development Status (short)": "Awaiting Construction", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "200.00", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Drax Group", "Planning Application Reference": "", "Planning Application Submitted": "27/06/2018", "Planning Application Withdrawn": "", "Planning Authority": "The Planning Inspectorate - National Infrastructure", "Planning Permission Expired": "", "Planning Permission Granted": "04/10/2019", "Planning Permission Refused": "", "Post Code": "YO8 8PH", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "02/01/2020", "Ref ID": "7017", "Region": "Yorkshire and Humber", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Drax Re-Power", "Storage Co-location REPD Ref ID": "", "Storage Type": "Co-located with fossil fuel plant", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "", "X-coordinate": "466381", "Y-coordinate": "426676", "ext_id": "7017", "lat": "53.732262", "long": "-0.995254", "mw": 200, "status": "planning"}, "first_month": "2021-09"}, "has_gov_data": true, "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "303", "is_megapack": false, "is_tesla": false, "lat": "53.732262", "links": [], "long": "-0.995254", "mw": 200, "mwh": 200, "mwh_is_estimate": true, "name": "Drax Re-Power", "name_short": "Drax Re-Power", "no_of_battery_units": 0, "notes_split": [""], "owner": "Drax Group", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "yorkshire and humber", "status": "planning", "status_class": "", "user_data": false}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

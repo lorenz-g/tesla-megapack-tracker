@@ -46,7 +46,7 @@ Ringo-Vingeanne (24MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Ringo-Vingeanne (24MWh)
     <div class="container-xl">
         
 
-<h3> Ringo-Vingeanne 👤 </h3>
+<h3> Ringo-Vingeanne <span data-toggle="tooltip" data-placement="top" title="user data available">👤</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="badge rounded-pill bg-success">operation</span> </dl>
@@ -142,6 +142,13 @@ Ringo-Vingeanne (24MWh)
     <br> ✅ Coords are exact (+/- 50m)
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -192,9 +199,37 @@ Ringo-Vingeanne (24MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": 1, "construction_time_month": 21, "coords_exact": true, "coords_help_str": "\u2705 Coords are exact (+/- 50m)", "coords_hint": 1, "country": "france", "csv": {"capacity_mwh": "24", "cells": "LG Chem NMC", "city": "Jalancourt", "coords_hint": "1", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "france", "customer": "RTE", "date_first_heard": "", "developer": "", "estimate_mwh": "", "external_id": "", "id": "94", "lat": "47.510967", "link1": "https://www.energy-storage.news/frances-grid-battery-experiments-take-aim-at-creating-market-fit-for-carbon-neutrality/", "link2": "https://www.rte-france.com/actualites/le-projet-ringo-de-rte-accueille-ses-premiers-equipements-en-cote-dor", "link3": "https://www.energy-storage.news/french-grid-operators-software-controlled-battery-experiment-begins/", "link4": "", "long": "5.367566", "manufacturer": "Nidec ASI", "name": "Ringo-Vingeanne", "no_of_battery_units": "", "notes": "rte website and energy storage news list two different capacities for site ** exact location from rte press photo which is close to lake ** 2021: it is an expirment which lasts for 3 years", "overwrite": "", "owner": "", "power_mw": "12", "project_website": "", "start_construction": "2019-10-01", "start_estimated": "", "start_operation": "2021-07-02", "state": "Cote-d\u2019or", "status": "operation", "type": "40ft container", "use_case": "virtual transmission lines"}, "date_first_heard": "", "emojis": "\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "", "flag": "\ud83c\uddeb\ud83c\uddf7", "go_live": "2021-07-02", "go_live_year_int": 2021, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:47.510967+5.367566", "gov": {}, "gov_history": null, "has_gov_data": false, "in_construction": false, "in_operation": true, "in_planning": false, "internal_id": "94", "is_megapack": false, "is_tesla": false, "lat": "47.510967", "links": ["https://www.energy-storage.news/frances-grid-battery-experiments-take-aim-at-creating-market-fit-for-carbon-neutrality/", "https://www.rte-france.com/actualites/le-projet-ringo-de-rte-accueille-ses-premiers-equipements-en-cote-dor", "https://www.energy-storage.news/french-grid-operators-software-controlled-battery-experiment-begins/"], "long": "5.367566", "mw": 12, "mwh": 24, "mwh_is_estimate": false, "name": "Ringo-Vingeanne", "name_short": "Ringo-Vingeanne", "no_of_battery_units": 0, "notes_split": ["rte website and energy storage news list two different capacities for site ", " exact location from rte press photo which is close to lake ", " 2021: it is an expirment which lasts for 3 years"], "owner": "", "start_construction": "2019-10-01", "start_estimated": "", "start_operation": "2021-07-02", "state": "Cote-d\u2019or", "status": "operation", "status_class": "badge rounded-pill bg-success", "user_data": true}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

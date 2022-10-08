@@ -46,7 +46,7 @@ Bouldercombe (100MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Bouldercombe (100MWh)
     <div class="container-xl">
         
 
-<h3> Bouldercombe 📍⚡👤 </h3>
+<h3> Bouldercombe <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="more than 100 MWh">⚡</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">planning</span> </dl>
@@ -140,6 +140,13 @@ Bouldercombe (100MWh)
     <br> 📍 Coords are a guess. Only the city is known
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -184,9 +191,37 @@ Bouldercombe (100MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords are a guess. Only the city is known", "coords_hint": 3, "country": "australia", "csv": {"capacity_mwh": "100", "cells": "", "city": "", "coords_hint": "3", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "australia", "customer": "", "date_first_heard": "2021-10-05", "developer": "", "estimate_mwh": "", "external_id": "", "id": "119", "lat": "-23.537188", "link1": "https://www.energy-storage.news/tesla-megapacks-picked-for-genex-powers-50mw-100mwh-battery-project-in-queensland-australia/", "link2": "https://cleantechnica.com/2021/10/05/genex-power-will-use-40-tesla-megapacks-for-bouldercome-battery-project/", "link3": "", "link4": "", "long": "150.48991", "manufacturer": "tesla", "name": "Bouldercombe", "no_of_battery_units": "40", "notes": "", "overwrite": "", "owner": "Genex Power", "power_mw": "50", "project_website": "https://www.genexpower.com.au/bouldercombe-battery-project.html", "start_construction": "", "start_estimated": "2023H1", "start_operation": "", "state": "queensland", "status": "planning", "type": "megapack", "use_case": ""}, "date_first_heard": "2021-10-05", "emojis": "\ud83d\udccd\u26a1\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"more than 100 MWh\"\u003e\u26a1\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "", "flag": "\ud83c\udde6\ud83c\uddfa", "go_live": "0 ~  2023H1", "go_live_year_int": 2023, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:-23.537188+150.48991", "gov": {}, "gov_history": null, "has_gov_data": false, "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "119", "is_megapack": true, "is_tesla": true, "lat": "-23.537188", "links": ["https://www.energy-storage.news/tesla-megapacks-picked-for-genex-powers-50mw-100mwh-battery-project-in-queensland-australia/", "https://cleantechnica.com/2021/10/05/genex-power-will-use-40-tesla-megapacks-for-bouldercome-battery-project/"], "long": "150.48991", "mw": 50, "mwh": 100, "mwh_is_estimate": false, "name": "Bouldercombe", "name_short": "Bouldercombe", "no_of_battery_units": 40, "notes_split": [""], "owner": "Genex Power", "start_construction": "", "start_estimated": "2023H1", "start_operation": "", "state": "queensland", "status": "planning", "status_class": "", "user_data": true}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

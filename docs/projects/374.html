@@ -46,7 +46,7 @@ Troston Loch Wind Farm (20MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Troston Loch Wind Farm (20MWh)
     <div class="container-xl">
         
 
-<h3> Troston Loch Wind Farm 📍📊📏 </h3>
+<h3> Troston Loch Wind Farm <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">planning</span> </dl>
@@ -140,6 +140,13 @@ Troston Loch Wind Farm (20MWh)
     <br> 📍 The site is known, coords are +/- 1 kilometer
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -180,9 +187,37 @@ Troston Loch Wind Farm (20MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd The site is known, coords are +/- 1 kilometer", "coords_hint": 2, "country": "uk", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "uk", "customer": "", "date_first_heard": "2020-12-18", "developer": "", "estimate_mwh": "20", "external_id": "7333", "id": "374", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Troston Loch Wind Farm", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "EDF Renewables", "power_mw": "20", "project_website": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "scotland", "status": "planning", "type": "", "use_case": ""}, "date_first_heard": "2020-12-18", "emojis": "\ud83d\udccd\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "7333", "flag": "\ud83c\uddec\ud83c\udde7", "go_live": "", "go_live_year_int": null, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:55.187688+-4.06752", "gov": {"coords_hint": 2, "country": "uk", "data_source": "uk_repd", "date_first_heard": "2020-12-18", "estimate_mwh": 20, "external_id": "7333", "has_multiple_projects": false, "lat": "55.187688", "long": "-4.06752", "mwh": 0, "name": "Troston Loch Wind Farm", "owner": "EDF Renewables", "power_mw": 20, "pr_url": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "scotland", "status": "planning"}, "gov_history": {"changes": [], "current": {"": "", "Address": "Troston Loch Wind Farm, New Abbey, West Of Moniaive, Dumfries, Dumfries and Galloway", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "No", "CfD Capacity (MW)": "", "Country": "Scotland", "County": "Dumfries and Galloway", "Development Status": "Planning Permission Granted", "Development Status (short)": "Awaiting Construction", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "20.00", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "EDF Renewables", "Planning Application Reference": "ECU00001785", "Planning Application Submitted": "21/02/2019", "Planning Application Withdrawn": "", "Planning Authority": "Scottish Government (S36)", "Planning Permission Expired": "18/12/2023", "Planning Permission Granted": "18/12/2020", "Planning Permission Refused": "", "Post Code": "DG2 8EF", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "16/01/2021", "Ref ID": "7333", "Region": "Scotland", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Troston Loch Wind Farm", "Storage Co-location REPD Ref ID": "6432", "Storage Type": "Co-located with RE", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "", "X-coordinate": "268466", "Y-coordinate": "590107", "ext_id": "7333", "lat": "55.187688", "long": "-4.06752", "mw": 20, "status": "planning"}, "current_month": "2022-04", "dates": {"first_heard": "2021-01-16", "start_construction": "", "start_operation": ""}, "first": {"Address": "Troston Loch Wind Farm, New Abbey, West Of Moniaive, Dumfries, Dumfries and Galloway", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "No", "CfD Capacity (MW)": "", "Country": "Scotland", "County": "Dumfries and Galloway", "Development Status": "Planning Permission Granted", "Development Status (short)": "Awaiting Construction", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "20.00", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "EDF Renewables", "Planning Application Reference": "ECU00001785", "Planning Application Submitted": "21/02/2019", "Planning Application Withdrawn": "", "Planning Authority": "Scottish Government (S36)", "Planning Permission Expired": "18/12/2023", "Planning Permission Granted": "18/12/2020", "Planning Permission Refused": "", "Post Code": "DG2 8EF", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "16/01/2021", "Ref ID": "7333", "Region": "Scotland", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Troston Loch Wind Farm", "Storage Co-location REPD Ref ID": "6432", "Storage Type": "Co-located with RE", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "", "X-coordinate": "268466", "Y-coordinate": "590107", "ext_id": "7333", "lat": "55.187688", "long": "-4.06752", "mw": 20, "status": "planning"}, "first_month": "2021-09"}, "has_gov_data": true, "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "374", "is_megapack": false, "is_tesla": false, "lat": "55.187688", "links": [], "long": "-4.06752", "mw": 20, "mwh": 20, "mwh_is_estimate": true, "name": "Troston Loch Wind Farm", "name_short": "Troston Loch Wind Farm", "no_of_battery_units": 0, "notes_split": [""], "owner": "EDF Renewables", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "scotland", "status": "planning", "status_class": "", "user_data": false}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

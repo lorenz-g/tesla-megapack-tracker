@@ -46,7 +46,7 @@ Capenhurst Lane (57MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Capenhurst Lane (57MWh)
     <div class="container-xl">
         
 
-<h3> Capenhurst Lane 📍📊📏 </h3>
+<h3> Capenhurst Lane <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">construction</span> </dl>
@@ -140,6 +140,13 @@ Capenhurst Lane (57MWh)
     <br> 📍 The site is known, coords are +/- 1 kilometer
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -180,9 +187,37 @@ Capenhurst Lane (57MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd The site is known, coords are +/- 1 kilometer", "coords_hint": 2, "country": "uk", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "uk", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "57", "external_id": "8283", "id": "460", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Capenhurst Lane", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "Native River Limited", "power_mw": "57", "project_website": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "north west", "status": "planning", "type": "", "use_case": ""}, "date_first_heard": "2021-04-16", "emojis": "\ud83d\udccd\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "8283", "flag": "\ud83c\uddec\ud83c\udde7", "go_live": "", "go_live_year_int": null, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:53.264888+-2.946107", "gov": {"coords_hint": 2, "country": "uk", "data_source": "uk_repd", "date_first_heard": "2021-04-16", "estimate_mwh": 57, "external_id": "8283", "has_multiple_projects": false, "lat": "53.264888", "long": "-2.946107", "mwh": 0, "name": "Capenhurst Lane", "owner": "Native River Limited", "power_mw": 57, "pr_url": "", "start_construction": "2022-02-01", "start_estimated": "", "start_operation": "", "state": "north west", "status": "construction"}, "gov_history": {"changes": [{"li": [{"extra": "", "from": "12/01/2021", "name": "Record Last Updated (dd/mm/yyyy)", "to": "24/01/2022"}, {"extra": "", "from": "Planning Application Submitted", "name": "Development Status", "to": "Under Construction"}, {"extra": "", "from": "Application Submitted", "name": "Development Status (short)", "to": "Under Construction"}, {"extra": "", "from": "", "name": "Planning Authority", "to": "Cheshire West and Chester Council"}, {"extra": "", "from": "", "name": "Planning Permission Granted", "to": "16/04/2021"}, {"extra": "", "from": "", "name": "Under Construction", "to": "01/02/2022"}, {"extra": "\ud83c\udfd7\ufe0f", "from": "planning", "name": "status", "to": "construction"}], "month": "2022-04"}], "current": {"": "", "Address": "Adj Electricity Substation", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "No", "CfD Capacity (MW)": "", "Country": "England", "County": "Cheshire", "Development Status": "Under Construction", "Development Status (short)": "Under Construction", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "57.00", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Native River Limited", "Planning Application Reference": "20/04767/FUL", "Planning Application Submitted": "17/12/2020", "Planning Application Withdrawn": "", "Planning Authority": "Cheshire West and Chester Council", "Planning Permission Expired": "", "Planning Permission Granted": "16/04/2021", "Planning Permission Refused": "", "Post Code": "CH66 2HD", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "24/01/2022", "Ref ID": "8283", "Region": "North West", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Capenhurst Lane", "Storage Co-location REPD Ref ID": "", "Storage Type": "Stand-alone Storage", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "01/02/2022", "X-coordinate": "336992", "Y-coordinate": "374628", "ext_id": "8283", "lat": "53.264888", "long": "-2.946107", "mw": 57, "status": "construction"}, "current_month": "2022-04", "dates": {"first_heard": "2021-01-12", "start_construction": "2022-01-24", "start_operation": ""}, "first": {"Address": "Adj Electricity Substation", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "No", "CfD Capacity (MW)": "", "Country": "England", "County": "Cheshire", "Development Status": "Planning Application Submitted", "Development Status (short)": "Application Submitted", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "57.00", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Native River Limited", "Planning Application Reference": "20/04767/FUL", "Planning Application Submitted": "17/12/2020", "Planning Application Withdrawn": "", "Planning Authority": "", "Planning Permission Expired": "", "Planning Permission Granted": "", "Planning Permission Refused": "", "Post Code": "CH66 2HD", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "12/01/2021", "Ref ID": "8283", "Region": "North West", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Capenhurst Lane", "Storage Co-location REPD Ref ID": "", "Storage Type": "Stand-alone Storage", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "", "X-coordinate": "336992", "Y-coordinate": "374628", "ext_id": "8283", "lat": "53.264888", "long": "-2.946107", "mw": 57, "status": "planning"}, "first_month": "2021-09"}, "has_gov_data": true, "in_construction": true, "in_operation": false, "in_planning": false, "internal_id": "460", "is_megapack": false, "is_tesla": false, "lat": "53.264888", "links": [], "long": "-2.946107", "mw": 57, "mwh": 57, "mwh_is_estimate": true, "name": "Capenhurst Lane", "name_short": "Capenhurst Lane", "no_of_battery_units": 0, "notes_split": [""], "owner": "Native River Limited", "start_construction": "2022-02-01", "start_estimated": "", "start_operation": "", "state": "north west", "status": "construction", "status_class": "", "user_data": false}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

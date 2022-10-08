@@ -46,7 +46,7 @@ Blythe Solar 110, LLC (126MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Blythe Solar 110, LLC (126MWh)
     <div class="container-xl">
         
 
-<h3> Blythe Solar 110, LLC 📍⚡📊📏 </h3>
+<h3> Blythe Solar 110, LLC <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="more than 100 MWh">⚡</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="badge rounded-pill bg-success">operation</span> </dl>
@@ -139,6 +139,13 @@ Blythe Solar 110, LLC (126MWh)
     40.872677, -121.300049 
     <br> 📍 Coords are a guess. Only the state is known
 </dl>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
 
 
 <dt>Notes </dt>
@@ -226,9 +233,37 @@ Info from the <code>2022-02</code> report (Project first appeared in the <code>2
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords are a guess. Only the state is known", "coords_hint": -1, "country": "usa", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "126", "external_id": "60093", "id": "175", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Blythe Solar 110, LLC", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "Blythe Solar 110, LLC", "power_mw": "63", "project_website": "", "start_construction": "", "start_estimated": "", "start_operation": "2021-06-01", "state": "california", "status": "operation", "type": "", "use_case": ""}, "date_first_heard": "2021-02", "emojis": "\ud83d\udccd\u26a1\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"more than 100 MWh\"\u003e\u26a1\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "60093", "flag": "\ud83c\uddfa\ud83c\uddf8", "go_live": "2021-06", "go_live_year_int": 2021, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:40.872677+-121.300049", "gov": {"coords_hint": -1, "country": "usa", "data_source": "us_eia", "date_first_heard": "2021-02", "estimate_mwh": 126, "external_id": "60093", "has_multiple_projects": false, "lat": "", "long": "", "mwh": 0, "name": "Blythe Solar 110, LLC", "owner": "Blythe Solar 110, LLC", "power_mw": 63, "pr_url": "", "start_construction": "", "start_estimated": "", "start_operation": "2021-06", "state": "california", "status": "operation"}, "gov_history": {"BES1": {"changes": [{"li": [{"extra": "", "from": "(U) Under construction, less than or equal to 50 percent complete", "name": "status_verbose", "to": "(V) Under construction, more than 50 percent complete"}], "month": "2021-05"}, {"li": [{"extra": "\ud83c\udf7e \ud83c\udf89 \ud83c\udf78", "from": "construction", "name": "status", "to": "operation"}, {"extra": "", "from": "(V) Under construction, more than 50 percent complete", "name": "status_verbose", "to": "operation"}], "month": "2021-08"}], "current": {"date": "2021-06", "energy source code": "MWH", "entity id": "59842", "entity name": "Blythe Solar 110, LLC", "ext_id": "60093", "generator id": "BES1", "month": "6", "mw": 63, "net summer capacity (mw)": "63", "plant id": "60093", "plant name": "Blythe Solar 110, LLC", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "operation", "status_verbose": "operation", "technology": "Batteries", "year": "2021"}, "current_month": "2022-02", "dates": {"first_heard": "2021-02", "start_construction": null}, "first": {"date": "2021-06", "energy source code": "MWH", "entity id": "59842", "entity name": "Blythe Solar 110, LLC", "ext_id": "60093", "generator id": "BES1", "month": "6", "mw": 63, "net summer capacity (mw)": "63", "plant id": "60093", "plant name": "Blythe Solar 110, LLC", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "construction", "status_verbose": "(U) Under construction, less than or equal to 50 percent complete", "technology": "Batteries", "year": "2021"}, "first_month": "2021-02"}}, "has_gov_data": true, "in_construction": false, "in_operation": true, "in_planning": false, "internal_id": "175", "is_megapack": false, "is_tesla": false, "lat": "40.872677", "links": [], "long": "-121.300049", "mw": 63, "mwh": 126, "mwh_is_estimate": true, "name": "Blythe Solar 110, LLC", "name_short": "Blythe Solar 110, LLC", "no_of_battery_units": 0, "notes_split": [""], "owner": "Blythe Solar 110, LLC", "start_construction": "", "start_estimated": "", "start_operation": "2021-06", "state": "california", "status": "operation", "status_class": "badge rounded-pill bg-success", "user_data": false}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

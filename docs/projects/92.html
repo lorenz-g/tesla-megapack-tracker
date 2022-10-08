@@ -46,7 +46,7 @@ Kemsley Energy Superhub (50MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Kemsley Energy Superhub (50MWh)
     <div class="container-xl">
         
 
-<h3> Kemsley Substation 📍📊👤 </h3>
+<h3> Kemsley Substation <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">construction</span> </dl>
@@ -140,6 +140,13 @@ Kemsley Energy Superhub (50MWh)
     <br> 📍 The site is known, coords are +/- 1 kilometer
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -184,9 +191,37 @@ Kemsley Energy Superhub (50MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd The site is known, coords are +/- 1 kilometer", "coords_hint": 2, "country": "uk", "csv": {"capacity_mwh": "50", "cells": "", "city": "Kemsley", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "uk", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "", "external_id": "7368", "id": "92", "lat": "", "link1": "https://www.wartsila.com/energy/learn-more/references/utilities/energy-storage-pivot-power", "link2": "https://www.youtube.com/watch?v=od2h3syN8P4\u0026t=2s", "link3": "", "link4": "", "long": "", "manufacturer": "Wartsila Energy", "name": "Kemsley Energy Superhub", "no_of_battery_units": "", "notes": "construction start date from youtube video", "overwrite": "", "owner": "Pivot Power (EDF Renewables)", "power_mw": "50", "project_website": "https://www.pivot-power.co.uk/our-projects/", "start_construction": "2020-10-01", "start_estimated": "", "start_operation": "", "state": "kent", "status": "construction", "type": "", "use_case": ""}, "date_first_heard": "2019-07-19", "emojis": "\ud83d\udccd\ud83d\udcca\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "7368", "flag": "\ud83c\uddec\ud83c\udde7", "go_live": "", "go_live_year_int": null, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:51.366785+0.742542", "gov": {"coords_hint": 2, "country": "uk", "data_source": "uk_repd", "date_first_heard": "2019-07-19", "estimate_mwh": 49, "external_id": "7368", "has_multiple_projects": false, "lat": "51.366785", "long": "0.742542", "mwh": 0, "name": "Kemsley Substation", "owner": "Pivot Power", "power_mw": 49, "pr_url": "", "start_construction": "2019-11-15", "start_estimated": "", "start_operation": "", "state": "south east", "status": "construction"}, "gov_history": {"changes": [], "current": {"": "", "Address": "Land To The South Of Kemsley S, Ypres Drive, Kemsley, Sittingbourne, Kent", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "", "CfD Capacity (MW)": "", "Country": "England", "County": "Kent", "Development Status": "Under Construction", "Development Status (short)": "Under Construction", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "49.90", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Pivot Power", "Planning Application Reference": "19/502514/FULL", "Planning Application Submitted": "24/05/2019", "Planning Application Withdrawn": "", "Planning Authority": "Swale Borough Council", "Planning Permission Expired": "19/07/2022", "Planning Permission Granted": "19/07/2019", "Planning Permission Refused": "", "Post Code": "ME10 2", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "17/09/2020", "Ref ID": "7368", "Region": "South East", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Kemsley Substation", "Storage Co-location REPD Ref ID": "", "Storage Type": "Stand-alone Storage", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "15/11/2019", "X-coordinate": "591008", "Y-coordinate": "166650", "ext_id": "7368", "lat": "51.366785", "long": "0.742542", "mw": 49, "status": "construction"}, "current_month": "2022-04", "dates": {"first_heard": "2020-09-17", "start_construction": "", "start_operation": ""}, "first": {"Address": "Land To The South Of Kemsley S, Ypres Drive, Kemsley, Sittingbourne, Kent", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "", "CfD Capacity (MW)": "", "Country": "England", "County": "Kent", "Development Status": "Under Construction", "Development Status (short)": "Under Construction", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "49.90", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Pivot Power", "Planning Application Reference": "19/502514/FULL", "Planning Application Submitted": "24/05/2019", "Planning Application Withdrawn": "", "Planning Authority": "Swale Borough Council", "Planning Permission Expired": "19/07/2022", "Planning Permission Granted": "19/07/2019", "Planning Permission Refused": "", "Post Code": "ME10 2", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "17/09/2020", "Ref ID": "7368", "Region": "South East", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Kemsley Substation", "Storage Co-location REPD Ref ID": "", "Storage Type": "Stand-alone Storage", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "15/11/2019", "X-coordinate": "591008", "Y-coordinate": "166650", "ext_id": "7368", "lat": "51.366785", "long": "0.742542", "mw": 49, "status": "construction"}, "first_month": "2021-09"}, "has_gov_data": true, "in_construction": true, "in_operation": false, "in_planning": false, "internal_id": "92", "is_megapack": false, "is_tesla": false, "lat": "51.366785", "links": ["https://www.wartsila.com/energy/learn-more/references/utilities/energy-storage-pivot-power", "https://www.youtube.com/watch?v=od2h3syN8P4\u0026t=2s"], "long": "0.742542", "mw": 49, "mwh": 50, "mwh_is_estimate": false, "name": "Kemsley Substation", "name_short": "Kemsley Substation", "no_of_battery_units": 0, "notes_split": ["construction start date from youtube video"], "owner": "Pivot Power", "start_construction": "2019-11-15", "start_estimated": "", "start_operation": "", "state": "south east", "status": "construction", "status_class": "", "user_data": true}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

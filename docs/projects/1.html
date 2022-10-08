@@ -46,7 +46,7 @@ Kapolei Energy Storage (565MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Kapolei Energy Storage (565MWh)
     <div class="container-xl">
         
 
-<h3> Kapolei Energy Storage ⚡🏝️👤 </h3>
+<h3> Kapolei Energy Storage <span data-toggle="tooltip" data-placement="top" title="more than 100 MWh">⚡</span><span data-toggle="tooltip" data-placement="top" title="island installation">🏝️</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">construction</span> </dl>
@@ -140,6 +140,13 @@ Kapolei Energy Storage (565MWh)
     <br> ✅ Coords are exact (+/- 50m)
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -182,9 +189,37 @@ Kapolei Energy Storage (565MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": true, "coords_help_str": "\u2705 Coords are exact (+/- 50m)", "coords_hint": 1, "country": "usa", "csv": {"capacity_mwh": "565", "cells": "", "city": "", "coords_hint": "1", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "Hawaiian Electric", "date_first_heard": "", "developer": "", "estimate_mwh": "", "external_id": "", "id": "1", "lat": "21.328169", "link1": "https://www.tesmanian.com/blogs/tesmanian-blog/tesla-565-mwh-megapack-project-in-hawaii-celebrates-groundbreaking-ceremony", "link2": "", "link3": "", "link4": "", "long": "-158.105085", "manufacturer": "tesla", "name": "Kapolei Energy Storage", "no_of_battery_units": "158", "notes": "", "overwrite": "", "owner": "", "power_mw": "185", "project_website": "https://www.kapoleienergystorage.com/overview", "start_construction": "2021-08-25", "start_estimated": "", "start_operation": "", "state": "hawaii", "status": "construction", "type": "megapack", "use_case": "island, black start"}, "date_first_heard": "", "emojis": "\u26a1\ud83c\udfdd\ufe0f\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"more than 100 MWh\"\u003e\u26a1\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"island installation\"\u003e\ud83c\udfdd\ufe0f\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "", "flag": "\ud83c\uddfa\ud83c\uddf8", "go_live": "", "go_live_year_int": null, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:21.328169+-158.105085", "gov": {}, "gov_history": null, "has_gov_data": false, "in_construction": true, "in_operation": false, "in_planning": false, "internal_id": "1", "is_megapack": true, "is_tesla": true, "lat": "21.328169", "links": ["https://www.tesmanian.com/blogs/tesmanian-blog/tesla-565-mwh-megapack-project-in-hawaii-celebrates-groundbreaking-ceremony"], "long": "-158.105085", "mw": 185, "mwh": 565, "mwh_is_estimate": false, "name": "Kapolei Energy Storage", "name_short": "Kapolei Energy Storage", "no_of_battery_units": 158, "notes_split": [""], "owner": "", "start_construction": "2021-08-25", "start_estimated": "", "start_operation": "", "state": "hawaii", "status": "construction", "status_class": "", "user_data": true}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

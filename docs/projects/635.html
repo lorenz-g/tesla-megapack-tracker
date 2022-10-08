@@ -46,7 +46,7 @@ Former EON Power Station, Booth Lane - Battery Energy Storage System (20MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Former EON Power Station, Booth Lane - Battery Energy Storage System (20MWh)
     <div class="container-xl">
         
 
-<h3> Former EON Power Station, Booth Lane - Battery Energy Storage System 📍📊📏 </h3>
+<h3> Former EON Power Station, Booth Lane - Battery Energy Storage System <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">planning</span> </dl>
@@ -140,6 +140,13 @@ Former EON Power Station, Booth Lane - Battery Energy Storage System (20MWh)
     <br> 📍 The site is known, coords are +/- 1 kilometer
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -180,9 +187,37 @@ Former EON Power Station, Booth Lane - Battery Energy Storage System (20MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd The site is known, coords are +/- 1 kilometer", "coords_hint": 2, "country": "uk", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "uk", "customer": "", "date_first_heard": "2022-01-24", "developer": "", "estimate_mwh": "20", "external_id": "10436", "id": "635", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Former EON Power Station, Booth Lane - Battery Energy Storage System", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "Bluefield Sandbach Limited", "power_mw": "20", "project_website": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "north west", "status": "planning", "type": "", "use_case": ""}, "date_first_heard": "2022-01-24", "emojis": "\ud83d\udccd\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "10436", "flag": "\ud83c\uddec\ud83c\udde7", "go_live": "", "go_live_year_int": null, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:53.165369+-2.406314", "gov": {"coords_hint": 2, "country": "uk", "data_source": "uk_repd", "date_first_heard": "2022-01-24", "estimate_mwh": 20, "external_id": "10436", "has_multiple_projects": false, "lat": "53.165369", "long": "-2.406314", "mwh": 0, "name": "Former EON Power Station, Booth Lane - Battery Energy Storage System", "owner": "Bluefield Sandbach Limited", "power_mw": 20, "pr_url": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "north west", "status": "planning"}, "gov_history": {"changes": [], "current": {"": "", "Address": "Former Power Station, Booth Lane, Moston", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "No", "CfD Capacity (MW)": "", "Country": "England", "County": "Cheshire", "Development Status": "Planning Application Submitted", "Development Status (short)": "Application Submitted", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "20.00", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Bluefield Sandbach Limited", "Planning Application Reference": "21/6426C ", "Planning Application Submitted": "04/01/2022", "Planning Application Withdrawn": "", "Planning Authority": "Cheshire East Council", "Planning Permission Expired": "", "Planning Permission Granted": "", "Planning Permission Refused": "", "Post Code": "CW11 3PY", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "24/01/2022", "Ref ID": "10436", "Region": "North West", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Former EON Power Station, Booth Lane - Battery Energy Storage System", "Storage Co-location REPD Ref ID": "", "Storage Type": "Stand-alone Storage", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "", "X-coordinate": "372933", "Y-coordinate": "363216", "ext_id": "10436", "lat": "53.165369", "long": "-2.406314", "mw": 20, "status": "planning"}, "current_month": "2022-04", "dates": {"first_heard": "2022-01-24", "start_construction": "", "start_operation": ""}, "first": {"": "", "Address": "Former Power Station, Booth Lane, Moston", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "No", "CfD Capacity (MW)": "", "Country": "England", "County": "Cheshire", "Development Status": "Planning Application Submitted", "Development Status (short)": "Application Submitted", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "20.00", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Bluefield Sandbach Limited", "Planning Application Reference": "21/6426C ", "Planning Application Submitted": "04/01/2022", "Planning Application Withdrawn": "", "Planning Authority": "Cheshire East Council", "Planning Permission Expired": "", "Planning Permission Granted": "", "Planning Permission Refused": "", "Post Code": "CW11 3PY", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "24/01/2022", "Ref ID": "10436", "Region": "North West", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Former EON Power Station, Booth Lane - Battery Energy Storage System", "Storage Co-location REPD Ref ID": "", "Storage Type": "Stand-alone Storage", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "", "X-coordinate": "372933", "Y-coordinate": "363216", "ext_id": "10436", "lat": "53.165369", "long": "-2.406314", "mw": 20, "status": "planning"}, "first_month": "2022-04"}, "has_gov_data": true, "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "635", "is_megapack": false, "is_tesla": false, "lat": "53.165369", "links": [], "long": "-2.406314", "mw": 20, "mwh": 20, "mwh_is_estimate": true, "name": "Former EON Power Station, Booth Lane - Battery Energy Storage System", "name_short": "Former EON Power Station,...", "no_of_battery_units": 0, "notes_split": [""], "owner": "Bluefield Sandbach Limited", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "north west", "status": "planning", "status_class": "", "user_data": false}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

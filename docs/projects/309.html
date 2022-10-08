@@ -46,7 +46,7 @@ Enderby Storage, Redcomb Farm (49MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Enderby Storage, Redcomb Farm (49MWh)
     <div class="container-xl">
         
 
-<h3> Enderby Storage, Redcomb Farm 📍📊📏 </h3>
+<h3> Enderby Storage, Redcomb Farm <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">construction</span> </dl>
@@ -140,6 +140,13 @@ Enderby Storage, Redcomb Farm (49MWh)
     <br> 📍 The site is known, coords are +/- 1 kilometer
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -180,9 +187,37 @@ Enderby Storage, Redcomb Farm (49MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd The site is known, coords are +/- 1 kilometer", "coords_hint": 2, "country": "uk", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "uk", "customer": "", "date_first_heard": "2017-12-20", "developer": "", "estimate_mwh": "49", "external_id": "7044", "id": "309", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Enderby Storage, Redcomb Farm", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "Statera Energy / Enderby Storage", "power_mw": "49", "project_website": "", "start_construction": "2021-04-01", "start_estimated": "", "start_operation": "", "state": "east midlands", "status": "construction", "type": "", "use_case": ""}, "date_first_heard": "2017-12-20", "emojis": "\ud83d\udccd\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "7044", "flag": "\ud83c\uddec\ud83c\udde7", "go_live": "", "go_live_year_int": null, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:52.597459+-1.223231", "gov": {"coords_hint": 2, "country": "uk", "data_source": "uk_repd", "date_first_heard": "2017-12-20", "estimate_mwh": 49, "external_id": "7044", "has_multiple_projects": false, "lat": "52.597459", "long": "-1.223231", "mwh": 0, "name": "Enderby Storage, Redcomb Farm", "owner": "Statera Energy / Enderby Storage", "power_mw": 49, "pr_url": "", "start_construction": "2021-04-01", "start_estimated": "", "start_operation": "", "state": "east midlands", "status": "construction"}, "gov_history": {"changes": [], "current": {"": "", "Address": "Land Opposite Redcomb Farm, Desford Road, Lubbesthorpe, Leicester, Leicestershire", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "", "CfD Capacity (MW)": "", "Country": "England", "County": "Leicestershire", "Development Status": "Under Construction", "Development Status (short)": "Under Construction", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "49.90", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Statera Energy / Enderby Storage", "Planning Application Reference": "17/1223/FUL", "Planning Application Submitted": "13/10/2017", "Planning Application Withdrawn": "", "Planning Authority": "Blaby District Council", "Planning Permission Expired": "", "Planning Permission Granted": "20/12/2017", "Planning Permission Refused": "", "Post Code": "LE19 4AD", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "21/08/2020", "Ref ID": "7044", "Region": "East Midlands", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Enderby Storage, Redcomb Farm", "Storage Co-location REPD Ref ID": "", "Storage Type": "Stand-alone Storage", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "01/04/2021", "X-coordinate": "452711", "Y-coordinate": "300246", "ext_id": "7044", "lat": "52.597459", "long": "-1.223231", "mw": 49, "status": "construction"}, "current_month": "2022-04", "dates": {"first_heard": "2020-08-21", "start_construction": "", "start_operation": ""}, "first": {"Address": "Land Opposite Redcomb Farm, Desford Road, Lubbesthorpe, Leicester, Leicestershire", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "", "CfD Capacity (MW)": "", "Country": "England", "County": "Leicestershire", "Development Status": "Under Construction", "Development Status (short)": "Under Construction", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "49.90", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Statera Energy / Enderby Storage", "Planning Application Reference": "17/1223/FUL", "Planning Application Submitted": "13/10/2017", "Planning Application Withdrawn": "", "Planning Authority": "Blaby District Council", "Planning Permission Expired": "", "Planning Permission Granted": "20/12/2017", "Planning Permission Refused": "", "Post Code": "LE19 4AD", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "21/08/2020", "Ref ID": "7044", "Region": "East Midlands", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Enderby Storage, Redcomb Farm", "Storage Co-location REPD Ref ID": "", "Storage Type": "Stand-alone Storage", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "01/04/2021", "X-coordinate": "452711", "Y-coordinate": "300246", "ext_id": "7044", "lat": "52.597459", "long": "-1.223231", "mw": 49, "status": "construction"}, "first_month": "2021-09"}, "has_gov_data": true, "in_construction": true, "in_operation": false, "in_planning": false, "internal_id": "309", "is_megapack": false, "is_tesla": false, "lat": "52.597459", "links": [], "long": "-1.223231", "mw": 49, "mwh": 49, "mwh_is_estimate": true, "name": "Enderby Storage, Redcomb Farm", "name_short": "Enderby Storage, Redcomb ...", "no_of_battery_units": 0, "notes_split": [""], "owner": "Statera Energy / Enderby Storage", "start_construction": "2021-04-01", "start_estimated": "", "start_operation": "", "state": "east midlands", "status": "construction", "status_class": "", "user_data": false}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

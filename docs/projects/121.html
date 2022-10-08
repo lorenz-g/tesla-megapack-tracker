@@ -46,7 +46,7 @@ South Wall (60MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ South Wall (60MWh)
     <div class="container-xl">
         
 
-<h3> South Wall 📍👤 </h3>
+<h3> South Wall <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">planning</span> </dl>
@@ -140,6 +140,13 @@ South Wall (60MWh)
     <br> 📍 Coords not known
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -180,9 +187,37 @@ South Wall (60MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords not known", "coords_hint": 0, "country": "ireland", "csv": {"capacity_mwh": "60", "cells": "", "city": "Dublin", "coords_hint": "0", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "ireland", "customer": "", "date_first_heard": "2021-09-30", "developer": "", "estimate_mwh": "", "external_id": "", "id": "121", "lat": "53.338662", "link1": "", "link2": "", "link3": "", "link4": "", "long": "-6.191852", "manufacturer": "fluence", "name": "South Wall", "no_of_battery_units": "", "notes": "", "overwrite": "", "owner": "ESB", "power_mw": "30", "project_website": "https://blog.fluenceenergy.com/esb-fluence-complete-deal-largest-energy-storage-portfolio-europe", "start_construction": "", "start_estimated": "2023Q1", "start_operation": "", "state": "", "status": "planning", "type": "", "use_case": ""}, "date_first_heard": "2021-09-30", "emojis": "\ud83d\udccd\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "", "flag": "ireland", "go_live": "0 ~  2023Q1", "go_live_year_int": 2023, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:53.338662+-6.191852", "gov": {}, "gov_history": null, "has_gov_data": false, "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "121", "is_megapack": false, "is_tesla": false, "lat": "53.338662", "links": [], "long": "-6.191852", "mw": 30, "mwh": 60, "mwh_is_estimate": false, "name": "South Wall", "name_short": "South Wall", "no_of_battery_units": 0, "notes_split": [""], "owner": "ESB", "start_construction": "", "start_estimated": "2023Q1", "start_operation": "", "state": "", "status": "planning", "status_class": "", "user_data": true}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>

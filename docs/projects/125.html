@@ -46,7 +46,7 @@ Burwell (56MWh)
             
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#stationary-vs-cars">Stationary vs Cars</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,7 +69,7 @@ Burwell (56MWh)
     <div class="container-xl">
         
 
-<h3> Burwell Main Sub-Station 📊👤 </h3>
+<h3> Burwell Main Sub-Station <span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span> </h3>
 
 <dt>Status </dt>
 <dl><span class="">planning</span> </dl>
@@ -140,6 +140,13 @@ Burwell (56MWh)
     <br> ✅ Coords are exact (+/- 50m)
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -184,9 +191,37 @@ Burwell (56MWh)
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
-    </script>
 
       
+    </script>
+
+    
+
+<script src="/tesla-megapack-tracker/js/batteryMap.js" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": true, "coords_help_str": "\u2705 Coords are exact (+/- 50m)", "coords_hint": 1, "country": "uk", "csv": {"capacity_mwh": "56", "cells": "CATL LFP", "city": "Burwell", "coords_hint": "1", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "uk", "customer": "", "date_first_heard": "2021-10-12", "developer": "SMS Plc", "estimate_mwh": "", "external_id": "7272", "id": "125", "lat": "52.27859", "link1": "https://www.energy-storage.news/energy-storage-product-launches-in-europe-from-major-chinese-solar-companies-trina-sungrow/", "link2": "https://www.youtube.com/watch?v=PT1vRQdYuzE", "link3": "", "link4": "", "long": "0.316193", "manufacturer": "Trina Storage / CATL", "name": "Burwell", "no_of_battery_units": "157", "notes": "", "overwrite": "", "owner": "", "power_mw": "50", "project_website": "", "start_construction": "", "start_estimated": "2022Q1", "start_operation": "", "state": "cambridgeshire", "status": "construction", "type": "", "use_case": ""}, "date_first_heard": "2019-04-29", "emojis": "\ud83d\udcca\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "7272", "flag": "\ud83c\uddec\ud83c\udde7", "go_live": "", "go_live_year_int": null, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:52.27859+0.316193", "gov": {"coords_hint": 2, "country": "uk", "data_source": "uk_repd", "date_first_heard": "2019-04-29", "estimate_mwh": 49, "external_id": "7272", "has_multiple_projects": false, "lat": "52.279248", "long": "0.314266", "mwh": 0, "name": "Burwell Main Sub-Station", "owner": "Aura Power / Pivot Power", "power_mw": 49, "pr_url": "", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "eastern", "status": "planning"}, "gov_history": {"changes": [{"li": [{"extra": "", "from": "Land adj to Burwell 400kV Subs, Weirs Drove, Burwell, Cambridge, Cambridgeshire", "name": "Address", "to": "Land adj to Burwell 400kV Subs, Weirs Drove, Burwell, Cambridge, "}], "month": "2022-04"}], "current": {"": "", "Address": "Land adj to Burwell 400kV Subs, Weirs Drove, Burwell, Cambridge, ", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "", "CfD Capacity (MW)": "", "Country": "England", "County": "Cambridgeshire", "Development Status": "Planning Permission Granted", "Development Status (short)": "Awaiting Construction", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "49.90", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Aura Power / Pivot Power", "Planning Application Reference": "19/00155/FUL", "Planning Application Submitted": "24/01/2019", "Planning Application Withdrawn": "", "Planning Authority": "East Cambridgeshire District Council", "Planning Permission Expired": "29/04/2022", "Planning Permission Granted": "29/04/2019", "Planning Permission Refused": "", "Post Code": "CB25 0BP", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "17/09/2020", "Ref ID": "7272", "Region": "Eastern", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Burwell Main Sub-Station", "Storage Co-location REPD Ref ID": "", "Storage Type": "Stand-alone Storage", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "", "X-coordinate": "557976", "Y-coordinate": "267089", "ext_id": "7272", "lat": "52.279248", "long": "0.314266", "mw": 49, "status": "planning"}, "current_month": "2022-04", "dates": {"first_heard": "2020-09-17", "start_construction": "", "start_operation": ""}, "first": {"Address": "Land adj to Burwell 400kV Subs, Weirs Drove, Burwell, Cambridge, Cambridgeshire", "Appeal Granted": "", "Appeal Lodged": "", "Appeal Reference": "", "Appeal Refused": "", "Appeal Withdrawn": "", "CHP Enabled": "", "CfD Capacity (MW)": "", "Country": "England", "County": "Cambridgeshire", "Development Status": "Planning Permission Granted", "Development Status (short)": "Awaiting Construction", "FiT Tariff (p/kWh)": "", "Heat Network Ref": "", "Height of Turbines (m)": "", "Installed Capacity (MWelec)": "49.90", "Judicial Review": "", "Mounting Type for Solar": "", "No. of Turbines": "", "Offshore Wind Round": "", "Old Ref ID": "", "Operational": "", "Operator (or Applicant)": "Aura Power / Pivot Power", "Planning Application Reference": "19/00155/FUL", "Planning Application Submitted": "24/01/2019", "Planning Application Withdrawn": "", "Planning Authority": "East Cambridgeshire District Council", "Planning Permission Expired": "29/04/2022", "Planning Permission Granted": "29/04/2019", "Planning Permission Refused": "", "Post Code": "CB25 0BP", "RO Banding (ROC/MWh)": "", "Record Last Updated (dd/mm/yyyy)": "17/09/2020", "Ref ID": "7272", "Region": "Eastern", "Secretary of State - Granted": "", "Secretary of State - Intervened": "", "Secretary of State - Refusal": "", "Secretary of State Reference": "", "Site Name": "Burwell Main Sub-Station", "Storage Co-location REPD Ref ID": "", "Storage Type": "Stand-alone Storage", "Technology Type": "Battery", "Turbine Capacity (MW)": "", "Type of Secretary of State Intervention": "", "Under Construction": "", "X-coordinate": "557976", "Y-coordinate": "267089", "ext_id": "7272", "lat": "52.279248", "long": "0.314266", "mw": 49, "status": "planning"}, "first_month": "2021-09"}, "has_gov_data": true, "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "125", "is_megapack": false, "is_tesla": false, "lat": "52.27859", "links": ["https://www.energy-storage.news/energy-storage-product-launches-in-europe-from-major-chinese-solar-companies-trina-sungrow/", "https://www.youtube.com/watch?v=PT1vRQdYuzE"], "long": "0.316193", "mw": 49, "mwh": 56, "mwh_is_estimate": false, "name": "Burwell Main Sub-Station", "name_short": "Burwell Main Sub-Station", "no_of_battery_units": 157, "notes_split": [""], "owner": "Aura Power / Pivot Power", "start_construction": "", "start_estimated": "", "start_operation": "", "state": "eastern", "status": "planning", "status_class": "", "user_data": true}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
+  
   </body>
 </html>
