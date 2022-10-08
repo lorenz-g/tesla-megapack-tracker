@@ -58,6 +58,12 @@ COORDS_HINT_DICT = {
 }
 
 
+def tooltip_for_emoji(emoji_input):
+    for _, emoji, text in USE_CASE_EMOJI_LI:
+        if emoji == emoji_input:
+            return '<span data-toggle="tooltip" data-placement="top" title="%s">%s</span>' % (text, emoji)
+    raise ValueError("%s emoji not found" % emoji_input)
+
 
 def project_is_slow(go_live, mwh, mw):
     """ Any project that is going live in 2025 or later and that has less than 1GW / 1GWh is slow
@@ -353,6 +359,7 @@ class BatteryProject:
 
         self.flag = COUNTRY_EMOJI_DI.get(csv.country, csv.country)
         
+        self.emojis_with_tooltips = "".join([tooltip_for_emoji(e) for e in emojis])
         
         
         self.csv = csv

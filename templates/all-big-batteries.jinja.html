@@ -114,7 +114,7 @@ This list is a best effort to track all big battery installations larger than 10
     <tbody>
         {% for p in extra.projects %}
         <tr>
-            <td><a href="projects/{{p.csv.id}}.html" target="_blank">{{ p.name }}</a> {{p.emojis}}</td>
+            <td><a href="projects/{{p.csv.id}}.html" target="_blank">{{ p.name }}</a> {{p.emojis_with_tooltips}}</td>
             <td>{{ p.state }}</td>
             <td>{{ p.country }}</td>
             <td><span class="{{ p.status_class }}">{{ p.status }}</span></td>

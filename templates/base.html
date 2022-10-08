@@ -80,7 +80,14 @@
           $("#project-length-tesla").html(result.project_length.tesla_str);
           $("#project-length-all").html(result.project_length.all_str); 
         }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
       });    
+
+      
     </script>
 
     {% block extra_scripts %}{% endblock %}  
