@@ -1,4 +1,4 @@
-function generateBatteryMap(projects, mapId){
+function generateBatteryMap(projects, mapId, zoom_to_first_project=false){
     // followed this guide 
     // https://leafletjs.com/examples/quick-start/
     // https://leafletjs.com/examples/layers-control/
@@ -67,7 +67,7 @@ function generateBatteryMap(projects, mapId){
             var marker;
             marker = L.marker([p.lat, p.long], {icon: icon});
             marker.bindPopup(
-                `<b>${p.emojis} ${p.name}</b> <br>${p.mwh}MWh
+                `<b>${p.emojis_with_tooltips} ${p.name}</b> <br>${p.mwh}MWh
                 <br> in: ${p.status} 
                 <br> go live: ${p.go_live}
                 <br> from: ${p.csv.manufacturer}
@@ -101,13 +101,20 @@ function generateBatteryMap(projects, mapId){
         "operation": L.layerGroup(overlays["operation"]),
     };
 
+    if (zoom_to_first_project == true){
+        zoom_coords = [projects[0].lat, projects[0].long];
+        zoom_level = 7;
+    } else {
+        zoom_coords = [35.160636, 11.096191];
+        zoom_level = 2;
+    };
 
     var mymap = L.map(mapId, {
         // sets what is shown
         layers: [streets, overlays["planning"], overlays["construction"], overlays["operation"]],
         // TODO: is there a way how you can set it to ctrl + wheel
         scrollWheelZoom: true,
-    }).setView([35.160636, 11.096191], 2);
+    }).setView(zoom_coords, zoom_level);
 
     L.control.layers(baseLayers, overlays).addTo(mymap);
 

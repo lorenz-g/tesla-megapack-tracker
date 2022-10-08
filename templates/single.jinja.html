@@ -87,6 +87,13 @@
     <br> {{ p.coords_help_str}}
 </dl>
 
+<div class="row">
+    <div class="col-lg-6">
+        <div style="height: 300px;" id="mapid"></div>
+    </div>
+</div>
+
+
 
 <dt>Notes </dt>
 <dl>
@@ -153,4 +160,28 @@ Info from the <code>{{ gen.current_month }}</code> report (Project first appeare
 {% endfor %}
 {% endif %}
 
+{% endblock %}
+
+
+{% block extra_scripts %}
+
+<script src="{{ g_l('/js/batteryMap.js')}}" crossorigin="anonymous"></script>
+
+<script>
+    // if defining sth here it can be accessed in the console with summary...
+    // var summary = "test";
+
+    $(document).ready(function() {        
+        // insert the data via jinja here
+        // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
+        // this does not work, why?
+        // var projects = '{# extra.projects_json #}';
+        // projects = JSON.parse(projects)
+        // could also have the json as static file and load it here...
+        var projects = [ {{ p.to_dict() | tojson }}];
+        
+        generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
+
+    } );
+</script>
 {% endblock %}
