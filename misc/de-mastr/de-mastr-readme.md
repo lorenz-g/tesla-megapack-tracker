@@ -17,11 +17,10 @@ unzip -j Gesamtdatenexport_20220122__7deb41eb7fee404f8177517ba2978030.zip "Markt
 
 ```
 
-  
-  - `EinheitenStromSpeicher_1.xml` (files 1-4) - contains all basic info
-  - `AnlagenStromSpeicher_1.xml` (files 1-4) - contains mwh info
+  - `EinheitenStromSpeicher_1.xml` (files 1-5) - contains all basic info
+  - `AnlagenStromSpeicher_1.xml` (files 1-5) - contains mwh info
 
-- TODO `Marktakteure_20.xml` (1-19) - can be used to look up the  ABR932212103470 numbers
+- TODO `Marktakteure_20.xml` (1-22) - can be used to look up the  ABR932212103470 numbers
 
 - for now filtering on th mw filed if it is more or equal than 10mw. 
 - TODO: maybe change the filter to 10mwh (but thats in the other field)
@@ -187,6 +186,15 @@ An example XML is:
 
 ```
 
+# small battery analysis
+
+Some other resources about the small battery market 
+- https://www.pv-magazine.de/2022/08/23/monitoring-bericht-photovoltaik-speicherfoerderung-in-baden-wuerttemberg-fuehrt-zu-zahlreichen-zusaetzlichen-anlagen/
+
+- The development of battery storage systems in Germany – A market review (status 2022)
+- https://arxiv.org/ftp/arxiv/papers/2203/2203.06762.pdf
+  - the define a HSS - home storage system to be less than 30kwh
+  - will use the same definition here for small batteries
 
 
 
