@@ -1,3 +1,38 @@
+
+GOV_DATA_INFO_DICT = {
+    "usa":{
+        "id": "us",
+        "flag": "🇺🇸",
+        "name_short": "U.S. EIA",
+        "name_long": "U.S. Energy Information Administration (EIA)",
+        "title_extra": "data (>10MW)",
+        "output_filename": "us-eia",
+        "source_url": "https://www.eia.gov/electricity/monthly/",
+
+    },
+    "uk": {
+        "id": "uk",
+        "flag": "🇬🇧",
+        "name_short": "UK REPD",
+        "name_long": "UK Renewable Energy Planning Database (REPD)",
+        "title_extra": "data (>10MW)",
+        "output_filename": "uk-repd",
+        "source_url": "https://www.gov.uk/government/publications/renewable-energy-planning-database-monthly-extract",
+
+    },
+    "germany": {
+        "id": "de",
+        "flag": "🇩🇪",
+        "name_short": "DE MaStR",
+        "name_long": "DE Marktstammdatenregister (MaStR)",
+        "title_extra": "data (>10MW)",
+        "output_filename": "de-mastr",
+        "source_url": "https://www.marktstammdatenregister.de/MaStR/",
+
+    }
+}
+
+
 COUNTRY_EMOJI_DI = {
     "usa": "🇺🇸", 
     "australia": "🇦🇺",

@@ -18,6 +18,23 @@ from typing import Iterable
 
 from generate.gov.us_eia import stats_eia_data
 
+# cannot load this for every template rendered, takes too long. 
+FILE_LOADER = FileSystemLoader('templates')
+JINJA_ENV = Environment(loader=FILE_LOADER)
+
+def write_template(template_name, template_arguments, out_filename=None):
+    if not out_filename:
+        out_filename = template_name.replace(".jinja", "")
+
+    
+    output_dir = 'docs'
+    template = JINJA_ENV.get_template(template_name)
+
+    template_arguments.update({
+        "g_l":generate_link,
+    })
+    with open(os.path.join(output_dir, out_filename), 'w') as f:
+        f.write(template.render(**template_arguments))
 
 
 def load_file(filename='projects.csv', type_="json"):
@@ -34,29 +51,8 @@ def load_file(filename='projects.csv', type_="json"):
     return rows
 
 
-def write_template(template_name, template_arguments, out_filename=None):
-    
-    if not out_filename:
-        out_filename = template_name.replace(".jinja", "")
-
-    file_loader = FileSystemLoader('templates')
-    env = Environment(loader=file_loader)
-    output_dir = 'docs'
-    template = env.get_template(template_name)
-
-    template_arguments.update({
-        "g_l":generate_link,
-    })
-    with open(os.path.join(output_dir, out_filename), 'w') as f:
-        f.write(template.render(**template_arguments))
-
-
 def gen_gov_pages(gov_data, projects: Iterable[BatteryProject]):
 
-    file_loader = FileSystemLoader('templates')
-    env = Environment(loader=file_loader)
-    output_dir = 'docs'
-    
     gen_ids_from_projects = {p.csv.external_id:p.csv.id for p in projects}    
     for country, gov_di in gov_data.items():        
         extra = {
@@ -64,15 +60,12 @@ def gen_gov_pages(gov_data, projects: Iterable[BatteryProject]):
             "summary": gov_di,
             "gen_ids_from_projects": gen_ids_from_projects,
         }
-        extra.update(GOV_DATA_INFO_DICT[country])
-
-        template = env.get_template("gov-page.jinja.html")
-        output = template.render(extra=extra, g_l=generate_link) 
-        
-        out_file = os.path.join(output_dir, "gov-%s.html" % extra["output_filename"])
-        with open(out_file, 'w') as f:
-            f.write(output)
-
+        extra.update(GOV_DATA_INFO_DICT[country])        
+        write_template(
+            "gov-page.jinja.html",
+            {"extra": extra},
+            "gov-%s.html" % extra["output_filename"],
+        )
 
 
 def gen_raw_data_files():
@@ -192,8 +185,6 @@ def create_project_summaries(projects: Iterable[BatteryProject]):
     s_yearly_op = {}
     s_by_country = {}
 
-
-
     emoji_legend = []
     for _, emoji, explanation in USE_CASE_EMOJI_LI:
         emoji_legend.append("%s %s" % (emoji, explanation))
@@ -209,7 +200,6 @@ def create_project_summaries(projects: Iterable[BatteryProject]):
             s_megapack["mp_count"] +=  p.no_of_battery_units
             s_megapack["gwh"] += p.mwh / 1000
         
-
         if p.status not in s_by_status:
             s_by_status[p.status] = {"count": 0, "gwh":0, "gw":0}
         
@@ -254,10 +244,6 @@ def create_project_summaries(projects: Iterable[BatteryProject]):
 
 
 def gen_projects_template(projects, template_name):
-    file_loader = FileSystemLoader('templates')
-    env = Environment(loader=file_loader)
-    output_dir = 'docs'
-
     # generate the index template
     summary = create_project_summaries(projects)
     extra = {
@@ -267,39 +253,26 @@ def gen_projects_template(projects, template_name):
         "projects": projects,
         "projects_json": json.dumps([p.to_dict() for p in projects])
     }
-
-    template = env.get_template(template_name)
-    output = template.render(extra=extra, g_l=generate_link) 
-    
-    with open(os.path.join(output_dir, template_name.replace(".jinja", "")), 'w') as f:
-        f.write(output)
+    write_template(template_name, {"extra": extra})
     
 
 def gen_individual_pages(projects: Iterable[BatteryProject]):
     # generate the individual pages
-    file_loader = FileSystemLoader('templates')
-    env = Environment(loader=file_loader)
-    output_dir = 'docs'
-
-    fn = 'single.jinja.html' 
-    template = env.get_template(fn)
-
     for p in projects:
-        output_fn = os.path.join(output_dir, "projects", p.csv.id + ".html")
-        with open(output_fn, 'w') as f:
-            f.write(template.render(p=p, g_l=generate_link))
+        write_template(
+            'single.jinja.html',
+            {"p": p},
+            os.path.join("projects", p.csv.id + ".html"),
+        )
 
 
 def gen_de_small_batteries(month):
     """
     Column names:
     quarter	category	count	mwh_sum	kwh_avg	mw_sum	kw_avg
-
     """
     # TODO: automatically use the latest month
-
     in_filename = "misc/de-mastr/small-batteries/%s-hss-summary.csv" % month
-
     rows = []
     mwh_cum = 0
     mw_cum = 0

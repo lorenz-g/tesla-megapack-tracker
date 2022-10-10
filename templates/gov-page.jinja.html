@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %} 
-{{ extra.flag}} {{ extra.name_short }} big battery summary
+{{ extra.flag}} {{ extra.name_short }} {{extra.title_extra}}
 {% endblock %}
 
 
@@ -18,7 +18,7 @@
 
 {% block content %}
 
-<h3>{{ extra.flag}} {{ extra.name_short }} Summary</h3>
+<h3>{{ extra.flag}} {{ extra.name_short }} {{extra.title_extra}}</h3>
 
 <div class="row">
     <div class="col-lg-5">
