@@ -53,12 +53,17 @@ Daggett 3 (288MWh)
                   Government data
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-us-eia.html">🇺🇸 US EIA data</a></li>
-                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-uk-repd.html">🇬🇧 UK REPD data <span class="badge bg-info">New</span></a></li>
-                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-de-mastr.html">🇩🇪 DE MaStR data <span class="badge bg-info">New</span></a></li>
+                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-us-eia.html">🇺🇸 US EIA data (>10MW)</a></li>
+                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-uk-repd.html">🇬🇧 UK REPD data (>10MW)</a></li>
+                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-de-mastr.html">🇩🇪 DE MaStR data (>10MW) </a></li>
+                  <li>
+                    <a class="dropdown-item" href="/tesla-megapack-tracker/gov-de-mastr-small-batteries.html">
+                      🇩🇪 DE MaStR data (< 30kWh small batteries) <span class="badge bg-info">New</span>
+                    </a>
+                  </li>
                 </ul>
               </li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/blog.html">Blog<span class="badge bg-info">New</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/blog.html">Blog</a></li>
 
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#contact">Contact</a></li>
               
@@ -95,7 +100,7 @@ Daggett 3 (288MWh)
             </tr>
             <tr>
                 <td>Estimated start</td>
-                <td>2022-12</td>
+                <td>2023-09</td>
             </tr>
             <tr>
                 <td>Construction time</td>
@@ -178,14 +183,14 @@ This data is matched from the U.S. Energy Information Administration (EIA) elect
 
 
 
-Info from the <code>2022-04</code> report (Project first appeared in the <code>2021-09</code> report):<br>
+Info from the <code>2022-08</code> report (Project first appeared in the <code>2021-09</code> report):<br>
 
 <br>
 <dt>Plant Name / State</dt>
 <dl>Daggett 3 / CA</dl>
 
 <dt>go live / power </dt>
-<dl>2022-12 / 144MW</dl>
+<dl>2023-09 / 144MW</dl>
 
 <dt>status / status verbose</dt>
 <dl>construction / (U) Under construction, less than or equal to 50 percent complete </dl>
@@ -197,6 +202,12 @@ Info from the <code>2022-04</code> report (Project first appeared in the <code>2
 <dl>Daggett Solar Power 3 LLC / 64365</dl>
 
 <b>Changes:</b><br>
+
+
+    <b>2022-05</b><br>
+    
+        date: 2022-12 -> 2023-09 <span class="badge rounded-pill bg-danger">delayed by 9 months</span><br>
+     <!-- field -->
 
 
     <b>2022-02</b><br>
@@ -252,7 +263,7 @@ Info from the <code>2022-04</code> report (Project first appeared in the <code>2
         // var projects = '';
         // projects = JSON.parse(projects)
         // could also have the json as static file and load it here...
-        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords are a guess. Only the state is known", "coords_hint": -1, "country": "usa", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "288", "external_id": "64852", "id": "165", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Daggett 3", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "Daggett Solar Power 3 LLC", "power_mw": "144", "project_website": "", "start_construction": "", "start_estimated": "2022-12", "start_operation": "", "state": "california", "status": "planning", "type": "", "use_case": ""}, "date_first_heard": "2021-09", "emojis": "\ud83d\udccd\u26a1\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"more than 100 MWh\"\u003e\u26a1\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "64852", "flag": "\ud83c\uddfa\ud83c\uddf8", "go_live": "0 ~  2022-12", "go_live_year_int": 2022, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:41.352677+-121.300049", "gov": {"coords_hint": -1, "country": "usa", "data_source": "us_eia", "date_first_heard": "2021-09", "estimate_mwh": 288, "external_id": "64852", "has_multiple_projects": false, "lat": "", "long": "", "mwh": 0, "name": "Daggett 3", "owner": "Daggett Solar Power 3 LLC", "power_mw": 144, "pr_url": "", "start_construction": "2022-02", "start_estimated": "2022-12", "start_operation": "", "state": "california", "status": "construction"}, "gov_history": {"DAGGB": {"changes": [{"li": [{"extra": "\ud83c\udfd7\ufe0f", "from": "planning", "name": "status", "to": "construction"}, {"extra": "", "from": "(T) Regulatory approvals received. Not under construction", "name": "status_verbose", "to": "(U) Under construction, less than or equal to 50 percent complete"}], "month": "2022-02"}], "current": {"date": "2022-12", "energy source code": "MWH", "entity id": "64365", "entity name": "Daggett Solar Power 3 LLC", "ext_id": "64852", "generator id": "DAGGB", "month": "12", "mw": 144, "net summer capacity (mw)": "144", "plant id": "64852", "plant name": "Daggett 3", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "construction", "status_verbose": "(U) Under construction, less than or equal to 50 percent complete", "technology": "Batteries", "year": "2022"}, "current_month": "2022-04", "dates": {"first_heard": "2021-09", "start_construction": "2022-02"}, "first": {"date": "2022-12", "energy source code": "MWH", "entity id": "64365", "entity name": "Daggett Solar Power 3 LLC", "ext_id": "64852", "generator id": "DAGGB", "month": "12", "mw": 144, "net summer capacity (mw)": "144", "plant id": "64852", "plant name": "Daggett 3", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "planning", "status_verbose": "(T) Regulatory approvals received. Not under construction", "technology": "Batteries", "year": "2022"}, "first_month": "2021-09"}}, "has_gov_data": true, "in_construction": true, "in_operation": false, "in_planning": false, "internal_id": "165", "is_megapack": false, "is_tesla": false, "lat": "41.352677", "links": [], "long": "-121.300049", "mw": 144, "mwh": 288, "mwh_is_estimate": true, "name": "Daggett 3", "name_short": "Daggett 3", "no_of_battery_units": 0, "notes_split": [""], "owner": "Daggett Solar Power 3 LLC", "start_construction": "2022-02", "start_estimated": "2022-12", "start_operation": "", "state": "california", "status": "construction", "status_class": "", "user_data": false}];
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords are a guess. Only the state is known", "coords_hint": -1, "country": "usa", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "288", "external_id": "64852", "id": "165", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Daggett 3", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "Daggett Solar Power 3 LLC", "power_mw": "144", "project_website": "", "start_construction": "", "start_estimated": "2022-12", "start_operation": "", "state": "california", "status": "planning", "type": "", "use_case": ""}, "date_first_heard": "2021-09", "emojis": "\ud83d\udccd\u26a1\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"more than 100 MWh\"\u003e\u26a1\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "64852", "flag": "\ud83c\uddfa\ud83c\uddf8", "go_live": "0 ~  2023-09", "go_live_year_int": 2023, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:41.352677+-121.300049", "gov": {"coords_hint": -1, "country": "usa", "data_source": "us_eia", "date_first_heard": "2021-09", "estimate_mwh": 288, "external_id": "64852", "has_multiple_projects": false, "lat": "", "long": "", "mwh": 0, "name": "Daggett 3", "owner": "Daggett Solar Power 3 LLC", "power_mw": 144, "pr_url": "", "start_construction": "2022-02", "start_estimated": "2023-09", "start_operation": "", "state": "california", "status": "construction"}, "gov_history": {"DAGGB": {"changes": [{"li": [{"extra": "\ud83c\udfd7\ufe0f", "from": "planning", "name": "status", "to": "construction"}, {"extra": "", "from": "(T) Regulatory approvals received. Not under construction", "name": "status_verbose", "to": "(U) Under construction, less than or equal to 50 percent complete"}], "month": "2022-02"}, {"li": [{"extra": "\u003cspan class=\"badge rounded-pill bg-danger\"\u003edelayed by 9 months\u003c/span\u003e", "from": "2022-12", "name": "date", "to": "2023-09"}], "month": "2022-05"}], "current": {"date": "2023-09", "energy source code": "MWH", "entity id": "64365", "entity name": "Daggett Solar Power 3 LLC", "ext_id": "64852", "generator id": "DAGGB", "month": "9", "mw": 144, "net summer capacity (mw)": "144", "plant id": "64852", "plant name": "Daggett 3", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "construction", "status_verbose": "(U) Under construction, less than or equal to 50 percent complete", "technology": "Batteries", "year": "2023"}, "current_month": "2022-08", "dates": {"first_heard": "2021-09", "start_construction": "2022-02"}, "first": {"date": "2022-12", "energy source code": "MWH", "entity id": "64365", "entity name": "Daggett Solar Power 3 LLC", "ext_id": "64852", "generator id": "DAGGB", "month": "12", "mw": 144, "net summer capacity (mw)": "144", "plant id": "64852", "plant name": "Daggett 3", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "planning", "status_verbose": "(T) Regulatory approvals received. Not under construction", "technology": "Batteries", "year": "2022"}, "first_month": "2021-09"}}, "has_gov_data": true, "in_construction": true, "in_operation": false, "in_planning": false, "internal_id": "165", "is_megapack": false, "is_tesla": false, "lat": "41.352677", "links": [], "long": "-121.300049", "mw": 144, "mwh": 288, "mwh_is_estimate": true, "name": "Daggett 3", "name_short": "Daggett 3", "no_of_battery_units": 0, "notes_split": [""], "owner": "Daggett Solar Power 3 LLC", "start_construction": "2022-02", "start_estimated": "2023-09", "start_operation": "", "state": "california", "status": "construction", "status_class": "", "user_data": false}];
         
         generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
 

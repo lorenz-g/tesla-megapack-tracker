@@ -53,12 +53,17 @@ Lake Placid Solar Power Plant (34MWh)
                   Government data
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-us-eia.html">🇺🇸 US EIA data</a></li>
-                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-uk-repd.html">🇬🇧 UK REPD data <span class="badge bg-info">New</span></a></li>
-                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-de-mastr.html">🇩🇪 DE MaStR data <span class="badge bg-info">New</span></a></li>
+                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-us-eia.html">🇺🇸 US EIA data (>10MW)</a></li>
+                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-uk-repd.html">🇬🇧 UK REPD data (>10MW)</a></li>
+                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-de-mastr.html">🇩🇪 DE MaStR data (>10MW) </a></li>
+                  <li>
+                    <a class="dropdown-item" href="/tesla-megapack-tracker/gov-de-mastr-small-batteries.html">
+                      🇩🇪 DE MaStR data (< 30kWh small batteries) <span class="badge bg-info">New</span>
+                    </a>
+                  </li>
                 </ul>
               </li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/blog.html">Blog<span class="badge bg-info">New</span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/blog.html">Blog</a></li>
 
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#contact">Contact</a></li>
               
@@ -95,7 +100,7 @@ Lake Placid Solar Power Plant (34MWh)
             </tr>
             <tr>
                 <td>Estimated start</td>
-                <td>2022-04</td>
+                <td>2022-08</td>
             </tr>
             <tr>
                 <td>Construction time</td>
@@ -178,14 +183,14 @@ This data is matched from the U.S. Energy Information Administration (EIA) elect
 
 
 
-Info from the <code>2022-04</code> report (Project first appeared in the <code>2021-11</code> report):<br>
+Info from the <code>2022-08</code> report (Project first appeared in the <code>2021-11</code> report):<br>
 
 <br>
 <dt>Plant Name / State</dt>
 <dl>Lake Placid Solar Power Plant / FL</dl>
 
 <dt>go live / power </dt>
-<dl>2022-04 / 17MW</dl>
+<dl>2022-08 / 17MW</dl>
 
 <dt>status / status verbose</dt>
 <dl>construction / (V) Under construction, more than 50 percent complete </dl>
@@ -197,6 +202,18 @@ Info from the <code>2022-04</code> report (Project first appeared in the <code>2
 <dl>Duke Energy Florida, LLC / 6455</dl>
 
 <b>Changes:</b><br>
+
+
+    <b>2022-08</b><br>
+    
+        date: 2022-06 -> 2022-08 <span class="badge rounded-pill bg-danger">delayed by 2 months</span><br>
+     <!-- field -->
+
+
+    <b>2022-05</b><br>
+    
+        date: 2022-04 -> 2022-06 <span class="badge rounded-pill bg-danger">delayed by 2 months</span><br>
+     <!-- field -->
 
 
     <b>2022-02</b><br>
@@ -262,7 +279,7 @@ Info from the <code>2022-04</code> report (Project first appeared in the <code>2
         // var projects = '';
         // projects = JSON.parse(projects)
         // could also have the json as static file and load it here...
-        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords are a guess. Only the state is known", "coords_hint": -1, "country": "usa", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "34", "external_id": "62541", "id": "555", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Lake Placid Solar Power Plant", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "Duke Energy Florida, LLC", "power_mw": "17", "project_website": "", "start_construction": "", "start_estimated": "2021-12", "start_operation": "", "state": "florida", "status": "construction", "type": "", "use_case": ""}, "date_first_heard": "2021-11", "emojis": "\ud83d\udccd\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "62541", "flag": "\ud83c\uddfa\ud83c\uddf8", "go_live": "0 ~  2022-04", "go_live_year_int": 2022, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:29.921984+-82.147522", "gov": {"coords_hint": -1, "country": "usa", "data_source": "us_eia", "date_first_heard": "2021-11", "estimate_mwh": 34, "external_id": "62541", "has_multiple_projects": false, "lat": "", "long": "", "mwh": 0, "name": "Lake Placid Solar Power Plant", "owner": "Duke Energy Florida, LLC", "power_mw": 17, "pr_url": "", "start_construction": "", "start_estimated": "2022-04", "start_operation": "", "state": "florida", "status": "construction"}, "gov_history": {"ES1": {"changes": [{"li": [{"extra": "", "from": "(V) Under construction, more than 50 percent complete", "name": "status_verbose", "to": "(U) Under construction, less than or equal to 50 percent complete"}], "month": "2021-12"}, {"li": [{"extra": "", "from": "(U) Under construction, less than or equal to 50 percent complete", "name": "status_verbose", "to": "(V) Under construction, more than 50 percent complete"}], "month": "2022-01"}, {"li": [{"extra": "\u003cspan class=\"badge rounded-pill bg-danger\"\u003edelayed by 4 months\u003c/span\u003e", "from": "2021-12", "name": "date", "to": "2022-04"}], "month": "2022-02"}], "current": {"date": "2022-04", "energy source code": "MWH", "entity id": "6455", "entity name": "Duke Energy Florida, LLC", "ext_id": "62541", "generator id": "ES1", "month": "4", "mw": 17, "net summer capacity (mw)": "17.3", "plant id": "62541", "plant name": "Lake Placid Solar Power Plant", "plant producer type": "Electric Utility", "plant state": "FL", "prime mover code": "BA", "status": "construction", "status_verbose": "(V) Under construction, more than 50 percent complete", "technology": "Batteries", "year": "2022"}, "current_month": "2022-04", "dates": {"first_heard": "2021-11", "start_construction": null}, "first": {"date": "2021-12", "energy source code": "MWH", "entity id": "6455", "entity name": "Duke Energy Florida, LLC", "ext_id": "62541", "generator id": "ES1", "month": "12", "mw": 17, "net summer capacity (mw)": "17.3", "plant id": "62541", "plant name": "Lake Placid Solar Power Plant", "plant producer type": "Electric Utility", "plant state": "FL", "prime mover code": "BA", "status": "construction", "status_verbose": "(V) Under construction, more than 50 percent complete", "technology": "Batteries", "year": "2021"}, "first_month": "2021-11"}}, "has_gov_data": true, "in_construction": true, "in_operation": false, "in_planning": false, "internal_id": "555", "is_megapack": false, "is_tesla": false, "lat": "29.921984", "links": [], "long": "-82.147522", "mw": 17, "mwh": 34, "mwh_is_estimate": true, "name": "Lake Placid Solar Power Plant", "name_short": "Lake Placid Solar Power P...", "no_of_battery_units": 0, "notes_split": [""], "owner": "Duke Energy Florida, LLC", "start_construction": "", "start_estimated": "2022-04", "start_operation": "", "state": "florida", "status": "construction", "status_class": "", "user_data": false}];
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords are a guess. Only the state is known", "coords_hint": -1, "country": "usa", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "34", "external_id": "62541", "id": "555", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Lake Placid Solar Power Plant", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "Duke Energy Florida, LLC", "power_mw": "17", "project_website": "", "start_construction": "", "start_estimated": "2021-12", "start_operation": "", "state": "florida", "status": "construction", "type": "", "use_case": ""}, "date_first_heard": "2021-11", "emojis": "\ud83d\udccd\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "62541", "flag": "\ud83c\uddfa\ud83c\uddf8", "go_live": "0 ~  2022-08", "go_live_year_int": 2022, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:29.921984+-82.147522", "gov": {"coords_hint": -1, "country": "usa", "data_source": "us_eia", "date_first_heard": "2021-11", "estimate_mwh": 34, "external_id": "62541", "has_multiple_projects": false, "lat": "", "long": "", "mwh": 0, "name": "Lake Placid Solar Power Plant", "owner": "Duke Energy Florida, LLC", "power_mw": 17, "pr_url": "", "start_construction": "", "start_estimated": "2022-08", "start_operation": "", "state": "florida", "status": "construction"}, "gov_history": {"ES1": {"changes": [{"li": [{"extra": "", "from": "(V) Under construction, more than 50 percent complete", "name": "status_verbose", "to": "(U) Under construction, less than or equal to 50 percent complete"}], "month": "2021-12"}, {"li": [{"extra": "", "from": "(U) Under construction, less than or equal to 50 percent complete", "name": "status_verbose", "to": "(V) Under construction, more than 50 percent complete"}], "month": "2022-01"}, {"li": [{"extra": "\u003cspan class=\"badge rounded-pill bg-danger\"\u003edelayed by 4 months\u003c/span\u003e", "from": "2021-12", "name": "date", "to": "2022-04"}], "month": "2022-02"}, {"li": [{"extra": "\u003cspan class=\"badge rounded-pill bg-danger\"\u003edelayed by 2 months\u003c/span\u003e", "from": "2022-04", "name": "date", "to": "2022-06"}], "month": "2022-05"}, {"li": [{"extra": "\u003cspan class=\"badge rounded-pill bg-danger\"\u003edelayed by 2 months\u003c/span\u003e", "from": "2022-06", "name": "date", "to": "2022-08"}], "month": "2022-08"}], "current": {"date": "2022-08", "energy source code": "MWH", "entity id": "6455", "entity name": "Duke Energy Florida, LLC", "ext_id": "62541", "generator id": "ES1", "month": "8", "mw": 17, "net summer capacity (mw)": "17.3", "plant id": "62541", "plant name": "Lake Placid Solar Power Plant", "plant producer type": "Electric Utility", "plant state": "FL", "prime mover code": "BA", "status": "construction", "status_verbose": "(V) Under construction, more than 50 percent complete", "technology": "Batteries", "year": "2022"}, "current_month": "2022-08", "dates": {"first_heard": "2021-11", "start_construction": null}, "first": {"date": "2021-12", "energy source code": "MWH", "entity id": "6455", "entity name": "Duke Energy Florida, LLC", "ext_id": "62541", "generator id": "ES1", "month": "12", "mw": 17, "net summer capacity (mw)": "17.3", "plant id": "62541", "plant name": "Lake Placid Solar Power Plant", "plant producer type": "Electric Utility", "plant state": "FL", "prime mover code": "BA", "status": "construction", "status_verbose": "(V) Under construction, more than 50 percent complete", "technology": "Batteries", "year": "2021"}, "first_month": "2021-11"}}, "has_gov_data": true, "in_construction": true, "in_operation": false, "in_planning": false, "internal_id": "555", "is_megapack": false, "is_tesla": false, "lat": "29.921984", "links": [], "long": "-82.147522", "mw": 17, "mwh": 34, "mwh_is_estimate": true, "name": "Lake Placid Solar Power Plant", "name_short": "Lake Placid Solar Power P...", "no_of_battery_units": 0, "notes_split": [""], "owner": "Duke Energy Florida, LLC", "start_construction": "", "start_estimated": "2022-08", "start_operation": "", "state": "florida", "status": "construction", "status_class": "", "user_data": false}];
         
         generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
 

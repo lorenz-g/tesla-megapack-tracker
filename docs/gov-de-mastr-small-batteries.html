@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" href="/tesla-megapack-tracker/favicon.ico">
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Datatables CSS https://cdn.datatables.net/ -->
+    <link href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <!-- leaflet js css -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+
+     
+
+    <title>
+         
+🇩🇪 DE MaStR small battery summary
+
+    </title>
+
+    
+<meta name="description" content="DE Marktstammdatenregister (MaStR) small battery summary">
+
+<meta property="og:title" content="DE MaStR small battery summary" />
+<meta property="og:description" content="DE Marktstammdatenregister (MaStR) small battery summary" />
+<meta property="og:image" content="https://lorenz-g.github.io/tesla-megapack-tracker/pics/logo.jpg" />
+
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow p-3 mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/tesla-megapack-tracker/">
+                <img src="/tesla-megapack-tracker/pics/logo.jpg" alt="logo" width="30" height="30">
+                Tesla Megapack Tracker
+            </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            
+            <ul class="navbar-nav mb-2 mb-lg-0">
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Tesla batteries <span id="project-length-tesla"></span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">All big batteries <span id="project-length-all"></span></a></li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Government data
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-us-eia.html">🇺🇸 US EIA data (>10MW)</a></li>
+                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-uk-repd.html">🇬🇧 UK REPD data (>10MW)</a></li>
+                  <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-de-mastr.html">🇩🇪 DE MaStR data (>10MW) </a></li>
+                  <li>
+                    <a class="dropdown-item" href="/tesla-megapack-tracker/gov-de-mastr-small-batteries.html">
+                      🇩🇪 DE MaStR data (< 30kWh small batteries) <span class="badge bg-info">New</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/blog.html">Blog</a></li>
+
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#contact">Contact</a></li>
+              
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <div class="container-xl">
+        
+
+<h3>🇩🇪 DE MaStR data (< 30kWh small batteries)</h3>
+
+<ul>
+    <li>A small battery is less than 30kWh</li>
+    <li>
+        You can find a more detailed report by some researches from under:
+        <a href="https://arxiv.org/ftp/arxiv/papers/2203/2203.06762.pdf">https://arxiv.org/ftp/arxiv/papers/2203/2203.06762.pdf</a>
+    </li>
+    <li>For the <b>DE Marktstammdatenregister (MaStR)</b>, you can download a snapshot of the database in XML format at any time from here:
+        <a href ="https://www.marktstammdatenregister.de/MaStR/">https://www.marktstammdatenregister.de/MaStR/</a></li>
+
+</ul>
+
+
+<div class="row">
+    <div class="col-lg-8">
+        Latest DE MaStR report from <code>2022-08</code>. Note that the quarters after 2022-08 in the table below are not accurate.
+        <table class="table table-bordered">
+            <tr>
+                <td>Quarter</td>
+                <td>Count</td>
+                <td>MWh this quarter</td>
+                <td>GWh total</td>
+                <td>kWh average</td>
+                <td>MW this quarter</td>
+                <td>GW total</td>
+                <td>kWh average</td>
+            </tr>
+            
+            <tr>
+                <td>2017-Q1</td>
+                <td>3141</td>
+                <td>20</td>
+                <td><b>0.0</b></td>
+                <td>6.6</td>
+                <td>10</td>
+                <td><b>0.0</b></td>
+                <td>3.4</td>
+            </tr>
+            
+            <tr>
+                <td>2017-Q2</td>
+                <td>6345</td>
+                <td>44</td>
+                <td><b>0.1</b></td>
+                <td>7.0</td>
+                <td>23</td>
+                <td><b>0.0</b></td>
+                <td>3.6</td>
+            </tr>
+            
+            <tr>
+                <td>2017-Q3</td>
+                <td>6808</td>
+                <td>50</td>
+                <td><b>0.1</b></td>
+                <td>7.4</td>
+                <td>25</td>
+                <td><b>0.1</b></td>
+                <td>3.7</td>
+            </tr>
+            
+            <tr>
+                <td>2017-Q4</td>
+                <td>1130</td>
+                <td>8</td>
+                <td><b>0.1</b></td>
+                <td>7.5</td>
+                <td>4</td>
+                <td><b>0.1</b></td>
+                <td>3.9</td>
+            </tr>
+            
+            <tr>
+                <td>2018-Q1</td>
+                <td>4633</td>
+                <td>35</td>
+                <td><b>0.2</b></td>
+                <td>7.6</td>
+                <td>17</td>
+                <td><b>0.1</b></td>
+                <td>3.8</td>
+            </tr>
+            
+            <tr>
+                <td>2018-Q2</td>
+                <td>7909</td>
+                <td>59</td>
+                <td><b>0.2</b></td>
+                <td>7.6</td>
+                <td>29</td>
+                <td><b>0.1</b></td>
+                <td>3.8</td>
+            </tr>
+            
+            <tr>
+                <td>2018-Q3</td>
+                <td>8522</td>
+                <td>65</td>
+                <td><b>0.3</b></td>
+                <td>7.7</td>
+                <td>32</td>
+                <td><b>0.1</b></td>
+                <td>3.9</td>
+            </tr>
+            
+            <tr>
+                <td>2018-Q4</td>
+                <td>1376</td>
+                <td>11</td>
+                <td><b>0.3</b></td>
+                <td>8.0</td>
+                <td>5</td>
+                <td><b>0.1</b></td>
+                <td>4.0</td>
+            </tr>
+            
+            <tr>
+                <td>2019-Q1</td>
+                <td>7352</td>
+                <td>56</td>
+                <td><b>0.3</b></td>
+                <td>7.7</td>
+                <td>27</td>
+                <td><b>0.2</b></td>
+                <td>3.8</td>
+            </tr>
+            
+            <tr>
+                <td>2019-Q2</td>
+                <td>14690</td>
+                <td>114</td>
+                <td><b>0.5</b></td>
+                <td>7.8</td>
+                <td>54</td>
+                <td><b>0.2</b></td>
+                <td>3.7</td>
+            </tr>
+            
+            <tr>
+                <td>2019-Q3</td>
+                <td>17107</td>
+                <td>134</td>
+                <td><b>0.6</b></td>
+                <td>7.8</td>
+                <td>64</td>
+                <td><b>0.3</b></td>
+                <td>3.7</td>
+            </tr>
+            
+            <tr>
+                <td>2019-Q4</td>
+                <td>2917</td>
+                <td>22</td>
+                <td><b>0.6</b></td>
+                <td>7.7</td>
+                <td>11</td>
+                <td><b>0.3</b></td>
+                <td>3.8</td>
+            </tr>
+            
+            <tr>
+                <td>2020-Q1</td>
+                <td>15707</td>
+                <td>125</td>
+                <td><b>0.7</b></td>
+                <td>8.0</td>
+                <td>60</td>
+                <td><b>0.4</b></td>
+                <td>3.9</td>
+            </tr>
+            
+            <tr>
+                <td>2020-Q2</td>
+                <td>26833</td>
+                <td>219</td>
+                <td><b>1.0</b></td>
+                <td>8.2</td>
+                <td>108</td>
+                <td><b>0.5</b></td>
+                <td>4.0</td>
+            </tr>
+            
+            <tr>
+                <td>2020-Q3</td>
+                <td>35888</td>
+                <td>293</td>
+                <td><b>1.3</b></td>
+                <td>8.2</td>
+                <td>155</td>
+                <td><b>0.6</b></td>
+                <td>4.3</td>
+            </tr>
+            
+            <tr>
+                <td>2020-Q4</td>
+                <td>7483</td>
+                <td>60</td>
+                <td><b>1.3</b></td>
+                <td>8.1</td>
+                <td>33</td>
+                <td><b>0.7</b></td>
+                <td>4.5</td>
+            </tr>
+            
+            <tr>
+                <td>2021-Q1</td>
+                <td>26071</td>
+                <td>218</td>
+                <td><b>1.5</b></td>
+                <td>8.4</td>
+                <td>120</td>
+                <td><b>0.8</b></td>
+                <td>4.6</td>
+            </tr>
+            
+            <tr>
+                <td>2021-Q2</td>
+                <td>48473</td>
+                <td>408</td>
+                <td><b>1.9</b></td>
+                <td>8.4</td>
+                <td>231</td>
+                <td><b>1.0</b></td>
+                <td>4.8</td>
+            </tr>
+            
+            <tr>
+                <td>2021-Q3</td>
+                <td>53819</td>
+                <td>453</td>
+                <td><b>2.4</b></td>
+                <td>8.4</td>
+                <td>258</td>
+                <td><b>1.3</b></td>
+                <td>4.8</td>
+            </tr>
+            
+            <tr>
+                <td>2021-Q4</td>
+                <td>9949</td>
+                <td>84</td>
+                <td><b>2.5</b></td>
+                <td>8.5</td>
+                <td>49</td>
+                <td><b>1.3</b></td>
+                <td>5.0</td>
+            </tr>
+            
+            <tr>
+                <td>2022-Q1</td>
+                <td>42045</td>
+                <td>354</td>
+                <td><b>2.8</b></td>
+                <td>8.4</td>
+                <td>197</td>
+                <td><b>1.5</b></td>
+                <td>4.7</td>
+            </tr>
+            
+            <tr>
+                <td>2022-Q2</td>
+                <td>60552</td>
+                <td>511</td>
+                <td><b>3.3</b></td>
+                <td>8.4</td>
+                <td>331</td>
+                <td><b>1.8</b></td>
+                <td>5.5</td>
+            </tr>
+            
+            <tr>
+                <td>2022-Q3</td>
+                <td>13887</td>
+                <td>118</td>
+                <td><b>3.5</b></td>
+                <td>8.5</td>
+                <td>86</td>
+                <td><b>1.9</b></td>
+                <td>6.2</td>
+            </tr>
+            
+            <tr>
+                <td>2022-Q4</td>
+                <td>581</td>
+                <td>4</td>
+                <td><b>3.5</b></td>
+                <td>8.4</td>
+                <td>3</td>
+                <td><b>1.9</b></td>
+                <td>5.7</td>
+            </tr>
+            
+            <tr>
+                <td>2023-Q1</td>
+                <td>285</td>
+                <td>2</td>
+                <td><b>3.5</b></td>
+                <td>8.6</td>
+                <td>1</td>
+                <td><b>1.9</b></td>
+                <td>5.9</td>
+            </tr>
+            
+            <tr>
+                <td>2023-Q2</td>
+                <td>91</td>
+                <td>0</td>
+                <td><b>3.5</b></td>
+                <td>8.3</td>
+                <td>0</td>
+                <td><b>1.9</b></td>
+                <td>5.4</td>
+            </tr>
+            
+            <tr>
+                <td>2023-Q3</td>
+                <td>26</td>
+                <td>0</td>
+                <td><b>3.5</b></td>
+                <td>9.7</td>
+                <td>0</td>
+                <td><b>1.9</b></td>
+                <td>5.9</td>
+            </tr>
+            
+            <tr>
+                <td>2023-Q4</td>
+                <td>10</td>
+                <td>0</td>
+                <td><b>3.5</b></td>
+                <td>7.3</td>
+                <td>0</td>
+                <td><b>1.9</b></td>
+                <td>3.8</td>
+            </tr>
+            
+            
+        </table>
+    </div>
+</div>
+
+
+      
+    </div> <!-- end container-xl-->
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- leafletjs  -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- script to load in the project length via ajax -->
+    <script>
+      $(document).ready(function() {
+        $.ajax({url: "/tesla-megapack-tracker/ajax-data.json", success: function(result){
+          $("#project-length-tesla").html(result.project_length.tesla_str);
+          $("#project-length-all").html(result.project_length.all_str); 
+        }});
+
+        // enable bootstrap tooltips everywhere
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
+      });    
+
+      
+    </script>
+
+      
+  </body>
+</html>
