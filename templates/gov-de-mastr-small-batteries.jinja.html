@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %} 
+{{ extra.flag}} {{ extra.name_short }} small battery summary
+{% endblock %}
+
+
+
+{% block og_props %}
+<meta name="description" content="{{ extra.name_long }} small battery summary">
+
+<meta property="og:title" content="{{ extra.name_short }} small battery summary" />
+<meta property="og:description" content="{{ extra.name_long }} small battery summary" />
+<meta property="og:image" content="https://lorenz-g.github.io/tesla-megapack-tracker/pics/logo.jpg" />
+{% endblock %}
+
+
+
+{% block content %}
+
+<h3>{{ extra.flag}} {{ extra.name_short }} Summary</h3>
+
+<ul>
+    <li>A small battery is less than 30kWh</li>
+    <li>
+        You can find a more detailed report by some researches from under:
+        <a href="https://arxiv.org/ftp/arxiv/papers/2203/2203.06762.pdf">https://arxiv.org/ftp/arxiv/papers/2203/2203.06762.pdf</a>
+    </li>
+    <li>For the <b>{{ extra.name_long }}</b>, you can download a snapshot of the database in XML format at any time from here:
+        <a href ="{{ extra.source_url }}">{{ extra.source_url }}</a></li>
+
+</ul>
+
+
+<div class="row">
+    <div class="col-lg-8">
+        Latest {{ extra.name_short }} report from <code>{{ extra.month }}</code>. Note that the quarters after {{ extra.month}} in the table below are not accurate.
+        <table class="table table-bordered">
+            <tr>
+                <td>Quarter</td>
+                <td>Count</td>
+                <td>MWh this quarter</td>
+                <td>GWh total</td>
+                <td>kWh average</td>
+                <td>MW this quarter</td>
+                <td>GW total</td>
+                <td>kWh average</td>
+            </tr>
+            {% for row in extra.rows %}
+            <tr>
+                <td>{{ row.quarter }}</td>
+                <td>{{ row.count }}</td>
+                <td>{{ row.mwh_sum }}</td>
+                <td><b>{{ "%.1f" | format(row.mwh_cum / 1000) }}</b></td>
+                <td>{{ row.kwh_avg }}</td>
+                <td>{{ row.mw_sum }}</td>
+                <td><b>{{ "%.1f" | format(row.mw_cum / 1000) }}</b></td>
+                <td>{{ row.kw_avg }}</td>
+            </tr>
+            {% endfor %}
+            
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,3 +1,4 @@
+from decimal import Decimal
 import sys
 import csv
 import os
@@ -7,7 +8,7 @@ import datetime as dt
 from collections import defaultdict
 from generate.blog import gen_blog
 from generate.battery_project import USE_CASE_EMOJI_LI, BatteryProject
-from generate.constants import US_STATES_LONG_TO_SHORT, US_STATES_SHORT_TO_LONG
+from generate.constants import US_STATES_LONG_TO_SHORT, US_STATES_SHORT_TO_LONG, GOV_DATA_INFO_DICT
 from generate.gov.de_mastr import match_de_mastr_projects_with_mpt_projects, stats_de_mastr_data
 from generate.gov.uk_repd import match_uk_repd_projects_with_mpt_projects, stats_uk_repd_data
 from generate.gov.us_eia import download_and_extract_eia_data, read_eia_data_all_months
@@ -33,38 +34,24 @@ def load_file(filename='projects.csv', type_="json"):
     return rows
 
 
+def write_template(template_name, template_arguments, out_filename=None):
+    
+    if not out_filename:
+        out_filename = template_name.replace(".jinja", "")
+
+    file_loader = FileSystemLoader('templates')
+    env = Environment(loader=file_loader)
+    output_dir = 'docs'
+    template = env.get_template(template_name)
+
+    template_arguments.update({
+        "g_l":generate_link,
+    })
+    with open(os.path.join(output_dir, out_filename), 'w') as f:
+        f.write(template.render(**template_arguments))
+
 
 def gen_gov_pages(gov_data, projects: Iterable[BatteryProject]):
-
-    info_di = {
-        "usa":{
-            "id": "us",
-            "flag": "🇺🇸",
-            "name_short": "U.S. EIA",
-            "name_long": "U.S. Energy Information Administration (EIA)",
-            "output_filename": "us-eia",
-            "source_url": "https://www.eia.gov/electricity/monthly/",
-
-        },
-        "uk": {
-            "id": "uk",
-            "flag": "🇬🇧",
-            "name_short": "UK REPD",
-            "name_long": "UK Renewable Energy Planning Database (REPD)",
-            "output_filename": "uk-repd",
-            "source_url": "https://www.gov.uk/government/publications/renewable-energy-planning-database-monthly-extract",
-
-        },
-        "germany": {
-            "id": "de",
-            "flag": "🇩🇪",
-            "name_short": "DE MaStR",
-            "name_long": "DE Marktstammdatenregister (MaStR)",
-            "output_filename": "de-mastr",
-            "source_url": "https://www.marktstammdatenregister.de/MaStR/",
-
-        }
-    }
 
     file_loader = FileSystemLoader('templates')
     env = Environment(loader=file_loader)
@@ -77,7 +64,7 @@ def gen_gov_pages(gov_data, projects: Iterable[BatteryProject]):
             "summary": gov_di,
             "gen_ids_from_projects": gen_ids_from_projects,
         }
-        extra.update(info_di[country])
+        extra.update(GOV_DATA_INFO_DICT[country])
 
         template = env.get_template("gov-page.jinja.html")
         output = template.render(extra=extra, g_l=generate_link) 
@@ -303,6 +290,41 @@ def gen_individual_pages(projects: Iterable[BatteryProject]):
             f.write(template.render(p=p, g_l=generate_link))
 
 
+def gen_de_small_batteries(month):
+    """
+    Column names:
+    quarter	category	count	mwh_sum	kwh_avg	mw_sum	kw_avg
+
+    """
+    # TODO: automatically use the latest month
+
+    in_filename = "misc/de-mastr/small-batteries/%s-hss-summary.csv" % month
+
+    rows = []
+    mwh_cum = 0
+    mw_cum = 0
+    with open(in_filename) as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            # TODO: highlight or delete the future rows
+            mwh_cum += Decimal(row["mwh_sum"])
+            mw_cum += Decimal(row["mw_sum"])
+            row["mwh_cum"] = mwh_cum
+            row["mw_cum"] = mw_cum
+            rows.append(row)
+    
+    extra = {
+        "rows": rows,
+        "month": month,
+    }
+    extra.update(GOV_DATA_INFO_DICT["germany"])
+
+    write_template(
+        "gov-de-mastr-small-batteries.jinja.html",
+        {"extra": extra},
+    )
+    
+
 def match_eia_projects_with_mpt_projects(eia_data, projects: Iterable[BatteryProject]):
     """ match by state and then print in desceding order of capacity"""
 
@@ -412,6 +434,7 @@ def main(match_country):
     gen_projects_template(projects, 'all-big-batteries.jinja.html')
     gen_individual_pages(projects)
     gen_gov_pages(gov_datasets, projects)
+    gen_de_small_batteries("2022-08")
     gen_raw_data_files()
     gen_blog()
 
