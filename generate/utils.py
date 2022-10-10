@@ -42,6 +42,7 @@ class GovShortData:
 def check_di_difference(old, new, ignore=None):
     """ only focus on single level dicts and assume they have the same keys
     """
+    # TODO: this line is wrong, fix it eventually, but code will probably break
     assert sorted(old.keys()) == sorted(old.keys())
 
     if ignore is None:
@@ -67,14 +68,22 @@ def check_di_difference(old, new, ignore=None):
                 extra = "🍾 🎉 🍸"
             elif new[k] == "construction":
                 extra = "🏗️"
-            
-        if new[k] != v:
-            li.append({
-                "name": k,
-                "from": v,
-                "to": new[k],
-                "extra": extra,
-            })
+        
+        # had some issues with, e.g. Installed Capacity (MWelec): 40.00 -> 40
+        # to prevent that just compare the int statements
+        if k == "Installed Capacity (MWelec)":
+            if int(float(new[k])) == int(float(v)):
+                continue
+
+
+        if k in new:
+            if new[k] != v:
+                li.append({
+                    "name": k,
+                    "from": v,
+                    "to": new[k],
+                    "extra": extra,
+                })
     return li
 
 

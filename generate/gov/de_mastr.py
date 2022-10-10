@@ -24,9 +24,12 @@ from generate.utils import GovShortData, check_di_difference, create_summary_for
 # EinheitenStromSpeicher_4.xml is good for testing as it is only 3.5MB
 
 
-EINHEITEN_PATH = "EinheitenStromSpeicher_{number}.xml"
-ANLAGEN_PATH = "AnlagenStromSpeicher_{number}.xml"
-MARKTAKTEURE_PATH = "Marktakteure_{number}.xml"
+# EinheitenStromSpeicher_{number}.xml
+EINHEITEN_PREFIX = "EinheitenStromSpeicher_"
+# AnlagenStromSpeicher_{number}.xml
+ANLAGEN_PREFIX = "AnlagenStromSpeicher_"
+# Marktakteure_{number}.xml
+MARKTAKTEURE_PREFIX = "Marktakteure_"
 
 BASE_DETAIL_URL = "https://www.marktstammdatenregister.de/MaStR/Einheit/Detail/IndexOeffentlich/"
 
@@ -385,8 +388,6 @@ def check_for_large_units(filename):
     # TODO: check if streaming would also be possible...
     # https://stackoverflow.com/questions/65021660/%C3%9F-can-not-be-read-from-xml-file-with-utf-16-encoding-with-python
     # rb is important here
-    
-    print(filename)
     t = time.time()
     with open(filename, "rb") as f:
         # raw = f.read().decode('utf-16')
@@ -400,7 +401,8 @@ def check_for_large_units(filename):
     for unit in js["EinheitenStromSpeicher"]["EinheitStromSpeicher"]:
         counter += 1
         if counter % 2000 == 0:
-            print("t - ", counter,  time.time() - t)
+            # print("t - ", counter,  time.time() - t)
+            pass
         
         if "Technologie" not in unit:
             print("tech not in", unit)
@@ -474,7 +476,6 @@ def date_to_quarter(input):
 
 
 def check_for_small_units(filename):
-    print(filename)
     t = time.time()
     with open(filename, "rb") as f:
         js = xmltodict.parse(f)
@@ -484,8 +485,6 @@ def check_for_small_units(filename):
     print("t - reading done", time.time() - t)
     for unit in js["EinheitenStromSpeicher"]["EinheitStromSpeicher"]:
         counter += 1
-        if counter % 2000 == 0:
-            print("t - ", counter,  time.time() - t)
         
         if "Technologie" not in unit:
             print("tech not in", unit)
@@ -556,6 +555,13 @@ def check_for_small_units(filename):
         
     return small_units
 
+def get_files_with_prefix(folder, prefix):
+    res = []
+    for f in os.listdir(folder):
+        if f.startswith(prefix):
+            res.append(os.path.join(folder, f))
+    print("found %d for prefix %s" % (len(res), prefix))
+    return sorted(res)
 
 
 def create_csv_for_small_units(base_path, month):
@@ -564,20 +570,11 @@ def create_csv_for_small_units(base_path, month):
     
     month is the output filename, use the month when you downloaded the dataset. e.g. 2021-10
     """
-
-    start_fresh = True
-
-    if start_fresh:
-        # this step takes a lot of time
-        small_units = []
-        for i in [1,2,3,4]:
-            filename = os.path.join(base_path, EINHEITEN_PATH.format(number=str(i)))
-            print("\n\nStarting with file", filename)
-            small_units.extend(check_for_small_units(filename))
-    else:
-        out_file = "misc/de-mastr/filtered/%s.json" % month
-        with open(out_file) as f:
-            small_units = json.load(f)
+    # this step takes a lot of time
+    small_units = []
+    for filename in get_files_with_prefix(base_path, EINHEITEN_PREFIX):
+        print("Starting with file", filename)
+        small_units.extend(check_for_small_units(filename))
     
     mastr_ids = [i["id"] for i in small_units]
     
@@ -597,14 +594,6 @@ def create_csv_for_small_units(base_path, month):
             count+=1
     print("could not find kwh values for %d units" % count)
 
-    out_file = "misc/de-mastr/small-batteries/%s.json" % month
-    if False and os.path.exists(out_file):
-        print("file already exists, not overwritting it", out_file)
-    else:
-        with open(out_file, "w") as f:
-            json.dump(small_units, f, indent=2)
-    
-
     out_file = "misc/de-mastr/small-batteries/%s.csv" % month
     if False and os.path.exists(out_file):
         print("file already exists, not overwritting it", out_file)
@@ -618,6 +607,7 @@ def create_csv_for_small_units(base_path, month):
     
     print("Total units: ", len(small_units))
 
+
 def create_summary_from_small_units_csv(csv_path, month):
 
     with open(csv_path) as f:
@@ -627,12 +617,6 @@ def create_summary_from_small_units_csv(csv_path, month):
             rows.append(r)
     
     print(rows[0])
-
-    # define 3 segments
-    # 0-40kwh - residential?!
-    # 40-200kwh - small business
-    # 200-10000kwh - larger business
-
     # sample row:
     # {'id': 'SEE900000066023', 'plz': '12169', 'start_date': '2019-Q2', 'planned': '0', 'kw': '3', 'kwh': '12', 'manufacturer': '', 'name': 'Sonnen-eco8-12.5'}
     
@@ -645,19 +629,23 @@ def create_summary_from_small_units_csv(csv_path, month):
         kw = int(r["kw"])
         kwh = int(r["kwh"])
         
-        if kwh < 40:
+        # use definitions from this paper:
+        # The development of battery storage systems in Germany – A market review (status 2022)
+        # <= 30kwh HSS - home storage system
+        # between 30 and 1000 kwh ISS - industrial storage system
+        # larger 1000 kwh large storage
+        if kwh < 30:
             category = "small"
-        elif kwh < 200:
+        elif kwh < 1000:
             category = "medium"
         else:
             category = "large"
         
-
         s[r["start_date"]][category]["kwh"].append(kwh)
         s[r["start_date"]][category]["kw"].append(kw)
     
     print(len(s))
-    print(sorted(s.keys()))
+    # print(sorted(s.keys()))
 
     s_short = defaultdict(lambda :{
         "small": {"kw": [], "kwh": []},
@@ -681,23 +669,32 @@ def create_summary_from_small_units_csv(csv_path, month):
                     metric + "_avg": avg_metric,
                 })
 
-    pprint.pprint(s_short)
+    # pprint.pprint(s_short)
+
+    out_filename = csv_path.replace(".csv", "-hss-summary.csv")
+    print("writing summary to ", out_filename)
+    with open(out_filename, "w") as f:
+        writer = csv.writer(f)
+        writer.writerow(
+            ["quarter", "category", "count", "mwh_sum", "kwh_avg", "mw_sum", "kw_avg"]
+        )
+        for quarter in sorted(s_short.keys()):
+            if quarter > "2017" and quarter < "2024":
+                # ["small", "medium", "large"]
+                for category in ["small"]:
+                        d = s_short[quarter][category]
+                        li = [
+                            quarter, 
+                            category, 
+                            str(d["count"]),
+                            "%d" % (d["kwh_sum"] / 1000),
+                            "%.1f" % d["kwh_avg"],
+                            "%d" % (d["kw_sum"] / 1000),
+                            "%.1f" % d["kw_avg"],
+                        ]
+                        writer.writerow(li)
 
 
-    for quarter in sorted(s_short.keys()):
-        if quarter > "2017" and quarter < "2023":
-            for category in ["small", "medium", "large"]:
-                    d = s_short[quarter][category]
-                    li = [
-                        quarter, 
-                        category, 
-                        str(d["count"]),
-                        str(d["kwh_sum"]),
-                        "%.1f" % d["kwh_avg"],
-                        str(d["kw_sum"]),
-                        "%.1f" % d["kw_avg"],
-                    ]
-                    print(",".join(li))
 
 
 def get_capacity_from_anlagen(base_path, mastr_ids, rtype='mwh'):
@@ -705,10 +702,10 @@ def get_capacity_from_anlagen(base_path, mastr_ids, rtype='mwh'):
     mastr_ids_dict = {m:1 for m in mastr_ids}
     
     id_mwh_dict = {}
-    for i in [1,2,3,4]:
-        print("\n\nStarting with file %d" % i)
+    for filename in get_files_with_prefix(base_path, ANLAGEN_PREFIX):
+        print("Starting with file", filename)
         count = 0
-        with open(os.path.join(base_path,ANLAGEN_PATH.format(number=str(i))), "rb") as f:
+        with open(filename, "rb") as f:
             js = xmltodict.parse(f)
         for unit in js["AnlagenStromSpeicher"]["AnlageStromSpeicher"]:
             if unit["VerknuepfteEinheitenMaStRNummern"] in mastr_ids_dict:
@@ -716,7 +713,10 @@ def get_capacity_from_anlagen(base_path, mastr_ids, rtype='mwh'):
                 if unit["VerknuepfteEinheitenMaStRNummern"] in id_mwh_dict:
                     print(unit["VerknuepfteEinheitenMaStRNummern"], "already in dict")
                 count += 1
-                capacity = int(float(unit["NutzbareSpeicherkapazitaet"]))
+                if "NutzbareSpeicherkapazitaet" not in unit:
+                    print("NutzbareSpeicherkapazitaet not in unit for ", unit["VerknuepfteEinheitenMaStRNummern"])
+                else:
+                    capacity = int(float(unit["NutzbareSpeicherkapazitaet"]))
                 if rtype == 'mwh':
                     capacity = int(capacity/1000)
                 id_mwh_dict[unit["VerknuepfteEinheitenMaStRNummern"]] = capacity
@@ -733,11 +733,10 @@ def get_kwh_from_anlagen(base_path, mastr_ids):
 
 def get_owner_from_marktakeure(base_path, owner_ids):
     id_owner_dict = {}
-    r = range(1,21)
-    print(list(r))
-    for i in r:
-        print("\n\nStarting with file %d" % i)
-        with open(os.path.join(base_path, MARKTAKTEURE_PATH.format(number=str(i))), "rb") as f:
+    
+    for filename in get_files_with_prefix(base_path, MARKTAKTEURE_PREFIX):
+        print("Starting with file", filename)
+        with open(filename, "rb") as f:
             js = xmltodict.parse(f)
         for unit in js["Marktakteure"]["Marktakteur"]:
             if unit["MastrNummer"] in owner_ids:
@@ -780,9 +779,8 @@ def create_new_filtered_json_file(base_path, month, start_fresh=False):
     if start_fresh:
         # this step takes a lot of time
         large_units = []
-        for i in [1,2,3,4]:
-            filename = os.path.join(base_path, EINHEITEN_PATH.format(number=str(i)))
-            print("\n\nStarting with file", filename)
+        for filename in get_files_with_prefix(base_path, EINHEITEN_PREFIX):
+            print("Starting with file", filename)
             large_units.extend(check_for_large_units(filename))
     else:
         out_file = "misc/de-mastr/filtered/%s.json" % month
@@ -832,32 +830,15 @@ def pprint_units():
         # pprint.pprint(js)
     return js
 
-def temp():
-    # can delete this again, just a way to merge the anlagen and einheiten
-    with open("misc/de-mastr/filtered/2021-11.json") as f:
-        js = json.load(f)
-        print("SpeMastrNummer")
-        print([i["SpeMastrNummer"] for i in js])
-        print("number of projects", len(js))
-        # pprint.pprint(js)
-    
-    for unit in js:
-        unit["pr_url_id"] = convert_to_details_url_id(unit["EinheitMastrNummer"])
-
-    # with open("misc/de-mastr/filtered/2021-11.json", "w") as f:
-    #     # todo: keep the indent for better readability
-    #     json.dump(js, f, indent=2)
-
-
 
 if __name__ == "__main__":
 
     # run the below commands to process a new download for large batteries
-    month = "2022-05"
+    month = "2022-08"
     create_new_filtered_json_file("/Users/lorenz/Desktop/marktstammdaten/%s/extracted" % month, month, start_fresh=True)
     
     # run the below commands to process a new download for small batteries
-    # month = "2022-03"
+    # month = "2022-08"
     # create_csv_for_small_units("/Users/lorenz/Desktop/marktstammdaten/%s/extracted" % month, month)
     # create_summary_from_small_units_csv("misc/de-mastr/small-batteries/%s.csv" % month, month)
 

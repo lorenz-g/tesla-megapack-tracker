@@ -22,6 +22,10 @@ STATUS_DI = {
     "Application Refused": "cancelled",
     "Appeal Refused": "cancelled",
     "Operational": "operation",
+    # TODO: not sure about that one...
+    "Revised": "planning",
+    "Pre-Planning": "planning",
+    "Scoping": "planning",
 }
 
 
@@ -269,8 +273,8 @@ def match_uk_repd_projects_with_mpt_projects(uk_repd_data, projects: Iterable[Ba
 
 if __name__ == "__main__":
     # only runt it with new gov data
-    in_filename = "misc/uk-repd/original/renewable-energy-planning-database-q1-april-2022.csv"
-    out_filename = "misc/uk-repd/filtered/2022-04.csv"
+    in_filename = "misc/uk-repd/original/repd-july-2022-corrected.csv"
+    out_filename = "misc/uk-repd/filtered/2022-07.csv"
     generate_filtered_csv(in_filename, out_filename)
     
     # stats_uk_repd_data()
