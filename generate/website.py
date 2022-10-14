@@ -276,14 +276,17 @@ def gen_de_small_batteries(month):
     rows = []
     mwh_cum = 0
     mw_cum = 0
+    count_cum = 0
     with open(in_filename) as f:
         reader = csv.DictReader(f)
         for row in reader:
             # TODO: highlight or delete the future rows
             mwh_cum += Decimal(row["mwh_sum"])
             mw_cum += Decimal(row["mw_sum"])
+            count_cum += int(row["count"])
             row["mwh_cum"] = mwh_cum
             row["mw_cum"] = mw_cum
+            row["count_cum"] = count_cum
             rows.append(row)
     
     extra = {

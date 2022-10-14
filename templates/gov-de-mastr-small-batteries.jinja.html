@@ -33,12 +33,13 @@
 
 
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-10">
         Latest {{ extra.name_short }} report from <code>{{ extra.month }}</code>. Note that the quarters after {{ extra.month}} in the table below are not accurate.
         <table class="table table-bordered">
             <tr>
                 <td>Quarter</td>
-                <td>Count</td>
+                <td>Count this quarter</td>
+                <td>Count total</td>
                 <td>MWh this quarter</td>
                 <td>GWh total</td>
                 <td>kWh average</td>
@@ -50,6 +51,7 @@
             <tr>
                 <td>{{ row.quarter }}</td>
                 <td>{{ row.count }}</td>
+                <td><b>{{ "%.1f" | format(row.count_cum / 1000) }}k</b></td>
                 <td>{{ row.mwh_sum }}</td>
                 <td><b>{{ "%.1f" | format(row.mwh_cum / 1000) }}</b></td>
                 <td>{{ row.kwh_avg }}</td>
