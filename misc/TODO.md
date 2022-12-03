@@ -20,6 +20,14 @@
 
 # integration of government data
 
+Priority:
+- handle projects that disappear
+  - e.g. http://localhost:2222/tesla-megapack-tracker/projects/780.html
+- make a summary for every government import that can easily be share on twitter
+
+
+
+Rest:
 - column to overwrite government data
 - log when stuff is overwritten (ideally as json and human readable)
 - can be shown on the website. (separate between user overwrites and governmnet data overwrites)
@@ -46,8 +54,6 @@
 - maybe could treat the manual research just as another data sourece
   
 - better table on mobile...
-
-- handle projects that disappear
 
 - how to deal with projects like the edwards sanborn? (could also just leave them as is...)
   - many small projects in the eia data

@@ -12,7 +12,7 @@ from generate.constants import US_STATES_LONG_TO_SHORT, US_STATES_SHORT_TO_LONG,
 from generate.gov.de_mastr import match_de_mastr_projects_with_mpt_projects, stats_de_mastr_data
 from generate.gov.uk_repd import match_uk_repd_projects_with_mpt_projects, stats_uk_repd_data
 from generate.gov.us_eia import download_and_extract_eia_data, read_eia_data_all_months
-from generate.utils import generate_link
+from generate.utils import generate_link, date_to_quarter
 
 from typing import Iterable
 
@@ -266,21 +266,28 @@ def gen_individual_pages(projects: Iterable[BatteryProject]):
         )
 
 
-def gen_de_small_batteries(month):
+def gen_de_small_batteries():
     """
     Column names:
     quarter	category	count	mwh_sum	kwh_avg	mw_sum	kw_avg
     """
     # TODO: automatically use the latest month
+    month = "2022-12"
     in_filename = "misc/de-mastr/small-batteries/%s-hss-summary.csv" % month
     rows = []
     mwh_cum = 0
     mw_cum = 0
     count_cum = 0
+
+    current_quarter = date_to_quarter(month)
+
     with open(in_filename) as f:
         reader = csv.DictReader(f)
         for row in reader:
-            # TODO: highlight or delete the future rows
+            # don't show future quarters
+            if row["quarter"] > current_quarter:
+                continue
+            
             mwh_cum += Decimal(row["mwh_sum"])
             mw_cum += Decimal(row["mw_sum"])
             count_cum += int(row["count"])
@@ -410,7 +417,7 @@ def main(match_country):
     gen_projects_template(projects, 'all-big-batteries.jinja.html')
     gen_individual_pages(projects)
     gen_gov_pages(gov_datasets, projects)
-    gen_de_small_batteries("2022-08")
+    gen_de_small_batteries()
     gen_raw_data_files()
     gen_blog()
 

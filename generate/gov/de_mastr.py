@@ -19,9 +19,7 @@ from generate.battery_project import BatteryProject
 from generate.utils import GovShortData, check_di_difference, create_summary_for_gov_projects
 
 
-
 # EinheitenStromSpeicher_1.xml ca 100k entries
-# EinheitenStromSpeicher_4.xml is good for testing as it is only 3.5MB
 
 
 # EinheitenStromSpeicher_{number}.xml
@@ -49,7 +47,6 @@ battery_tech_dict = {
     "730": "high temperature battery",  # Hochtemperaturbatterie
     "731": "nickel metal hydride",
     "732": "other",
-
 }
 
 MANUFACTURER_DICT = {
@@ -71,7 +68,6 @@ MANUFACTURER_KEYWORDS = MANUFACTURER_DICT.keys()
 STATUS_DI = {
     "31": "planning",
     "35": "operation",
-
 }
 
 BUNDESLAND_DI = {
@@ -89,7 +85,7 @@ BUNDESLAND_DI = {
     '1411': "schleswig-holstein",
     '1412': "saarland",
     '1413': "saxony",
-    # '1414': "",
+    '1414': "saxony-anhalt",
     '1415': "thuringia",
 }
 
@@ -176,7 +172,8 @@ units_bad_kw_data = [
     'SEE901022823045',
     'SEE914588158179',
     'SEE930426596439',
-    "SEE945645791312"
+    "SEE945645791312", 
+    "SEE949104628768",  # gasthof lang
 ]
 
 
@@ -833,12 +830,12 @@ def pprint_units():
 
 if __name__ == "__main__":
 
+    month = "2022-12"
+    print("Month:", month)
     # run the below commands to process a new download for large batteries
-    month = "2022-08"
     create_new_filtered_json_file("/Users/lorenz/Desktop/marktstammdaten/%s/extracted" % month, month, start_fresh=True)
     
     # run the below commands to process a new download for small batteries
-    # month = "2022-08"
-    # create_csv_for_small_units("/Users/lorenz/Desktop/marktstammdaten/%s/extracted" % month, month)
-    # create_summary_from_small_units_csv("misc/de-mastr/small-batteries/%s.csv" % month, month)
+    create_csv_for_small_units("/Users/lorenz/Desktop/marktstammdaten/%s/extracted" % month, month)
+    create_summary_from_small_units_csv("misc/de-mastr/small-batteries/%s.csv" % month, month)
 

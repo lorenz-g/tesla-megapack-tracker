@@ -8,11 +8,16 @@ test:
 build:
 	python generate/website.py
 
-server-local:
+run-local:
 	python -m http.server 2222 --bind localhost
 
 open-local:
 	open http://localhost:2222/tesla-megapack-tracker/all-big-batteries.html
 
-open:
+open-remote:
 	open https://lorenz-g.github.io/tesla-megapack-tracker/all-big-batteries.html
+
+gst:
+# the normal git status shows all the project files. This allows to see the important things
+# todo: also make the output of that colorful
+	git status | grep -v "docs/projects"

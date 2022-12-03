@@ -12,6 +12,22 @@ BASE_URL = "/tesla-megapack-tracker/"
 def generate_link(ip):
     return BASE_URL + ip.lstrip("/")
 
+
+def date_to_quarter(ip):
+    """
+    >>> date_to_quarter("2022-12")
+    '2022-Q4'
+
+    >>> date_to_quarter(dt.date(2022, 12, 12))
+    '2022-Q4'
+
+    """
+    if type(ip) == str:
+        ip = dt.datetime.strptime(ip, "%Y-%m").date()
+
+    return "%d-Q%d" % (ip.year, int(ip.month / 4) + 1)
+
+
 # common dataclass for all government projects
 @dataclass
 class GovShortData:
