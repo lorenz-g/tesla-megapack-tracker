@@ -169,18 +169,11 @@ def gen_cars_vs_stationary():
 def create_project_summaries(projects: Iterable[BatteryProject]):
 
     # s_ stands for summary_
-    s_megapack = {
-        "project_cnt": 0,
-        "mp_count": 0,
-        "gwh":0,
-    }
-
     s_totals_row = {
         "count": 0,
         "mwh":0,
         "mw":0,
     }
-
     s_by_status = {}
     s_yearly_op = {}
     s_by_country = {}
@@ -193,12 +186,6 @@ def create_project_summaries(projects: Iterable[BatteryProject]):
 
     # augment raw projects data
     for p in projects:
-
-        # add to summary
-        if p.in_operation and p.is_megapack:
-            s_megapack["project_cnt"] += 1
-            s_megapack["mp_count"] +=  p.no_of_battery_units
-            s_megapack["gwh"] += p.mwh / 1000
         
         if p.status not in s_by_status:
             s_by_status[p.status] = {"count": 0, "gwh":0, "gw":0}
@@ -234,7 +221,6 @@ def create_project_summaries(projects: Iterable[BatteryProject]):
     s_by_country = sorted(s_by_country.values(), key=lambda x:x["gwh"], reverse=True)
 
     return {
-        "megapack": s_megapack,
         "totals_row": s_totals_row,
         "by_status": s_by_status,
         "yearly_operation": s_yearly_op,

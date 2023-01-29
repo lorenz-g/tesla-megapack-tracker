@@ -46,7 +46,6 @@ Page is better on a big screen. Does not work well on mobile.
                 <td>🏗️</td>
                 <td>💻</td>
             </tr>
-            
             <tr>
                 <td>Projects count</td>
                 <td>{{ extra.summary.by_status.operation.count }}</td>
@@ -61,7 +60,6 @@ Page is better on a big screen. Does not work well on mobile.
             </tr>
             <tr>
                 <td colspan="4"> 
-                    
                     GWh that went in <span class="badge rounded-pill bg-success">operation</span> per year: <br>
                     <div class="progress mt-2" style="height: 2em;">
                     {% for year in extra.summary.yearly_operation %}
@@ -77,16 +75,12 @@ Page is better on a big screen. Does not work well on mobile.
                     {% for country in extra.summary.by_country[:5] %}
                         {{ country.flag }} {{ "%.1f" | format(country.gwh) }} &nbsp;&nbsp;
                     {% endfor %}
-
-
                 </td>
-                
             </tr>
         </table>
         🏗️ = construction; 💻 = planning<br><br>
     </div>
 </div>
-
 
 
 <h3 id="project-list"> Big battery project list </h3>

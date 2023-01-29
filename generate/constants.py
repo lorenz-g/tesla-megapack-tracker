@@ -42,6 +42,8 @@ COUNTRY_EMOJI_DI = {
     "germany": "🇩🇪",
     "france": "🇫🇷",
     "italy": "🇮🇹",
+    "belgium": "🇧🇪",
+    "slovenia": "🇸🇮",
 }
 
 US_STATES_LONG_TO_SHORT = {
