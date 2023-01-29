@@ -12,12 +12,10 @@ beautifulsoup4==4.11.1
     # via bs4
 bs4==0.0.1
     # via -r requirements.in
-certifi==2022.9.24
+certifi==2022.12.7
     # via requests
 charset-normalizer==2.1.1
     # via requests
-exceptiongroup==1.0.4
-    # via pytest
 idna==3.4
     # via requests
 iniconfig==1.1.1
@@ -44,8 +42,6 @@ soupsieve==2.3.2.post1
     # via beautifulsoup4
 toml==0.10.2
     # via -r requirements.in
-tomli==2.0.1
-    # via pytest
 urllib3==1.26.13
     # via requests
 xmltodict==0.13.0
