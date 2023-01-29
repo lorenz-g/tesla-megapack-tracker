@@ -326,6 +326,23 @@ def read_eia_data_single_month(folder):
 
     return projects
 
+def download_single_eia_url(url):
+    r = requests.get(url)
+    if r.status_code != 200:
+        print("got %s code, ignoring it" % (r.status_code))
+        return False
+    
+    try:
+        file = zipfile.ZipFile(io.BytesIO(r.content))
+    except zipfile.BadZipFile:
+        # can return here as this will be the first month where data is not available
+        print("bad zip file, month not available yet")
+        return False
+    
+    return file
+
+
+
 def download_and_extract_eia_data():
     """
     don't always have to run the entire date range, can just run the latest month...
@@ -343,33 +360,35 @@ def download_and_extract_eia_data():
     years = [
         # [2020, [9,12]], # before 9, there is a key error net summer capacity (mw), not digging further here
         # [2021, [8, 13]],
-        [2022, [7, 13]],
+        # [2022, [7, 13]],
+        [2023, [1, 13]],
     ]
     base_url = "https://www.eia.gov/electricity/monthly/archive/%s.zip"
+    # the latest month is under this url
+    base_url_current_month = "https://www.eia.gov/electricity/monthly/current_month/%s.zip"
     tables = ['Table_6_03.xlsx', 'Table_6_05.xlsx']
 
     for year, r in years:
         for month in range(r[0],r[1]):
             date = dt.date(year, month, 1)
-            print(date)
-            r = requests.get(base_url % date.strftime("%B%Y").lower())
-            if r.status_code != 200:
-                print("got %s code, ignoring it" % (r.status_code))
-                continue
+            url = base_url % date.strftime("%B%Y").lower()
+            print(date, "-> ", url)
+            file = download_single_eia_url(url)
+            # for the first month that is not in the archive we try the current month
+            if not file:
+                url = base_url_current_month % date.strftime("%B%Y").lower()
+                print(date, "-> ", url)
+                file = download_single_eia_url(url)
             
-            try:
-                file = zipfile.ZipFile(io.BytesIO(r.content))
-            except zipfile.BadZipFile:
-                # can return here as this will be the first month where data is not available
-                print("bad zip file, month not available yet")
-                return
+            if file:
+                for table in tables:
+                    zi = file.getinfo(table)
+                    folder = "misc/eia-data/original/%s/" % date.strftime("%Y-%m")
+                    file.extract(zi, folder)
         
-            for table in tables:
-                zi = file.getinfo(table)
-                folder = "misc/eia-data/original/%s/" % date.strftime("%Y-%m")
-                file.extract(zi, folder)
-    
-            read_eia_data_single_month(folder)
+                read_eia_data_single_month(folder)
+            else:
+                break
 
 
 if __name__ == "__main__":
