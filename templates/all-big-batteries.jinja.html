@@ -100,7 +100,7 @@ This list is a best effort to track all big battery installations larger than 10
             <th>Status</th>
             <th>Go live</th>
             <th>Man.</th>
-            <th>Customer and/or Owner</th>
+            <th>Customer / Owner / Developer</th>
             <th>MWh</th>
             <th>MW</th>
         </tr>
@@ -114,7 +114,7 @@ This list is a best effort to track all big battery installations larger than 10
             <td><span class="{{ p.status_class }}">{{ p.status }}</span></td>
             <td>{{ p.go_live }}</td>
             <td>{{ p.csv.manufacturer }}</td>
-            <td>{{ p.csv.customer }} {{ p.owner }}</td>
+            <td>{{ p.csv.customer }} {{ p.owner }} {{ p.csv.developer }}</td>
             <td>{{ p.mwh }}</td>
             <td>{{ p.mw }}</td>
         </tr>

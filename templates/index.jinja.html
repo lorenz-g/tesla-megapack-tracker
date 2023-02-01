@@ -103,7 +103,7 @@ This list is a best effort to try and list all Tesla megapack and powerpack (>5M
             <th>Country</th>
             <th>Status</th>
             <th>Go live</th>
-            <th>Type</th>
+            <th>Customer / Owner / Developer</th>
             <th>MWh</th>
             <th>MW</th>
         </tr>
@@ -116,7 +116,7 @@ This list is a best effort to try and list all Tesla megapack and powerpack (>5M
             <td>{{ p.country }}</td>
             <td><span class="{{ p.status_class }}">{{ p.status }}</span></td>
             <td>{{ p.go_live }}</td>
-            <td><span class="{% if p.is_megapack %} badge rounded-pill bg-secondary {% endif %}">{{ p.csv.type }}</span></td>
+            <td>{{ p.csv.customer }} {{ p.owner }} {{ p.csv.developer }}</td>
             <td>{{ p.mwh }}</td>
             <td>{{ p.mw }}</td>
         </tr>
