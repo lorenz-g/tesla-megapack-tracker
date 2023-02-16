@@ -26,6 +26,7 @@ STATUS_DI = {
     "Revised": "planning",
     "Pre-Planning": "planning",
     "Scoping": "planning",
+    "Appeal Lodged": "planning",
 }
 
 
@@ -273,8 +274,8 @@ def match_uk_repd_projects_with_mpt_projects(uk_repd_data, projects: Iterable[Ba
 
 if __name__ == "__main__":
     # only runt it with new gov data
-    in_filename = "misc/uk-repd/original/repd-october-2022.csv"
-    out_filename = "misc/uk-repd/filtered/2022-10.csv"
+    in_filename = "misc/uk-repd/original/repd-january-2023.csv"
+    out_filename = "misc/uk-repd/filtered/2023-01.csv"
     generate_filtered_csv(in_filename, out_filename)
     
     # stats_uk_repd_data()

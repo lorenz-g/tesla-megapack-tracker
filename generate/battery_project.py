@@ -54,7 +54,7 @@ COORDS_HINT_DICT = {
     0: "📍 Coords not known",
     1: "✅ Coords are exact (+/- 50m)",
     2: "📍 The site is known, coords are +/- 1 kilometer",
-    3: "📍 Coords are a guess. Only the city is known",
+    3: "📍 Coords are a guess. Only the city or county is known",
 }
 
 
