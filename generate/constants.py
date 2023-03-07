@@ -198,7 +198,7 @@ US_STATES_TO_EIA_COORDINATES = {
     "south dakota" : None,
     "tennessee" : (36.315642, -83.082733),
     "texas" : (33.454054, -95.273438),
-    "utah" : None,
+    "utah" : (40.696903, -109.697891),
     "vermont" : None,
     "virginia" : (38.160223, -77.808750),
     "washington" : None,

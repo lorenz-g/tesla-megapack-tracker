@@ -53,7 +53,7 @@ COORDS_HINT_DICT = {
     -1: "📍 Coords are a guess. Only the state is known",
     0: "📍 Coords not known",
     1: "✅ Coords are exact (+/- 50m)",
-    2: "📍 The site is known, coords are +/- 1 kilometer",
+    2: "✅ The site is known, coords are +/- 1 kilometer",
     3: "📍 Coords are a guess. Only the city or county is known",
 }
 
@@ -307,7 +307,7 @@ class BatteryProject:
             self.long = csv.long
             self.coords_hint = csv_int(csv.coords_hint)
         
-        self.coords_exact = True if self.coords_hint == 1 else False
+        self.coords_exact = True if self.coords_hint in (1, 2) else False
         self.coords_help_str = COORDS_HINT_DICT[self.coords_hint]
 
         # https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
