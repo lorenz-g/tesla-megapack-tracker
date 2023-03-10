@@ -11,18 +11,23 @@ import pylightxl as xl
 import requests
 from generate.constants import US_STATES_SHORT_TO_LONG
 
-from generate.utils import GovShortData, check_di_difference, create_summary_for_gov_projects
+from generate.utils import (
+    GovShortData,
+    check_di_difference,
+    create_summary_for_gov_projects,
+)
+
 
 def stats_eia_data():
     """
     for the eia data, whenever a new year happens the projects that went into operation in the previous
-    year are dropped from the table. 
-    
+    year are dropped from the table.
+
     """
     folder = "misc/eia-data/merged/"
     filenames = sorted(os.listdir(folder))
     months = [f.split(".")[0] for f in filenames]
-    
+
     monthly_diffs = []
     last_report = {}
 
@@ -34,14 +39,9 @@ def stats_eia_data():
         with open(folder + fn) as f:
             reader = csv.DictReader(f)
             rows = [row for row in reader]
-        
+
         report_di = {}
-        monthly_changes = {
-            "month": month,
-            "new": [],
-            "updated": [],
-            "disappeared": []
-        }
+        monthly_changes = {"month": month, "new": [], "updated": [], "disappeared": []}
 
         for r in rows:
             # every gov project should have a ext_id and status
@@ -55,14 +55,17 @@ def stats_eia_data():
             if p_id in last_report and g_id in last_report[p_id]:
                 # need to check for changes here
                 dif = check_di_difference(
-                    last_report[p_id][g_id], r, 
-                    ignore=["month", "year", "net summer capacity (mw)"]
+                    last_report[p_id][g_id],
+                    r,
+                    ignore=["month", "year", "net summer capacity (mw)"],
                 )
 
                 if dif:
                     monthly_changes["updated"].append([r, dif])
-                    projects_di[p_id][g_id]["changes"].append({"month": month, "li": dif})
-                    
+                    projects_di[p_id][g_id]["changes"].append(
+                        {"month": month, "li": dif}
+                    )
+
                     in_construction = any([ch["to"] == "construction" for ch in dif])
                     if in_construction:
                         projects_di[p_id][g_id]["dates"]["start_construction"] = month
@@ -70,7 +73,7 @@ def stats_eia_data():
                 # new project
                 monthly_changes["new"].append(r)
                 projects_di[p_id][g_id] = {
-                    "first": r, 
+                    "first": r,
                     "first_month": month,
                     "changes": [],
                     "current": r,
@@ -78,16 +81,15 @@ def stats_eia_data():
                     "dates": {
                         "first_heard": month,
                         "start_construction": None,
-                    }
+                    },
                 }
-            
+
             projects_di[p_id][g_id]["current"] = r
             projects_di[p_id][g_id]["current_month"] = month
 
-    
         # find projects that disappeared
         # note that the table 6_03 with the operational projects is emptied every year (i.e. in the March report)
-        # but we want to exclude those projects 
+        # but we want to exclude those projects
         for p_id, v in last_report.items():
             for g_id, r in v.items():
                 if not (p_id in report_di and g_id in report_di[p_id]):
@@ -95,27 +97,31 @@ def stats_eia_data():
                         # TODO: should change the status of projects of the projects that disappeared and should not show them in the list anymore...
                         monthly_changes["disappeared"].append(r)
 
-        monthly_changes["new"] = sorted(monthly_changes["new"], key=lambda x:x["mw"], reverse=True)
-        monthly_changes["updated"] = sorted(monthly_changes["updated"], key=lambda x:x[0]["mw"], reverse=True)
-        monthly_changes["disappeared"] = sorted(monthly_changes["disappeared"], key=lambda x:x["mw"], reverse=True)
-
+        monthly_changes["new"] = sorted(
+            monthly_changes["new"], key=lambda x: x["mw"], reverse=True
+        )
+        monthly_changes["updated"] = sorted(
+            monthly_changes["updated"], key=lambda x: x[0]["mw"], reverse=True
+        )
+        monthly_changes["disappeared"] = sorted(
+            monthly_changes["disappeared"], key=lambda x: x["mw"], reverse=True
+        )
 
         monthly_diffs.append(monthly_changes)
         last_report = report_di
 
-
     projects_short = {}
-    for k,v in projects_di.items():
+    for k, v in projects_di.items():
         projects_short[k] = gen_short_project(v)
-    
+
     summary = {
         "current": create_summary_for_gov_projects(projects_short.values()),
         "current_month": months[-1],
         # want the in descending order
         "monthly_diffs": monthly_diffs[::-1],
         "projects": projects_di,
-        # in case there are multiple generator ids, that 
-        "projects_short": projects_short
+        # in case there are multiple generator ids, that
+        "projects_short": projects_short,
     }
 
     return summary
@@ -129,6 +135,7 @@ def min_date(li):
     else:
         return ""
 
+
 def max_date(li):
     "return max date but ignore empty dates"
     dates = [i for i in li if i not in (None, "")]
@@ -139,8 +146,7 @@ def max_date(li):
 
 
 def gen_short_project(generator_di):
-    """ as the plant ids can hav multiple generator ids we need to summarise them and try to 
-    """
+    """as the plant ids can hav multiple generator ids we need to summarise them and try to"""
 
     sub_p = generator_di.values()
     sub_p_cu = [p["current"] for p in sub_p]
@@ -174,15 +180,13 @@ def gen_short_project(generator_di):
         start_construction = ""
     else:
         start_construction = min_date([p["dates"]["start_construction"] for p in sub_p])
-    
-    
+
     if status == "operation":
         start_operation = max_date([p["date"] for p in sub_p_cu])
         start_estimated = ""
     else:
         start_operation = ""
         start_estimated = max_date([p["date"] for p in sub_p_cu])
-
 
     return GovShortData(
         data_source="us_eia",
@@ -192,7 +196,7 @@ def gen_short_project(generator_di):
         country="usa",
         mwh=0,
         # estimate 2 hour system
-        estimate_mwh=2*mw_total,
+        estimate_mwh=2 * mw_total,
         power_mw=mw_total,
         owner=p0["entity name"],
         status=status,
@@ -201,9 +205,8 @@ def gen_short_project(generator_di):
         start_operation=start_operation,
         start_estimated=start_estimated,
         has_multiple_projects=len(sub_p_cu) > 1,
-        coords_hint=-1
+        coords_hint=-1,
     )
-
 
 
 def read_eia_data_all_months():
@@ -216,9 +219,8 @@ def read_eia_data_all_months():
         read_eia_data_single_month(folder)
 
 
-
 def read_eia_data_single_month(folder):
-    """ 
+    """
     eia = U.S. Energy Information Administration
 
     Data is downloaded from here:
@@ -227,7 +229,7 @@ def read_eia_data_single_month(folder):
     https://www.eia.gov/electricity/monthly/xls/table_6_05.xlsx -> planned operating
 
     TODO: download data every month and then create a changelog and publish it on the website
-    
+
     """
 
     # so far only planning, construction, operation used, but the eia data is more detailed
@@ -241,7 +243,7 @@ def read_eia_data_single_month(folder):
         "(TS) Construction complete, but not yet in commercial operation": "construction",
         "operation": "operation",
     }
-    
+
     # use a list here as some projects can have the same plant id
     # plant_id + generator code is always unique
     # e.g. Ravenswood project has 3 entries with the same plant id
@@ -251,8 +253,10 @@ def read_eia_data_single_month(folder):
     projects_li = []
 
     counts = defaultdict(int)
-    files = [os.path.join(folder, "Table_6_03.xlsx"), os.path.join(folder, "Table_6_05.xlsx")]
-
+    files = [
+        os.path.join(folder, "Table_6_03.xlsx"),
+        os.path.join(folder, "Table_6_05.xlsx"),
+    ]
 
     for file in files:
         if "6_03" in file:
@@ -272,31 +276,31 @@ def read_eia_data_single_month(folder):
         column_names = [r.lower() for r in rows[0]]
         rows = rows[1:]
         col_len = len(column_names)
-        
+
         # print(type_, "\n", "\n".join(column_names))
-        
+
         for row in rows:
             # similar to a csv dict reader
             pr = {column_names[i]: row[i] for i in range(col_len)}
-            
+
             # only battery projects
             if not pr["technology"] == "Batteries":
                 continue
-            
+
             if isinstance(pr["net summer capacity (mw)"], str):
                 continue
-            
+
             # only projects with more than 10 MW
             # the library auto converts to float or int if it detects sth
             if pr["net summer capacity (mw)"] < 10:
                 continue
-            
+
             # need to add this manually
-            if type_ == 'operation':
+            if type_ == "operation":
                 pr["status"] = "operation"
             else:
                 # don't need it, can rely on the net summer capacity
-                pr.pop('nameplate capacity (mw)')
+                pr.pop("nameplate capacity (mw)")
 
             # set the status and ext_id which need to be set in every project
             pr["status_verbose"] = pr["status"]
@@ -304,14 +308,14 @@ def read_eia_data_single_month(folder):
             pr["ext_id"] = pr["plant id"]
 
             pr["date"] = "%d-%02d" % (pr["year"], pr["month"])
-            
+
             # print(pr)
             projects[pr["plant id"]].append(pr)
             projects_li.append(pr)
             counts[pr["status"]] += 1
-    
+
     print(counts)
-    
+
     # e.g. "misc/eia-data/original/2021-01/table.xlsx"
     date = files[0].split("/")[3]
     with open("misc/eia-data/merged/%s.csv" % date, "w") as f:
@@ -323,24 +327,23 @@ def read_eia_data_single_month(folder):
     # print(len(projects))
     # print(sum(len(i) for i in projects.values()))
 
-
     return projects
+
 
 def download_single_eia_url(url):
     r = requests.get(url)
     if r.status_code != 200:
         print("got %s code, ignoring it" % (r.status_code))
         return False
-    
+
     try:
         file = zipfile.ZipFile(io.BytesIO(r.content))
     except zipfile.BadZipFile:
         # can return here as this will be the first month where data is not available
         print("bad zip file, month not available yet")
         return False
-    
-    return file
 
+    return file
 
 
 def download_and_extract_eia_data():
@@ -365,11 +368,13 @@ def download_and_extract_eia_data():
     ]
     base_url = "https://www.eia.gov/electricity/monthly/archive/%s.zip"
     # the latest month is under this url
-    base_url_current_month = "https://www.eia.gov/electricity/monthly/current_month/%s.zip"
-    tables = ['Table_6_03.xlsx', 'Table_6_05.xlsx']
+    base_url_current_month = (
+        "https://www.eia.gov/electricity/monthly/current_month/%s.zip"
+    )
+    tables = ["Table_6_03.xlsx", "Table_6_05.xlsx"]
 
     for year, r in years:
-        for month in range(r[0],r[1]):
+        for month in range(r[0], r[1]):
             date = dt.date(year, month, 1)
             url = base_url % date.strftime("%B%Y").lower()
             print(date, "-> ", url)
@@ -379,13 +384,13 @@ def download_and_extract_eia_data():
                 url = base_url_current_month % date.strftime("%B%Y").lower()
                 print(date, "-> ", url)
                 file = download_single_eia_url(url)
-            
+
             if file:
                 for table in tables:
                     zi = file.getinfo(table)
                     folder = "misc/eia-data/original/%s/" % date.strftime("%Y-%m")
                     file.extract(zi, folder)
-        
+
                 read_eia_data_single_month(folder)
             else:
                 break
@@ -393,19 +398,18 @@ def download_and_extract_eia_data():
 
 if __name__ == "__main__":
     projects = stats_eia_data()["projects"]
-    for k,v in projects.items():
-        
-        # TODO: what happens to the 
+    for k, v in projects.items():
+        # TODO: what happens to the
         genetor_ids = list(v.values())
         current = genetor_ids[0]["current"]
-        name =  current["plant name"]
+        name = current["plant name"]
 
         # if genetor_ids[0]["current_month"] != "2021-10":
         #     print(name, genetor_ids[0]["current_month"], current["status"], current["mw"])
 
         if len(v) > 1:
-            print(name, genetor_ids[0]["current_month"], current["status"], current["mw"])
+            print(
+                name, genetor_ids[0]["current_month"], current["status"], current["mw"]
+            )
         #     if "Stanton" in name:
         #         pprint.pprint(list(v.values()))
-
-    

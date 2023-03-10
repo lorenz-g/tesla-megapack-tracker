@@ -8,9 +8,19 @@ import datetime as dt
 from collections import defaultdict
 from generate.blog import gen_blog
 from generate.battery_project import USE_CASE_EMOJI_LI, BatteryProject
-from generate.constants import US_STATES_LONG_TO_SHORT, US_STATES_SHORT_TO_LONG, GOV_DATA_INFO_DICT
-from generate.gov.de_mastr import match_de_mastr_projects_with_mpt_projects, stats_de_mastr_data
-from generate.gov.uk_repd import match_uk_repd_projects_with_mpt_projects, stats_uk_repd_data
+from generate.constants import (
+    US_STATES_LONG_TO_SHORT,
+    US_STATES_SHORT_TO_LONG,
+    GOV_DATA_INFO_DICT,
+)
+from generate.gov.de_mastr import (
+    match_de_mastr_projects_with_mpt_projects,
+    stats_de_mastr_data,
+)
+from generate.gov.uk_repd import (
+    match_uk_repd_projects_with_mpt_projects,
+    stats_uk_repd_data,
+)
 from generate.gov.us_eia import download_and_extract_eia_data, read_eia_data_all_months
 from generate.utils import generate_link, date_to_quarter
 
@@ -18,26 +28,28 @@ from typing import Iterable
 
 from generate.gov.us_eia import stats_eia_data
 
-# cannot load this for every template rendered, takes too long. 
-FILE_LOADER = FileSystemLoader('templates')
+# cannot load this for every template rendered, takes too long.
+FILE_LOADER = FileSystemLoader("templates")
 JINJA_ENV = Environment(loader=FILE_LOADER)
+
 
 def write_template(template_name, template_arguments, out_filename=None):
     if not out_filename:
         out_filename = template_name.replace(".jinja", "")
 
-    
-    output_dir = 'docs'
+    output_dir = "docs"
     template = JINJA_ENV.get_template(template_name)
 
-    template_arguments.update({
-        "g_l":generate_link,
-    })
-    with open(os.path.join(output_dir, out_filename), 'w') as f:
+    template_arguments.update(
+        {
+            "g_l": generate_link,
+        }
+    )
+    with open(os.path.join(output_dir, out_filename), "w") as f:
         f.write(template.render(**template_arguments))
 
 
-def load_file(filename='projects.csv', type_="json"):
+def load_file(filename="projects.csv", type_="json"):
     "For now from the csv, later from the toml fils"
     with open(filename) as f:
         if type_ == "json":
@@ -52,15 +64,14 @@ def load_file(filename='projects.csv', type_="json"):
 
 
 def gen_gov_pages(gov_data, projects: Iterable[BatteryProject]):
-
-    gen_ids_from_projects = {p.csv.external_id:p.csv.id for p in projects}    
-    for country, gov_di in gov_data.items():        
+    gen_ids_from_projects = {p.csv.external_id: p.csv.id for p in projects}
+    for country, gov_di in gov_data.items():
         extra = {
             "now": dt.datetime.utcnow(),
             "summary": gov_di,
             "gen_ids_from_projects": gen_ids_from_projects,
         }
-        extra.update(GOV_DATA_INFO_DICT[country])        
+        extra.update(GOV_DATA_INFO_DICT[country])
         write_template(
             "gov-page.jinja.html",
             {"extra": extra},
@@ -70,29 +81,29 @@ def gen_gov_pages(gov_data, projects: Iterable[BatteryProject]):
 
 def gen_raw_data_files():
     # write the raw data files
-    output_dir = os.path.join('docs', "misc")
-    json_projects = load_file('projects.csv')
-    output_fn = 'big-battery-projects'
+    output_dir = os.path.join("docs", "misc")
+    json_projects = load_file("projects.csv")
+    output_fn = "big-battery-projects"
 
-    with open(os.path.join(output_dir, output_fn + ".json"), 'w') as f:
-        json.dump(json_projects, f)    
+    with open(os.path.join(output_dir, output_fn + ".json"), "w") as f:
+        json.dump(json_projects, f)
 
     csv_projects = load_file(type_="csv")
 
     # I think the two csv files are the same, but keep it for now.
-    with open(os.path.join(output_dir, output_fn + ".csv"), 'w') as f:
+    with open(os.path.join(output_dir, output_fn + ".csv"), "w") as f:
         writer = csv.writer(f)
         writer.writerows(csv_projects)
 
-    with open(os.path.join(output_dir, output_fn + ".excel.csv"), 'w') as f:
-        writer = csv.writer(f, dialect='excel')
+    with open(os.path.join(output_dir, output_fn + ".excel.csv"), "w") as f:
+        writer = csv.writer(f, dialect="excel")
         writer.writerows(csv_projects)
-        
+
 
 def gen_cars_vs_stationary():
     "prepare data to use it with bootstrap bars, a charting lib might be easier..."
 
-    info_per_quarter = load_file(filename='cars-vs-stationary.csv')
+    info_per_quarter = load_file(filename="cars-vs-stationary.csv")
     di = {}
 
     # those are estimates for the average battery size
@@ -106,8 +117,8 @@ def gen_cars_vs_stationary():
     for q in info_per_quarter:
         year = q["year"]
         if year not in di:
-            di[year] = {"sx_mwh": 0, "y3_mwh": 0, "stat_mwh":0, "year": year}
-        
+            di[year] = {"sx_mwh": 0, "y3_mwh": 0, "stat_mwh": 0, "year": year}
+
         sx = int(q["sx"]) * sx_avg_battery_kwh / 1000
         y3 = int(q["y3"]) * y3_avg_battery_kwh / 1000
         ess = int(q["stat_mwh"])
@@ -119,10 +130,10 @@ def gen_cars_vs_stationary():
         m = di[year]["sx_mwh"] + di[year]["y3_mwh"] + di[year]["stat_mwh"]
         if m > max_mwh:
             max_mwh = m
-        
-        sum_cars += (sx + y3)
+
+        sum_cars += sx + y3
         sum_ess += ess
-    
+
     li = sorted(di.values(), key=lambda x: x["year"])
 
     for year in li:
@@ -137,16 +148,18 @@ def gen_cars_vs_stationary():
         year["total_gwh"] = total / 1000
         year["perc_cars"] = 100 - perc_stat_int
         year["perc_stat_year"] = perc_stat_int
-    
+
     total_mwh = sum_cars + sum_ess
     total_gwh = total_mwh / 1000
     perc_cars = int(sum_cars / total_mwh * 100)
-    li.append({
-        "year": "All Time",
-        "total_gwh": total_gwh,
-        "perc_cars": perc_cars,
-        "perc_stat_year": 100 - perc_cars,
-    })
+    li.append(
+        {
+            "year": "All Time",
+            "total_gwh": total_gwh,
+            "perc_cars": perc_cars,
+            "perc_stat_year": 100 - perc_cars,
+        }
+    )
 
     # electcity in 2018 https://www.statista.com/statistics/280704/world-power-consumption/
     worldwide_gwh = 23398 * 1000
@@ -159,20 +172,18 @@ def gen_cars_vs_stationary():
             "total_gwh": total_gwh,
             # https://www.agora-energiewende.de/en/service/recent-electricity-data/
             "avg_power_germany_gw": 60,
-            "hours_germany": total_gwh/60,
+            "hours_germany": total_gwh / 60,
             "minutes_world": 60 * total_gwh / worldwide_avg_cons_gw,
-        }
+        },
     }
 
 
-
 def create_project_summaries(projects: Iterable[BatteryProject]):
-
     # s_ stands for summary_
     s_totals_row = {
         "count": 0,
-        "mwh":0,
-        "mw":0,
+        "mwh": 0,
+        "mw": 0,
     }
     s_by_status = {}
     s_yearly_op = {}
@@ -183,13 +194,11 @@ def create_project_summaries(projects: Iterable[BatteryProject]):
         emoji_legend.append("%s %s" % (emoji, explanation))
     emoji_legend = ", ".join(emoji_legend)
 
-
     # augment raw projects data
     for p in projects:
-        
         if p.status not in s_by_status:
-            s_by_status[p.status] = {"count": 0, "gwh":0, "gw":0}
-        
+            s_by_status[p.status] = {"count": 0, "gwh": 0, "gw": 0}
+
         s_by_status[p.status]["count"] += 1
         s_by_status[p.status]["gwh"] += p.mwh / 1000
         s_by_status[p.status]["gw"] += p.mw / 1000
@@ -199,26 +208,21 @@ def create_project_summaries(projects: Iterable[BatteryProject]):
             if year not in s_yearly_op:
                 s_yearly_op[year] = {"year": year, "gwh": 0, "perc": None}
             s_yearly_op[year]["gwh"] += p.mwh / 1000
-        
+
         s_totals_row["count"] += 1
         s_totals_row["mwh"] += p.mwh
         s_totals_row["mw"] += p.mw
-        
+
         if p.country not in s_by_country:
-            
-            s_by_country[p.country] = {
-                "flag": p.flag, 
-                "gwh":0
-            }
+            s_by_country[p.country] = {"flag": p.flag, "gwh": 0}
         if p.in_operation:
             s_by_country[p.country]["gwh"] += p.mwh / 1000
 
-    
     for year in s_yearly_op.values():
         year["perc"] = 100 * year["gwh"] / s_by_status["operation"]["gwh"]
-    
-    s_yearly_op = sorted(s_yearly_op.values(), key=lambda x:x["year"])
-    s_by_country = sorted(s_by_country.values(), key=lambda x:x["gwh"], reverse=True)
+
+    s_yearly_op = sorted(s_yearly_op.values(), key=lambda x: x["year"])
+    s_by_country = sorted(s_by_country.values(), key=lambda x: x["gwh"], reverse=True)
 
     return {
         "totals_row": s_totals_row,
@@ -237,16 +241,16 @@ def gen_projects_template(projects, template_name):
         "cars": gen_cars_vs_stationary(),
         "summary": summary,
         "projects": projects,
-        "projects_json": json.dumps([p.to_dict() for p in projects])
+        "projects_json": json.dumps([p.to_dict() for p in projects]),
     }
     write_template(template_name, {"extra": extra})
-    
+
 
 def gen_individual_pages(projects: Iterable[BatteryProject]):
     # generate the individual pages
     for p in projects:
         write_template(
-            'single.jinja.html',
+            "single.jinja.html",
             {"p": p},
             os.path.join("projects", p.csv.id + ".html"),
         )
@@ -273,7 +277,7 @@ def gen_de_small_batteries():
             # don't show future quarters
             if row["quarter"] > current_quarter:
                 continue
-            
+
             mwh_cum += Decimal(row["mwh_sum"])
             mw_cum += Decimal(row["mw_sum"])
             count_cum += int(row["count"])
@@ -281,7 +285,7 @@ def gen_de_small_batteries():
             row["mw_cum"] = mw_cum
             row["count_cum"] = count_cum
             rows.append(row)
-    
+
     extra = {
         "rows": rows,
         "month": month,
@@ -292,10 +296,10 @@ def gen_de_small_batteries():
         "gov-de-mastr-small-batteries.jinja.html",
         {"extra": extra},
     )
-    
+
 
 def match_eia_projects_with_mpt_projects(eia_data, projects: Iterable[BatteryProject]):
-    """ match by state and then print in desceding order of capacity"""
+    """match by state and then print in desceding order of capacity"""
 
     pr_by_state = defaultdict(lambda: {"eia": [], "mpt": []})
 
@@ -306,42 +310,41 @@ def match_eia_projects_with_mpt_projects(eia_data, projects: Iterable[BatteryPro
         pr = list(v.values())[0]["current"]
         if pr["plant id"] not in mpt_plant_ids:
             pr_by_state[pr["plant state"]]["eia"].append(pr)
-    
+
     for pr in projects:
         if pr.country != "usa":
             continue
         if not pr.state:
             continue
-        
+
         if not pr.csv.external_id:
             state_short = US_STATES_LONG_TO_SHORT.get(pr.state)
             if state_short:
                 pr_by_state[state_short]["mpt"].append(pr)
             else:
                 print("could not find state", pr.state, pr)
-            
-    
+
     for state, temp_projects in sorted(pr_by_state.items()):
         print("\n\n")
         print(US_STATES_SHORT_TO_LONG[state].upper())
         print("eia projects:")
-        eia = sorted(temp_projects["eia"], key=lambda x:x["mw"], reverse=True)
+        eia = sorted(temp_projects["eia"], key=lambda x: x["mw"], reverse=True)
         for p in eia:
             print(p["mw"], p["plant name"], p["plant id"], p["status"])
-        
+
         print("\nmpt projects:")
-        mpt = sorted(temp_projects["mpt"], key=lambda x:x.mw, reverse=True)
+        mpt = sorted(temp_projects["mpt"], key=lambda x: x.mw, reverse=True)
         for p in mpt:
             print(p.mw, p.csv.name)
 
     # list that can be inserted into projects.csv
-    # TODO: probably should try and ignore the ones that I had in the US that are not covered here. 
+    # TODO: probably should try and ignore the ones that I had in the US that are not covered here.
     print("\n\n")
     # max internal id plus 1
     start_id = int([p.csv.id for p in projects][-1]) + 1
 
     for state, temp_projects in sorted(pr_by_state.items()):
-        eia = sorted(temp_projects["eia"], key=lambda x:x["mw"], reverse=True)
+        eia = sorted(temp_projects["eia"], key=lambda x: x["mw"], reverse=True)
         for p in eia:
             # estimate a two hour system
             mwh_estimate = str(p["mw"] * 2)
@@ -356,30 +359,42 @@ def match_eia_projects_with_mpt_projects(eia_data, projects: Iterable[BatteryPro
                 start_estimated = p["date"]
 
             li = [
-                p["plant name"], "", str(start_id), p["plant id"], "1",
-                US_STATES_SHORT_TO_LONG[state], "usa", "", mwh_estimate,
-                str(p["mw"]), "", p["entity name"], 
-                "", "", "", "", "",
-                p["status"], 
-                "", "",
-                start_operation, start_estimated, 
+                p["plant name"],
+                "",
+                str(start_id),
+                p["plant id"],
+                "1",
+                US_STATES_SHORT_TO_LONG[state],
+                "usa",
+                "",
+                mwh_estimate,
+                str(p["mw"]),
+                "",
+                p["entity name"],
+                "",
+                "",
+                "",
+                "",
+                "",
+                p["status"],
+                "",
+                "",
+                start_operation,
+                start_estimated,
             ]
             print(";".join(li))
             start_id += 1
 
 
-    
 def main(match_country):
-    
     # 1) Load an prepare data
     csv_projects = load_file("projects.csv")
-    
+
     gov_datasets = {
         "usa": stats_eia_data(),
         "uk": stats_uk_repd_data(),
         "germany": stats_de_mastr_data(),
     }
-
 
     projects = []
     for p in csv_projects:
@@ -397,10 +412,10 @@ def main(match_country):
         projects.append(BatteryProject(p, gov, gov_history))
 
     tesla_projects = [p for p in projects if p.is_tesla]
-    
+
     # 2) Generate the pages
-    gen_projects_template(tesla_projects, 'index.jinja.html')
-    gen_projects_template(projects, 'all-big-batteries.jinja.html')
+    gen_projects_template(tesla_projects, "index.jinja.html")
+    gen_projects_template(projects, "all-big-batteries.jinja.html")
     gen_individual_pages(projects)
     gen_gov_pages(gov_datasets, projects)
     gen_de_small_batteries()
@@ -413,12 +428,11 @@ def main(match_country):
             "all_str": "(%d)" % len(projects),
         },
         # TODO: can move the static site generated at into here also
-        # "generated_at": 
+        # "generated_at":
     }
     # load some data via ajax to keep the commit history of the individual project html files cleaner
     with open("docs/ajax-data.json", "w") as f:
         json.dump(ajax_data, f)
-
 
     # 3) Match and print project that are not in projects.csv
     # this does not have to be run every time, just for manual assignment
@@ -436,7 +450,7 @@ if __name__ == "__main__":
         match_country = sys.argv[1]
     else:
         match_country = None
-    
+
     if match_country == "usa":
         # to download a new report, need to enable those two lines and make sure the month is correct
         download_and_extract_eia_data()
@@ -444,5 +458,3 @@ if __name__ == "__main__":
         # read_eia_data_all_months()
 
     main(match_country)
-
-    

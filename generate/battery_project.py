@@ -13,34 +13,33 @@ l = logging.getLogger("battery_project")
 VALID_STATUS = ("planning", "construction", "operation")
 
 USE_CASE_EMOJI_LI = [
-        # these just used for the legend
-        ["📍", "📍", "location not exactly known"],
-        ["⚡", "⚡", "more than 100 MWh"],
-        ["❤️", "❤️", "more than 1000 MWh / 1GWh"],
-        # below for legend and use case
-        ["solar", "☀️", "attached to solar farm"],
-        ["wind", "🌬️", "attached to wind farm"],
-        ["island", "🏝️", "island installation"],
-        ["bus", "🚌", "at bus depot"],
-        ["ev", "🚗", "EV charging support"],
-        # these just used for the legend
-        ["🚨", "🚨", "incident reported"],
-        ["🐌", "🐌", "slow, bureaucracy"],
-        ["📊", "📊", "government data available"],
-        ["👤", "👤", "user data available"],
-        ["📏", "📏", "mwh estimate based on mw"],
-    ]
+    # these just used for the legend
+    ["📍", "📍", "location not exactly known"],
+    ["⚡", "⚡", "more than 100 MWh"],
+    ["❤️", "❤️", "more than 1000 MWh / 1GWh"],
+    # below for legend and use case
+    ["solar", "☀️", "attached to solar farm"],
+    ["wind", "🌬️", "attached to wind farm"],
+    ["island", "🏝️", "island installation"],
+    ["bus", "🚌", "at bus depot"],
+    ["ev", "🚗", "EV charging support"],
+    # these just used for the legend
+    ["🚨", "🚨", "incident reported"],
+    ["🐌", "🐌", "slow, bureaucracy"],
+    ["📊", "📊", "government data available"],
+    ["👤", "👤", "user data available"],
+    ["📏", "📏", "mwh estimate based on mw"],
+]
 
 # in case the state does not have default coords
 EIA_COORDS_USA = (39.613588, -101.337891)
 
 
-
-# TODO: would be good to get them into an ascending order so one could just compare to integers and 
+# TODO: would be good to get them into an ascending order so one could just compare to integers and
 # the bigger one means it is more exact...
 # TODO: create an enum for the integers
 # use words in the csv, otherwise this is not easy. And use those names in the csv, much easier...
-# e.g. country_known, state_known, city_known, site_know_1km, location_exact_50m, 
+# e.g. country_known, state_known, city_known, site_know_1km, location_exact_50m,
 
 # country
 # state
@@ -61,13 +60,16 @@ COORDS_HINT_DICT = {
 def tooltip_for_emoji(emoji_input):
     for _, emoji, text in USE_CASE_EMOJI_LI:
         if emoji == emoji_input:
-            return '<span data-toggle="tooltip" data-placement="top" title="%s">%s</span>' % (text, emoji)
+            return (
+                '<span data-toggle="tooltip" data-placement="top" title="%s">%s</span>'
+                % (text, emoji)
+            )
     raise ValueError("%s emoji not found" % emoji_input)
 
 
 def project_is_slow(go_live, mwh, mw):
-    """ Any project that is going live in 2025 or later and that has less than 1GW / 1GWh is slow
-    Might have to change that function in the future. 
+    """Any project that is going live in 2025 or later and that has less than 1GW / 1GWh is slow
+    Might have to change that function in the future.
 
     >>> project_is_slow(2025, 0, 200)
     True
@@ -77,7 +79,7 @@ def project_is_slow(go_live, mwh, mw):
     False
     """
     if go_live and go_live >= 2025:
-        if not (mwh >= 1000 or mw >=1000):
+        if not (mwh >= 1000 or mw >= 1000):
             return True
     return False
 
@@ -93,25 +95,24 @@ def format_short_name(name, limit=25):
         # extend = extend[:extend.index(" ")]
         extend = ""
 
-        name_short = name[:limit] +  extend + "..."
+        name_short = name[:limit] + extend + "..."
     else:
         name_short = name
-    
-    return name_short
 
+    return name_short
 
 
 def csv_int(ip):
     # TODO: enable that again if data is clean...
     # if "." in ip:
     #     raise ValueError("only integer allowed, got", ip)
-    
+
     # and remove the float here again.
     return 0 if ip == "" else int(float(ip))
 
 
 def eia_location_estimate(id_, state):
-    """ based on the id, we want to create the same coordinates every time
+    """based on the id, we want to create the same coordinates every time
 
     x = r(cos(degrees)), y = r(sin(degrees))
 
@@ -119,18 +120,18 @@ def eia_location_estimate(id_, state):
     """
     id_ = int(id_)
 
-    coords = US_STATES_TO_EIA_COORDINATES[state] 
+    coords = US_STATES_TO_EIA_COORDINATES[state]
     if not coords:
         print("no coordinates for state:", state)
         coords = EIA_COORDS_USA
-    
+
     scaling_factor = 0.02
     radius = (id_ % 10 + (id_ % 100) / 10) * scaling_factor
     angle = (id_ % 20) / 20 * 2 * math.pi
 
     x = radius * math.cos(angle)
     y = radius * math.sin(angle)
-    return str(coords[0] + y), str(coords[1] + x) 
+    return str(coords[0] + y), str(coords[1] + x)
 
 
 # good link about dataclasses
@@ -139,6 +140,7 @@ class CsvProjectData:
     """
     Data that is collected manually by users (and sometimes filled with gov data)
     """
+
     name: str
     city: str
     id: str
@@ -179,12 +181,12 @@ class CsvProjectData:
 
 
 class BatteryProject:
-    """ Class for a project to add helper and styling functions 
+    """Class for a project to add helper and styling functions
     that make it easier to work with the projects
 
     not sure whether to create attributes for mw and mwh..
 
-    can use vars(BatteryProject) to turn it into a dict, very handy. 
+    can use vars(BatteryProject) to turn it into a dict, very handy.
 
     TODO: don't expose the csv file (all attributes should be in this class)
     TODO: add the construction start for the EIA projects
@@ -198,7 +200,7 @@ class BatteryProject:
         # the dict from the projects.csv file and turn into dataclass for type hints
         csv = CsvProjectData(**csv_di)
         self.internal_id = csv.id
-        
+
         # government data dict
         self.gov = gov
         self.gov_history = gov_history
@@ -211,7 +213,7 @@ class BatteryProject:
         # TODO: don't use either or here, but just pick gov first and if it is not set, then pick the csv second (only relevant were manual data was filled in)
         # in that pick first function can print the the differences...
         # TODO: also add an emoji for manual data (i.e. if the project website or link is filled)
-        # merge the government data        
+        # merge the government data
         # TODO: if the coords are exact then use the user data (e.g. burwell in the uk)
         # if gov and csv.overwrite == "1":
         if gov:
@@ -239,7 +241,7 @@ class BatteryProject:
             self.status = csv.status
             self.external_id = ""
 
-            self.date_first_heard = csv.date_first_heard    
+            self.date_first_heard = csv.date_first_heard
             self.start_construction = csv.start_construction
             self.start_operation = csv.start_operation
             self.start_estimated = csv.start_estimated
@@ -251,25 +253,27 @@ class BatteryProject:
             self.mw = csv_int(csv.power_mw)
 
             mwh_estimate = csv_int(csv.estimate_mwh)
-        
-        
+
         if self.mwh == 0 and mwh_estimate > 0:
             self.mwh = mwh_estimate
             self.mwh_is_estimate = True
 
-
-        assert self.status in VALID_STATUS, "status is not valid '%s' - %s" % (self.status, csv_di['name'])
+        assert self.status in VALID_STATUS, "status is not valid '%s' - %s" % (
+            self.status,
+            csv_di["name"],
+        )
 
         self.name_short = format_short_name(self.name)
 
-
-        self.status_class = "badge rounded-pill bg-success" if self.status == "operation" else ""
+        self.status_class = (
+            "badge rounded-pill bg-success" if self.status == "operation" else ""
+        )
         self.notes_split = csv.notes.split("**")
 
         self.in_operation = self.status == "operation"
         self.in_construction = self.status == "construction"
         self.in_planning = self.status == "planning"
-        
+
         # merge the start operation and estimated start here
         # TODO: should have an indication where the data is coming from
         if self.start_operation:
@@ -282,38 +286,47 @@ class BatteryProject:
             self.go_live = ""
             self.go_live_year_int = None
 
-        self.construction_time_month = construction_time(self.start_construction, self.start_operation)
+        self.construction_time_month = construction_time(
+            self.start_construction, self.start_operation
+        )
         # TODO: there are some that are negative, look at them again
-        self.construction_speed_mwh_per_month = int(self.mwh / self.construction_time_month) if self.construction_time_month else None
+        self.construction_speed_mwh_per_month = (
+            int(self.mwh / self.construction_time_month)
+            if self.construction_time_month
+            else None
+        )
 
         self.no_of_battery_units = csv_int(csv.no_of_battery_units)
 
         self.lat = ""
         self.long = ""
-        self.coords_hint = -2 
-        
+        self.coords_hint = -2
+
         if gov:
             if self.country == "usa":
                 self.lat, self.long = eia_location_estimate(csv.id, gov.state)
             elif self.country in ("uk", "germany"):
                 self.lat = gov.lat
                 self.long = gov.long
-            
+
             self.coords_hint = gov.coords_hint
-        
+
         # for now, overwrite with user data if it exists (TODO: more finegrained overwrites here ust coords_hint)
         if csv.lat != "" and self.country != "germany":
             self.lat = csv.lat
             self.long = csv.long
             self.coords_hint = csv_int(csv.coords_hint)
-        
+
         self.coords_exact = True if self.coords_hint in (1, 2) else False
         self.coords_help_str = COORDS_HINT_DICT[self.coords_hint]
 
         # https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
         # zoom z=20 is the maximum, but not sure if it is working
         # TODO: I think this google maps link format is old https://developers.google.com/maps/documentation/urls/get-started
-        self.google_maps_link = "http://maps.google.com/maps?z=19&t=k&q=loc:%s+%s" % (self.lat, self.long)
+        self.google_maps_link = "http://maps.google.com/maps?z=19&t=k&q=loc:%s+%s" % (
+            self.lat,
+            self.long,
+        )
 
         self.links = [csv.link1, csv.link2, csv.link3, csv.link4]
         self.links = [l for l in self.links if l != ""]
@@ -323,12 +336,11 @@ class BatteryProject:
         if gov and gov.pr_url:
             self.links.append(gov.pr_url)
 
-
-        emojis = []        
+        emojis = []
         # the order in which the if cases happen matters as that is the order of the emojis
         if not self.coords_exact:
             emojis.append("📍")
-        
+
         # add both heart and ⚡ for 1gwh projects so if you search for the ⚡ the massive ones will show up also
         if self.mwh >= 1000 or self.mw >= 1000:
             emojis.append("❤️")
@@ -345,34 +357,31 @@ class BatteryProject:
 
         if project_is_slow(self.go_live_year_int, self.mwh, self.mw):
             emojis.append("🐌")
-        
+
         if csv.external_id:
             emojis.append("📊")
 
         if self.user_data:
             emojis.append("👤")
-        
+
         if self.mwh_is_estimate:
             emojis.append("📏")
-            
+
         self.emojis = "".join(emojis)
 
         self.flag = COUNTRY_EMOJI_DI.get(csv.country, csv.country)
-        
+
         self.emojis_with_tooltips = "".join([tooltip_for_emoji(e) for e in emojis])
-        
-        
+
         self.csv = csv
 
         # some helper variables
         self.is_tesla = self.csv.manufacturer == "tesla"
         self.is_megapack = self.csv.type == "megapack"
 
-
     def __repr__(self) -> str:
         e_id = self.gov.external_id if self.gov else ""
         return "<BatteryProject %s / %s - %s>" % (self.csv.id, e_id, self.csv.name)
-
 
     def to_dict(self):
         # need this detour aus the dataclass does not automatically convert to json
@@ -385,24 +394,20 @@ class BatteryProject:
             di["gov"] = {}
         return di
 
-
     def data_check(self):
         """TODO: check between csv and gov data"""
         pass
 
-    
+
 @dataclass
 class Test:
     test: int
 
 
-
 if __name__ == "__main__":
     import json
+
     test = Test(**{"test": 23})
     print(test)
     print(asdict(test))
     print(type(test))
-
-
-        

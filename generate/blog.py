@@ -64,7 +64,6 @@ def bootstrapify_markdown_html(html):
 #     return render_template("blog/blog_post.html", blog_html=blog_html, meta=md.Meta)
 
 
-
 def gen_blog():
     markdown_entries_path = "misc"
     blog_entries_names = [
@@ -75,16 +74,12 @@ def gen_blog():
         "2021-08-30-changelog.md",
     ]
 
-    file_loader = FileSystemLoader('templates')
+    file_loader = FileSystemLoader("templates")
     env = Environment(loader=file_loader)
-    output_dir = 'docs'
-    
-    
-    extra = {
-        "now": dt.datetime.utcnow(),
-        "blog_entries": []
-    }
-    
+    output_dir = "docs"
+
+    extra = {"now": dt.datetime.utcnow(), "blog_entries": []}
+
     for b in blog_entries_names:
         p = os.path.join(markdown_entries_path, b)
 
@@ -96,17 +91,23 @@ def gen_blog():
         # this populates the md.Meta
         md.Meta["static_folder"] = ["./blog/" + b[0:10] + "/"]
         md.Meta["url"] = ["blog/" + b.replace(".md", ".html")]
-        md.Meta["github_url"] = "https://github.com/lorenz-g/tesla-megapack-tracker/blob/main/misc/" + b
+        md.Meta["github_url"] = (
+            "https://github.com/lorenz-g/tesla-megapack-tracker/blob/main/misc/" + b
+        )
         extra["blog_entries"].append(md.Meta)
 
         # generate the individual blog post
         template_name = "blog-post.jinja.html"
         template = env.get_template(template_name)
 
-        output = template.render(extra=extra, blog_html=blog_html, meta=md.Meta, g_l=generate_link)
+        output = template.render(
+            extra=extra, blog_html=blog_html, meta=md.Meta, g_l=generate_link
+        )
 
         # generate individual /blog/xx.html sites
-        with open(os.path.join(output_dir, "blog", b.replace(".md", ".html")), 'w') as f:
+        with open(
+            os.path.join(output_dir, "blog", b.replace(".md", ".html")), "w"
+        ) as f:
             f.write(output)
 
     # generate the /blog.html site
@@ -114,16 +115,14 @@ def gen_blog():
     template = env.get_template(template_name)
     output = template.render(extra=extra, g_l=generate_link)
 
-    with open(os.path.join(output_dir, template_name.replace(".jinja", "")), 'w') as f:
+    with open(os.path.join(output_dir, template_name.replace(".jinja", "")), "w") as f:
         f.write(output)
 
-    
     # TODO: edit on github button
-    
 
 
 if __name__ == "__main__":
-    # todo this just for testing 
+    # todo this just for testing
     pr_len = {
         "tesla": -1,
         "all": -1,
