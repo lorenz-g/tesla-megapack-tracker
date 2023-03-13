@@ -1,17 +1,20 @@
-from decimal import Decimal
-import sys
 import csv
-import os
-import json
-from jinja2 import Environment, FileSystemLoader
 import datetime as dt
+import json
+import os
+import sys
 from collections import defaultdict
-from generate.blog import gen_blog
+from decimal import Decimal
+from typing import Iterable
+
+from jinja2 import Environment, FileSystemLoader
+
 from generate.battery_project import USE_CASE_EMOJI_LI, BatteryProject
+from generate.blog import gen_blog
 from generate.constants import (
+    GOV_DATA_INFO_DICT,
     US_STATES_LONG_TO_SHORT,
     US_STATES_SHORT_TO_LONG,
-    GOV_DATA_INFO_DICT,
 )
 from generate.gov.de_mastr import (
     match_de_mastr_projects_with_mpt_projects,
@@ -21,12 +24,12 @@ from generate.gov.uk_repd import (
     match_uk_repd_projects_with_mpt_projects,
     stats_uk_repd_data,
 )
-from generate.gov.us_eia import download_and_extract_eia_data, read_eia_data_all_months
-from generate.utils import generate_link, date_to_quarter
-
-from typing import Iterable
-
-from generate.gov.us_eia import stats_eia_data
+from generate.gov.us_eia import (
+    download_and_extract_eia_data,
+    read_eia_data_all_months,
+    stats_eia_data,
+)
+from generate.utils import date_to_quarter, generate_link
 
 # cannot load this for every template rendered, takes too long.
 FILE_LOADER = FileSystemLoader("templates")
@@ -251,7 +254,7 @@ def gen_individual_pages(projects: Iterable[BatteryProject]):
     for p in projects:
         write_template(
             "single.jinja.html",
-            {"p": p},
+            {"p": p, "gov_data_info_dict": GOV_DATA_INFO_DICT},
             os.path.join("projects", p.csv.id + ".html"),
         )
 

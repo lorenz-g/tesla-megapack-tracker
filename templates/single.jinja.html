@@ -93,8 +93,6 @@
     </div>
 </div>
 
-
-
 <dt>Notes </dt>
 <dl>
     {% for note in p.notes_split %}
@@ -118,14 +116,24 @@
 </dl>
 
 
-{% if p.has_gov_data  and p.country == "usa" %}
-<h3> US EIA data </h3>
-This data is matched from the U.S. Energy Information Administration (EIA) electricity monthly website from planned (Chapter 6.5) and existing (Chapter 6.3) energy projects
- <a href ="https://www.eia.gov/electricity/monthly/">https://www.eia.gov/electricity/monthly/</a></li>
+{% if p.has_gov_data %}
+<!-- gov data history -->    
+<h3> {{ gov_data_info_dict[p.country]["name_short"] }} data </h3>
+
+The government data source for this battery is the {{ gov_data_info_dict[p.country]["name_long"] }}
+<br>
+<a href ="{{ gov_data_info_dict[p.country]['source_url'] }}">
+    {{ gov_data_info_dict[p.country]['source_url'] }}
+</a>
 <br>
 
-{% if p.gov_history.values() | length > 1 %}
-<span class="badge bg-info">This project has {{ p.gov_history.values() | length }} generator ids under the same plant id</span><br>
+
+{% if p.country == "usa" %}
+<!-- us data -->
+
+{% if p.gov.has_multiple_projects %}
+<span class="badge bg-info">This project has {{ p.gov_history.values() | length }} 
+    generator ids under the same plant id</span><br>
 {% endif %}
 
 {% for gen in p.gov_history.values()%}
@@ -158,10 +166,40 @@ Info from the <code>{{ gen.current_month }}</code> report (Project first appeare
 {% endfor %} <!-- changes -->
 <br><br>
 {% endfor %}
-{% endif %}
+
+
+{% elif p.country in ("uk", "germany") %}
+<!-- uk / germany data -->
+Info from the <code>{{ p.gov_history.current_month }}</code> report 
+(Project first appeared in the <code>{{ p.gov_history.first_month }}</code> report):<br>
+
+<br>
+<dt>Plant Name / State</dt>
+<dl>{{ p.gov.name}} / {{ p.gov.state }}</dl>
+
+<dt>Go live / estimated go live </dt>
+<dl>{{ p.gov.start_operation }} / {{ p.gov.start_estimated }}</dl>
+
+<dt>MW</dt>
+<dl>{{ p.gov.power_mw }}</dl>
+
+<dt>Status</dt>
+<dl>{{ p.gov.status }}</dl>
+
+<b>Changes:</b><br>
+{% for change in p.gov_history.changes[::-1] %}
+    <b>{{change.month}}</b><br>
+    {% for field in change.li %}
+        {{ field.name }}: {{ field.from }} -> {{ field.to }} {{ field.extra | safe }}<br>
+    {% endfor %} <!-- field -->
+    <br>
+{% endfor %} <!-- changes -->
+
+
+{% endif %} <!-- if p.country -->
+{% endif %} <!-- if p.has_gov_data -->
 
 {% endblock %}
-
 
 {% block extra_scripts %}
 

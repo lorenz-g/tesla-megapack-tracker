@@ -11,7 +11,7 @@ GOV_DATA_INFO_DICT = {
     "uk": {
         "id": "uk",
         "flag": "🇬🇧",
-        "name_short": "UK RE1PD",
+        "name_short": "UK REPD",
         "name_long": "UK Renewable Energy Planning Database (REPD)",
         "title_extra": "data (>10MW)",
         "output_filename": "uk-repd",

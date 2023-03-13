@@ -1,16 +1,16 @@
-from pathlib import Path
 import csv
-from collections import defaultdict
-import os
 import datetime as dt
 import io
+import os
 import pprint
 import zipfile
+from collections import defaultdict
+from pathlib import Path
 
 import pylightxl as xl
 import requests
-from generate.constants import US_STATES_SHORT_TO_LONG
 
+from generate.constants import US_STATES_SHORT_TO_LONG
 from generate.utils import (
     GovShortData,
     check_di_difference,
@@ -200,6 +200,7 @@ def gen_short_project(generator_di):
         power_mw=mw_total,
         owner=p0["entity name"],
         status=status,
+        # TODO: probably good to add last heard of here
         date_first_heard=date_first_heard,
         start_construction=start_construction,
         start_operation=start_operation,
