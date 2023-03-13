@@ -145,8 +145,8 @@ def max_date(li):
         return ""
 
 
-def gen_short_project(generator_di):
-    """as the plant ids can hav multiple generator ids we need to summarise them and try to"""
+def gen_short_project(generator_di) -> GovShortData:
+    """as the plant ids can hav multiple generator ids we need to summarize them and try to"""
 
     sub_p = generator_di.values()
     sub_p_cu = [p["current"] for p in sub_p]
@@ -200,7 +200,6 @@ def gen_short_project(generator_di):
         power_mw=mw_total,
         owner=p0["entity name"],
         status=status,
-        # TODO: probably good to add last heard of here
         date_first_heard=date_first_heard,
         start_construction=start_construction,
         start_operation=start_operation,

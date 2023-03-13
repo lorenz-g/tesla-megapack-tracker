@@ -1,8 +1,7 @@
-from dataclasses import asdict, dataclass
 import copy
-import sys
-import math
 import logging
+import math
+from dataclasses import asdict, dataclass
 
 from generate.constants import COUNTRY_EMOJI_DI, US_STATES_TO_EIA_COORDINATES
 from generate.utils import GovShortData, construction_time
@@ -25,7 +24,6 @@ USE_CASE_EMOJI_LI = [
     ["ev", "🚗", "EV charging support"],
     # these just used for the legend
     ["🚨", "🚨", "incident reported"],
-    ["🐌", "🐌", "slow, bureaucracy"],
     ["📊", "📊", "government data available"],
     ["👤", "👤", "user data available"],
     ["📏", "📏", "mwh estimate based on mw"],
@@ -65,23 +63,6 @@ def tooltip_for_emoji(emoji_input):
                 % (text, emoji)
             )
     raise ValueError("%s emoji not found" % emoji_input)
-
-
-def project_is_slow(go_live, mwh, mw):
-    """Any project that is going live in 2025 or later and that has less than 1GW / 1GWh is slow
-    Might have to change that function in the future.
-
-    >>> project_is_slow(2025, 0, 200)
-    True
-    >>> project_is_slow(2025, 0, 1200)
-    False
-    >>> project_is_slow(2023, 0, 200)
-    False
-    """
-    if go_live and go_live >= 2025:
-        if not (mwh >= 1000 or mw >= 1000):
-            return True
-    return False
 
 
 def format_short_name(name, limit=25):
@@ -355,9 +336,6 @@ class BatteryProject:
         if "incident" in csv.notes.lower():
             emojis.append("🚨")
 
-        if project_is_slow(self.go_live_year_int, self.mwh, self.mw):
-            emojis.append("🐌")
-
         if csv.external_id:
             emojis.append("📊")
 
@@ -397,17 +375,3 @@ class BatteryProject:
     def data_check(self):
         """TODO: check between csv and gov data"""
         pass
-
-
-@dataclass
-class Test:
-    test: int
-
-
-if __name__ == "__main__":
-    import json
-
-    test = Test(**{"test": 23})
-    print(test)
-    print(asdict(test))
-    print(type(test))
