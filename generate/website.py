@@ -154,6 +154,7 @@ def gen_cars_vs_stationary():
 
     total_mwh = sum_cars + sum_ess
     total_gwh = total_mwh / 1000
+    total_tesla_twh = total_gwh / 1000
     perc_cars = int(sum_cars / total_mwh * 100)
     li.append(
         {
@@ -164,19 +165,52 @@ def gen_cars_vs_stationary():
         }
     )
 
-    # electcity in 2018 https://www.statista.com/statistics/280704/world-power-consumption/
-    worldwide_gwh = 23398 * 1000
     year_in_hours = 365 * 24
-    worldwide_avg_cons_gw = worldwide_gwh / year_in_hours
+    consumption_list = [
+        {
+            "text": "The entire globe 🌎",
+            "twh_per_year": 25343,
+            "year_of_consumption": "2021",
+            "source": "https://www.statista.com/statistics/280704/world-power-consumption/",
+            "display": "minutes",
+        },
+        {
+            "text": "China 🇨🇳",
+            "twh_per_year": 8310,
+            "year_of_consumption": "2021",
+            "source": "https://www.statista.com/statistics/302203/china-electricity-consumption/",
+            "display": "minutes",
+        },
+        {
+            "text": "USA 🇺🇸",
+            "twh_per_year": 4243,
+            "year_of_consumption": "2022",
+            "source": "https://www.eia.gov/totalenergy/data/monthly/pdf/sec7_5.pdf",
+            "display": "minutes",
+        },
+        {
+            "text": "Germany 🇩🇪",
+            "twh_per_year": 511,
+            "year_of_consumption": "2021",
+            "source": "https://www.statista.com/statistics/383650/consumption-of-electricity-in-germany/",
+            "display": "hours",
+        },
+    ]
+
+    for di in consumption_list:
+        if di["display"] == "hours":
+            factor = 1
+        elif di["display"] == "minutes":
+            factor = 60
+        else:
+            raise ValueError("unknown display type")
+        di["value"] = factor * total_tesla_twh / (di["twh_per_year"] / year_in_hours)
 
     return {
         "list": li,
         "expl": {
             "total_gwh": total_gwh,
-            # https://www.agora-energiewende.de/en/service/recent-electricity-data/
-            "avg_power_germany_gw": 60,
-            "hours_germany": total_gwh / 60,
-            "minutes_world": 60 * total_gwh / worldwide_avg_cons_gw,
+            "consumption_list": consumption_list,
         },
     }
 

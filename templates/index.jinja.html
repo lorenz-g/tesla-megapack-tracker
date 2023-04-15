@@ -193,15 +193,15 @@ The calculations are in the <a href="https://github.com/lorenz-g/tesla-megapack-
 <br><br>
 To put <code>{{ "%.1f" | format(extra.cars.expl.total_gwh) }} GWh</code> into perspective. With all battery cells Tesla sold to date, you could power: 
 <ul>
+    {% for item in extra.cars.expl.consumption_list %}
     <li>
-        the entire 
-        <a href="https://www.agora-energiewende.de/en/service/recent-electricity-data/" target="_blank">country of Germany</a> 🇩🇪
-        for <code>ca {{ "%.1f" | format(extra.cars.expl.hours_germany) }} hours</code> 
+        {{ item.text }}
+        for <code>ca {{ "%.0f" | format(item.value) }} {{ item.display}}</code> 
+        <span style="font-size: 0.7rem;">
+            (<a href="{{ item.source }}">{{ item.year_of_consumption }}</a> source)
+        </span>
     </li>
-    <li>
-        Or the <a href="https://www.statista.com/statistics/280704/world-power-consumption/" target="_blank">entire globe</a> 
-        🌎 for <code>ca {{ "%.1f" | format(extra.cars.expl.minutes_world) }} minutes</code>.
-    </li>
+    {% endfor %}
 </ul>
 
 
