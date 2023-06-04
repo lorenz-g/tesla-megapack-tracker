@@ -1,6 +1,6 @@
 import datetime as dt
 from collections import defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List
 
 # when using links need to prefix that everywhere
@@ -57,6 +57,67 @@ class GovShortData:
     pr_url: str = ""
 
 
+@dataclass
+class GovMonthlyChanges:
+    month: str
+    new: list[dict] = field(default_factory=list)
+    disappeared: list[dict] = field(default_factory=list)
+
+    updated_timing: list[list] = field(default_factory=list)
+    updated_status: list[list] = field(default_factory=list)
+    updated_misc: list[list] = field(default_factory=list)
+
+    count_updated_projects: int = 0
+
+    def sort_lists_by_descending_mw(self):
+        self.new = sorted(self.new, key=lambda x: x["mw"], reverse=True)
+        self.disappeared = sorted(self.disappeared, key=lambda x: x["mw"], reverse=True)
+
+        # careful about the extra x[0] in here
+        self.updated_timing = sorted(
+            self.updated_timing, key=lambda x: x[0]["mw"], reverse=True
+        )
+        self.updated_status = sorted(
+            self.updated_status, key=lambda x: x[0]["mw"], reverse=True
+        )
+        self.updated_misc = sorted(
+            self.updated_misc, key=lambda x: x[0]["mw"], reverse=True
+        )
+
+    def add_updated_project(self, project, changes):
+        if "status" in [i["change_type"] for i in changes]:
+            self.updated_status.append([project, changes])
+        elif "timing" in [i["change_type"] for i in changes]:
+            self.updated_timing.append([project, changes])
+        else:
+            self.updated_misc.append([project, changes])
+
+        self.count_updated_projects += 1
+
+    def get_all_updated_projects(self):
+        return [
+            {
+                "name": "Status",
+                "projects": self.updated_status,
+                # only this one is open on the accordion
+                "collapse": "show",
+                "html_id": f"acc-{self.month}-status",
+            },
+            {
+                "name": "Timing",
+                "projects": self.updated_timing,
+                "collapse": "",
+                "html_id": f"acc-{self.month}-timing",
+            },
+            {
+                "name": "Other",
+                "projects": self.updated_misc,
+                "collapse": "",
+                "html_id": f"acc-{self.month}-misc",
+            },
+        ]
+
+
 def check_di_difference(old, new, ignore=None):
     """only focus on single level dicts and assume they have the same keys"""
     # TODO: this line is wrong, fix it eventually, but code will probably break
@@ -69,8 +130,12 @@ def check_di_difference(old, new, ignore=None):
     for k, v in old.items():
         if k in ignore:
             continue
+
+        # either misc, timing or status
+        change_type = "misc"
         extra = ""
         if k == "date":
+            change_type = "timing"
             from_date = dt.datetime.strptime(v, "%Y-%m")
             to_date = dt.datetime.strptime(new[k], "%Y-%m")
             month_delta = (to_date.year - from_date.year) * 12 + (
@@ -87,6 +152,7 @@ def check_di_difference(old, new, ignore=None):
             )
 
         if k == "status":
+            change_type = "status"
             if new[k] == "operation":
                 # celebrate
                 extra = "🍾 🎉 🍸"
@@ -107,6 +173,7 @@ def check_di_difference(old, new, ignore=None):
                         "from": v,
                         "to": new[k],
                         "extra": extra,
+                        "change_type": change_type,
                     }
                 )
     return li

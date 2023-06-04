@@ -108,11 +108,14 @@ This list is a best effort to track all big battery installations larger than 10
     <tbody>
         {% for p in extra.projects %}
         <tr>
-            <td><a href="projects/{{p.csv.id}}.html" target="_blank">{{ p.name }}</a> {{p.emojis_with_tooltips}}</td>
+            <td>
+                <a href="projects/{{p.csv.id}}.html" target="_blank">{{ p.name }}</a> 
+                <span class="text-nowrap">{{p.emojis_with_tooltips}}</span>
+            </td>
             <td>{{ p.state }}</td>
             <td>{{ p.country }}</td>
             <td><span class="{{ p.status_class }}">{{ p.status }}</span></td>
-            <td>{{ p.go_live }}</td>
+            <td class="text-nowrap">{{ p.go_live }}</td>
             <td>{{ p.csv.manufacturer }}</td>
             <td>{{ p.csv.customer }} {{ p.owner }} {{ p.csv.developer }}</td>
             <td>{{ p.mwh }}</td>

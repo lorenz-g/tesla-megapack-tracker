@@ -1,19 +1,18 @@
 import csv
+import datetime as dt
 import os
 import pprint
 from collections import defaultdict
 from typing import Iterable
-import datetime as dt
 
 from generate.battery_project import BatteryProject
-
 from generate.bng_to_latlong import OSGB36toWGS84
 from generate.utils import (
+    GovMonthlyChanges,
     GovShortData,
     check_di_difference,
     create_summary_for_gov_projects,
 )
-
 
 # for simplicity introducing cancelled state here but filtering it out.
 STATUS_DI = {
@@ -118,7 +117,7 @@ def stats_uk_repd_data():
             rows = [row for row in reader]
 
         report_di = {}
-        monthly_changes = {"month": month, "new": [], "updated": [], "disappeared": []}
+        monthly_changes = GovMonthlyChanges(month=month)
 
         for r in rows:
             # every gov project should have a ext_id and status
@@ -132,7 +131,7 @@ def stats_uk_repd_data():
                 dif = check_di_difference(last_report[ref], r, ignore=[])
 
                 if dif:
-                    monthly_changes["updated"].append([r, dif])
+                    monthly_changes.add_updated_project(r, dif)
                     projects_di[ref]["changes"].append({"month": month, "li": dif})
 
                     # in case the start construction column is not filled, can try to guess it that way
@@ -149,7 +148,7 @@ def stats_uk_repd_data():
 
             else:
                 # new project
-                monthly_changes["new"].append(r)
+                monthly_changes.new.append(r)
                 projects_di[ref] = {
                     "first": r,
                     "first_month": month,
@@ -171,18 +170,9 @@ def stats_uk_repd_data():
         # find projects that disappeared
         for ref, r in last_report.items():
             if not (ref in report_di):
-                monthly_changes["disappeared"].append(r)
+                monthly_changes.disappeared.append(r)
 
-        monthly_changes["new"] = sorted(
-            monthly_changes["new"], key=lambda x: x["mw"], reverse=True
-        )
-        monthly_changes["updated"] = sorted(
-            monthly_changes["updated"], key=lambda x: x[0]["mw"], reverse=True
-        )
-        monthly_changes["disappeared"] = sorted(
-            monthly_changes["disappeared"], key=lambda x: x["mw"], reverse=True
-        )
-
+        monthly_changes.sort_lists_by_descending_mw()
         monthly_diffs.append(monthly_changes)
         last_report = report_di
 

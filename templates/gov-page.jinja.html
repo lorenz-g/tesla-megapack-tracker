@@ -89,7 +89,6 @@
     <li>Click on the reference number to get to the detail page of the project</li>
 </ul>
 
-
 {% for month in extra.summary.monthly_diffs%}
 
 <br>
@@ -113,17 +112,35 @@ Disappeared projects ({{ month.disappeared | length}}): <br>
 {% endif %}
 
 <br>
-Updated projects ({{ month.updated | length}}):<br>
-{% for pr, changes in month.updated %}
-<div class="mb-2">
-    {% set pr_sh = extra.summary.projects_short[pr.ext_id] %}
-    {{ pr_sh.power_mw}} MW - {{ pr_sh.status }} - {{ pr_sh.state}} - {{ pr_sh.name }} - 
-    <a href="projects/{{extra.gen_ids_from_projects[pr_sh.external_id]}}.html">{{pr_sh.external_id}}</a><br>    
-    {% for change in changes %}
-        &nbsp;&nbsp;{{ change.name }}: {{ change.from }} -> {{ change.to }} {{ change.extra | safe }}<br>
-    {% endfor %}
+Updated projects ({{ month.count_updated_projects }}):<br>
+
+{% for updated in month.get_all_updated_projects() %}
+<!-- bootstrap docs https://getbootstrap.com/docs/5.3/components/accordion/#example -->
+<div class="accordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#{{ updated.html_id }}" aria-expanded="true" 
+                aria-controls="{{ updated.html_id }}">
+                {{ updated.name }} updated ({{ updated.projects | length }})
+            </button>
+        </h2>
+        <div id="{{ updated.html_id }}" class="accordion-collapse collapse {{updated.collapse}}">
+            <div class="accordion-body">
+                {% for pr, changes in updated.projects %}
+                    {% set pr_sh = extra.summary.projects_short[pr.ext_id] %}
+                    {{ pr_sh.power_mw}} MW - {{ pr_sh.status }} - {{ pr_sh.state}} - {{ pr_sh.name }} - 
+                    <a href="projects/{{extra.gen_ids_from_projects[pr_sh.external_id]}}.html">{{pr_sh.external_id}}</a><br>    
+                    {% for change in changes %}
+                        &nbsp;&nbsp;{{ change.name }}: {{ change.from }} 
+                        -> {{ change.to }} {{ change.extra | safe }}<br>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </div>
-{% endfor %}
+{% endfor %} <!-- get_all_updated_projects() -->
 
 {% endfor %}
 

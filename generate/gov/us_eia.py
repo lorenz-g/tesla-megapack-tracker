@@ -12,6 +12,7 @@ import requests
 
 from generate.constants import US_STATES_SHORT_TO_LONG
 from generate.utils import (
+    GovMonthlyChanges,
     GovShortData,
     check_di_difference,
     create_summary_for_gov_projects,
@@ -41,7 +42,7 @@ def stats_eia_data():
             rows = [row for row in reader]
 
         report_di = {}
-        monthly_changes = {"month": month, "new": [], "updated": [], "disappeared": []}
+        monthly_changes = GovMonthlyChanges(month=month)
 
         for r in rows:
             # every gov project should have a ext_id and status
@@ -61,7 +62,7 @@ def stats_eia_data():
                 )
 
                 if dif:
-                    monthly_changes["updated"].append([r, dif])
+                    monthly_changes.add_updated_project(r, dif)
                     projects_di[p_id][g_id]["changes"].append(
                         {"month": month, "li": dif}
                     )
@@ -71,7 +72,7 @@ def stats_eia_data():
                         projects_di[p_id][g_id]["dates"]["start_construction"] = month
             else:
                 # new project
-                monthly_changes["new"].append(r)
+                monthly_changes.new.append(r)
                 projects_di[p_id][g_id] = {
                     "first": r,
                     "first_month": month,
@@ -95,18 +96,9 @@ def stats_eia_data():
                 if not (p_id in report_di and g_id in report_di[p_id]):
                     if r["status"] != "operation":
                         # TODO: should change the status of projects of the projects that disappeared and should not show them in the list anymore...
-                        monthly_changes["disappeared"].append(r)
+                        monthly_changes.disappeared.append(r)
 
-        monthly_changes["new"] = sorted(
-            monthly_changes["new"], key=lambda x: x["mw"], reverse=True
-        )
-        monthly_changes["updated"] = sorted(
-            monthly_changes["updated"], key=lambda x: x[0]["mw"], reverse=True
-        )
-        monthly_changes["disappeared"] = sorted(
-            monthly_changes["disappeared"], key=lambda x: x["mw"], reverse=True
-        )
-
+        monthly_changes.sort_lists_by_descending_mw()
         monthly_diffs.append(monthly_changes)
         last_report = report_di
 
