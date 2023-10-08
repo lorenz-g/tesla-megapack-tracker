@@ -120,7 +120,6 @@ def eia_location_estimate(id_, state):
     return str(coords[0] + y), str(coords[1] + x)
 
 
-# good link about dataclasses
 @dataclass
 class CsvProjectData:
     """
@@ -166,200 +165,63 @@ class CsvProjectData:
     link4: str
 
 
+@dataclass
 class BatteryProject:
-    """Class for a project to add helper and styling functions
-    that make it easier to work with the projects
+    """All the info about a project in a single dataclass"""
 
-    not sure whether to create attributes for mw and mwh..
+    csv: CsvProjectData
+    internal_id: str
+    external_id: str
 
-    can use vars(BatteryProject) to turn it into a dict, very handy.
+    has_gov_data: bool
+    gov: GovShortData | None
+    gov_history: dict | None
 
-    TODO: don't expose the csv file (all attributes should be in this class)
-    TODO: add the construction start for the EIA projects
-    TODO: add identifier for location of the EIA projects
-    TODO: check for the EIA data if the data is correct in the CSV sheet (and have a function to correct the data)
+    mw: int
+    mwh_is_estimate: bool
+    mwh: int
+    mwh_estimate: int
 
-    """
+    status: str
+    status_class: str
 
-    def __init__(self, csv_di, gov: GovShortData, gov_history):
-        pass
-        # the dict from the projects.csv file and turn into dataclass for type hints
-        csv = CsvProjectData(**csv_di)
-        self.internal_id = csv.id
+    date_first_heard: str
+    start_construction: str
+    start_operation: str
+    start_estimated: str
+    month_disappeared: str
+    go_live: str
 
-        # government data dict
-        self.gov = gov
-        self.gov_history = gov_history
-        self.has_gov_data = bool(gov)
+    name: str
+    name_short: str
+    owner: str
+    state: str
+    country: str
+    lat: str
+    long: str
+    coords_hint: int
+    coords_exact: bool
+    coords_help_str: str
 
-        # mwh is a special case as it always comes from CSV (and might be overwritten by an estimate)
-        self.mwh = csv_int(csv.capacity_mwh)
-        self.mwh_is_estimate = False
+    user_data: bool
+    emojis: str
+    emojis_with_tooltips: str
+    flag: str
+    google_maps_link: str
 
-        # TODO: don't use either or here, but just pick gov first and if it is not set, then pick the csv second (only relevant were manual data was filled in)
-        # in that pick first function can print the the differences...
-        # TODO: also add an emoji for manual data (i.e. if the project website or link is filled)
-        # merge the government data
-        # TODO: if the coords are exact then use the user data (e.g. burwell in the uk)
-        # if gov and csv.overwrite == "1":
-        if gov:
-            self.status = gov.status
-            self.external_id = gov.external_id
+    construction_time_month: int
+    construction_speed_mwh_per_month: int
+    no_of_battery_units: int
+    notes_split: list
+    links: list
+    in_operation: bool
+    in_construction: bool
+    in_planning: bool
+    go_live_year_int: int
 
-            self.date_first_heard = gov.date_first_heard
-            self.start_construction = gov.start_construction
-            self.start_operation = gov.start_operation
-            self.start_estimated = gov.start_estimated
-            self.month_disappeared = gov.month_disappeared
-
-            self.owner = gov.owner
-            self.name = gov.name
-            self.state = gov.state
-            self.country = gov.country
-            self.mw = gov.power_mw
-
-            # TODO: not sure why the cast to int is needed here as it should only arrive as int by the dataclass
-            mwh_estimate = csv_int(gov.estimate_mwh)
-
-            # for germnay we get mwh
-            if self.country == "germany":
-                self.mwh = gov.mwh
-        else:
-            self.status = csv.status
-            self.external_id = ""
-
-            self.date_first_heard = csv.date_first_heard
-            self.start_construction = csv.start_construction
-            self.start_operation = csv.start_operation
-            self.start_estimated = csv.start_estimated
-            self.month_disappeared = ""
-
-            self.owner = csv.owner
-            self.name = csv.name
-            self.state = csv.state
-            self.country = csv.country
-            self.mw = csv_int(csv.power_mw)
-
-            mwh_estimate = csv_int(csv.estimate_mwh)
-
-        if self.mwh == 0 and mwh_estimate > 0:
-            self.mwh = mwh_estimate
-            self.mwh_is_estimate = True
-
-        assert self.status in VALID_STATUS, "status is not valid '%s' - %s" % (
-            self.status,
-            csv_di["name"],
-        )
-
-        self.name_short = format_short_name(self.name)
-
-        self.status_class = STATUS_CLASS_DI.get(self.status, "")
-        self.notes_split = csv.notes.split("**")
-
-        self.in_operation = self.status == "operation"
-        self.in_construction = self.status == "construction"
-        self.in_planning = self.status == "planning"
-
-        # merge the start operation and estimated start here
-        # TODO: should have an indication where the data is coming from
-        if self.start_operation:
-            self.go_live = self.start_operation
-            self.go_live_year_int = int(self.go_live[:4])
-        elif self.start_estimated:
-            self.go_live = "0 ~  " + self.start_estimated
-            self.go_live_year_int = int(self.start_estimated[:4])
-        else:
-            self.go_live = ""
-            self.go_live_year_int = None
-
-        self.construction_time_month = construction_time(
-            self.start_construction, self.start_operation
-        )
-        # TODO: there are some that are negative, look at them again
-        self.construction_speed_mwh_per_month = (
-            int(self.mwh / self.construction_time_month)
-            if self.construction_time_month
-            else None
-        )
-
-        self.no_of_battery_units = csv_int(csv.no_of_battery_units)
-
-        self.lat = ""
-        self.long = ""
-        self.coords_hint = -2
-
-        if gov:
-            if self.country == "usa":
-                self.lat, self.long = eia_location_estimate(csv.id, gov.state)
-            elif self.country in ("uk", "germany"):
-                self.lat = gov.lat
-                self.long = gov.long
-
-            self.coords_hint = gov.coords_hint
-
-        # for now, overwrite with user data if it exists (TODO: more finegrained overwrites here ust coords_hint)
-        if csv.lat != "" and self.country != "germany":
-            self.lat = csv.lat
-            self.long = csv.long
-            self.coords_hint = csv_int(csv.coords_hint)
-
-        self.coords_exact = True if self.coords_hint in (1, 2) else False
-        self.coords_help_str = COORDS_HINT_DICT[self.coords_hint]
-
-        # https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
-        # zoom z=20 is the maximum, but not sure if it is working
-        # TODO: I think this google maps link format is old https://developers.google.com/maps/documentation/urls/get-started
-        self.google_maps_link = "http://maps.google.com/maps?z=19&t=k&q=loc:%s+%s" % (
-            self.lat,
-            self.long,
-        )
-
-        self.links = [csv.link1, csv.link2, csv.link3, csv.link4]
-        self.links = [l for l in self.links if l != ""]
-        # can assume that when a link is there some user data was added
-        self.user_data = bool(len(self.links) > 0) or csv.project_website != ""
-
-        if gov and gov.pr_url:
-            self.links.append(gov.pr_url)
-
-        emojis = []
-        # the order in which the if cases happen matters as that is the order of the emojis
-        if not self.coords_exact:
-            emojis.append("📍")
-
-        # add both heart for GWh projects
-        if self.mwh >= 1000 or self.mw >= 1000:
-            emojis.append("❤️")
-
-        use_case_lower = csv.use_case.lower()
-        for keyword, emoji, _ in USE_CASE_EMOJI_LI:
-            if keyword in use_case_lower:
-                emojis.append(emoji)
-
-        if "incident" in csv.notes.lower():
-            emojis.append("🚨")
-
-        if csv.external_id:
-            emojis.append("📊")
-
-        if self.user_data:
-            emojis.append("👤")
-
-        if self.mwh_is_estimate:
-            emojis.append("📏")
-
-        self.emojis = "".join(emojis)
-
-        self.flag = COUNTRY_EMOJI_DI.get(csv.country, csv.country)
-
-        self.emojis_with_tooltips = "".join([tooltip_for_emoji(e) for e in emojis])
-
-        self.csv = csv
-
-        # some helper variables
-        self.is_active = self.status != "cancelled"
-        self.is_tesla = self.csv.manufacturer == "tesla"
-        self.is_megapack = self.csv.type == "megapack"
+    is_active: bool
+    is_tesla: bool
+    is_megapack: bool
 
     def __repr__(self) -> str:
         e_id = self.gov.external_id if self.gov else ""
@@ -376,6 +238,214 @@ class BatteryProject:
             di["gov"] = {}
         return di
 
-    def data_check(self):
-        """TODO: check between csv and gov data"""
-        pass
+
+def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProject:
+    """helper function to create the battery project"""
+
+    # the dict from the projects.csv file and turn into dataclass for type hints
+    csv = CsvProjectData(**csv_di)
+    internal_id = csv.id
+    has_gov_data = bool(gov)
+
+    # mwh is a special case as it always comes from CSV (and might be overwritten by an estimate)
+    mwh = csv_int(csv.capacity_mwh)
+    mwh_is_estimate = False
+
+    # TODO: don't use either or here, but just pick gov first and if it is not set, then pick the csv second (only relevant were manual data was filled in)
+    # in that pick first function can print the the differences...
+    # TODO: also add an emoji for manual data (i.e. if the project website or link is filled)
+    # merge the government data
+    # TODO: if the coords are exact then use the user data (e.g. burwell in the uk)
+    # if gov and csv.overwrite == "1":
+    if gov:
+        status = gov.status
+        external_id = gov.external_id
+
+        date_first_heard = gov.date_first_heard
+        start_construction = gov.start_construction
+        start_operation = gov.start_operation
+        start_estimated = gov.start_estimated
+        month_disappeared = gov.month_disappeared
+
+        owner = gov.owner
+        name = gov.name
+        state = gov.state
+        country = gov.country
+        mw = gov.power_mw
+
+        mwh_estimate = csv_int(gov.estimate_mwh)
+
+        # for germnay we get mwh
+        if country == "germany":
+            mwh = gov.mwh
+    else:
+        status = csv.status
+        external_id = ""
+
+        date_first_heard = csv.date_first_heard
+        start_construction = csv.start_construction
+        start_operation = csv.start_operation
+        start_estimated = csv.start_estimated
+        month_disappeared = ""
+
+        owner = csv.owner
+        name = csv.name
+        state = csv.state
+        country = csv.country
+        mw = csv_int(csv.power_mw)
+
+        mwh_estimate = csv_int(csv.estimate_mwh)
+
+    if mwh == 0 and mwh_estimate > 0:
+        mwh = mwh_estimate
+        mwh_is_estimate = True
+
+    assert status in VALID_STATUS, "status is not valid '%s' - %s" % (
+        status,
+        csv_di["name"],
+    )
+
+    name_short = format_short_name(name)
+
+    status_class = STATUS_CLASS_DI.get(status, "")
+    notes_split = csv.notes.split("**")
+
+    in_operation = status == "operation"
+    in_construction = status == "construction"
+    in_planning = status == "planning"
+
+    # merge the start operation and estimated start here
+    # TODO: should have an indication where the data is coming from
+    if start_operation:
+        go_live = start_operation
+        go_live_year_int = int(go_live[:4])
+    elif start_estimated:
+        go_live = "0 ~  " + start_estimated
+        go_live_year_int = int(start_estimated[:4])
+    else:
+        go_live = ""
+        go_live_year_int = None
+
+    construction_time_month = construction_time(start_construction, start_operation)
+    # TODO: there are some that are negative, look at them again
+    construction_speed_mwh_per_month = (
+        int(mwh / construction_time_month) if construction_time_month else None
+    )
+
+    no_of_battery_units = csv_int(csv.no_of_battery_units)
+
+    lat = ""
+    long = ""
+    coords_hint = -2
+
+    if gov:
+        if country == "usa":
+            lat, long = eia_location_estimate(csv.id, gov.state)
+        elif country in ("uk", "germany"):
+            lat = gov.lat
+            long = gov.long
+
+        coords_hint = gov.coords_hint
+
+    # for now, overwrite with user data if it exists (TODO: more finegrained overwrites here ust coords_hint)
+    if csv.lat != "" and country != "germany":
+        lat = csv.lat
+        long = csv.long
+        coords_hint = csv_int(csv.coords_hint)
+
+    coords_exact = True if coords_hint in (1, 2) else False
+    coords_help_str = COORDS_HINT_DICT[coords_hint]
+
+    # https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
+    # zoom z=20 is the maximum, but not sure if it is working
+    # TODO: I think this google maps link format is old https://developers.google.com/maps/documentation/urls/get-started
+    google_maps_link = "http://maps.google.com/maps?z=19&t=k&q=loc:%s+%s" % (
+        lat,
+        long,
+    )
+
+    links = [csv.link1, csv.link2, csv.link3, csv.link4]
+    links = [l for l in links if l != ""]
+    # can assume that when a link is there some user data was added
+    user_data = bool(len(links) > 0) or csv.project_website != ""
+
+    if gov and gov.pr_url:
+        links.append(gov.pr_url)
+
+    emojis = []
+    # the order in which the if cases happen matters as that is the order of the emojis
+    if not coords_exact:
+        emojis.append("📍")
+
+    # add both heart for GWh projects
+    if mwh >= 1000 or mw >= 1000:
+        emojis.append("❤️")
+
+    use_case_lower = csv.use_case.lower()
+    for keyword, emoji, _ in USE_CASE_EMOJI_LI:
+        if keyword in use_case_lower:
+            emojis.append(emoji)
+
+    if "incident" in csv.notes.lower():
+        emojis.append("🚨")
+
+    if csv.external_id:
+        emojis.append("📊")
+
+    if user_data:
+        emojis.append("👤")
+
+    if mwh_is_estimate:
+        emojis.append("📏")
+
+    flag = COUNTRY_EMOJI_DI.get(csv.country, csv.country)
+
+    emojis_with_tooltips = "".join([tooltip_for_emoji(e) for e in emojis])
+
+    return BatteryProject(
+        csv=csv,
+        internal_id=internal_id,
+        external_id=external_id,
+        has_gov_data=has_gov_data,
+        gov=gov,
+        gov_history=gov_history,
+        mw=mw,
+        mwh_is_estimate=mwh_is_estimate,
+        mwh=mwh,
+        mwh_estimate=mwh_estimate,
+        status=status,
+        status_class=status_class,
+        date_first_heard=date_first_heard,
+        start_construction=start_construction,
+        start_operation=start_operation,
+        start_estimated=start_estimated,
+        month_disappeared=month_disappeared,
+        go_live=go_live,
+        name=name,
+        name_short=name_short,
+        owner=owner,
+        state=state,
+        country=country,
+        lat=lat,
+        long=long,
+        coords_hint=coords_hint,
+        coords_exact=coords_exact,
+        coords_help_str=coords_help_str,
+        user_data=user_data,
+        emojis="".join(emojis),
+        emojis_with_tooltips=emojis_with_tooltips,
+        flag=flag,
+        google_maps_link=google_maps_link,
+        construction_time_month=construction_time_month,
+        construction_speed_mwh_per_month=construction_speed_mwh_per_month,
+        no_of_battery_units=no_of_battery_units,
+        notes_split=notes_split,
+        links=links,
+        in_operation=in_operation,
+        in_construction=in_construction,
+        in_planning=in_planning,
+        go_live_year_int=go_live_year_int,
+        is_active=status != "cancelled",
+        is_tesla=csv.manufacturer == "tesla",
+        is_megapack=csv.type == "megapack",
+    )

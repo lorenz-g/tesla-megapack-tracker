@@ -9,7 +9,11 @@ from typing import Iterable
 
 from jinja2 import Environment, FileSystemLoader
 
-from generate.battery_project import USE_CASE_EMOJI_LI, BatteryProject
+from generate.battery_project import (
+    USE_CASE_EMOJI_LI,
+    BatteryProject,
+    setup_battery_project,
+)
 from generate.blog import gen_blog
 from generate.constants import (
     GOV_DATA_INFO_DICT,
@@ -433,7 +437,7 @@ def main(match_country):
         "germany": stats_de_mastr_data(),
     }
 
-    projects = []
+    projects: list[BatteryProject] = []
     for p in csv_projects:
         # skip for an empty row (sometimes the case at the end)
         if p["name"] == "":
@@ -446,7 +450,7 @@ def main(match_country):
             gov = gov_datasets[p["country"]]["projects_short"][p["external_id"]]
             gov_history = gov_datasets[p["country"]]["projects"][p["external_id"]]
 
-        projects.append(BatteryProject(p, gov, gov_history))
+        projects.append(setup_battery_project(p, gov, gov_history))
 
     # projects that are not cancelled
     active_projects = [p for p in projects if p.is_active]
