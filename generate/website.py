@@ -448,11 +448,13 @@ def main(match_country):
 
         projects.append(BatteryProject(p, gov, gov_history))
 
-    tesla_projects = [p for p in projects if p.is_tesla]
+    # projects that are not cancelled
+    active_projects = [p for p in projects if p.is_active]
+    tesla_projects = [p for p in active_projects if p.is_tesla]
 
     # 2) Generate the pages
     gen_projects_template(tesla_projects, "index.jinja.html")
-    gen_projects_template(projects, "all-big-batteries.jinja.html")
+    gen_projects_template(active_projects, "all-big-batteries.jinja.html")
     gen_individual_pages(projects)
     gen_gov_pages(gov_datasets, projects)
     gen_de_small_batteries()
@@ -462,7 +464,7 @@ def main(match_country):
     ajax_data = {
         "project_length": {
             "tesla_str": "(%d)" % len(tesla_projects),
-            "all_str": "(%d)" % len(projects),
+            "all_str": "(%d)" % len(active_projects),
         },
         # TODO: can move the static site generated at into here also
         # "generated_at":

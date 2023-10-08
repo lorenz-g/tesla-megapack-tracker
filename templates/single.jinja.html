@@ -42,6 +42,12 @@
                 <td>Estimated start</td>
                 <td>{{ p.start_estimated }}</td>
             </tr>
+            {% if p.status == 'cancelled' %}
+            <tr>
+                <td>Month disappeared</td>
+                <td>{{ p.month_disappeared }}</td>
+            </tr>
+            {% endif %}
             <tr>
                 <td>Construction time</td>
                 <td>
@@ -197,6 +203,17 @@ Info from the <code>{{ p.gov_history.current_month }}</code> report
 
 
 {% endif %} <!-- if p.country -->
+
+<br>
+{{ p.gov.month_disappeared }}
+{% if p.gov.month_disappeared %}
+This project disappeared in the <code>{{ p.gov.month_disappeared }}</code> report. <br>
+That's why the status was set to <span class="{{ p.status_class }}">{{ p.status }}</span>
+<br>
+{% endif %} <!-- if p.gov.month_disappeared -->
+
+{% else %} <!-- if p.has_gov_data -->
+
 {% endif %} <!-- if p.has_gov_data -->
 
 {% endblock %}

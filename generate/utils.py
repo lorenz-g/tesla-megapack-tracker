@@ -48,6 +48,7 @@ class GovShortData:
     start_construction: str
     start_operation: str
     start_estimated: str
+    month_disappeared: str = ""
 
     # default arguments (need be be after the default arguments)
     lat: str = ""

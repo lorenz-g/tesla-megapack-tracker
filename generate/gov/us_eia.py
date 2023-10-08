@@ -83,6 +83,7 @@ def stats_eia_data():
                         "first_heard": month,
                         "start_construction": None,
                     },
+                    "month_disappeared": "",
                 }
 
             projects_di[p_id][g_id]["current"] = r
@@ -95,8 +96,8 @@ def stats_eia_data():
             for g_id, r in v.items():
                 if not (p_id in report_di and g_id in report_di[p_id]):
                     if r["status"] != "operation":
-                        # TODO: should change the status of projects of the projects that disappeared and should not show them in the list anymore...
                         monthly_changes.disappeared.append(r)
+                        projects_di[p_id][g_id]["month_disappeared"] = month
 
         monthly_changes.sort_lists_by_descending_mw()
         monthly_diffs.append(monthly_changes)
@@ -140,7 +141,7 @@ def max_date(li):
 def gen_short_project(generator_di) -> GovShortData:
     """as the plant ids can hav multiple generator ids we need to summarize them and try to"""
 
-    sub_p = generator_di.values()
+    sub_p = list(generator_di.values())
     sub_p_cu = [p["current"] for p in sub_p]
     p0 = sub_p_cu[0]
 
@@ -180,6 +181,16 @@ def gen_short_project(generator_di) -> GovShortData:
         start_operation = ""
         start_estimated = max_date([p["date"] for p in sub_p_cu])
 
+    # raise an error if one sub project has a month_disappeared and the other does not
+    month_disappeared_set = set(p["month_disappeared"] for p in sub_p)
+    if len(month_disappeared_set) > 1 and "" in month_disappeared_set:
+        raise ValueError(
+            "cannot have empty and non-empty month_disappeared, project: %s",
+            generator_di,
+        )
+    if sub_p[0]["month_disappeared"] != "":
+        status = "cancelled"
+
     return GovShortData(
         data_source="us_eia",
         name=p0["plant name"],
@@ -196,6 +207,8 @@ def gen_short_project(generator_di) -> GovShortData:
         start_construction=start_construction,
         start_operation=start_operation,
         start_estimated=start_estimated,
+        # the the last month in case there are multiple projects
+        month_disappeared=sorted(month_disappeared_set)[-1],
         has_multiple_projects=len(sub_p_cu) > 1,
         coords_hint=-1,
     )

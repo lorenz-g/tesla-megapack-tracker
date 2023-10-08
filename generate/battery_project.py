@@ -9,15 +9,20 @@ from generate.utils import GovShortData, construction_time
 l = logging.getLogger("battery_project")
 
 
-VALID_STATUS = ("planning", "construction", "operation")
+VALID_STATUS = ("planning", "construction", "operation", "cancelled")
+
+STATUS_CLASS_DI = {
+    "operation": "badge rounded-pill bg-success",
+    "cancelled": "badge rounded-pill bg-danger",
+}
+
 
 USE_CASE_EMOJI_LI = [
     # these just used for the legend
     ["📍", "📍", "location not exactly known"],
-    ["⚡", "⚡", "more than 100 MWh"],
     ["❤️", "❤️", "more than 1000 MWh / 1GWh"],
     # below for legend and use case
-    ["solar", "☀️", "attached to solar farm"],
+    # removes solar as so many projects are solar + battery and would be hard to keep that list up to date
     ["wind", "🌬️", "attached to wind farm"],
     ["island", "🏝️", "island installation"],
     ["bus", "🚌", "at bus depot"],
@@ -205,6 +210,7 @@ class BatteryProject:
             self.start_construction = gov.start_construction
             self.start_operation = gov.start_operation
             self.start_estimated = gov.start_estimated
+            self.month_disappeared = gov.month_disappeared
 
             self.owner = gov.owner
             self.name = gov.name
@@ -226,6 +232,7 @@ class BatteryProject:
             self.start_construction = csv.start_construction
             self.start_operation = csv.start_operation
             self.start_estimated = csv.start_estimated
+            self.month_disappeared = ""
 
             self.owner = csv.owner
             self.name = csv.name
@@ -246,9 +253,7 @@ class BatteryProject:
 
         self.name_short = format_short_name(self.name)
 
-        self.status_class = (
-            "badge rounded-pill bg-success" if self.status == "operation" else ""
-        )
+        self.status_class = STATUS_CLASS_DI.get(self.status, "")
         self.notes_split = csv.notes.split("**")
 
         self.in_operation = self.status == "operation"
@@ -322,11 +327,9 @@ class BatteryProject:
         if not self.coords_exact:
             emojis.append("📍")
 
-        # add both heart and ⚡ for 1gwh projects so if you search for the ⚡ the massive ones will show up also
+        # add both heart for GWh projects
         if self.mwh >= 1000 or self.mw >= 1000:
             emojis.append("❤️")
-        if self.mwh >= 100 or self.mw >= 100:
-            emojis.append("⚡")
 
         use_case_lower = csv.use_case.lower()
         for keyword, emoji, _ in USE_CASE_EMOJI_LI:
@@ -354,6 +357,7 @@ class BatteryProject:
         self.csv = csv
 
         # some helper variables
+        self.is_active = self.status != "cancelled"
         self.is_tesla = self.csv.manufacturer == "tesla"
         self.is_megapack = self.csv.type == "megapack"
 

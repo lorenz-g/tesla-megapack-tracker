@@ -28,9 +28,11 @@ function generateBatteryMap(projects, mapId, zoom_to_first_project=false){
         planning: [],
         construction: [],
         operation: [],
+        cancelled: [],
     };
 
     var markerColor = {
+        cancelled: "grey",
         planning: "grey",
         construction: "blue",
         operation: "green",
@@ -99,6 +101,7 @@ function generateBatteryMap(projects, mapId, zoom_to_first_project=false){
         "planning": L.layerGroup(overlays["planning"]),
         "construction": L.layerGroup(overlays["construction"]),
         "operation": L.layerGroup(overlays["operation"]),
+        "cancelled": L.layerGroup(overlays["cancelled"]),
     };
 
     if (zoom_to_first_project == true){
@@ -111,7 +114,7 @@ function generateBatteryMap(projects, mapId, zoom_to_first_project=false){
 
     var mymap = L.map(mapId, {
         // sets what is shown
-        layers: [streets, overlays["planning"], overlays["construction"], overlays["operation"]],
+        layers: [streets, overlays["planning"], overlays["construction"], overlays["operation"], overlays["cancelled"]],
         // TODO: is there a way how you can set it to ctrl + wheel
         scrollWheelZoom: true,
     }).setView(zoom_coords, zoom_level);

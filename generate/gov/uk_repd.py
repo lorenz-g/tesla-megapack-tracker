@@ -25,6 +25,7 @@ STATUS_DI = {
     "Application Refused": "cancelled",
     "Appeal Refused": "cancelled",
     "Operational": "operation",
+    "Finished": "operation",
     # TODO: not sure about that one...
     "Revised": "planning",
     "Pre-Planning": "planning",
@@ -62,6 +63,8 @@ def generate_filtered_csv(in_filename, out_filename):
             pr_by_status[status]["cnt"] += 1
             pr_by_status[status]["mw"] += mw
 
+            # TODO: now that the cancelled status is handled, no longer need to filter
+            # them out, but would have to regenerate all the filtered files.
             if status == "cancelled":
                 continue
 
@@ -162,6 +165,7 @@ def stats_uk_repd_data():
                         "start_construction": "",
                         "start_operation": "",
                     },
+                    "month_disappeared": "",
                 }
 
             projects_di[ref]["current"] = r
@@ -171,6 +175,11 @@ def stats_uk_repd_data():
         for ref, r in last_report.items():
             if not (ref in report_di):
                 monthly_changes.disappeared.append(r)
+                if projects_di[ref]["current"]["status"] == "operation":
+                    raise ValueError(
+                        f"project {ref} disappeared but was in operation before"
+                    )
+                projects_di[ref]["month_disappeared"] = month
 
         monthly_changes.sort_lists_by_descending_mw()
         monthly_diffs.append(monthly_changes)
@@ -195,7 +204,7 @@ def stats_uk_repd_data():
 
 def format_date(d):
     "18/10/2016  to 2016-10-18"
-    if not d:
+    if not d or d == " ":
         return ""
     return dt.datetime.strptime(d, "%d/%m/%Y").strftime("%Y-%m-%d")
 
@@ -216,12 +225,22 @@ def gen_short_project(history_di):
     date_first_heard = pick_first(
         format_date(r["Planning Permission Granted"]), dates["first_heard"]
     )
+    # Some projects have "Implemented" in this column, which is not a date. So ignoring that
+    if r["Under Construction"] == "Implemented":
+        r["Under Construction"] = ""
     start_construction = pick_first(
         format_date(r["Under Construction"]), dates["start_construction"]
     )
     start_operation = pick_first(
         format_date(r["Operational"]), dates["start_operation"]
     )
+
+    if history_di.get("month_disappeared", "") != "":
+        month_disappeared = history_di["month_disappeared"]
+        status = "cancelled"
+    else:
+        month_disappeared = ""
+        status = r["status"]
 
     return GovShortData(
         data_source="uk_repd",
@@ -235,10 +254,11 @@ def gen_short_project(history_di):
         estimate_mwh=int(r["mw"]),
         power_mw=int(r["mw"]),
         owner=r["Operator (or Applicant)"],
-        status=r["status"],
+        status=status,
         date_first_heard=date_first_heard,
         start_construction=start_construction,
         start_operation=start_operation,
+        month_disappeared=month_disappeared,
         # does not exist in the data source
         start_estimated="",
         lat=r["lat"],
@@ -294,8 +314,8 @@ def match_uk_repd_projects_with_mpt_projects(
 
 if __name__ == "__main__":
     # only runt it with new gov data
-    in_filename = "misc/uk-repd/original/repd-january-2023.csv"
-    out_filename = "misc/uk-repd/filtered/2023-01.csv"
+    in_filename = "misc/uk-repd/original/repd-july-2023.csv"
+    out_filename = "misc/uk-repd/filtered/2023-07.csv"
     generate_filtered_csv(in_filename, out_filename)
 
     # stats_uk_repd_data()
