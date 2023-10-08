@@ -74,10 +74,10 @@ San Jacinto Grid, LLC (130MWh)
     <div class="container-xl">
         
 
-<h3> San Jacinto Grid, LLC <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="more than 100 MWh">⚡</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span> </h3>
+<h3> San Jacinto Grid, LLC <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span> </h3>
 
 <dt>Status </dt>
-<dl><span class="">planning</span> </dl>
+<dl><span class="">construction</span> </dl>
 
 <dt>Country / State / Closest City </dt>
 <dl>usa / california / </dl>
@@ -92,7 +92,7 @@ San Jacinto Grid, LLC (130MWh)
             </tr>
             <tr>
                 <td>Construction start</td>
-                <td></td>
+                <td>2023-09</td>
             </tr>
             <tr>
                 <td>Operation start</td>
@@ -100,8 +100,9 @@ San Jacinto Grid, LLC (130MWh)
             </tr>
             <tr>
                 <td>Estimated start</td>
-                <td>2023-09</td>
+                <td>2023-11</td>
             </tr>
+            
             <tr>
                 <td>Construction time</td>
                 <td>
@@ -190,17 +191,17 @@ The government data source for this battery is the U.S. Energy Information Admin
 
 
 
-Info from the <code>2023-07</code> report (Project first appeared in the <code>2022-06</code> report):<br>
+Info from the <code>2023-09</code> report (Project first appeared in the <code>2022-06</code> report):<br>
 
 <br>
 <dt>Plant Name / State</dt>
 <dl>San Jacinto Grid, LLC / CA</dl>
 
 <dt>go live / power </dt>
-<dl>2023-09 / 65MW</dl>
+<dl>2023-11 / 65MW</dl>
 
 <dt>status / status verbose</dt>
-<dl>planning / (T) Regulatory approvals received. Not under construction </dl>
+<dl>construction / (U) Under construction, less than or equal to 50 percent complete </dl>
 
 <dt>Plant id / generator id </dt>
 <dl>65657 / HESJG</dl>
@@ -209,6 +210,20 @@ Info from the <code>2023-07</code> report (Project first appeared in the <code>2
 <dl>San Jacinto Grid, LLC / 64936</dl>
 
 <b>Changes:</b><br>
+
+
+    <b>2023-09</b><br>
+    
+        status: planning -> construction 🏗️<br>
+    
+        status_verbose: (T) Regulatory approvals received. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+     <!-- field -->
+
+
+    <b>2023-08</b><br>
+    
+        date: 2023-09 -> 2023-11 <span class="badge rounded-pill bg-danger">delayed by 2 months</span><br>
+     <!-- field -->
 
 
     <b>2023-06</b><br>
@@ -240,6 +255,11 @@ Info from the <code>2023-07</code> report (Project first appeared in the <code>2
 
 
  <!-- if p.country -->
+
+<br>
+
+ <!-- if p.gov.month_disappeared -->
+
  <!-- if p.has_gov_data -->
 
       
@@ -283,7 +303,7 @@ Info from the <code>2023-07</code> report (Project first appeared in the <code>2
         // var projects = '';
         // projects = JSON.parse(projects)
         // could also have the json as static file and load it here...
-        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords are a guess. Only the state is known", "coords_hint": -1, "country": "usa", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "130", "external_id": "65657", "id": "707", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "San Jacinto Grid, LLC", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "San Jacinto Grid, LLC", "power_mw": "65", "project_website": "", "start_construction": "", "start_estimated": "2023-03", "start_operation": "", "state": "california", "status": "planning", "type": "", "use_case": ""}, "date_first_heard": "2022-06", "emojis": "\ud83d\udccd\u26a1\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"more than 100 MWh\"\u003e\u26a1\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "65657", "flag": "\ud83c\uddfa\ud83c\uddf8", "go_live": "0 ~  2023-09", "go_live_year_int": 2023, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:41.24726561713374+-121.39056792885305", "gov": {"coords_hint": -1, "country": "usa", "data_source": "us_eia", "date_first_heard": "2022-06", "estimate_mwh": 130, "external_id": "65657", "has_multiple_projects": false, "lat": "", "long": "", "mwh": 0, "name": "San Jacinto Grid, LLC", "owner": "San Jacinto Grid, LLC", "power_mw": 65, "pr_url": "", "start_construction": "", "start_estimated": "2023-09", "start_operation": "", "state": "california", "status": "planning"}, "gov_history": {"HESJG": {"changes": [{"li": [{"change_type": "timing", "extra": "\u003cspan class=\"badge rounded-pill bg-danger\"\u003edelayed by 1 month\u003c/span\u003e", "from": "2023-03", "name": "date", "to": "2023-04"}], "month": "2022-09"}, {"li": [{"change_type": "timing", "extra": "\u003cspan class=\"badge rounded-pill bg-danger\"\u003edelayed by 1 month\u003c/span\u003e", "from": "2023-04", "name": "date", "to": "2023-05"}], "month": "2022-11"}, {"li": [{"change_type": "timing", "extra": "\u003cspan class=\"badge rounded-pill bg-danger\"\u003edelayed by 1 month\u003c/span\u003e", "from": "2023-05", "name": "date", "to": "2023-06"}], "month": "2023-02"}, {"li": [{"change_type": "timing", "extra": "\u003cspan class=\"badge rounded-pill bg-danger\"\u003edelayed by 3 months\u003c/span\u003e", "from": "2023-06", "name": "date", "to": "2023-09"}], "month": "2023-06"}], "current": {"date": "2023-09", "energy source code": "MWH", "entity id": "64936", "entity name": "San Jacinto Grid, LLC", "ext_id": "65657", "generator id": "HESJG", "month": "9", "mw": 65, "net summer capacity (mw)": "65", "plant id": "65657", "plant name": "San Jacinto Grid, LLC", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "planning", "status_verbose": "(T) Regulatory approvals received. Not under construction", "technology": "Batteries", "year": "2023"}, "current_month": "2023-07", "dates": {"first_heard": "2022-06", "start_construction": null}, "first": {"date": "2023-03", "energy source code": "MWH", "entity id": "64936", "entity name": "San Jacinto Grid, LLC", "ext_id": "65657", "generator id": "HESJG", "month": "3", "mw": 65, "net summer capacity (mw)": "65", "plant id": "65657", "plant name": "San Jacinto Grid, LLC", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "planning", "status_verbose": "(T) Regulatory approvals received. Not under construction", "technology": "Batteries", "year": "2023"}, "first_month": "2022-06"}}, "has_gov_data": true, "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "707", "is_megapack": false, "is_tesla": false, "lat": "41.24726561713374", "links": [], "long": "-121.39056792885305", "mw": 65, "mwh": 130, "mwh_is_estimate": true, "name": "San Jacinto Grid, LLC", "name_short": "San Jacinto Grid, LLC", "no_of_battery_units": 0, "notes_split": [""], "owner": "San Jacinto Grid, LLC", "start_construction": "", "start_estimated": "2023-09", "start_operation": "", "state": "california", "status": "planning", "status_class": "", "user_data": false}];
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords are a guess. Only the state is known", "coords_hint": -1, "country": "usa", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "coords_hint_2": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "130", "external_id": "65657", "id": "707", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "San Jacinto Grid, LLC", "no_of_battery_units": "", "notes": "", "overwrite": "1", "owner": "San Jacinto Grid, LLC", "power_mw": "65", "project_website": "", "start_construction": "", "start_estimated": "2023-03", "start_operation": "", "state": "california", "status": "planning", "type": "", "use_case": ""}, "date_first_heard": "2022-06", "emojis": "\ud83d\udccd\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "65657", "flag": "\ud83c\uddfa\ud83c\uddf8", "go_live": "0 ~  2023-11", "go_live_year_int": 2023, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:41.24726561713374+-121.39056792885305", "gov": {"coords_hint": -1, "country": "usa", "data_source": "us_eia", "date_first_heard": "2022-06", "estimate_mwh": 130, "external_id": "65657", "has_multiple_projects": false, "lat": "", "long": "", "month_disappeared": "", "mwh": 0, "name": "San Jacinto Grid, LLC", "owner": "San Jacinto Grid, LLC", "power_mw": 65, "pr_url": "", "start_construction": "2023-09", "start_estimated": "2023-11", "start_operation": "", "state": "california", "status": "construction"}, "gov_history": {"HESJG": {"changes": [{"li": [{"change_type": "timing", "extra": "\u003cspan class=\"badge rounded-pill bg-danger\"\u003edelayed by 1 month\u003c/span\u003e", "from": "2023-03", "name": "date", "to": "2023-04"}], "month": "2022-09"}, {"li": [{"change_type": "timing", "extra": "\u003cspan class=\"badge rounded-pill bg-danger\"\u003edelayed by 1 month\u003c/span\u003e", "from": "2023-04", "name": "date", "to": "2023-05"}], "month": "2022-11"}, {"li": [{"change_type": "timing", "extra": "\u003cspan class=\"badge rounded-pill bg-danger\"\u003edelayed by 1 month\u003c/span\u003e", "from": "2023-05", "name": "date", "to": "2023-06"}], "month": "2023-02"}, {"li": [{"change_type": "timing", "extra": "\u003cspan class=\"badge rounded-pill bg-danger\"\u003edelayed by 3 months\u003c/span\u003e", "from": "2023-06", "name": "date", "to": "2023-09"}], "month": "2023-06"}, {"li": [{"change_type": "timing", "extra": "\u003cspan class=\"badge rounded-pill bg-danger\"\u003edelayed by 2 months\u003c/span\u003e", "from": "2023-09", "name": "date", "to": "2023-11"}], "month": "2023-08"}, {"li": [{"change_type": "status", "extra": "\ud83c\udfd7\ufe0f", "from": "planning", "name": "status", "to": "construction"}, {"change_type": "misc", "extra": "", "from": "(T) Regulatory approvals received. Not under construction", "name": "status_verbose", "to": "(U) Under construction, less than or equal to 50 percent complete"}], "month": "2023-09"}], "current": {"date": "2023-11", "energy source code": "MWH", "entity id": "64936", "entity name": "San Jacinto Grid, LLC", "ext_id": "65657", "generator id": "HESJG", "month": "11", "mw": 65, "net summer capacity (mw)": "65", "plant id": "65657", "plant name": "San Jacinto Grid, LLC", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "construction", "status_verbose": "(U) Under construction, less than or equal to 50 percent complete", "technology": "Batteries", "year": "2023"}, "current_month": "2023-09", "dates": {"first_heard": "2022-06", "start_construction": "2023-09"}, "first": {"date": "2023-03", "energy source code": "MWH", "entity id": "64936", "entity name": "San Jacinto Grid, LLC", "ext_id": "65657", "generator id": "HESJG", "month": "3", "mw": 65, "net summer capacity (mw)": "65", "plant id": "65657", "plant name": "San Jacinto Grid, LLC", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "planning", "status_verbose": "(T) Regulatory approvals received. Not under construction", "technology": "Batteries", "year": "2023"}, "first_month": "2022-06", "month_disappeared": ""}}, "has_gov_data": true, "in_construction": true, "in_operation": false, "in_planning": false, "internal_id": "707", "is_active": true, "is_megapack": false, "is_tesla": false, "lat": "41.24726561713374", "links": [], "long": "-121.39056792885305", "month_disappeared": "", "mw": 65, "mwh": 130, "mwh_is_estimate": true, "name": "San Jacinto Grid, LLC", "name_short": "San Jacinto Grid, LLC", "no_of_battery_units": 0, "notes_split": [""], "owner": "San Jacinto Grid, LLC", "start_construction": "2023-09", "start_estimated": "2023-11", "start_operation": "", "state": "california", "status": "construction", "status_class": "", "user_data": false}];
         
         generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
 
