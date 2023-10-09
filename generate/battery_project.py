@@ -130,7 +130,6 @@ class CsvProjectData:
     city: str
     id: str
     external_id: str
-    overwrite: str
     state: str
     country: str
     capacity_mwh: str
@@ -153,9 +152,7 @@ class CsvProjectData:
     cost_incl_solar: str
     lat: str
     long: str
-    # for the time being, there are two, but will be 1 again soon
     coords_hint: str
-    coords_hint_2: str
     use_case: str
     notes: str
     project_website: str
@@ -173,6 +170,7 @@ class BatteryProject:
     internal_id: str
     external_id: str
 
+    has_user_data: bool
     has_gov_data: bool
     gov: GovShortData | None
     gov_history: dict | None
@@ -203,7 +201,6 @@ class BatteryProject:
     coords_exact: bool
     coords_help_str: str
 
-    user_data: bool
     emojis: str
     emojis_with_tooltips: str
     flag: str
@@ -246,6 +243,7 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
     csv = CsvProjectData(**csv_di)
     internal_id = csv.id
     has_gov_data = bool(gov)
+    has_user_data = False
 
     # mwh is a special case as it always comes from CSV (and might be overwritten by an estimate)
     mwh = csv_int(csv.capacity_mwh)
@@ -258,13 +256,22 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
     # TODO: if the coords are exact then use the user data (e.g. burwell in the uk)
     # if gov and csv.overwrite == "1":
     if gov:
-        status = gov.status
         external_id = gov.external_id
-
+        
+        status = gov.status
         date_first_heard = gov.date_first_heard
         start_construction = gov.start_construction
         start_operation = gov.start_operation
         start_estimated = gov.start_estimated
+
+        # in case the government data did not catch up fast enough, can set the data from the CSV here instead
+        if csv.status == 'operation' and gov.status in ("planning", "construction"):
+            status = csv.status
+            date_first_heard = gov.date_first_heard or csv.date_first_heard
+            start_construction = gov.start_construction or csv.start_construction
+            start_operation = gov.start_operation or csv.start_operation
+            has_user_data = True
+        
         month_disappeared = gov.month_disappeared
 
         owner = gov.owner
@@ -279,13 +286,13 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
         if country == "germany":
             mwh = gov.mwh
     else:
-        status = csv.status
         external_id = ""
-
+        status = csv.status
         date_first_heard = csv.date_first_heard
         start_construction = csv.start_construction
         start_operation = csv.start_operation
         start_estimated = csv.start_estimated
+        
         month_disappeared = ""
 
         owner = csv.owner
@@ -334,21 +341,20 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
 
     no_of_battery_units = csv_int(csv.no_of_battery_units)
 
-    lat = ""
-    long = ""
-    coords_hint = -2
-
     if gov:
         if country == "usa":
             lat, long = eia_location_estimate(csv.id, gov.state)
-        elif country in ("uk", "germany"):
+            coords_hint = gov.coords_hint
+            # for the USA gov data, use the csv it it exists
+            if csv.lat != "":
+                lat = csv.lat
+                long = csv.long
+                coords_hint = csv_int(csv.coords_hint)
+        else:
             lat = gov.lat
             long = gov.long
-
-        coords_hint = gov.coords_hint
-
-    # for now, overwrite with user data if it exists (TODO: more finegrained overwrites here ust coords_hint)
-    if csv.lat != "" and country != "germany":
+            coords_hint = gov.coords_hint
+    else:
         lat = csv.lat
         long = csv.long
         coords_hint = csv_int(csv.coords_hint)
@@ -367,7 +373,7 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
     links = [csv.link1, csv.link2, csv.link3, csv.link4]
     links = [l for l in links if l != ""]
     # can assume that when a link is there some user data was added
-    user_data = bool(len(links) > 0) or csv.project_website != ""
+    has_user_data = has_user_data or bool(len(links) > 0) or csv.project_website != ""
 
     if gov and gov.pr_url:
         links.append(gov.pr_url)
@@ -392,7 +398,7 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
     if csv.external_id:
         emojis.append("📊")
 
-    if user_data:
+    if has_user_data:
         emojis.append("👤")
 
     if mwh_is_estimate:
@@ -407,6 +413,7 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
         internal_id=internal_id,
         external_id=external_id,
         has_gov_data=has_gov_data,
+        has_user_data=has_user_data,
         gov=gov,
         gov_history=gov_history,
         mw=mw,
@@ -431,7 +438,6 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
         coords_hint=coords_hint,
         coords_exact=coords_exact,
         coords_help_str=coords_help_str,
-        user_data=user_data,
         emojis="".join(emojis),
         emojis_with_tooltips=emojis_with_tooltips,
         flag=flag,
@@ -447,5 +453,5 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
         go_live_year_int=go_live_year_int,
         is_active=status != "cancelled",
         is_tesla=csv.manufacturer == "tesla",
-        is_megapack=csv.type == "megapack",
+        is_megapack="megapack" in csv.type.lower(),
     )
