@@ -21,14 +21,7 @@ USE_CASE_EMOJI_LI = [
     # these just used for the legend
     ["📍", "📍", "location not exactly known"],
     ["❤️", "❤️", "more than 1000 MWh / 1GWh"],
-    # below for legend and use case
-    # removes solar as so many projects are solar + battery and would be hard to keep that list up to date
-    ["wind", "🌬️", "attached to wind farm"],
-    ["island", "🏝️", "island installation"],
-    ["bus", "🚌", "at bus depot"],
-    ["ev", "🚗", "EV charging support"],
     # these just used for the legend
-    ["🚨", "🚨", "incident reported"],
     ["📊", "📊", "government data available"],
     ["👤", "👤", "user data available"],
     ["📏", "📏", "mwh estimate based on mw"],
@@ -386,14 +379,6 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
     # add both heart for GWh projects
     if mwh >= 1000 or mw >= 1000:
         emojis.append("❤️")
-
-    use_case_lower = csv.use_case.lower()
-    for keyword, emoji, _ in USE_CASE_EMOJI_LI:
-        if keyword in use_case_lower:
-            emojis.append(emoji)
-
-    if "incident" in csv.notes.lower():
-        emojis.append("🚨")
 
     if csv.external_id:
         emojis.append("📊")

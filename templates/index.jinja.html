@@ -32,9 +32,7 @@
 
 
 {% block content %}
-Page is better on a big screen. Does not work well on mobile. 
-
-<h3 id=""> Tesla Megapack summary*</h3>
+<h3> Tesla Megapack summary*</h3>
 
 <div class="row">
     <div class="col-lg-5">
@@ -52,7 +50,7 @@ Page is better on a big screen. Does not work well on mobile.
                 <td>{{ extra.summary.by_status.planning.count }}</td>
             </tr>
             <tr>
-                <td>Total 🔋 battery capacity in GWh </td>
+                <td>🔋 Battery capacity (GWh) </td>
                 <td>{{ "%.1f" | format(extra.summary.by_status.operation.gwh) }}</td>
                 <td>{{ "%.1f" | format(extra.summary.by_status.construction.gwh) }}</td>
                 <td>{{ "%.1f" | format(extra.summary.by_status.planning.gwh) }}</td>
@@ -82,18 +80,16 @@ Page is better on a big screen. Does not work well on mobile.
     </div>
 </div>
 
-
 <br>
 This is the Tesla page, to view the big batteries from all manufacturers click <a href="all-big-batteries.html">here</a>.
 
-
 <h3 id="project-list"> Tesla Megapack project List</h3>
-
-This list is a best effort to try and list all Tesla megapack and powerpack (>5MWh) installations that are reported via the news / twitter. 
-<br>Use the search bar to narrow down the results, e.g. <code>california operation</code> or <code>⚡ usa</code> for all large project in the USA. 
-<br>Click on the name to show a detail view of the project incl the sources where the information was found. 
-
-<br><br>
+<ul>
+    <li>This list is a best effort to track Tesla megapack installations. </li>
+    <li>Use the search bar to narrow down the results, e.g. <code>california operation</code> for projects in California in operation.</li>
+    <li>Click on the name to show a detail view of the project.</li>
+    <li class="d-md-none">Table is better on a big screen (with more columns also).</li>
+</ul>
 
 <table id="projects-table" class="table table-striped">
     <thead>
@@ -124,7 +120,6 @@ This list is a best effort to try and list all Tesla megapack and powerpack (>5M
             <td>{{ p.mw }}</td>
         </tr>
         {% endfor %}
-        
     </tbody>
     <tfoot>
         <tr>
@@ -208,7 +203,7 @@ To put <code>{{ "%.0f" | format(extra.cars.expl.total_gwh) }} GWh</code> into pe
 </ul>
 
 
-<br> Unfortunately most of those cells are in cars which most of the time are not connected via a charger to the grid. 
+<br> Unfortunately most cells are in cars which mostly are not connected via a charger to the grid. 
 Making the car chargers smarter and trying to maximize the times that EVs are connected to the grid has a huge potential to stabilize the grid 
 and transform it towards a supply driven energy market vs a demand driven. <br>
 That means: You charge your car when there is enough green energy vs when you want to charge your car there must be enough energy
@@ -221,13 +216,15 @@ That means: You charge your car when there is enough green energy vs when you wa
 
 Contact: Direct Message via <a href="https://twitter.com/l__orenz" target="_blank">Twitter</a> for questions. 
 <br>
-Contribute: Found and error or there is a new project, open an Issue or a Pull Request on 
+Contribute: Open an issue or a PR on 
 <a href="https://github.com/lorenz-g/tesla-megapack-tracker" target="_blank">Github</a>. 
-You can also find all the code there to generate this site. 
-
+Source code is there as well. 
 <br><br>
-This page is not affiliated, associated, endorsed by or in any way officially connected with Tesla Motors, Inc.
-<br>
-<span style="font-size: 0.8rem;">This static site was generated on: {{ extra.now }} UTC</span>
+
+<div style="font-size: 0.8rem;">
+    This page is not affiliated, associated, endorsed by or in any way officially connected with Tesla, Inc.
+    <br>
+    Website was generated on: {{ extra.now.strftime("%Y-%m-%d %H:%M") }} UTC
+</div>
 
 {% endblock %}
