@@ -1,9 +1,20 @@
 
 
 function generateBatteryList(order, columns, summary, listId){
+
+    // the 768 equals the md bootstrap breakpoint
+    // https://getbootstrap.com/docs/5.3/layout/breakpoints/#available-breakpoints
+    if (window.innerWidth < 768){
+        var scrollX = true;
+    } else {
+        var scrollX = false;
+    }
+
     $(listId).DataTable({
-        "pageLength": 25,
+        "pageLength": 10,
         "order": [[ order, "desc" ]],
+        // for the table on mobile that you can scroll in the x direction
+        "scrollX": scrollX,
         // the inspiration for the totals row comes from https://elbilstatistikk.no/
         'drawCallback': function (oSettings) {
             var api = this.api();

@@ -102,10 +102,6 @@ def gen_raw_data_files():
         writer = csv.writer(f)
         writer.writerows(csv_projects)
 
-    with open(os.path.join(output_dir, output_fn + ".excel.csv"), "w") as f:
-        writer = csv.writer(f, dialect="excel")
-        writer.writerows(csv_projects)
-
 
 def gen_cars_vs_stationary():
     "prepare data to use it with bootstrap bars, a charting lib might be easier..."
