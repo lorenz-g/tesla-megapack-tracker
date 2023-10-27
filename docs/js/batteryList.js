@@ -7,13 +7,17 @@ function generateBatteryList(order, columns, summary, listId){
     if (window.innerWidth < 768){
         var scrollX = true;
         var pageLength = 10;
+        var pagingType = "numbers";
     } else {
         var scrollX = false;
         var pageLength = 25;
+        var pagingType = "simple_numbers";
     }
 
     $(listId).DataTable({
         "pageLength": pageLength,
+        // https://datatables.net/reference/option/pagingType
+        "pagingType": pagingType,
         "order": [[ order, "desc" ]],
         // for the table on mobile that you can scroll in the x direction
         "scrollX": scrollX,
@@ -42,5 +46,17 @@ function generateBatteryList(order, columns, summary, listId){
             }
         } //end footerCallback
     });
+
+    // hacks for table on mobile
+    if (window.innerWidth < 768){
+        // this is the weird footer on mobile that we want to disable
+        $('.dataTables_scrollFoot').hide();
+    } 
+    
+
+    
+
+
+
 
 }

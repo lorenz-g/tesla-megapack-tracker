@@ -108,7 +108,8 @@
 <table id="projects-table" class="table">
     <thead>
         <tr>
-            <th class="td-name">Name</th>
+            <!-- keep this column name long to prevent high rows on mobile -->
+            <th class="text-nowrap td-name">Battery name</th>
             <th>
                 <span class="d-none d-md-inline">Location </span>
                 <span class="d-md-none">Loc. </span>
@@ -117,12 +118,17 @@
             <th>MW</th>
             <th>Status</th>
             <th>Live</th>
-            <th>
+            <th class="text-nowrap">
+                <!-- keep this column name long to prevent high rows on mobile -->
                 <span data-toggle="tooltip" data-placement="top" title="Customer / Owner / Developer">
-                    Involved*
+                    Involved companies *
                 </span>
             </th>
-            <th></th>
+            <th class="text-nowrap">
+                <span data-toggle="tooltip" data-placement="top" title="emojis and internal id">
+                    id *
+                </span>
+            </th>
             
         </tr>
     </thead>
@@ -145,8 +151,14 @@
             <td>{{ p.mw }}</td>
             <td><span class="{{ p.status_class }}">{{ p.status }}</span></td>
             <td class="text-nowrap">{{ p.go_live }}</td>
-            <td>{{ p.csv.customer }} {{ p.owner }} {{ p.csv.developer }}</td>
-            <td><span class="text-nowrap">{{p.emojis_with_tooltips}}</span></td>
+            <td class="text-sm">{{ p.csv.customer }} {{ p.owner }} {{ p.csv.developer }}</td>
+            <td>
+                <span class="text-nowrap">{{p.emojis_with_tooltips}}</span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : {{p.internal_id}} - gov id: {{p.external_id}}">
+                    {{p.internal_id}}
+                </span>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
