@@ -179,7 +179,8 @@
 <table id="projects-table" class="table">
     <thead>
         <tr>
-            <th class="td-name">Name</th>
+            <!-- keep this column name long to prevent high rows on mobile -->
+            <th class="text-nowrap td-name">Battery name</th>
             <th>
                 <span class="d-none d-md-inline">Location </span>
                 <span class="d-md-none">Loc. </span>
@@ -188,12 +189,17 @@
             <th>MW</th>
             <th>Status</th>
             <th>Live</th>
-            <th>
+            <th class="text-nowrap">
+                <!-- keep this column name long to prevent high rows on mobile -->
                 <span data-toggle="tooltip" data-placement="top" title="Customer / Owner / Developer">
-                    Involved*
+                    Involved companies *
                 </span>
             </th>
-            <th></th>
+            <th class="text-nowrap">
+                <span data-toggle="tooltip" data-placement="top" title="emojis and internal id">
+                    id *
+                </span>
+            </th>
             
         </tr>
     </thead>
@@ -216,8 +222,14 @@
             <td>185</td>
             <td><span class="">construction</span></td>
             <td class="text-nowrap">0 ~  2023-08</td>
-            <td>Hawaiian Electric Kapolei Energy Storage I, LLC </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Hawaiian Electric Kapolei Energy Storage I, LLC </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 1 - gov id: 66067">
+                    1
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -237,8 +249,14 @@
             <td>300</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2021-12-08</td>
-            <td>Neoen Australia  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Neoen Australia  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 2 - gov id: ">
+                    2
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -258,8 +276,14 @@
             <td>100</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2021-04</td>
-            <td>Arevon Ventura Energy Storage, LLC </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Arevon Ventura Energy Storage, LLC </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 3 - gov id: 63891">
+                    3
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -279,8 +303,14 @@
             <td>130</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap"></td>
-            <td>Apple  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Apple  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 4 - gov id: ">
+                    4
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -300,8 +330,14 @@
             <td>100</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap"></td>
-            <td>Nofar Energy  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Nofar Energy  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 5 - gov id: ">
+                    5
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -321,8 +357,14 @@
             <td>100</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2021-06</td>
-            <td>Tesla Subsidiary Tesla Inc. </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span></span></td>
+            <td class="text-sm">Tesla Subsidiary Tesla Inc. </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 6 - gov id: 64528">
+                    6
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -342,8 +384,14 @@
             <td>182</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2022-04</td>
-            <td>PG&E Pacific Gas & Electric Co. </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">PG&E Pacific Gas & Electric Co. </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 7 - gov id: 62564">
+                    7
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -363,8 +411,14 @@
             <td>150</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2017-12-01</td>
-            <td>Neoen Australia  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Neoen Australia  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 8 - gov id: ">
+                    8
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -384,8 +438,14 @@
             <td>0</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2019-03-27</td>
-            <td>  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 9 - gov id: ">
+                    9
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -405,8 +465,14 @@
             <td>0</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap"></td>
-            <td>  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 10 - gov id: ">
+                    10
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -426,8 +492,14 @@
             <td>10</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2021-02</td>
-            <td>Clean Coalition Viridity Energy Solutions, Inc. </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Clean Coalition Viridity Energy Solutions, Inc. </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 11 - gov id: 62801">
+                    11
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -447,8 +519,14 @@
             <td>50</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2021-12-01</td>
-            <td>TransGrid  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">TransGrid  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 12 - gov id: ">
+                    12
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -468,8 +546,14 @@
             <td>20</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap"></td>
-            <td>WCSB  Power  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">WCSB  Power  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 13 - gov id: ">
+                    13
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -489,8 +573,14 @@
             <td>20</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap"></td>
-            <td>WCSB  Power  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">WCSB  Power  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 14 - gov id: ">
+                    14
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -510,8 +600,14 @@
             <td>20</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap"></td>
-            <td>WCSB  Power  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">WCSB  Power  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 15 - gov id: ">
+                    15
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -531,8 +627,14 @@
             <td>10</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2020-10-15</td>
-            <td>TransAlta  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">TransAlta  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 16 - gov id: ">
+                    16
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -552,8 +654,14 @@
             <td>7</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2020-09-18</td>
-            <td>Harmony Energy Ltd / Fotowatio Renewable Ventures BV   </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Harmony Energy Ltd / Fotowatio Renewable Ventures BV   </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 17 - gov id: ">
+                    17
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -573,8 +681,14 @@
             <td>0</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap"></td>
-            <td>switch  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">switch  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 18 - gov id: ">
+                    18
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -594,8 +708,14 @@
             <td>0</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2017-03-08</td>
-            <td>KIUC  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">KIUC  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 19 - gov id: ">
+                    19
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -615,8 +735,14 @@
             <td>20</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2017-06-02</td>
-            <td>SCE Southern California Edison  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">SCE Southern California Edison  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 20 - gov id: ">
+                    20
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -636,8 +762,14 @@
             <td>15</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2020-10-13</td>
-            <td>ngen  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">ngen  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 21 - gov id: ">
+                    21
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -657,8 +789,14 @@
             <td>12</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2019-10-14</td>
-            <td>ngen  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">ngen  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 22 - gov id: ">
+                    22
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -678,8 +816,14 @@
             <td>46</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2022-01</td>
-            <td>Homer Electric Association Homer Electric Assn Inc </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Homer Electric Association Homer Electric Assn Inc </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 23 - gov id: 57206">
+                    23
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -699,8 +843,14 @@
             <td>4</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2019-01-22</td>
-            <td>United Power  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">United Power  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 24 - gov id: ">
+                    24
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -720,8 +870,14 @@
             <td>6</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2019-19-09</td>
-            <td>National Grid  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">National Grid  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 25 - gov id: ">
+                    25
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -741,8 +897,14 @@
             <td>0</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2019-06-26</td>
-            <td>Zenobe Energy   </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Zenobe Energy   </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 26 - gov id: ">
+                    26
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -762,8 +924,14 @@
             <td>25</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2018-11-16</td>
-            <td>Edify Energy / Wirsol  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Edify Energy / Wirsol  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 27 - gov id: ">
+                    27
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -783,8 +951,14 @@
             <td>25</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2020-01-22</td>
-            <td>Infigen Energy  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Infigen Energy  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 28 - gov id: ">
+                    28
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -804,8 +978,14 @@
             <td>0</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2016-11-22</td>
-            <td>  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 29 - gov id: ">
+                    29
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -825,8 +1005,14 @@
             <td>0</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2018-07-25</td>
-            <td>  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 30 - gov id: ">
+                    30
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -846,8 +1032,14 @@
             <td>10</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2018-05-29</td>
-            <td>Salt River Project  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Salt River Project  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 31 - gov id: ">
+                    31
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -867,8 +1059,14 @@
             <td>18</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2018-05-14</td>
-            <td>Restore  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Restore  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 32 - gov id: ">
+                    32
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -888,8 +1086,14 @@
             <td>2</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap"></td>
-            <td>Ozop Energy Systems  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Ozop Energy Systems  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 33 - gov id: ">
+                    33
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -909,8 +1113,14 @@
             <td>60</td>
             <td><span class="">construction</span></td>
             <td class="text-nowrap">0 ~  2023-11</td>
-            <td>Goleta Energy Storage, LLC Goleta Energy Storage, LLC </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span></span></td>
+            <td class="text-sm">Goleta Energy Storage, LLC Goleta Energy Storage, LLC </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 34 - gov id: 66394">
+                    34
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -930,8 +1140,14 @@
             <td>34</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2021-09-07</td>
-            <td>Harmony Energy Ltd / Fotowatio Renewable Ventures   </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Harmony Energy Ltd / Fotowatio Renewable Ventures   </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 35 - gov id: ">
+                    35
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -951,8 +1167,14 @@
             <td>5</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2017-01-01</td>
-            <td>Barbados Light & Power  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Barbados Light & Power  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 36 - gov id: ">
+                    36
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -972,8 +1194,14 @@
             <td>150</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2023-10-09</td>
-            <td>Edify Energy / Shell  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Edify Energy / Shell  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 45 - gov id: ">
+                    45
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -993,8 +1221,14 @@
             <td>99</td>
             <td><span class="">construction</span></td>
             <td class="text-nowrap"></td>
-            <td>Harmony Energy Ltd / Fotowatio Renewable Ventures (FRV)  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Harmony Energy Ltd / Fotowatio Renewable Ventures (FRV)  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 76 - gov id: ">
+                    76
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1014,8 +1248,14 @@
             <td>150</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2023-07</td>
-            <td>PNM Arroyo Solar LLC Affordable Solar</td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">PNM Arroyo Solar LLC Affordable Solar</td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 101 - gov id: 63172">
+                    101
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1035,8 +1275,14 @@
             <td>25</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2021-09</td>
-            <td> Salt River Project </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> Salt River Project </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 111 - gov id: 141">
+                    111
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1056,8 +1302,14 @@
             <td>150</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap">0 ~  2025-05</td>
-            <td> Cranberry Point Energy Storage LLC </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> Cranberry Point Energy Storage LLC </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 113 - gov id: 62844">
+                    113
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1077,8 +1329,14 @@
             <td>175</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap">0 ~  2025-03</td>
-            <td> Cross Town Energy Storage LLC </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> Cross Town Energy Storage LLC </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 114 - gov id: 66606">
+                    114
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1098,8 +1356,14 @@
             <td>1</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2021-09-27</td>
-            <td> Dubai Electricity and Water Authority (DEWA) </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> Dubai Electricity and Water Authority (DEWA) </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 118 - gov id: ">
+                    118
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1119,8 +1383,14 @@
             <td>50</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap">0 ~  2023H1</td>
-            <td> Genex Power </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> Genex Power </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 119 - gov id: ">
+                    119
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1140,8 +1410,14 @@
             <td>49</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2023-06-16</td>
-            <td> Harmony Energy Harmony Energy</td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> Harmony Energy Harmony Energy</td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 129 - gov id: 7058">
+                    129
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1161,8 +1437,14 @@
             <td>49</td>
             <td><span class="">construction</span></td>
             <td class="text-nowrap"></td>
-            <td> Harmony Energy Storage Harmony Energy Limited / Tesla</td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> Harmony Energy Storage Harmony Energy Limited / Tesla</td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 130 - gov id: 10863">
+                    130
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1182,8 +1464,14 @@
             <td>11</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2021-04</td>
-            <td> Silverstrand Grid, LLC </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> Silverstrand Grid, LLC </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 193 - gov id: 63735">
+                    193
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1203,8 +1491,14 @@
             <td>90</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2021-12</td>
-            <td>Arevon Townsite Solar, LLC </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Arevon Townsite Solar, LLC </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 228 - gov id: 60654">
+                    228
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1224,8 +1518,14 @@
             <td>49</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2022-11-01</td>
-            <td> Harmony Energy Storage </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> Harmony Energy Storage </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 299 - gov id: 7005">
+                    299
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1245,8 +1545,14 @@
             <td>15</td>
             <td><span class="">construction</span></td>
             <td class="text-nowrap"></td>
-            <td> Harmony Energy </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span></span></td>
+            <td class="text-sm"> Harmony Energy </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 404 - gov id: 7688">
+                    404
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1266,8 +1572,14 @@
             <td>49</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap"></td>
-            <td> Harmony Energy Storage Harmony Energy Limited / Ritchie Bland Energy No. 2 Ltd</td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> Harmony Energy Storage Harmony Energy Limited / Ritchie Bland Energy No. 2 Ltd</td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 410 - gov id: 7737">
+                    410
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1287,8 +1599,14 @@
             <td>40</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap"></td>
-            <td> Harmony Energy Storage </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> Harmony Energy Storage </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 489 - gov id: 9121">
+                    489
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1308,8 +1626,14 @@
             <td>100</td>
             <td><span class="">construction</span></td>
             <td class="text-nowrap">0 ~  2023Q4</td>
-            <td>CS Energy  </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">CS Energy  </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 691 - gov id: ">
+                    691
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1329,8 +1653,14 @@
             <td>150</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap">0 ~  2024-08</td>
-            <td> Vikings Energy Farm, LLC arevon</td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> Vikings Energy Farm, LLC arevon</td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 697 - gov id: 65711">
+                    697
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1350,8 +1680,14 @@
             <td>300</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap">0 ~  2025-02</td>
-            <td>arevon Nighthawk Energy Storage, LLC </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="more than 1000 MWh / 1GWh">❤️</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">arevon Nighthawk Energy Storage, LLC </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="more than 1000 MWh / 1GWh">❤️</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 774 - gov id: 65889">
+                    774
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1371,8 +1707,14 @@
             <td>49</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap"></td>
-            <td> Harmony Energy Limited Harmony Energy Limited</td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> Harmony Energy Limited Harmony Energy Limited</td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 824 - gov id: 11808">
+                    824
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1392,8 +1734,14 @@
             <td>50</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2022-12-11</td>
-            <td>  Corsica Sole</td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">  Corsica Sole</td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 843 - gov id: ">
+                    843
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1413,8 +1761,14 @@
             <td>99</td>
             <td><span class="">construction</span></td>
             <td class="text-nowrap">0 ~  2023-08-25</td>
-            <td> Harmony Energy Income Trust </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> Harmony Energy Income Trust </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 844 - gov id: ">
+                    844
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1434,8 +1788,14 @@
             <td>11</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2022-12-01</td>
-            <td> Harmony Energy Income Trust </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> Harmony Energy Income Trust </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 845 - gov id: ">
+                    845
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1455,8 +1815,14 @@
             <td>49</td>
             <td><span class="badge rounded-pill bg-success">operation</span></td>
             <td class="text-nowrap">2022-11-01</td>
-            <td> Harmony Energy Storage Harmony Energy Limited / Tesla</td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> Harmony Energy Storage Harmony Energy Limited / Tesla</td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 846 - gov id: 7360">
+                    846
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1476,8 +1842,14 @@
             <td>20</td>
             <td><span class="">construction</span></td>
             <td class="text-nowrap">0 ~  2023Q1</td>
-            <td> Harmony Energy Income Trust </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> Harmony Energy Income Trust </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 847 - gov id: ">
+                    847
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1497,8 +1869,14 @@
             <td>33</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap">0 ~  2024Q1</td>
-            <td> Harmony Energy Income Trust Harmony Energy Limited / Ritchie Bland Energy No. 2 Ltd</td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span></span></td>
+            <td class="text-sm"> Harmony Energy Income Trust Harmony Energy Limited / Ritchie Bland Energy No. 2 Ltd</td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 848 - gov id: ">
+                    848
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1518,8 +1896,14 @@
             <td>49</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap">0 ~  2024Q2</td>
-            <td> Harmony Energy Income Trust Harmony Energy Limited / Ritchie Bland Energy No. 2 Ltd</td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span></span></td>
+            <td class="text-sm"> Harmony Energy Income Trust Harmony Energy Limited / Ritchie Bland Energy No. 2 Ltd</td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 849 - gov id: ">
+                    849
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1539,8 +1923,14 @@
             <td>200</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap">0 ~  2024</td>
-            <td>Neoen Australia Neoen </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Neoen Australia Neoen </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 850 - gov id: ">
+                    850
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1560,8 +1950,14 @@
             <td>250</td>
             <td><span class="">construction</span></td>
             <td class="text-nowrap">0 ~  2024-06</td>
-            <td>Salt River Project Sierra Estrella Energy Storage, LLC Plus Power</td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="more than 1000 MWh / 1GWh">❤️</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Salt River Project Sierra Estrella Energy Storage, LLC Plus Power</td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="more than 1000 MWh / 1GWh">❤️</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 851 - gov id: 66334">
+                    851
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1581,8 +1977,14 @@
             <td>90</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap">0 ~  2024-06</td>
-            <td>Salt River Project Superstition Energy Storage, LLC Plus Power</td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">Salt River Project Superstition Energy Storage, LLC Plus Power</td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 852 - gov id: 66333">
+                    852
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1602,8 +2004,14 @@
             <td>200</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap">0 ~  2024-08</td>
-            <td>arevon Condor Energy Storage LLC tenaska</td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">arevon Condor Energy Storage LLC tenaska</td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 864 - gov id: 66285">
+                    864
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1623,8 +2031,14 @@
             <td>200</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap">0 ~  2024-08</td>
-            <td>arevon Peregrine Energy Storage, LLC tenaska</td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">arevon Peregrine Energy Storage, LLC tenaska</td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 865 - gov id: 66286">
+                    865
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1644,8 +2058,14 @@
             <td>250</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap">0 ~  2025</td>
-            <td>NRStor Northland Power ** SNGRDC </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="more than 1000 MWh / 1GWh">❤️</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm">NRStor Northland Power ** SNGRDC </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="more than 1000 MWh / 1GWh">❤️</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 866 - gov id: ">
+                    866
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1665,8 +2085,14 @@
             <td>219</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap">0 ~  2024Q4</td>
-            <td> neoen </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> neoen </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 1174 - gov id: ">
+                    1174
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1686,8 +2112,14 @@
             <td>0</td>
             <td><span class="">planning</span></td>
             <td class="text-nowrap"></td>
-            <td> Chingjia Energy </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> Chingjia Energy </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 1175 - gov id: ">
+                    1175
+                </span>
+            </td>
         </tr>
         
         <tr>
@@ -1707,8 +2139,14 @@
             <td>129</td>
             <td><span class="">construction</span></td>
             <td class="text-nowrap"></td>
-            <td> Tesla </td>
-            <td><span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span></td>
+            <td class="text-sm"> Tesla </td>
+            <td>
+                <span class="text-nowrap"><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span></span>
+                <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
+                    title="internal id : 1176 - gov id: ">
+                    1176
+                </span>
+            </td>
         </tr>
         
     </tbody>
@@ -1954,7 +2392,7 @@ Source code is there as well.
 <div style="font-size: 0.8rem;">
     This page is not affiliated, associated, endorsed by or in any way officially connected with Tesla, Inc.
     <br>
-    Website was generated on: 2023-10-27 15:25 UTC
+    Website was generated on: 2023-10-27 15:54 UTC
 </div>
 
       
