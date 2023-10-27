@@ -448,6 +448,9 @@ def main(match_country):
 
         projects.append(setup_battery_project(p, gov, gov_history))
 
+    # sort by go live as datatables js also sorts like that
+    projects = sorted(projects, key=lambda x: x.go_live, reverse=True)
+
     # projects that are not cancelled
     active_projects = [p for p in projects if p.is_active]
     tesla_projects = [p for p in active_projects if p.is_tesla]
