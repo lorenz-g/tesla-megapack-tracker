@@ -261,6 +261,9 @@ def create_project_summaries(projects: Iterable[BatteryProject]):
     s_yearly_op = sorted(s_yearly_op.values(), key=lambda x: x["year"])
     s_by_country = sorted(s_by_country.values(), key=lambda x: x["gwh"], reverse=True)
 
+    s_totals_row["mw_k"] = "%.0fk" % (s_totals_row["mw"] / 1000)
+    s_totals_row["mwh_k"] = "%.0fk" % (s_totals_row["mwh"] / 1000)
+
     return {
         "totals_row": s_totals_row,
         "by_status": s_by_status,
@@ -270,17 +273,27 @@ def create_project_summaries(projects: Iterable[BatteryProject]):
     }
 
 
-def gen_projects_template(projects, template_name):
+def gen_projects_template(projects: list[BatteryProject], is_tesla_page: bool):
     # generate the index template
     summary = create_project_summaries(projects)
+    if is_tesla_page:
+        out_filename = None
+        title = "Megapack"
+    else:
+        out_filename = "all-big-batteries.html"
+        title = "Big battery"
+
     extra = {
+        "title": title,
+        "is_tesla_page": is_tesla_page,
         "now": dt.datetime.utcnow(),
         "cars": gen_cars_vs_stationary(),
         "summary": summary,
         "projects": projects,
         "projects_json": json.dumps([p.to_dict() for p in projects]),
     }
-    write_template(template_name, {"extra": extra})
+
+    write_template("index.jinja.html", {"extra": extra}, out_filename=out_filename)
 
 
 def gen_individual_pages(projects: Iterable[BatteryProject]):
@@ -456,8 +469,8 @@ def main(match_country):
     tesla_projects = [p for p in active_projects if p.is_tesla]
 
     # 2) Generate the pages
-    gen_projects_template(tesla_projects, "index.jinja.html")
-    gen_projects_template(active_projects, "all-big-batteries.jinja.html")
+    gen_projects_template(tesla_projects, is_tesla_page=True)
+    gen_projects_template(active_projects, is_tesla_page=False)
     gen_individual_pages(projects)
     gen_gov_pages(gov_datasets, projects)
     gen_de_small_batteries()

@@ -1,5 +1,17 @@
 {% extends "base.html" %}
 
+{% block title %} 
+    {{ extra.title}} Tracker ({{ extra.summary.totals_row.count }})
+{% endblock %}
+
+{% block og_props %}
+<meta name="description" content="Map of Tesla and other big battery installations. And more info around battery storage...">
+<meta property="og:title" content="Tesla Megapack Tracker" />
+<meta property="og:description" content="Map of Tesla and other big battery installations. And more info around battery storage..." />
+<meta property="og:image" content="https://lorenz-g.github.io/tesla-megapack-tracker/pics/og-image.jpg" />
+{% endblock %}
+
+
 {% block extra_scripts %}
 <!-- Datatables JS -->
 <script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
@@ -45,7 +57,7 @@
 
 
 {% block content %}
-<h3>Tesla Megapack summary*</h3>
+<h3>{{ extra.title}} tracker</h3>
 
 <div class="row">
     <div class="col-lg-5">
@@ -89,15 +101,19 @@
             </tr>
         </table>
         🏗️ = construction; 💻 = planning<br>
-        *the summary also contains some powerpack projects >10MW<br>
     </div>
 </div>
 
+
 <div class="pt-2 pb-3">
+    {% if extra.is_tesla_page %}
+    The summary also contains some powerpack projects >10MW<br>
     This is the Tesla page, to view the big batteries from all manufacturers click <a href="all-big-batteries.html">here</a>.
+    {% endif %}
 </div>
 
-<h3 id="project-list"> Tesla Megapack project list</h3>
+
+<h3 id="project-list"> {{ extra.title}} list</h3>
 <ul>
     <li>This list is a best effort to track big battery installations larger than 10 MWh. The focus is on lithium ion batteries.</li>
     <li>Use the search bar to narrow down the results, e.g. <code>usa operation</code> for projects in operation in the US.</li>
@@ -105,23 +121,26 @@
     <li class="d-md-none">Table is better on a big screen (with more columns also).</li>
 </ul>
 
-<table id="projects-table" class="table">
+<table id="projects-table" class="table table-sm">
     <thead>
         <tr>
             <!-- keep this column name long to prevent high rows on mobile -->
-            <th class="text-nowrap td-name">Battery name</th>
-            <th>
-                <span class="d-none d-md-inline">Location </span>
-                <span class="d-md-none">Loc. </span>
+            <th class="text-nowrap td-name">
+                <span>Battery name &nbsp;</span>
             </th>
-            <th>MWh</th>
-            <th>MW</th>
+            <th class="text-nowrap">
+                <span class="d-none d-md-inline">Location </span>
+                <span class="d-md-none">Loc.  &nbsp;</span>
+            </th>
+            <th class="text-nowrap"><span>MWh&nbsp;</span></th>
+            <th class="text-nowrap"><span>MW &nbsp;</span></th>
             <th>Status</th>
             <th>Live</th>
             <th class="text-nowrap">
                 <!-- keep this column name long to prevent high rows on mobile -->
-                <span data-toggle="tooltip" data-placement="top" title="Customer / Owner / Developer">
-                    Involved companies *
+                <span data-toggle="tooltip" data-placement="top" 
+                    title="{% if not extra.is_tesla_page %} Manufacturer /{% endif %} Customer / Owner / Developer">
+                    Involved companies * &nbsp;
                 </span>
             </th>
             <th class="text-nowrap">
@@ -147,11 +166,14 @@
                 <span class="d-none d-md-inline">{{ p.state }} </span>
                 <span class="d-md-none">{{ p.state_short }} </span>
             </td>
-            <td>{{ p.mwh }}</td>
-            <td>{{ p.mw }}</td>
+            <td class="text-end">{{ p.mwh }}</td>
+            <td class="text-end">{{ p.mw }}</td>
             <td><span class="{{ p.status_class }}">{{ p.status }}</span></td>
             <td class="text-nowrap">{{ p.go_live }}</td>
-            <td class="text-sm">{{ p.csv.customer }} {{ p.owner }} {{ p.csv.developer }}</td>
+            <td class="text-sm">
+                {% if not extra.is_tesla_page %} {{ p.csv.manufacturer }} {% endif %}
+                {{ p.csv.customer }} {{ p.owner }} {{ p.csv.developer }}
+            </td>
             <td>
                 <span class="text-nowrap">{{p.emojis_with_tooltips}}</span>
                 <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
@@ -166,8 +188,8 @@
         <tr>
             <th class="td-name">Total</th>
             <th></th>
-            <th></th>
-            <th></th>
+            <th class="text-end"></th>
+            <th class="text-end"></th>
             <th></th>
             <th></th>
             <th></th>
@@ -182,7 +204,7 @@
 <a href="misc/big-battery-projects.csv">csv</a>
 
 
-<h3 id="installations-map" class="mt-4"> Tesla Megapack installations map </h3>
+<h3 id="installations-map" class="mt-4"> {{ extra.title}} map </h3>
 <ul>
     <li>Click on the layers button on the top right to switch to <code>satellite view</code></li>
     <li>At certain zoom level, the names of the projects will show up under the pin</code></li>
@@ -196,56 +218,9 @@
 <img height=28 src="pics/marker-green.png">Operation
 <br>{{ extra.summary.emoji_legend}}
 
-
-
-
-<h3 id="cars-vs-stationary" class="mt-4">Cars vs Stationary</h3>
-
-Comparison of the battery capacity deployed in Tesla cars vs in Tesla ESS (energy storage system) projects. <b>ESS projects are Powerwall, Powerpack and Megapack installations combined.</b>  
-Assuming an average battery size of 60kWh for model 3/y and 90kWh for model s/x. Those numbers are form the Tesla Quarterly reports. 
-The calculations are in the <a href="https://github.com/lorenz-g/tesla-megapack-tracker" target="_blank">Github repo</a> for this website and the raw data can be found there also. 
-<br><br>
-{% for y in extra.cars.list %}
-<div class="row">
-    <div class="col-lg-6">
-        <div>
-            <b>{{ y.year }}</b> - <code>{{ "%.0f" | format(y.total_gwh) }} GWh</code> in total,  {{ y.perc_cars }}% cars vs {{ y.perc_stat_year }}% ESS
-        </div>
-        {% if y.year != "All Time" %}
-        <div class="progress bg-white mb-2" style="height: 2em;">
-            <div class="progress-bar bg-primary" role="progressbar" style="width: {{ y.perc_y3 }}%;">{{ "%.0f" | format(y.y3_mwh / 1000) }}</div>  
-            <div class="progress-bar bg-secondary" role="progressbar" style="width: {{ y.perc_sx }}%;">{{ "%.0f" | format(y.sx_mwh / 1000) }}</div>  
-            <div class="progress-bar bg-success" role="progressbar" style="width: {{ y.perc_stat }}%;">{{ "%.0f" | format(y.stat_mwh / 1000) }}</div>
-        </div>
-        <!-- <div class="progress bg-white mb-3" style="height: 2em;">
-            <div class="progress-bar bg-success" role="progressbar" style="width: {{ y.perc_stat }}%;">{{ "%.1f" | format(y.stat_mwh / 1000) }}</div>
-        </div> -->
-        {% endif %}
-    </div>
-</div>
-{% endfor %}
-<span class="badge rounded-pill bg-primary">Model 3/y in GWh</span>
-<span class="badge rounded-pill bg-secondary">Model s/x in GWh</span>
-<span class="badge rounded-pill bg-success">Megapack / Powerwall / Powerpack in GWh</span>
-<br><br>
-To put <code>{{ "%.0f" | format(extra.cars.expl.total_gwh) }} GWh</code> into perspective. With all battery cells Tesla sold to date, you could power: 
-<ul>
-    {% for item in extra.cars.expl.consumption_list %}
-    <li>
-        {{ item.text }}
-        for <code>ca {{ "%.0f" | format(item.value) }} {{ item.display}}</code> 
-        <span style="font-size: 0.7rem;">
-            (<a href="{{ item.source }}">{{ item.year_of_consumption }}</a> source)
-        </span>
-    </li>
-    {% endfor %}
-</ul>
-
-
-<br> Unfortunately most cells are in cars which mostly are not connected via a charger to the grid. 
-Making the car chargers smarter and trying to maximize the times that EVs are connected to the grid has a huge potential to stabilize the grid 
-and transform it towards a supply driven energy market vs a demand driven. <br>
-That means: You charge your car when there is enough green energy vs when you want to charge your car there must be enough energy
+{% if extra.is_tesla_page %}
+{% include 'cars-vs-stationary.html' %}
+{% endif %}
 
 
 <h3 id="contact" class="mt-4">Contact & Contribute</h3>

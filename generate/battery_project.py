@@ -13,6 +13,7 @@ VALID_STATUS = ("planning", "construction", "operation", "cancelled")
 
 STATUS_CLASS_DI = {
     "operation": "badge rounded-pill bg-success",
+    "construction": "badge rounded-pill bg-secondary",
     "cancelled": "badge rounded-pill bg-danger",
 }
 

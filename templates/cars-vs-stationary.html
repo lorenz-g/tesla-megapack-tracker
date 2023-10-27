@@ -1,0 +1,47 @@
+<h3 id="cars-vs-stationary" class="mt-4">Cars vs Stationary</h3>
+
+Comparison of the battery capacity deployed in Tesla cars vs in Tesla ESS (energy storage system) projects. <b>ESS projects are Powerwall, Powerpack and Megapack installations combined.</b>  
+Assuming an average battery size of 60kWh for model 3/y and 90kWh for model s/x. Those numbers are form the Tesla Quarterly reports. 
+The calculations are in the <a href="https://github.com/lorenz-g/tesla-megapack-tracker" target="_blank">Github repo</a> for this website and the raw data can be found there also. 
+<br><br>
+{% for y in extra.cars.list %}
+<div class="row">
+    <div class="col-lg-6">
+        <div>
+            <b>{{ y.year }}</b> - <code>{{ "%.0f" | format(y.total_gwh) }} GWh</code> in total,  {{ y.perc_cars }}% cars vs {{ y.perc_stat_year }}% ESS
+        </div>
+        {% if y.year != "All Time" %}
+        <div class="progress bg-white mb-2" style="height: 2em;">
+            <div class="progress-bar bg-primary" role="progressbar" style="width: {{ y.perc_y3 }}%;">{{ "%.0f" | format(y.y3_mwh / 1000) }}</div>  
+            <div class="progress-bar bg-secondary" role="progressbar" style="width: {{ y.perc_sx }}%;">{{ "%.0f" | format(y.sx_mwh / 1000) }}</div>  
+            <div class="progress-bar bg-success" role="progressbar" style="width: {{ y.perc_stat }}%;">{{ "%.0f" | format(y.stat_mwh / 1000) }}</div>
+        </div>
+        <!-- <div class="progress bg-white mb-3" style="height: 2em;">
+            <div class="progress-bar bg-success" role="progressbar" style="width: {{ y.perc_stat }}%;">{{ "%.1f" | format(y.stat_mwh / 1000) }}</div>
+        </div> -->
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+<span class="badge rounded-pill bg-primary">Model 3/y in GWh</span>
+<span class="badge rounded-pill bg-secondary">Model s/x in GWh</span>
+<span class="badge rounded-pill bg-success">Megapack / Powerwall / Powerpack in GWh</span>
+<br><br>
+To put <code>{{ "%.0f" | format(extra.cars.expl.total_gwh) }} GWh</code> into perspective. With all battery cells Tesla sold to date, you could power: 
+<ul>
+    {% for item in extra.cars.expl.consumption_list %}
+    <li>
+        {{ item.text }}
+        for <code>ca {{ "%.0f" | format(item.value) }} {{ item.display}}</code> 
+        <span style="font-size: 0.7rem;">
+            (<a href="{{ item.source }}">{{ item.year_of_consumption }}</a> source)
+        </span>
+    </li>
+    {% endfor %}
+</ul>
+
+
+<br> Unfortunately most cells are in cars which mostly are not connected via a charger to the grid. 
+Making the car chargers smarter and trying to maximize the times that EVs are connected to the grid has a huge potential to stabilize the grid 
+and transform it towards a supply driven energy market vs a demand driven. <br>
+That means: You charge your car when there is enough green energy vs when you want to charge your car there must be enough energy
