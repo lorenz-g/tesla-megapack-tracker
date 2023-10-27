@@ -50,7 +50,8 @@ function generateBatteryList(order, columns, summary, listId){
     // hacks for table on mobile
     if (window.innerWidth < 768){
         // this is the weird footer on mobile that we want to disable
-        $('.dataTables_scrollFoot').hide();
+        // TODO: after searching sth the entire footer row disappears...
+        // $('.dataTables_scrollFoot').hide();
     } 
     
 

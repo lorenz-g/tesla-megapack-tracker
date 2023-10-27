@@ -218,6 +218,7 @@ class BatteryProject:
     start_estimated: str
     month_disappeared: str
     go_live: str
+    go_live_year_int: int
 
     name: str
     name_short: str
@@ -243,7 +244,6 @@ class BatteryProject:
     in_operation: bool
     in_construction: bool
     in_planning: bool
-    go_live_year_int: int
 
     is_active: bool
     is_tesla: bool
@@ -368,12 +368,12 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
     in_planning = status == "planning"
 
     # merge the start operation and estimated start here
-    # TODO: should have an indication where the data is coming from
+    # only show year and month
     if start_operation:
-        go_live = start_operation
+        go_live = start_operation[:7]
         go_live_year_int = int(go_live[:4])
     elif start_estimated:
-        go_live = "0 ~  " + start_estimated
+        go_live = "0 ~  " + start_estimated[:7]
         go_live_year_int = int(start_estimated[:4])
     else:
         go_live = ""

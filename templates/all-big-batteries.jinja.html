@@ -145,10 +145,10 @@
                 <span class="d-none d-md-inline">{{ p.state }} </span>
                 <span class="d-md-none">{{ p.state_short }} </span>
             </td>
-            <td>{{ p.mwh }}</td>
-            <td>{{ p.mw }}</td>
+            <td class="text-end">{{ p.mwh }}</td>
+            <td class="text-end">{{ p.mw }}</td>
             <td><span class="{{ p.status_class }}">{{ p.status }}</span></td>
-            <td class="text-nowrap">{{ p.go_live }}</td>
+            <td class="text-nowrap text-end">{{ p.go_live }}</td>
             <td class="text-sm">{{ p.csv.manufacturer }} {{ p.csv.customer }} {{ p.owner }} {{ p.csv.developer }}</td>
             <td>
                 <span class="text-nowrap">{{p.emojis_with_tooltips}}</span>
