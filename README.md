@@ -20,7 +20,7 @@ Table of Contents:
 for now:
 - raw data (tesla and other manufacturers) are in [projects.csv](./projects.csv) file
 - the generated website is in the [docs](./docs) folder (it is called docs because of github pages)
-- To generate the website, install the dependencies with `pip install -r requirements.txt` and run `python generate/website.py`. It is recommended to setup a python virtualenv for the project beforehand. 
+- To generate the website, install the dependencies with `pip install -r requirements.txt` and run `python generate/website.py`. It is recommended to setup a python virtualenv for the project beforehand (can use `pip install pip-tools` and `pip-compile requirements.in` to create an up to date version of requirements)
   - all python code lives in the `generate` folder
 - To develop it is handy to use a tool like [watchexec](https://watchexec.github.io/downloads/) to listen to file changes and then rebuild the site. Some handy commands are in the [./Makefile](./Makefile)
 - to edit the CSV files, it is best to use Libre Office

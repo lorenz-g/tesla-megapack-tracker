@@ -6,12 +6,14 @@ function generateBatteryList(order, columns, summary, listId){
     // https://getbootstrap.com/docs/5.3/layout/breakpoints/#available-breakpoints
     if (window.innerWidth < 768){
         var scrollX = true;
+        var pageLength = 10;
     } else {
         var scrollX = false;
+        var pageLength = 25;
     }
 
     $(listId).DataTable({
-        "pageLength": 10,
+        "pageLength": pageLength,
         "order": [[ order, "desc" ]],
         // for the table on mobile that you can scroll in the x direction
         "scrollX": scrollX,
