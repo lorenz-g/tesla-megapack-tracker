@@ -3,7 +3,7 @@ import logging
 import math
 from dataclasses import asdict, dataclass
 
-from generate.constants import COUNTRY_EMOJI_DI, US_STATES_TO_EIA_COORDINATES
+import generate.constants as constants
 from generate.utils import GovShortData, construction_time
 
 l = logging.getLogger("battery_project")
@@ -63,10 +63,46 @@ def tooltip_for_emoji(emoji_input):
     raise ValueError("%s emoji not found" % emoji_input)
 
 
-def format_short_name(name, limit=25):
+def format_short_name(name, limit=35):
     """
     >>> format_short_name("hello bla")
     """
+
+    # for the mobile view, get rid of some common endings that don't add much
+    # start with more words at the top as the loop breaks when sth is found
+    strip_endings = [
+        "battery energy storage",
+        "energy storage project",
+        "energy storage hybrid",
+        "energy storage system",
+        "battery storage facility",
+        "storage facility",
+        "energy storage",
+        "energy center",
+        "battery storage",
+        "power plant",
+        "project hybrid",
+        "energy",
+        "storage",
+        "project",
+        "power",
+        ", llc hybrid",
+        ", llc",
+        "llc",
+        "hybrid",
+        "bess",
+    ]
+    for strip_ending in strip_endings:
+        if name.lower().endswith(strip_ending):
+            name = name[: -len(strip_ending)]
+            # strip spaces or hyphens and ` and`
+            name = name.rstrip(" -")
+
+            if name.endswith(" and"):
+                name = name[:-4]
+
+            break
+
     if len(name) > limit:
         # todo
         # # what to extend until the next whitespace
@@ -99,7 +135,7 @@ def eia_location_estimate(id_, state):
     """
     id_ = int(id_)
 
-    coords = US_STATES_TO_EIA_COORDINATES[state]
+    coords = constants.US_STATES_TO_EIA_COORDINATES[state]
     if not coords:
         print("no coordinates for state:", state)
         coords = EIA_COORDS_USA
@@ -196,7 +232,7 @@ class BatteryProject:
 
     emojis: str
     emojis_with_tooltips: str
-    flag: str
+    heart_tooltip: str
     google_maps_link: str
 
     construction_time_month: int
@@ -216,6 +252,23 @@ class BatteryProject:
     def __repr__(self) -> str:
         e_id = self.gov.external_id if self.gov else ""
         return "<BatteryProject %s / %s - %s>" % (self.csv.id, e_id, self.csv.name)
+
+    @property
+    def flag(self):
+        try:
+            return constants.COUNTRY_EMOJI_DI[self.country]
+        except KeyError:
+            raise KeyError(
+                "could not fine emoji for project: %s %s %s"
+                % (self.internal_id, self.country, self.name)
+            )
+
+    @property
+    def state_short(self):
+        if self.country == "usa":
+            return constants.US_STATES_LONG_TO_SHORT.get(self.state, "")
+        else:
+            return ""
 
     def to_dict(self):
         # need this detour aus the dataclass does not automatically convert to json
@@ -250,7 +303,7 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
     # if gov and csv.overwrite == "1":
     if gov:
         external_id = gov.external_id
-        
+
         status = gov.status
         date_first_heard = gov.date_first_heard
         start_construction = gov.start_construction
@@ -258,13 +311,13 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
         start_estimated = gov.start_estimated
 
         # in case the government data did not catch up fast enough, can set the data from the CSV here instead
-        if csv.status == 'operation' and gov.status in ("planning", "construction"):
+        if csv.status == "operation" and gov.status in ("planning", "construction"):
             status = csv.status
             date_first_heard = gov.date_first_heard or csv.date_first_heard
             start_construction = gov.start_construction or csv.start_construction
             start_operation = gov.start_operation or csv.start_operation
             has_user_data = True
-        
+
         month_disappeared = gov.month_disappeared
 
         owner = gov.owner
@@ -285,7 +338,7 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
         start_construction = csv.start_construction
         start_operation = csv.start_operation
         start_estimated = csv.start_estimated
-        
+
         month_disappeared = ""
 
         owner = csv.owner
@@ -377,8 +430,10 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
         emojis.append("📍")
 
     # add both heart for GWh projects
+    heart_tooltip = ""
     if mwh >= 1000 or mw >= 1000:
         emojis.append("❤️")
+        heart_tooltip = tooltip_for_emoji("❤️")
 
     if csv.external_id:
         emojis.append("📊")
@@ -388,8 +443,6 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
 
     if mwh_is_estimate:
         emojis.append("📏")
-
-    flag = COUNTRY_EMOJI_DI.get(csv.country, csv.country)
 
     emojis_with_tooltips = "".join([tooltip_for_emoji(e) for e in emojis])
 
@@ -425,7 +478,6 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
         coords_help_str=coords_help_str,
         emojis="".join(emojis),
         emojis_with_tooltips=emojis_with_tooltips,
-        flag=flag,
         google_maps_link=google_maps_link,
         construction_time_month=construction_time_month,
         construction_speed_mwh_per_month=construction_speed_mwh_per_month,
@@ -439,4 +491,5 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
         is_active=status != "cancelled",
         is_tesla=csv.manufacturer == "tesla",
         is_megapack="megapack" in csv.type.lower(),
+        heart_tooltip=heart_tooltip,
     )

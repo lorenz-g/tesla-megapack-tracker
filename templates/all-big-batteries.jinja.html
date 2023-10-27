@@ -24,12 +24,13 @@
         // load data via jinja
         var projects = {{ extra.projects_json }};
         var summary = {{ extra.summary | tojson }};
-        generateBatteryList(4, [7,8], summary, '#projects-table');
+        generateBatteryList(5, [2,3], summary, '#projects-table');
         generateBatteryMap(projects, 'mapid');
 
     } );
 </script>
 {% endblock %}
+
 
 {% block extra_styles %}
 <style>
@@ -44,9 +45,8 @@
 {% endblock %}
 
 
-
 {% block content %}
-<h3 id=""> Big battery summary </h3>
+<h3>Big battery summary</h3>
 
 <div class="row">
     <div class="col-lg-5">
@@ -97,7 +97,7 @@
 <h3 id="project-list"> Big battery project list </h3>
 <ul>
     <li>This list is a best effort to track big battery installations larger than 10 MWh. The focus is on lithium ion batteries.</li>
-    <li>Use the search bar to narrow down the results, e.g. <code>california operation</code> for projects in California in operation.</li>
+    <li>Use the search bar to narrow down the results, e.g. <code>usa operation</code> for projects in operation in the US.</li>
     <li>Click on the name to show a detail view of the project.</li>
     <li class="d-md-none">Table is better on a big screen (with more columns also).</li>
 </ul>
@@ -107,39 +107,50 @@
     <thead>
         <tr>
             <th class="td-name">Name</th>
-            <th>State</th>
-            <th>Country</th>
-            <th>Status</th>
-            <th>Go live</th>
-            <th>Man.</th>
-            <th>Customer / Owner / Developer</th>
+            <th>
+                <span class="d-none d-md-inline">Location </span>
+                <span class="d-md-none">Loc. </span>
+            </th>
             <th>MWh</th>
             <th>MW</th>
+            <th>Status</th>
+            <th>Live</th>
+            <th>
+                <span data-toggle="tooltip" data-placement="top" title="Manufacturer / Customer / Owner / Developer">
+                    Involved*
+                </span>
+            </th>
+            <th></th>
+            
         </tr>
     </thead>
     <tbody>
         {% for p in extra.projects %}
         <tr>
             <td class="td-name">
-                <a href="projects/{{p.csv.id}}.html" target="_blank">{{ p.name }}</a> 
-                <span class="text-nowrap">{{p.emojis_with_tooltips}}</span>
+                <a href="projects/{{p.csv.id}}.html" target="_blank">
+                    <span class="d-none d-md-inline">{{ p.name }} </span>
+                    <span class="d-md-none">{{ p.name_short }} </span>
+                </a>
+                {{ p.heart_tooltip }} 
             </td>
-            <td>{{ p.state }}</td>
-            <td>{{ p.country }}</td>
-            <td><span class="{{ p.status_class }}">{{ p.status }}</span></td>
-            <td class="text-nowrap">{{ p.go_live }}</td>
-            <td>{{ p.csv.manufacturer }}</td>
-            <td>{{ p.csv.customer }} {{ p.owner }} {{ p.csv.developer }}</td>
+            <td>{{ p.flag }} 
+                <span class="d-none d-md-inline">{{ p.country }} </span>
+                <span class="d-none d-md-inline">{{ p.state }} </span>
+                <span class="d-md-none">{{ p.state_short }} </span>
+            </td>
             <td>{{ p.mwh }}</td>
             <td>{{ p.mw }}</td>
+            <td><span class="{{ p.status_class }}">{{ p.status }}</span></td>
+            <td class="text-nowrap">{{ p.go_live }}</td>
+            <td>{{ p.csv.manufacturer }} {{ p.csv.customer }} {{ p.owner }} {{ p.csv.developer }}</td>
+            <td><span class="text-nowrap">{{p.emojis_with_tooltips}}</span></td>
         </tr>
         {% endfor %}
     </tbody>
     <tfoot>
         <tr>
             <th class="td-name">Total</th>
-            <th></th>
-            <th></th>
             <th></th>
             <th></th>
             <th></th>
