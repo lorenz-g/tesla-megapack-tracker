@@ -38,13 +38,12 @@ function generateBatteryMap(projects, mapId, zoom_to_first_project=false){
         operation: "green",
     }
 
-    var labelGroup = new L.FeatureGroup();
-
-    // insert the data via jinja here
-    // just a hack to parse it, o/w the color highlighting in VS Code is messed up. 
-    // this does not work, why?
-    // var projects = '{# extra.projects_json #}';
-    // projects = JSON.parse(projects)
+    var shortSummaryLabelGroups = {
+        planning: new L.FeatureGroup(),
+        construction: new L.FeatureGroup(),
+        operation: new L.FeatureGroup(),
+        cancelled: new L.FeatureGroup(),
+    }
 
     var p;
     var warning = "";
@@ -89,10 +88,7 @@ function generateBatteryMap(projects, mapId, zoom_to_first_project=false){
             "html": `<span class="text-nowrap bg-white">&nbsp;${p.emojis}${p.name_short}&nbsp;</span> <span class="text-nowrap bg-white">&nbsp;${p.mwh}MWh&nbsp;</span>`,
             "iconAnchor": [0, 0]});
             label.setIcon(div);
-            labelGroup.addLayer(label)
-
-            // overlays[p["status"]].push(label)
-
+            shortSummaryLabelGroups[p["status"]].addLayer(label);
         }
     }
 
@@ -112,9 +108,18 @@ function generateBatteryMap(projects, mapId, zoom_to_first_project=false){
         zoom_level = 2;
     };
 
+
+    // only show the operation layer for the big battery map for now
+    starting_layers = [streets, overlays["operation"], overlays["cancelled"]];
+    if (projects.length < 200){
+        starting_layers.push(overlays["planning"]);
+        starting_layers.push(overlays["construction"]);
+    }
+    
+
     var mymap = L.map(mapId, {
         // sets what is shown
-        layers: [streets, overlays["planning"], overlays["construction"], overlays["operation"], overlays["cancelled"]],
+        layers: starting_layers,
         // TODO: is there a way how you can set it to ctrl + wheel
         scrollWheelZoom: true,
     }).setView(zoom_coords, zoom_level);
@@ -124,13 +129,46 @@ function generateBatteryMap(projects, mapId, zoom_to_first_project=false){
     // only show labels on certain zoom level
     mymap.on('zoomend', function() {
         console.log("zoom", mymap.getZoom());
+        const overlayKeys = ["planning", "construction", "operation", "cancelled"];
         if (mymap.getZoom() < 8){
-            mymap.removeLayer(labelGroup);
+            for (const key of overlayKeys) {
+                mymap.removeLayer(shortSummaryLabelGroups[key]);
+            }
+        } else {
+            for (const key of overlayKeys) {
+                if (mymap.hasLayer(overlays[key])) {
+                  console.log(`Overlay layer (${key}) is added to the map`);
+                  mymap.addLayer(shortSummaryLabelGroups[key]);
+                }
+            }  
         }
-        else {
-            mymap.addLayer(labelGroup);
-        }
+
+        let i = 0;
+        mymap.eachLayer(function(){ i += 1; });
+        console.log('Map has', i, 'layers.');
     });
+
+    // Define callback functions
+    function onOverlayAdd(e) {
+        const layerName = e.name; // Name of the overlay layer that was added
+        // Add your custom logic here 
+        if (mymap.getZoom() >= 8) {
+            console.log(`Layer added as zoom (${mymap.getZoom()}) is close: ${layerName}`);
+            mymap.addLayer(shortSummaryLabelGroups[layerName])
+        }
+    }
+
+    function onOverlayRemove(e) {
+        const layerName = e.name; // Name of the overlay layer that was removed
+        console.log(`Layer removed: ${layerName}`);
+        mymap.removeLayer(shortSummaryLabelGroups[layerName])
+    }
+
+    // Listen for the overlayadd and overlayremove events
+    mymap.on('overlayadd', onOverlayAdd);
+    mymap.on('overlayremove', onOverlayRemove);
+
+
 
     // useful for refining the points, disable on production
     var popup = L.popup();
