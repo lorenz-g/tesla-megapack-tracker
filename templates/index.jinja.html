@@ -33,9 +33,8 @@
         // projects = JSON.parse(projects)
         // could also have the json as static file and load it here...
         var projects = {{ extra.projects_json }};
-        var summary = {{ extra.summary | tojson }};
         
-        generateBatteryList(5, [2,3], summary, '#projects-table');
+        generateBatteryList(5, 2, 3, '#projects-table');
         generateBatteryMap(projects, 'mapid');
 
     } );
@@ -118,7 +117,6 @@
     <li>This list is a best effort to track big battery installations larger than 10 MWh. The focus is on lithium ion batteries.</li>
     <li>Use the search bar to narrow down the results, e.g. <code>usa operation</code> for projects in operation in the US.</li>
     <li>Click on the name to show a detail view of the project.</li>
-    <li class="d-md-none">Table is better on a big screen (with more columns also).</li>
 </ul>
 
 <table id="projects-table" class="table table-sm">
@@ -186,10 +184,11 @@
     </tbody>
     <tfoot>
         <tr>
-            <th class="td-name">Total</th>
+            <th class="td-name">Total page<br>Total all</th>
+            <th class=""></th>
+            <th class="text-end"></th>
+            <th class="text-end"></th>
             <th></th>
-            <th class="text-end"></th>
-            <th class="text-end"></th>
             <th></th>
             <th></th>
             <th></th>

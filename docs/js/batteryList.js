@@ -1,6 +1,6 @@
 
 
-function generateBatteryList(order, columns, summary, listId){
+function generateBatteryList(order, mwh_column, mw_column, listId){
 
     // the 768 equals the md bootstrap breakpoint
     // https://getbootstrap.com/docs/5.3/layout/breakpoints/#available-breakpoints
@@ -30,43 +30,60 @@ function generateBatteryList(order, columns, summary, listId){
         "order": [[ order, "desc" ]],
         // for the table on mobile that you can scroll in the x direction
         "scrollX": scrollX,
-        // the inspiration for the totals row comes from https://elbilstatistikk.no/
-        'drawCallback': function (oSettings) {
-            var api = this.api();
-            var searchStr = oSettings.oPreviousSearch.sSearch;
-            searchStr = searchStr.trim();
+        // code from here: https://datatables.net/examples/advanced_init/footer_callback.html
+        footerCallback: function (row, data, start, end, display) {
+            let api = this.api();
+     
+            // Remove the formatting to get integer data for summation
+            let intVal = function (i) {
+                return typeof i === 'string'
+                    ? i.replace(/[\$,]/g, '') * 1
+                    : typeof i === 'number'
+                    ? i
+                    : 0;
+            };
+            
+            // mwh
+            // Total over all pages
+            total = api
+                .column(mwh_column, {filter: 'applied'})
+                .data()
+                .reduce((a, b) => intVal(a) + intVal(b), 0);
+     
+            // Total over this page
+            pageTotal = api
+                .column(mwh_column, { page: 'current' })
+                .data()
+                .reduce((a, b) => intVal(a) + intVal(b), 0);
+     
+            // Update footer
+            api.column(mwh_column).footer().innerHTML = 
+                Math.round(pageTotal / 1000) + 'k<br>' + Math.round(total / 1000) + 'k';
+            
 
-            if (searchStr.length != 0) {
-                for (var i = 0; i < columns.length; i++) {
-                    var nodes = api.column(columns[i], { filter: 'applied', page: 'current' }).nodes();
-                    var total = 0;
-                    for (var j = 0; j < nodes.length; j++) {
-                        total += parseFloat(nodes[j].innerText) || 0
-                    }
-                    $('tfoot th').eq(columns[i]).html(total);
-                }
-                var pLen = api.column(columns[i], { filter: 'applied', page: 'current' }).nodes().length
-                $('tfoot th').eq(0).html(`Total ${pLen}`);
-            }
-            else {
-                $('tfoot th').eq(0).html(`Total ${summary.totals_row.count}`);
-                $('tfoot th').eq(columns[0]).html(`${summary.totals_row.mwh_k}`);
-                $('tfoot th').eq(columns[1]).html(`${summary.totals_row.mw_k}`);
-            }
-        } //end footerCallback
+            // mw
+            // Total over all pages
+            total = api
+                .column(mw_column, {filter: 'applied'})
+                .data()
+                .reduce((a, b) => intVal(a) + intVal(b), 0);
+     
+            // Total over this page
+            pageTotal = api
+                .column(mw_column, { page: 'current' })
+                .data()
+                .reduce((a, b) => intVal(a) + intVal(b), 0);
+     
+            // Update footer
+            api.column(mw_column).footer().innerHTML = 
+                Math.round(pageTotal / 1000) + 'k<br>' + Math.round(total / 1000) + 'k';
+
+
+            // project count
+            pageTotal = api.column(1, {page: 'current' }).nodes().length
+            total = api.column(1, {filter: 'applied'}).nodes().length
+            api.column(1).footer().innerHTML = `${pageTotal}<br>${total}`;
+        } // end footerCallback
+
     });
-
-    // hacks for table on mobile
-    if (document.documentElement.clientWidth < 768){
-        // this is the weird footer on mobile that we want to disable
-        // TODO: after searching sth the entire footer row disappears...
-        // $('.dataTables_scrollFoot').hide();
-    } 
-    
-
-    
-
-
-
-
 }
