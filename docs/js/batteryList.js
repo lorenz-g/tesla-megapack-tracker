@@ -4,7 +4,16 @@ function generateBatteryList(order, columns, summary, listId){
 
     // the 768 equals the md bootstrap breakpoint
     // https://getbootstrap.com/docs/5.3/layout/breakpoints/#available-breakpoints
-    if (window.innerWidth < 768){
+    // This is different on Chrome
+    // console.log(window.innerWidth);
+    // console.log(document.documentElement.clientWidth);
+
+    // had an error with chrome on mobile where the innerwidth would be the width including the overflow from the table
+    // with table: ca 800px, without it 398
+    // that's hwy using the clientWidth below
+
+    // not that this will not change when resizing the browser but that's ok now...
+    if (document.documentElement.clientWidth < 768){
         var scrollX = true;
         var pageLength = 10;
         var pagingType = "numbers";
@@ -48,7 +57,7 @@ function generateBatteryList(order, columns, summary, listId){
     });
 
     // hacks for table on mobile
-    if (window.innerWidth < 768){
+    if (document.documentElement.clientWidth < 768){
         // this is the weird footer on mobile that we want to disable
         // TODO: after searching sth the entire footer row disappears...
         // $('.dataTables_scrollFoot').hide();
