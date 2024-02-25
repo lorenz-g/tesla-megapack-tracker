@@ -222,8 +222,13 @@ def gen_short_project(history_di):
     r = history_di["current"]
     dates = history_di["dates"]
 
+    if "Planning Permission Granted" in r:
+        planning_permission_granted = r["Planning Permission Granted"]
+    else:
+        # in the jan 2024 report they somehow added a second whitespace here.
+        planning_permission_granted = r["Planning Permission  Granted"]
     date_first_heard = pick_first(
-        format_date(r["Planning Permission Granted"]), dates["first_heard"]
+        format_date(planning_permission_granted), dates["first_heard"]
     )
     # Some projects have "Implemented" in this column, which is not a date. So ignoring that
     if r["Under Construction"] == "Implemented":
@@ -315,8 +320,8 @@ def match_uk_repd_projects_with_mpt_projects(
 
 if __name__ == "__main__":
     # only runt it with new gov data
-    in_filename = "misc/uk-repd/original/repd-july-2023.csv"
-    out_filename = "misc/uk-repd/filtered/2023-07.csv"
+    in_filename = "misc/uk-repd/original/repd-january-2024.csv"
+    out_filename = "misc/uk-repd/filtered/2024-01.csv"
     generate_filtered_csv(in_filename, out_filename)
 
     # stats_uk_repd_data()

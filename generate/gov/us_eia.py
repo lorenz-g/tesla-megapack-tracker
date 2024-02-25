@@ -369,7 +369,11 @@ def download_and_extract_eia_data():
         # [2020, [9,12]], # before 9, there is a key error net summer capacity (mw), not digging further here
         # [2021, [8, 13]],
         # [2022, [7, 13]],
-        [2023, [1, 13]],
+        # [2023, [1, 13]],
+        # TODO: with the misc/eia-data/original/2024-01/Table_6_03.xlsx, got a warning
+        #  pylightxl - Ill formatted workbook.xml. Skipping NamedRange not containing sheet reference (ex: "Sheet1!A1"): IQ_CH - 110000
+        # look at that again.
+        [2024, [1, 13]],
     ]
     base_url = "https://www.eia.gov/electricity/monthly/archive/%s.zip"
     # the latest month is under this url
