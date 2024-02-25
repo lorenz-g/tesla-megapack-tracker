@@ -80,7 +80,7 @@ Placerita ESS (160MWh)
 <h3> Placerita ESS <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="mwh estimate based on mw">📏</span> </h3>
 
 <dt>Status </dt>
-<dl><span class="">planning</span> </dl>
+<dl><span class="badge rounded-pill bg-secondary">construction</span> </dl>
 
 <dt>Country / State / Closest City </dt>
 <dl>🇺🇸 usa / california / </dl>
@@ -95,7 +95,7 @@ Placerita ESS (160MWh)
             </tr>
             <tr>
                 <td>Construction start</td>
-                <td></td>
+                <td>2023-11</td>
             </tr>
             <tr>
                 <td>Operation start</td>
@@ -103,7 +103,7 @@ Placerita ESS (160MWh)
             </tr>
             <tr>
                 <td>Estimated start</td>
-                <td>2024-02</td>
+                <td>2024-09</td>
             </tr>
             
             <tr>
@@ -194,17 +194,17 @@ The government data source for this battery is the U.S. Energy Information Admin
 
 
 
-Info from the <code>2023-09</code> report (Project first appeared in the <code>2023-04</code> report):<br>
+Info from the <code>2024-01</code> report (Project first appeared in the <code>2023-04</code> report):<br>
 
 <br>
 <dt>Plant Name / State</dt>
 <dl>Placerita ESS / CA</dl>
 
 <dt>go live / power </dt>
-<dl>2024-02 / 80MW</dl>
+<dl>2024-09 / 80MW</dl>
 
 <dt>status / status verbose</dt>
-<dl>planning / (T) Regulatory approvals received. Not under construction </dl>
+<dl>construction / (U) Under construction, less than or equal to 50 percent complete </dl>
 
 <dt>Plant id / generator id </dt>
 <dl>66462 / GEN1</dl>
@@ -213,6 +213,16 @@ Info from the <code>2023-09</code> report (Project first appeared in the <code>2
 <dl>Terra-Gen Operating Co-BESS 2 / 65552</dl>
 
 <b>Changes:</b><br>
+
+
+    <b>2023-11</b><br>
+    
+        status: planning -> construction 🏗️<br>
+    
+        status_verbose: (T) Regulatory approvals received. Not under construction -> (U) Under construction, less than or equal to 50 percent complete <br>
+    
+        date: 2024-02 -> 2024-09 <span class="badge rounded-pill bg-danger">delayed by 7 months</span><br>
+     <!-- field -->
 
 
     <b>2023-05</b><br>
@@ -276,7 +286,7 @@ Info from the <code>2023-09</code> report (Project first appeared in the <code>2
         // var projects = '';
         // projects = JSON.parse(projects)
         // could also have the json as static file and load it here...
-        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords are a guess. Only the state is known", "coords_hint": -1, "country": "usa", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "160", "external_id": "66462", "id": "956", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Placerita ESS", "no_of_battery_units": "", "notes": "", "owner": "Terra-Gen Operating Co-BESS 2", "power_mw": "80", "project_website": "", "start_construction": "", "start_estimated": "2024-02", "start_operation": "", "state": "california", "status": "planning", "type": "", "use_case": ""}, "date_first_heard": "2023-04", "emojis": "\ud83d\udccd\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "66462", "go_live": "0 ~  2024-02", "go_live_year_int": 2024, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:40.902031888219526+-121.22835705730502", "gov": {"coords_hint": -1, "country": "usa", "data_source": "us_eia", "date_first_heard": "2023-04", "estimate_mwh": 160, "external_id": "66462", "has_multiple_projects": false, "lat": "", "long": "", "month_disappeared": "", "mwh": 0, "name": "Placerita ESS", "owner": "Terra-Gen Operating Co-BESS 2", "power_mw": 80, "pr_url": "", "start_construction": "", "start_estimated": "2024-02", "start_operation": "", "state": "california", "status": "planning"}, "gov_history": {"GEN1": {"changes": [{"li": [{"change_type": "misc", "extra": "", "from": "64287", "name": "entity id", "to": "65552"}, {"change_type": "misc", "extra": "", "from": "Terra-Gen Operating Co-BESS", "name": "entity name", "to": "Terra-Gen Operating Co-BESS 2"}], "month": "2023-05"}], "current": {"date": "2024-02", "energy source code": "MWH", "entity id": "65552", "entity name": "Terra-Gen Operating Co-BESS 2", "ext_id": "66462", "generator id": "GEN1", "month": "2", "mw": 80, "net summer capacity (mw)": "80", "plant id": "66462", "plant name": "Placerita ESS", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "planning", "status_verbose": "(T) Regulatory approvals received. Not under construction", "technology": "Batteries", "year": "2024"}, "current_month": "2023-09", "dates": {"first_heard": "2023-04", "start_construction": null}, "first": {"date": "2024-02", "energy source code": "MWH", "entity id": "64287", "entity name": "Terra-Gen Operating Co-BESS", "ext_id": "66462", "generator id": "GEN1", "month": "2", "mw": 80, "net summer capacity (mw)": "80", "plant id": "66462", "plant name": "Placerita ESS", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "planning", "status_verbose": "(T) Regulatory approvals received. Not under construction", "technology": "Batteries", "year": "2024"}, "first_month": "2023-04", "month_disappeared": ""}}, "has_gov_data": true, "has_user_data": false, "heart_tooltip": "", "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "956", "is_active": true, "is_megapack": false, "is_tesla": false, "lat": "40.902031888219526", "links": [], "long": "-121.22835705730502", "month_disappeared": "", "mw": 80, "mwh": 160, "mwh_estimate": 160, "mwh_is_estimate": true, "name": "Placerita ESS", "name_short": "Placerita ESS", "no_of_battery_units": 0, "notes_split": [""], "owner": "Terra-Gen Operating Co-BESS 2", "start_construction": "", "start_estimated": "2024-02", "start_operation": "", "state": "california", "status": "planning", "status_class": ""}];
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords are a guess. Only the state is known", "coords_hint": -1, "country": "usa", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "160", "external_id": "66462", "id": "956", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Placerita ESS", "no_of_battery_units": "", "notes": "", "owner": "Terra-Gen Operating Co-BESS 2", "power_mw": "80", "project_website": "", "start_construction": "", "start_estimated": "2024-02", "start_operation": "", "state": "california", "status": "planning", "type": "", "use_case": ""}, "date_first_heard": "2023-04", "emojis": "\ud83d\udccd\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "66462", "go_live": "0 ~  2024-09", "go_live_year_int": 2024, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:40.902031888219526+-121.22835705730502", "gov": {"coords_hint": -1, "country": "usa", "data_source": "us_eia", "date_first_heard": "2023-04", "estimate_mwh": 160, "external_id": "66462", "has_multiple_projects": false, "lat": "", "long": "", "month_disappeared": "", "mwh": 0, "name": "Placerita ESS", "owner": "Terra-Gen Operating Co-BESS 2", "power_mw": 80, "pr_url": "", "start_construction": "2023-11", "start_estimated": "2024-09", "start_operation": "", "state": "california", "status": "construction"}, "gov_history": {"GEN1": {"changes": [{"li": [{"change_type": "misc", "extra": "", "from": "64287", "name": "entity id", "to": "65552"}, {"change_type": "misc", "extra": "", "from": "Terra-Gen Operating Co-BESS", "name": "entity name", "to": "Terra-Gen Operating Co-BESS 2"}], "month": "2023-05"}, {"li": [{"change_type": "status", "extra": "\ud83c\udfd7\ufe0f", "from": "planning", "name": "status", "to": "construction"}, {"change_type": "misc", "extra": "", "from": "(T) Regulatory approvals received. Not under construction", "name": "status_verbose", "to": "(U) Under construction, less than or equal to 50 percent complete"}, {"change_type": "timing", "extra": "\u003cspan class=\"badge rounded-pill bg-danger\"\u003edelayed by 7 months\u003c/span\u003e", "from": "2024-02", "name": "date", "to": "2024-09"}], "month": "2023-11"}], "current": {"date": "2024-09", "energy source code": "MWH", "entity id": "65552", "entity name": "Terra-Gen Operating Co-BESS 2", "ext_id": "66462", "generator id": "GEN1", "month": "9", "mw": 80, "net summer capacity (mw)": "80", "plant id": "66462", "plant name": "Placerita ESS", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "construction", "status_verbose": "(U) Under construction, less than or equal to 50 percent complete", "technology": "Batteries", "year": "2024"}, "current_month": "2024-01", "dates": {"first_heard": "2023-04", "start_construction": "2023-11"}, "first": {"date": "2024-02", "energy source code": "MWH", "entity id": "64287", "entity name": "Terra-Gen Operating Co-BESS", "ext_id": "66462", "generator id": "GEN1", "month": "2", "mw": 80, "net summer capacity (mw)": "80", "plant id": "66462", "plant name": "Placerita ESS", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "planning", "status_verbose": "(T) Regulatory approvals received. Not under construction", "technology": "Batteries", "year": "2024"}, "first_month": "2023-04", "month_disappeared": ""}}, "has_gov_data": true, "has_user_data": false, "heart_tooltip": "", "in_construction": true, "in_operation": false, "in_planning": false, "internal_id": "956", "is_active": true, "is_megapack": false, "is_tesla": false, "lat": "40.902031888219526", "links": [], "long": "-121.22835705730502", "month_disappeared": "", "mw": 80, "mwh": 160, "mwh_estimate": 160, "mwh_is_estimate": true, "name": "Placerita ESS", "name_short": "Placerita ESS", "no_of_battery_units": 0, "notes_split": [""], "owner": "Terra-Gen Operating Co-BESS 2", "start_construction": "2023-11", "start_estimated": "2024-09", "start_operation": "", "state": "california", "status": "construction", "status_class": "badge rounded-pill bg-secondary"}];
         
         generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
 
