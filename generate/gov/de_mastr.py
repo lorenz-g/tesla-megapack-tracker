@@ -355,6 +355,8 @@ def match_de_mastr_projects_with_mpt_projects(
     # max internal id plus 1
     start_id = int([p.csv.id for p in projects][-1]) + 1
 
+    print("\n\nProjects to add manually to projects.csv (copy & pase)")
+
     p: GovShortData  # thats a great way to give type hints in the code
     for e_id, p in gov_data["projects_short"].items():
         if e_id in existing_ids:
@@ -364,7 +366,6 @@ def match_de_mastr_projects_with_mpt_projects(
             "",
             str(start_id),
             p.external_id,
-            "1",
             p.state,
             p.country,
             str(p.mwh),

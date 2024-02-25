@@ -389,7 +389,7 @@ def match_eia_projects_with_mpt_projects(eia_data, projects: Iterable[BatteryPro
 
     # list that can be inserted into projects.csv
     # TODO: probably should try and ignore the ones that I had in the US that are not covered here.
-    print("\n\n")
+    print("\n\nProjects to add manually to projects.csv (copy & pase)")
     # max internal id plus 1
     start_id = int([p.csv.id for p in projects][-1]) + 1
 
@@ -413,7 +413,6 @@ def match_eia_projects_with_mpt_projects(eia_data, projects: Iterable[BatteryPro
                 "",
                 str(start_id),
                 p["plant id"],
-                "1",
                 US_STATES_SHORT_TO_LONG[state],
                 "usa",
                 "",

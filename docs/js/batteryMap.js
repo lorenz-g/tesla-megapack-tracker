@@ -80,8 +80,6 @@ function generateBatteryMap(projects, mapId, zoom_to_first_project=false){
             // there is the div icon, or an external lib called AwesomeMarker
             overlays[p["status"]].push(marker)
             
-            // TODO: find a way to only show the labels for the layers that a selected
-            // for now they are always shown
             var label = L.marker([p.lat, p.long]);
             var div = L.divIcon({
             "className": "map-label", 
