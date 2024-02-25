@@ -58,7 +58,7 @@ function generateBatteryList(order, mwh_column, mw_column, listId){
      
             // Update footer
             api.column(mwh_column).footer().innerHTML = 
-                Math.round(pageTotal / 1000) + 'k<br>' + Math.round(total / 1000) + 'k';
+                (pageTotal / 1000).toFixed(1) + 'k<br>' + (total / 1000).toFixed(1) + 'k';
             
 
             // mw
@@ -76,7 +76,7 @@ function generateBatteryList(order, mwh_column, mw_column, listId){
      
             // Update footer
             api.column(mw_column).footer().innerHTML = 
-                Math.round(pageTotal / 1000) + 'k<br>' + Math.round(total / 1000) + 'k';
+                (pageTotal / 1000).toFixed(1) + 'k<br>' + (total / 1000).toFixed(1) + 'k';
 
 
             // project count
