@@ -53,6 +53,9 @@ COORDS_HINT_DICT = {
     3: "📍 Coords are a guess. Only the city or county is known",
 }
 
+# tesla project in construction or operation should have either of the following coords hints
+COORDS_HINTS_GOOD_FOR_TESLA_PROJECTS = [1, 2, 3]
+
 
 def tooltip_for_emoji(emoji_input):
     for _, emoji, text in USE_CASE_EMOJI_LI:
@@ -447,6 +450,21 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
 
     emojis_with_tooltips = "".join([tooltip_for_emoji(e) for e in emojis])
 
+    is_tesla = csv.manufacturer == "tesla"
+
+    if is_tesla:
+        if mwh_is_estimate and in_operation:
+            print(
+                f"project {internal_id} is_tesla and mwh_is_estimate and in_operation -> should research proper mwh value"
+            )
+
+        if in_operation and coords_hint not in COORDS_HINTS_GOOD_FOR_TESLA_PROJECTS:
+            # TODO: maybe add in_construction here as well
+            print(
+                f"project {internal_id} is_tesla and in_operation and "
+                "coords_hint not in COORDS_HINTS_GOOD_FOR_TESLA_PROJECTS -> should research the some better coords"
+            )
+
     return BatteryProject(
         csv=csv,
         internal_id=internal_id,
@@ -490,7 +508,7 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
         in_planning=in_planning,
         go_live_year_int=go_live_year_int,
         is_active=status != "cancelled",
-        is_tesla=csv.manufacturer == "tesla",
+        is_tesla=is_tesla,
         is_megapack="megapack" in csv.type.lower(),
         heart_tooltip=heart_tooltip,
     )
