@@ -20,7 +20,7 @@ open-remote:
 gst:
 # the normal git status shows all the project files. This allows to see the important things
 # todo: also make the output of that colorful
-	git status | grep -v "docs/projects"
+	git -c color.ui=always status | grep  -v "docs/projects"
 
 lint:
 	black generate
