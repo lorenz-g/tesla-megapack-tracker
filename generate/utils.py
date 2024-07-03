@@ -10,6 +10,13 @@ BASE_URL = "/tesla-megapack-tracker/"
 # BASE_URL = "/"
 
 
+def find_duplicates(lst):
+    # from chat gpt
+    seen = set()
+    duplicates = set(x for x in lst if x in seen or seen.add(x))
+    return sorted(list(duplicates))
+
+
 def generate_link(ip):
     return BASE_URL + ip.lstrip("/")
 
@@ -145,9 +152,9 @@ def check_di_difference(old, new, ignore=None):
             pill_bg = "danger" if month_delta > 0 else "success"
             word = "delayed" if month_delta > 0 else "accelerated"
             month = "month" if abs(month_delta) == 1 else "months"
-            extra = '<span class="badge rounded-pill bg-%s">%s by %d %s</span>' % (
-                pill_bg,
+            extra = '%s by <span class="badge rounded-pill bg-%s">%d</span> %s' % (
                 word,
+                pill_bg,
                 abs(month_delta),
                 month,
             )

@@ -6,6 +6,7 @@ import pprint
 import zipfile
 from collections import defaultdict
 from pathlib import Path
+from typing import Iterable
 
 import pylightxl as xl
 import requests
@@ -16,6 +17,15 @@ from generate.utils import (
     GovShortData,
     check_di_difference,
     create_summary_for_gov_projects,
+)
+
+from generate.battery_project import (
+    BatteryProject,
+)
+
+from generate.constants import (
+    US_STATES_LONG_TO_SHORT,
+    US_STATES_SHORT_TO_LONG,
 )
 
 
@@ -373,7 +383,7 @@ def download_and_extract_eia_data():
         # TODO: with the misc/eia-data/original/2024-01/Table_6_03.xlsx, got a warning
         #  pylightxl - Ill formatted workbook.xml. Skipping NamedRange not containing sheet reference (ex: "Sheet1!A1"): IQ_CH - 110000
         # look at that again.
-        [2024, [1, 13]],
+        [2024, [6, 13]],
     ]
     base_url = "https://www.eia.gov/electricity/monthly/archive/%s.zip"
     # the latest month is under this url
@@ -403,6 +413,92 @@ def download_and_extract_eia_data():
                 read_eia_data_single_month(folder)
             else:
                 break
+
+
+def match_eia_projects_with_mpt_projects(
+    eia_data, projects: Iterable[BatteryProject], start_id: int
+):
+    """match by state and then print in descending order of capacity"""
+
+    pr_by_state = defaultdict(lambda: {"eia": [], "mpt": []})
+
+    mpt_plant_ids = set([p.csv.external_id for p in projects])
+
+    for v in eia_data["projects"].values():
+        # ignore if there are multiple generator codes
+        pr = list(v.values())[0]["current"]
+        if pr["plant id"] not in mpt_plant_ids:
+            pr_by_state[pr["plant state"]]["eia"].append(pr)
+
+    for pr in projects:
+        if pr.country != "usa":
+            continue
+        if not pr.state:
+            continue
+
+        if not pr.csv.external_id:
+            state_short = US_STATES_LONG_TO_SHORT.get(pr.state)
+            if state_short:
+                pr_by_state[state_short]["mpt"].append(pr)
+            else:
+                print("could not find state", pr.state, pr)
+
+    for state, temp_projects in sorted(pr_by_state.items()):
+        print("\n\n")
+        print(US_STATES_SHORT_TO_LONG[state].upper())
+        print("eia projects:")
+        eia = sorted(temp_projects["eia"], key=lambda x: x["mw"], reverse=True)
+        for p in eia:
+            print(p["mw"], p["plant name"], p["plant id"], p["status"])
+
+        print("\nmpt projects:")
+        mpt = sorted(temp_projects["mpt"], key=lambda x: x.mw, reverse=True)
+        for p in mpt:
+            print(p.mw, p.csv.name)
+
+    # list that can be inserted into projects.csv
+    # TODO: probably should try and ignore the ones that I had in the US that are not covered here.
+    print("\n\nProjects to add manually to projects.csv (copy & paste)")
+    for state, temp_projects in sorted(pr_by_state.items()):
+        eia = sorted(temp_projects["eia"], key=lambda x: x["mw"], reverse=True)
+        for p in eia:
+            # estimate a two hour system
+            mwh_estimate = str(p["mw"] * 2)
+
+            # set different dates
+            start_operation = ""
+            start_estimated = ""
+
+            if p["status"] == "operation":
+                start_operation = p["date"] + "-01"
+            else:
+                start_estimated = p["date"]
+
+            li = [
+                p["plant name"],
+                "",
+                str(start_id),
+                p["plant id"],
+                US_STATES_SHORT_TO_LONG[state],
+                "usa",
+                "",
+                mwh_estimate,
+                str(p["mw"]),
+                "",
+                p["entity name"],
+                "",
+                "",
+                "",
+                "",
+                "",
+                p["status"],
+                "",
+                "",
+                start_operation,
+                start_estimated,
+            ]
+            print(";".join(li))
+            start_id += 1
 
 
 if __name__ == "__main__":

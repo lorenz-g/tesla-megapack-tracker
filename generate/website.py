@@ -3,7 +3,6 @@ import datetime as dt
 import json
 import os
 import sys
-from collections import defaultdict
 from decimal import Decimal
 from typing import Iterable
 
@@ -17,8 +16,6 @@ from generate.battery_project import (
 from generate.blog import gen_blog
 from generate.constants import (
     GOV_DATA_INFO_DICT,
-    US_STATES_LONG_TO_SHORT,
-    US_STATES_SHORT_TO_LONG,
 )
 from generate.gov.de_mastr import (
     match_de_mastr_projects_with_mpt_projects,
@@ -30,10 +27,10 @@ from generate.gov.uk_repd import (
 )
 from generate.gov.us_eia import (
     download_and_extract_eia_data,
-    read_eia_data_all_months,
+    match_eia_projects_with_mpt_projects,
     stats_eia_data,
 )
-from generate.utils import date_to_quarter, generate_link
+from generate.utils import date_to_quarter, generate_link, find_duplicates
 
 # cannot load this for every template rendered, takes too long.
 FILE_LOADER = FileSystemLoader("templates")
@@ -348,93 +345,6 @@ def gen_de_small_batteries():
     )
 
 
-def match_eia_projects_with_mpt_projects(eia_data, projects: Iterable[BatteryProject]):
-    """match by state and then print in desceding order of capacity"""
-
-    pr_by_state = defaultdict(lambda: {"eia": [], "mpt": []})
-
-    mpt_plant_ids = set([p.csv.external_id for p in projects])
-
-    for v in eia_data["projects"].values():
-        # ignore if there are multiple generator codes
-        pr = list(v.values())[0]["current"]
-        if pr["plant id"] not in mpt_plant_ids:
-            pr_by_state[pr["plant state"]]["eia"].append(pr)
-
-    for pr in projects:
-        if pr.country != "usa":
-            continue
-        if not pr.state:
-            continue
-
-        if not pr.csv.external_id:
-            state_short = US_STATES_LONG_TO_SHORT.get(pr.state)
-            if state_short:
-                pr_by_state[state_short]["mpt"].append(pr)
-            else:
-                print("could not find state", pr.state, pr)
-
-    for state, temp_projects in sorted(pr_by_state.items()):
-        print("\n\n")
-        print(US_STATES_SHORT_TO_LONG[state].upper())
-        print("eia projects:")
-        eia = sorted(temp_projects["eia"], key=lambda x: x["mw"], reverse=True)
-        for p in eia:
-            print(p["mw"], p["plant name"], p["plant id"], p["status"])
-
-        print("\nmpt projects:")
-        mpt = sorted(temp_projects["mpt"], key=lambda x: x.mw, reverse=True)
-        for p in mpt:
-            print(p.mw, p.csv.name)
-
-    # list that can be inserted into projects.csv
-    # TODO: probably should try and ignore the ones that I had in the US that are not covered here.
-    print("\n\nProjects to add manually to projects.csv (copy & pase)")
-    # max internal id plus 1
-    start_id = int([p.csv.id for p in projects][-1]) + 1
-
-    for state, temp_projects in sorted(pr_by_state.items()):
-        eia = sorted(temp_projects["eia"], key=lambda x: x["mw"], reverse=True)
-        for p in eia:
-            # estimate a two hour system
-            mwh_estimate = str(p["mw"] * 2)
-
-            # set different dates
-            start_operation = ""
-            start_estimated = ""
-
-            if p["status"] == "operation":
-                start_operation = p["date"] + "-01"
-            else:
-                start_estimated = p["date"]
-
-            li = [
-                p["plant name"],
-                "",
-                str(start_id),
-                p["plant id"],
-                US_STATES_SHORT_TO_LONG[state],
-                "usa",
-                "",
-                mwh_estimate,
-                str(p["mw"]),
-                "",
-                p["entity name"],
-                "",
-                "",
-                "",
-                "",
-                "",
-                p["status"],
-                "",
-                "",
-                start_operation,
-                start_estimated,
-            ]
-            print(";".join(li))
-            start_id += 1
-
-
 def main(match_country):
     # 1) Load an prepare data
     csv_projects = load_file("projects.csv")
@@ -459,6 +369,11 @@ def main(match_country):
             gov_history = gov_datasets[p["country"]]["projects"][p["external_id"]]
 
         projects.append(setup_battery_project(p, gov, gov_history))
+
+    # check for duplicate project ids
+    duplicates = find_duplicates([p.csv.id for p in projects])
+    if duplicates:
+        print("BAD, please fix: Duplicate project ids: %s" % duplicates)
 
     # sort by go live as datatables js also sorts like that
     projects = sorted(projects, key=lambda x: x.go_live, reverse=True)
@@ -496,7 +411,9 @@ def main(match_country):
         "germany": match_de_mastr_projects_with_mpt_projects,
     }
     if match_country:
-        match_functions[match_country](gov_datasets[match_country], projects)
+        # max internal id plus 1 - cannot assume that the last id is the highest
+        start_id = max([int(p.csv.id) for p in projects]) + 1
+        match_functions[match_country](gov_datasets[match_country], projects, start_id)
 
 
 if __name__ == "__main__":
