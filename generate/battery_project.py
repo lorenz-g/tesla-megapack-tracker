@@ -263,8 +263,8 @@ class BatteryProject:
             return constants.COUNTRY_EMOJI_DI[self.country]
         except KeyError:
             raise KeyError(
-                "could not fine emoji for project: %s %s %s"
-                % (self.internal_id, self.country, self.name)
+                "could not find flag for project: %s %s country: %s"
+                % (self.internal_id, self.name, self.country)
             )
 
     @property
@@ -332,7 +332,7 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
 
         mwh_estimate = csv_int(gov.estimate_mwh)
 
-        # for germnay we get mwh
+        # for Germany we get mwh
         if country == "germany":
             mwh = gov.mwh
     else:

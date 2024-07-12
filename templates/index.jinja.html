@@ -142,7 +142,7 @@
                 </span>
             </th>
             <th class="text-nowrap">
-                <span data-toggle="tooltip" data-placement="top" title="emojis and internal id">
+                <span data-toggle="tooltip" data-placement="top" title="internal id and emojis">
                     id *
                 </span>
             </th>
@@ -172,12 +172,12 @@
                 {% if not extra.is_tesla_page %} {{ p.csv.manufacturer }} {% endif %}
                 {{ p.csv.customer }} {{ p.owner }} {{ p.csv.developer }}
             </td>
-            <td>
-                <span class="text-nowrap">{{p.emojis_with_tooltips}}</span>
+            <td data-sort="{{p.internal_id}}">
                 <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" 
                     title="internal id : {{p.internal_id}} - gov id: {{p.external_id}}">
                     {{p.internal_id}}
                 </span>
+                <span class="text-nowrap">{{p.emojis_with_tooltips}}</span>
             </td>
         </tr>
         {% endfor %}
