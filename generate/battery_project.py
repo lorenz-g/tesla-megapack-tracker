@@ -271,6 +271,8 @@ class BatteryProject:
     def state_short(self):
         if self.country == "usa":
             return constants.US_STATES_LONG_TO_SHORT.get(self.state, "")
+        elif self.country == "australia":
+            return constants.AUSTRALIA_STATES_LONG_TO_SHORT.get(self.state, "")
         else:
             return ""
 
