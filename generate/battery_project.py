@@ -288,11 +288,29 @@ class BatteryProject:
         return di
 
 
+def csv_data_checks(p: CsvProjectData):
+
+    messages = []
+    if p.lat and not p.long:
+        messages.append("lat is set but long is not")
+
+    if p.status not in VALID_STATUS:
+        messages.append(f"status is not valid '{p.status}'")
+
+    if messages:
+        print(f"{p.name} ({p.id})")
+        for m in messages:
+            print(f"  {m}")
+
+
 def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProject:
     """helper function to create the battery project"""
 
     # the dict from the projects.csv file and turn into dataclass for type hints
     csv = CsvProjectData(**csv_di)
+    # to help spot errors in the csv data quickly
+    csv_data_checks(csv)
+
     internal_id = csv.id
     has_gov_data = bool(gov)
 
@@ -346,7 +364,7 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
 
     assert status in VALID_STATUS, "status is not valid '%s' - %s" % (
         status,
-        csv_di["name"],
+        csv.name,
     )
 
     name_short = format_short_name(name)
