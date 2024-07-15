@@ -4,7 +4,7 @@ import math
 from dataclasses import asdict, dataclass
 
 import generate.constants as constants
-from generate.utils import GovShortData, construction_time
+from generate.utils import GovShortData, construction_time, pick_first
 
 l = logging.getLogger("battery_project")
 
@@ -293,43 +293,30 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
     csv = CsvProjectData(**csv_di)
     internal_id = csv.id
     has_gov_data = bool(gov)
-    has_user_data = False
 
     # mwh is a special case as it always comes from CSV (and might be overwritten by an estimate)
     mwh = csv_int(csv.capacity_mwh)
     mwh_is_estimate = False
 
-    # TODO: don't use either or here, but just pick gov first and if it is not set, then pick the csv second (only relevant were manual data was filled in)
-    # in that pick first function can print the the differences...
-    # TODO: also add an emoji for manual data (i.e. if the project website or link is filled)
-    # merge the government data
-    # TODO: if the coords are exact then use the user data (e.g. burwell in the uk)
-    # if gov and csv.overwrite == "1":
     if gov:
         external_id = gov.external_id
-
         status = gov.status
-        date_first_heard = gov.date_first_heard
-        start_construction = gov.start_construction
-        start_operation = gov.start_operation
-        start_estimated = gov.start_estimated
-
         # in case the government data did not catch up fast enough, can set the data from the CSV here instead
         if csv.status == "operation" and gov.status in ("planning", "construction"):
             status = csv.status
-            date_first_heard = gov.date_first_heard or csv.date_first_heard
-            start_construction = gov.start_construction or csv.start_construction
-            start_operation = gov.start_operation or csv.start_operation
-            has_user_data = True
+
+        # in case we do have info in the csv and not in the gov data, we use it.
+        date_first_heard = pick_first(gov.date_first_heard, csv.date_first_heard)
+        start_construction = pick_first(gov.start_construction, csv.start_construction)
+        start_operation = pick_first(gov.start_operation, csv.start_operation)
+        start_estimated = pick_first(gov.start_estimated, csv.start_estimated)
 
         month_disappeared = gov.month_disappeared
-
-        owner = gov.owner
+        owner = pick_first(gov.owner, csv.owner)
         name = gov.name
         state = gov.state
         country = gov.country
         mw = gov.power_mw
-
         mwh_estimate = csv_int(gov.estimate_mwh)
 
         # for Germany we get mwh
@@ -342,7 +329,6 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
         start_construction = csv.start_construction
         start_operation = csv.start_operation
         start_estimated = csv.start_estimated
-
         month_disappeared = ""
 
         owner = csv.owner
@@ -350,7 +336,6 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
         state = csv.state
         country = csv.country
         mw = csv_int(csv.power_mw)
-
         mwh_estimate = csv_int(csv.estimate_mwh)
 
     if mwh == 0 and mwh_estimate > 0:
@@ -423,7 +408,7 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
     links = [csv.link1, csv.link2, csv.link3, csv.link4]
     links = [l for l in links if l != ""]
     # can assume that when a link is there some user data was added
-    has_user_data = has_user_data or bool(len(links) > 0) or csv.project_website != ""
+    has_user_data = bool(len(links) > 0) or csv.project_website != ""
 
     if gov and gov.pr_url:
         links.append(gov.pr_url)

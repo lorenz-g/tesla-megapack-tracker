@@ -10,6 +10,14 @@ BASE_URL = "/tesla-megapack-tracker/"
 # BASE_URL = "/"
 
 
+def pick_first(first, second):
+    "pickt the first acceptable value"
+    if first not in (None, ""):
+        return first
+    else:
+        return second
+
+
 def find_duplicates(lst):
     # from chat gpt
     seen = set()

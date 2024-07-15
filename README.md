@@ -9,7 +9,7 @@ Table of Contents:
 
 # tesla-megapack-tracker
 
-- project tries to track all tesla megapack and powerpack (>5MWh) installations and other big batteries larger than 10MWh or 10MW
+- project tries to track all tesla megapack (>10MWh) installations and other big batteries where government data sources are available (>10MWh or 10MW)
 - the site is hosted via github pages and this is the link:
   - 🟢 👉 https://lorenz-g.github.io/tesla-megapack-tracker/ 👈 🟢
 

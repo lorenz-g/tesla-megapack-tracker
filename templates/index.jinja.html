@@ -104,17 +104,25 @@
 </div>
 
 
-<div class="pt-2 pb-3">
-    {% if extra.is_tesla_page %}
+{% if extra.is_tesla_page %}
+<div class="pt-2 pb-3" style="font-size: 0.8rem;">
     The summary also contains some powerpack projects >10MW<br>
     This is the Tesla page, to view the big batteries from all manufacturers click <a href="all-big-batteries.html">here</a>.
-    {% endif %}
 </div>
+{% endif %}
 
 
 <h3 id="project-list"> {{ extra.title}} list</h3>
 <ul>
-    <li>This list is a best effort to track big battery installations larger than 10 MWh. The focus is on lithium ion batteries.</li>
+    {% if extra.is_tesla_page %}
+    <li>This list tries to track all Tesla megapack installations larger than 10 MWh.</li>
+    {% else %}
+    <li>
+        This list tries to track battery projects larger 10 MWh where government data is available. 
+        <b>This is by no means a complete list.</b> Only for the <a href="{{ g_l('/') }}">Tesla megapack list</a>, the aim is to be as complete as possible 
+    </li>
+    {% endif %}
+    
     <li>Use the search bar to narrow down the results, e.g. <code>usa operation</code> for projects in operation in the US.</li>
     <li>Click on the name to show a detail view of the project.</li>
 </ul>

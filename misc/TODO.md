@@ -14,6 +14,7 @@
 
 # general
 
+- [ ] add a check for generated single html pages that were deleted from the csv (so that they can be deleted from the filesystem)
 - [ ] add a proper footer in the base template
 
 

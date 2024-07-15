@@ -12,6 +12,7 @@ from generate.utils import (
     GovShortData,
     check_di_difference,
     create_summary_for_gov_projects,
+    pick_first,
 )
 
 # for simplicity introducing cancelled state here but filtering it out.
@@ -207,14 +208,6 @@ def format_date(d):
     if not d or d == " ":
         return ""
     return dt.datetime.strptime(d, "%d/%m/%Y").strftime("%Y-%m-%d")
-
-
-def pick_first(first, second):
-    "pickt the first acceptable value"
-    if first not in (None, ""):
-        return first
-    else:
-        return second
 
 
 def gen_short_project(history_di):
