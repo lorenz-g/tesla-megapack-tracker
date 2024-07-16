@@ -310,8 +310,8 @@ def match_uk_repd_projects_with_mpt_projects(
 
 if __name__ == "__main__":
     # only runt it with new gov data
-    in_filename = "misc/uk-repd/original/repd-january-2024.csv"
-    out_filename = "misc/uk-repd/filtered/2024-01.csv"
+    in_filename = "misc/uk-repd/original/repd-q1-2024.csv"
+    out_filename = "misc/uk-repd/filtered/2024-04.csv"
     generate_filtered_csv(in_filename, out_filename)
 
     # stats_uk_repd_data()

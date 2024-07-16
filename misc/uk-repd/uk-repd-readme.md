@@ -58,6 +58,9 @@ vast majority in planning
   - fixed it by opening and saving the file as csv with libreoffice
 
 
+- got a `ValueError: time data '44317' does not match format '%d/%m/%Y'`
+  - Lister Drive 7740 went into the csv and deleted that value, it is wrong, should check why it ends up there in the first place. But it is the only wrong value. There were two more for the 2024-april version
+
 
 # column names
 
