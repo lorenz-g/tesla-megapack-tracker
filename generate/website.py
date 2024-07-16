@@ -345,6 +345,21 @@ def gen_de_small_batteries():
     )
 
 
+def delete_old_html_files(projects: list[BatteryProject]):
+    # if a project is removed from the csv, delete the html file as well
+    active_ids = set([p.csv.id for p in projects])
+    detail_page_ids = os.listdir("docs/projects")
+    detail_page_ids = set([i.replace(".html", "") for i in detail_page_ids])
+
+    ids_to_delete = detail_page_ids - active_ids
+    if ids_to_delete:
+        print("Deleting the following old projects:")
+        for id in ids_to_delete:
+            path = "docs/projects/%s.html" % id
+            print(path)
+            os.remove(path)
+
+
 def main(match_country):
     # 1) Load an prepare data
     csv_projects = load_file("projects.csv")
@@ -374,6 +389,9 @@ def main(match_country):
     duplicates = find_duplicates([p.csv.id for p in projects])
     if duplicates:
         print("BAD, please fix: Duplicate project ids: %s" % duplicates)
+
+    # if a project is removed from the csv, delete the html file as well
+    delete_old_html_files(projects)
 
     # sort by go live as datatables js also sorts like that
     projects = sorted(projects, key=lambda x: x.go_live, reverse=True)
