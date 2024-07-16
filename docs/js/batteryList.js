@@ -94,6 +94,10 @@ function generateBatteryList(order, mwh_column, mw_column, listId){
             var total_construction = 0;
             var total_planning = 0;
 
+            var count_operation = 0;
+            var count_construction = 0;
+            var count_planning = 0;
+
             // Loop over all rows to calculate the total based on condition
             api.rows({ filter: 'applied' }).every(function() {
                 var data = this.data();
@@ -101,15 +105,21 @@ function generateBatteryList(order, mwh_column, mw_column, listId){
                 var mwh = intVal(data[mwh_column]);
                 if (status.includes("operation")) {
                     total_operation += mwh;
+                    count_operation += 1;
                 } else if (status.includes("construction")) {
                     total_construction += mwh;
+                    count_construction += 1;
                 } else if (status.includes("planning")) {
                     total_planning += mwh;
+                    count_planning += 1
                 }
             });
-            api.column(6).footer().innerHTML = 
-                `<br>operation ${prettyMWh(total_operation)} &nbsp&nbsp🏗️`+
-                 `${prettyMWh(total_construction)} &nbsp&nbsp💻 ${prettyMWh(total_planning)} (MWh)`;
+            api.column(6).footer().innerHTML =
+                `<div style="font-weight: normal; font-size: 0.8rem;">` +
+                `<br><span class="badge rounded-pill bg-success">op</span> ${prettyMWh(total_operation)}/${count_operation} &nbsp`+
+                 `🏗️ ${prettyMWh(total_construction)}/${count_construction} &nbsp` +
+                 `💻 ${prettyMWh(total_planning)}/${count_planning} (MWh/count)` +
+                `</div>`;
 
         } // end footerCallback
 
