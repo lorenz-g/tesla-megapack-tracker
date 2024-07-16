@@ -42,6 +42,10 @@ function generateBatteryList(order, mwh_column, mw_column, listId){
                     ? i
                     : 0;
             };
+
+            let prettyMWh = function (i) {
+                return (i / 1000).toFixed(1) + 'k';
+            }
             
             // mwh
             // Total over all pages
@@ -58,7 +62,7 @@ function generateBatteryList(order, mwh_column, mw_column, listId){
      
             // Update footer
             api.column(mwh_column).footer().innerHTML = 
-                (pageTotal / 1000).toFixed(1) + 'k<br>' + (total / 1000).toFixed(1) + 'k';
+                prettyMWh(pageTotal) + '<br>' + prettyMWh(total);
             
 
             // mw
@@ -76,13 +80,37 @@ function generateBatteryList(order, mwh_column, mw_column, listId){
      
             // Update footer
             api.column(mw_column).footer().innerHTML = 
-                (pageTotal / 1000).toFixed(1) + 'k<br>' + (total / 1000).toFixed(1) + 'k';
+                prettyMWh(pageTotal) + '<br>' + prettyMWh(total);
 
 
             // project count
             pageTotal = api.column(1, {page: 'current' }).nodes().length
             total = api.column(1, {filter: 'applied'}).nodes().length
             api.column(1).footer().innerHTML = `${pageTotal}<br>${total}`;
+            
+
+            // mwh based on status
+            var total_operation = 0;
+            var total_construction = 0;
+            var total_planning = 0;
+
+            // Loop over all rows to calculate the total based on condition
+            api.rows({ filter: 'applied' }).every(function() {
+                var data = this.data();
+                var status = data[4];
+                var mwh = intVal(data[mwh_column]);
+                if (status.includes("operation")) {
+                    total_operation += mwh;
+                } else if (status.includes("construction")) {
+                    total_construction += mwh;
+                } else if (status.includes("planning")) {
+                    total_planning += mwh;
+                }
+            });
+            api.column(6).footer().innerHTML = 
+                `<br>operation ${prettyMWh(total_operation)} &nbsp&nbsp🏗️`+
+                 `${prettyMWh(total_construction)} &nbsp&nbsp💻 ${prettyMWh(total_planning)} (MWh)`;
+
         } // end footerCallback
 
     });
