@@ -16,3 +16,12 @@ TODOS:
 
 - [x] on the eia data, add a checkmark if the data is also shown on our map
 - [x] add the link to the individual pae to the checkmark
+
+
+# 2024-08-27 
+
+in the 2024-08 report, the technology column was empty (in pre previous reports it was filled correctly). 
+Also the entity name column was not always filled. 
+Ignoring the 2024-08 report for now until the 2024-09 report is out and will check again then if the 2024-08 tables got backfilled correctly. 
+Otherwise could use the prime mover code column where you can identify the battery as well...
+

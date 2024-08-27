@@ -300,6 +300,9 @@ def read_eia_data_single_month(folder):
 
             # only battery projects
             if not pr["technology"] == "Batteries":
+                # in the 2024-08 report in the 6_03 table, the technology column was not filled.
+                if pr["technology"] in ("", None):
+                    raise ValueError("technology column is empty for file %s" % file)
                 continue
 
             if isinstance(pr["net summer capacity (mw)"], str):
@@ -383,7 +386,7 @@ def download_and_extract_eia_data():
         # TODO: with the misc/eia-data/original/2024-01/Table_6_03.xlsx, got a warning
         #  pylightxl - Ill formatted workbook.xml. Skipping NamedRange not containing sheet reference (ex: "Sheet1!A1"): IQ_CH - 110000
         # look at that again.
-        [2024, [6, 13]],
+        [2024, [8, 13]],
     ]
     base_url = "https://www.eia.gov/electricity/monthly/archive/%s.zip"
     # the latest month is under this url
