@@ -37,6 +37,7 @@ def stats_eia_data():
     """
     folder = "misc/eia-data/merged/"
     filenames = sorted(os.listdir(folder))
+    filenames = [f for f in filenames if f.endswith(".csv")]
     months = [f.split(".")[0] for f in filenames]
 
     monthly_diffs = []
