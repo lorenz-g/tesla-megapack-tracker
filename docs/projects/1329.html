@@ -58,7 +58,7 @@
                   <li><a class="dropdown-item" href="/tesla-megapack-tracker/gov-de-mastr.html">🇩🇪 DE MaStR data (>10MW) </a></li>
                   <li>
                     <a class="dropdown-item" href="/tesla-megapack-tracker/gov-de-mastr-small-batteries.html">
-                      🇩🇪 DE MaStR data (< 30kWh small batteries) <span class="badge bg-info">New</span>
+                      🇩🇪 DE MaStR data (< 30kWh small batteries)
                     </a>
                   </li>
                 </ul>
@@ -80,7 +80,7 @@
 <h3> Scatter Wash 1 <span data-toggle="tooltip" data-placement="top" title="location not exactly known">📍</span><span data-toggle="tooltip" data-placement="top" title="government data available">📊</span><span data-toggle="tooltip" data-placement="top" title="user data available">👤</span> </h3>
 
 <dt>Status </dt>
-<dl><span class="">planning</span> </dl>
+<dl><span class="badge rounded-pill bg-secondary">construction</span> </dl>
 
 <dt>Country / State / Closest City </dt>
 <dl>🇺🇸 usa / arizona / </dl>
@@ -95,7 +95,7 @@
             </tr>
             <tr>
                 <td>Construction start</td>
-                <td></td>
+                <td>2024-09</td>
             </tr>
             <tr>
                 <td>Operation start</td>
@@ -198,7 +198,7 @@ The government data source for this battery is the U.S. Energy Information Admin
 
 
 
-Info from the <code>2024-07</code> report (Project first appeared in the <code>2024-05</code> report):<br>
+Info from the <code>2025-01</code> report (Project first appeared in the <code>2024-05</code> report):<br>
 
 <br>
 <dt>Plant Name / State</dt>
@@ -208,7 +208,7 @@ Info from the <code>2024-07</code> report (Project first appeared in the <code>2
 <dl>2025-04 / 170MW</dl>
 
 <dt>status / status verbose</dt>
-<dl>planning / (P) Planned for installation, but regulatory approvals not initiated </dl>
+<dl>construction / (U) Under construction, less than or equal to 50 percent complete </dl>
 
 <dt>Plant id / generator id </dt>
 <dl>67454 / SW1</dl>
@@ -217,6 +217,14 @@ Info from the <code>2024-07</code> report (Project first appeared in the <code>2
 <dl>Strata Manager, LLC / 64778</dl>
 
 <b>Changes:</b><br>
+
+
+    <b>2024-09</b><br>
+    
+        status: planning -> construction 🏗️<br>
+    
+        status_verbose: (P) Planned for installation, but regulatory approvals not initiated -> (U) Under construction, less than or equal to 50 percent complete <br>
+     <!-- field -->
 
  <!-- changes -->
 <br><br>
@@ -272,7 +280,7 @@ Info from the <code>2024-07</code> report (Project first appeared in the <code>2
         // var projects = '';
         // projects = JSON.parse(projects)
         // could also have the json as static file and load it here...
-        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords are a guess. Only the city or county is known", "coords_hint": 3, "country": "usa", "csv": {"capacity_mwh": "680", "cells": "", "city": "", "coords_hint": "3", "cost_currency": "USD", "cost_incl_solar": "", "cost_million": "335", "country": "usa", "customer": "Arizona Public Service (APS)", "date_first_heard": "", "developer": "", "estimate_mwh": "", "external_id": "67454", "id": "1329", "lat": "33.685402", "link1": "https://twitter.com/SawyerMerritt/status/1748500029197726146", "link2": "https://www.energy-storage.news/strata-breaks-ground-on-1gwh-arizona-bess/", "link3": "", "link4": "", "long": "-112.125062", "manufacturer": "tesla", "name": "Scatter Wash 1", "no_of_battery_units": "", "notes": "split the costs between scatter wash 1 and 2 based on mw ratio", "owner": "Strata Manager, LLC", "power_mw": "170", "project_website": "", "start_construction": "", "start_estimated": "2025-04", "start_operation": "", "state": "arizona", "status": "planning", "type": "megapack 2XL", "use_case": ""}, "date_first_heard": "2024-05", "emojis": "\ud83d\udccd\ud83d\udcca\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "67454", "go_live": "0 ~  2025-04", "go_live_year_int": 2025, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:33.685402+-112.125062", "gov": {"coords_hint": -1, "country": "usa", "data_source": "us_eia", "date_first_heard": "2024-05", "estimate_mwh": 340, "external_id": "67454", "has_multiple_projects": false, "lat": "", "long": "", "month_disappeared": "", "mwh": 0, "name": "Scatter Wash 1", "owner": "Strata Manager, LLC", "power_mw": 170, "pr_url": "", "start_construction": "", "start_estimated": "2025-04", "start_operation": "", "state": "arizona", "status": "planning"}, "gov_history": {"SW1": {"changes": [], "current": {"date": "2025-04", "energy source code": "MWH", "entity id": "64778", "entity name": "Strata Manager, LLC", "ext_id": "67454", "generator id": "SW1", "month": "4", "mw": 170, "net summer capacity (mw)": "170", "plant id": "67454", "plant name": "Scatter Wash 1", "plant producer type": "IPP", "plant state": "AZ", "prime mover code": "BA", "status": "planning", "status_verbose": "(P) Planned for installation, but regulatory approvals not initiated", "technology": "Batteries", "year": "2025"}, "current_month": "2024-07", "dates": {"first_heard": "2024-05", "start_construction": null}, "first": {"date": "2025-04", "energy source code": "MWH", "entity id": "64778", "entity name": "Strata Manager, LLC", "ext_id": "67454", "generator id": "SW1", "month": "4", "mw": 170, "net summer capacity (mw)": "170", "plant id": "67454", "plant name": "Scatter Wash 1", "plant producer type": "IPP", "plant state": "AZ", "prime mover code": "BA", "status": "planning", "status_verbose": "(P) Planned for installation, but regulatory approvals not initiated", "technology": "Batteries", "year": "2025"}, "first_month": "2024-05", "month_disappeared": ""}}, "has_gov_data": true, "has_user_data": true, "heart_tooltip": "", "in_construction": false, "in_operation": false, "in_planning": true, "internal_id": "1329", "is_active": true, "is_megapack": true, "is_tesla": true, "lat": "33.685402", "links": ["https://twitter.com/SawyerMerritt/status/1748500029197726146", "https://www.energy-storage.news/strata-breaks-ground-on-1gwh-arizona-bess/"], "long": "-112.125062", "month_disappeared": "", "mw": 170, "mwh": 680, "mwh_estimate": 340, "mwh_is_estimate": false, "name": "Scatter Wash 1", "name_short": "Scatter Wash 1", "no_of_battery_units": 0, "notes_split": ["split the costs between scatter wash 1 and 2 based on mw ratio"], "owner": "Strata Manager, LLC", "start_construction": "", "start_estimated": "2025-04", "start_operation": "", "state": "arizona", "status": "planning", "status_class": ""}];
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords are a guess. Only the city or county is known", "coords_hint": 3, "country": "usa", "csv": {"capacity_mwh": "680", "cells": "", "city": "", "coords_hint": "3", "cost_currency": "USD", "cost_incl_solar": "", "cost_million": "335", "country": "usa", "customer": "Arizona Public Service (APS)", "date_first_heard": "", "developer": "", "estimate_mwh": "", "external_id": "67454", "id": "1329", "lat": "33.685402", "link1": "https://twitter.com/SawyerMerritt/status/1748500029197726146", "link2": "https://www.energy-storage.news/strata-breaks-ground-on-1gwh-arizona-bess/", "link3": "", "link4": "", "long": "-112.125062", "manufacturer": "tesla", "name": "Scatter Wash 1", "no_of_battery_units": "", "notes": "split the costs between scatter wash 1 and 2 based on mw ratio", "owner": "Strata Manager, LLC", "power_mw": "170", "project_website": "", "start_construction": "", "start_estimated": "2025-04", "start_operation": "", "state": "arizona", "status": "planning", "type": "megapack 2XL", "use_case": ""}, "date_first_heard": "2024-05", "emojis": "\ud83d\udccd\ud83d\udcca\ud83d\udc64", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"user data available\"\u003e\ud83d\udc64\u003c/span\u003e", "external_id": "67454", "go_live": "0 ~  2025-04", "go_live_year_int": 2025, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:33.685402+-112.125062", "gov": {"coords_hint": -1, "country": "usa", "data_source": "us_eia", "date_first_heard": "2024-05", "estimate_mwh": 340, "external_id": "67454", "has_multiple_projects": false, "is_megapack": false, "lat": "", "long": "", "month_disappeared": "", "mwh": 0, "name": "Scatter Wash 1", "owner": "Strata Manager, LLC", "power_mw": 170, "pr_url": "", "start_construction": "2024-09", "start_estimated": "2025-04", "start_operation": "", "state": "arizona", "status": "construction"}, "gov_history": {"SW1": {"changes": [{"li": [{"change_type": "status", "extra": "\ud83c\udfd7\ufe0f", "from": "planning", "name": "status", "to": "construction"}, {"change_type": "misc", "extra": "", "from": "(P) Planned for installation, but regulatory approvals not initiated", "name": "status_verbose", "to": "(U) Under construction, less than or equal to 50 percent complete"}], "month": "2024-09"}], "current": {"date": "2025-04", "energy source code": "MWH", "entity id": "64778", "entity name": "Strata Manager, LLC", "ext_id": "67454", "generator id": "SW1", "month": "4", "mw": 170, "net summer capacity (mw)": "170", "plant id": "67454", "plant name": "Scatter Wash 1", "plant producer type": "IPP", "plant state": "AZ", "prime mover code": "BA", "status": "construction", "status_verbose": "(U) Under construction, less than or equal to 50 percent complete", "technology": "Batteries", "year": "2025"}, "current_month": "2025-01", "dates": {"first_heard": "2024-05", "start_construction": "2024-09"}, "first": {"date": "2025-04", "energy source code": "MWH", "entity id": "64778", "entity name": "Strata Manager, LLC", "ext_id": "67454", "generator id": "SW1", "month": "4", "mw": 170, "net summer capacity (mw)": "170", "plant id": "67454", "plant name": "Scatter Wash 1", "plant producer type": "IPP", "plant state": "AZ", "prime mover code": "BA", "status": "planning", "status_verbose": "(P) Planned for installation, but regulatory approvals not initiated", "technology": "Batteries", "year": "2025"}, "first_month": "2024-05", "month_disappeared": ""}}, "has_gov_data": true, "has_user_data": true, "heart_tooltip": "", "in_construction": true, "in_operation": false, "in_planning": false, "internal_id": "1329", "is_active": true, "is_megapack": true, "is_tesla": true, "lat": "33.685402", "links": ["https://twitter.com/SawyerMerritt/status/1748500029197726146", "https://www.energy-storage.news/strata-breaks-ground-on-1gwh-arizona-bess/"], "long": "-112.125062", "month_disappeared": "", "mw": 170, "mwh": 680, "mwh_estimate": 340, "mwh_is_estimate": false, "name": "Scatter Wash 1", "name_short": "Scatter Wash 1", "no_of_battery_units": 0, "notes_split": ["split the costs between scatter wash 1 and 2 based on mw ratio"], "owner": "Strata Manager, LLC", "start_construction": "2024-09", "start_estimated": "2025-04", "start_operation": "", "state": "arizona", "status": "construction", "status_class": "badge rounded-pill bg-secondary"}];
         
         generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
 
