@@ -69,6 +69,15 @@ def load_file(filename="projects.csv", type_="json"):
 
 def gen_gov_pages(gov_data, projects: Iterable[BatteryProject]):
     gen_ids_from_projects = {p.csv.external_id: p.csv.id for p in projects}
+
+    # append info to the gov dict if the project is megapack or not
+    # could probably also be done when the dataclass is created... 
+    for p in projects:
+        if p.country not in GOV_DATA_INFO_DICT.keys():
+            continue
+        if p.external_id and p.is_megapack:
+            gov_data[p.country]["projects_short"][p.external_id].is_megapack = True
+
     for country, gov_di in gov_data.items():
         extra = {
             "now": dt.datetime.now(dt.UTC),

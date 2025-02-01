@@ -72,6 +72,8 @@ class GovShortData:
     has_multiple_projects: bool = False
     pr_url: str = ""
 
+    is_megapack: bool = False
+
 
 @dataclass
 class GovMonthlyChanges:

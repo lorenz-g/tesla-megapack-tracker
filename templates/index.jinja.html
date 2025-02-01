@@ -56,6 +56,18 @@
 
 
 {% block content %}
+{% if not extra.is_tesla_page %}
+<div class="alert alert-warning" role="alert">
+    This list is not maintained anymore. <br>
+    <span style="font-size: 0.8rem;">
+        This list is just used to dispaly the projects that were imported from the government data sources to be able to match them with Tesla megapack projects.
+        Only the <a href=".">Tesla megapack list</a> is maintained (Jan 25)
+    </span>
+  </div>
+{% endif %}
+
+
+
 <h3>{{ extra.title}} tracker</h3>
 
 <div class="row">
