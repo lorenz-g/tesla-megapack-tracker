@@ -71,7 +71,7 @@ def gen_gov_pages(gov_data, projects: Iterable[BatteryProject]):
     gen_ids_from_projects = {p.csv.external_id: p.csv.id for p in projects}
     for country, gov_di in gov_data.items():
         extra = {
-            "now": dt.datetime.utcnow(),
+            "now": dt.datetime.now(dt.UTC),
             "summary": gov_di,
             "gen_ids_from_projects": gen_ids_from_projects,
         }
@@ -283,7 +283,7 @@ def gen_projects_template(projects: list[BatteryProject], is_tesla_page: bool):
     extra = {
         "title": title,
         "is_tesla_page": is_tesla_page,
-        "now": dt.datetime.utcnow(),
+        "now": dt.datetime.now(dt.UTC),
         "cars": gen_cars_vs_stationary(),
         "summary": summary,
         "projects": projects,

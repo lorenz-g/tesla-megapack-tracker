@@ -5,7 +5,6 @@ import json
 import os
 import pprint
 import time
-from audioop import avg
 from collections import defaultdict
 from typing import Iterable
 

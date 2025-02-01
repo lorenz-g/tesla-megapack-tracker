@@ -297,7 +297,11 @@ def read_eia_data_single_month(folder):
 
         for row in rows:
             # similar to a csv dict reader
-            pr = {column_names[i]: row[i] for i in range(col_len)}
+            pr = {column_names[i]: row[i] for i in range(col_len)} 
+            
+            # starting with the 2024-08 report there are some notes in the last line. ignoring those
+            if "NOTES" in str(pr["year"]):
+                continue
 
             # only battery projects
             if not pr["technology"] == "Batteries":
