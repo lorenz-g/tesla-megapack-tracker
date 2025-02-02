@@ -91,21 +91,16 @@ def gen_gov_pages(gov_data, projects: Iterable[BatteryProject]):
             "gov-%s.html" % extra["output_filename"],
         )
 
-
-def gen_raw_data_files():
+def gen_raw_data_files(projects: list[BatteryProject], filename: str):
     # write the raw data files
     output_dir = os.path.join("docs", "misc")
-    json_projects = load_file("projects.csv")
-    output_fn = "big-battery-projects"
+    csv_projects = [p.to_csv_row() for p in projects]
+    # sort projects by id
+    csv_projects = sorted(csv_projects, key=lambda x: int(x[0]))
 
-    with open(os.path.join(output_dir, output_fn + ".json"), "w") as f:
-        json.dump(json_projects, f)
-
-    csv_projects = load_file(type_="csv")
-
-    # I think the two csv files are the same, but keep it for now.
-    with open(os.path.join(output_dir, output_fn + ".csv"), "w") as f:
+    with open(os.path.join(output_dir, filename), "w") as f:
         writer = csv.writer(f)
+        writer.writerow(BatteryProject.csv_header_row())
         writer.writerows(csv_projects)
 
 
@@ -415,7 +410,7 @@ def main(match_country):
     gen_individual_pages(projects)
     gen_gov_pages(gov_datasets, projects)
     gen_de_small_batteries()
-    gen_raw_data_files()
+    gen_raw_data_files(tesla_projects, "megapack-projects.csv")
     gen_blog()
 
     ajax_data = {

@@ -286,6 +286,66 @@ class BatteryProject:
         else:
             di["gov"] = {}
         return di
+    
+    def to_csv_row(self):
+        """ this is the merged data from the user (the project.csv) and the government data"""
+        li = [
+            self.csv.id,
+            self.name,
+            self.external_id,
+            self.state,
+            self.country,
+            self.mw,
+            self.mwh,
+            self.status,
+            self.date_first_heard,
+            self.start_construction,
+            self.start_operation,
+            self.start_estimated,
+            self.owner,
+            self.is_megapack,
+            self.is_tesla,
+            self.lat,
+            self.long,
+            self.coords_hint,
+            self.has_user_data,
+            self.csv.project_website,
+            self.csv.link1,
+            self.csv.link2,
+            self.csv.link3,
+            self.csv.link4,
+        ]
+        return [str(i) for i in li]
+    
+    @staticmethod
+    def csv_header_row():
+        return [
+            "id",
+            "name",
+            "external_id",
+            "state",
+            "country",
+            "mw",
+            "mwh",
+            "status",
+            "date_first_heard",
+            "start_construction",
+            "start_operation",
+            "start_estimated",
+            "owner",
+            "is_megapack",
+            "is_tesla",
+            "lat",
+            "long",
+            "coords_hint",
+            "has_user_data",
+            "project_website",
+            "link1",
+            "link2",
+            "link3",
+            "link4",
+        ]
+
 
 
 def csv_data_checks(p: CsvProjectData):

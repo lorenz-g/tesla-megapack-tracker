@@ -119,7 +119,6 @@
 {% if extra.is_tesla_page %}
 <div class="pt-2 pb-3" style="font-size: 0.8rem;">
     The summary also contains some powerpack projects >10MW<br>
-    This is the Tesla page, to view the big batteries from all manufacturers click <a href="all-big-batteries.html">here</a>.
 </div>
 {% endif %}
 
@@ -218,9 +217,11 @@
 
 <br>
 {{ extra.summary.emoji_legend}}
-<br>Raw data as: 
-<a href="misc/big-battery-projects.json">json</a> &
-<a href="misc/big-battery-projects.csv">csv</a>
+
+{% if extra.is_tesla_page %}
+<br>Here you can download the data as: 
+<a href="misc/megapack-projects.csv">csv</a>
+{% endif %}
 
 
 <h3 id="installations-map" class="mt-4"> {{ extra.title}} map </h3>
