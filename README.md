@@ -6,6 +6,7 @@ Table of Contents:
 - [want to contribute?](#want-to-contribute)
 - [changelog](#changelog)
 - [inspiration](#inspiration)
+- [useful gpt prompts](#useful-gpt-prompts)
 
 # tesla-megapack-tracker
 
@@ -72,4 +73,13 @@ There are many other great trackers about various tesla stats, such as:
   - Model 3 VIN tracker (not active anymore) https://www.model3vins.com/ 
   - Power tracker of big batteries in Australia: http://nemlog.com.au/show/unit/yesterday/?k1=VBBG1,VBBL1 
   - EU EVs tracker https://eu-evs.com/ 
-  - https://map.evuniverse.io/#mapstart map of EV the ev industry 
+  - https://map.evuniverse.io/#mapstart map of EV the ev industry
+
+# useful gpt prompts 
+
+- to help find recent megapack projects that I might have missed. 
+
+```
+Can you give me an overview of the tesla megapack projects that have been announced or completed since october 2024. 
+Please list them in a table with project name, country, state, mw, mwh, date_accounced, date_go_live and the data source
+```

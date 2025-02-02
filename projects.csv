@@ -1151,7 +1151,7 @@ Clough Road - Battery Energy System,,1172,14225,yorkshire and humber,uk,,130,130
 "Frome Power, Styles Close - Energy Storage Facility",,1173,14227,south west,uk,,30,30,,Trina Solar UK Hold Co Limited,,,,,,planning,2023-07-06,,,,,,,,,,,,,,,,
 Collie Battery Stage 1,,1174,,western australia,australia,877,,219,,neoen,,tesla,megapack 2XL,,224,construction,2023-06-19,2023-06-21,,2024Q4,,,,-33.31604,116.289605,2,,,https://colliebattery.com.au,https://neoen.com/en/news/2023/neoen-to-build-its-first-long-duration-battery-after-winning-a-197-mw-contract-in-western-australia/,https://colliebattery.com.au/2023/06/21/collie-battery-stage-1-ntp/,,
 Chingjia Energy,,1175,,,taiwan,200,,,,Chingjia Energy,,tesla,megapack,,,planning,2023-08-23,,,,,,,24.222065,120.945036,-2,,,,https://twitter.com/Tesla_Megapack/status/1693770142554189983,,,
-Gigafactory Texas,,1176,,texas,usa,250,,125,,Tesla,,tesla,megapack 2XL,,68,operation,2022-01-11,2023-07-19,2023-07-22,,,,,30.230756,-97.615973,1,,used date of tweet for the operation start date,,https://twitter.com/Tesla_Megapack/status/1681503667030212608,https://twitter.com/JoeTegtmeyer/status/1654619434261135360,https://twitter.com/SawyerMerritt/status/1682834256928571392,https://x.com/Tesla_Megapack/status/1791530954261172681
+Gigafactory Texas,,1176,67860,texas,usa,250,,125,,Tesla,,tesla,megapack 2XL,,68,operation,2022-01-11,2023-07-19,2023-07-22,,,,,30.230756,-97.615973,1,,used date of tweet for the operation start date,,https://twitter.com/Tesla_Megapack/status/1681503667030212608,https://twitter.com/JoeTegtmeyer/status/1654619434261135360,https://twitter.com/SawyerMerritt/status/1682834256928571392,https://x.com/Tesla_Megapack/status/1791530954261172681
 Scarlet II Hybrid,,1177,66951,california,usa,,300,150,,EDPR Scarlet II LLC,,,,,,planning,,,,2024-12,,,,,,,,,,,,,
 "Golden Field Solar III, LLC",,1178,63859,california,usa,,294,147,,"Golden Field Solar III, LLC",,,,,,planning,,,,2024-04,,,,,,,,,,,,,
 "Northern Orchard Solar PV, LLC",,1179,67039,california,usa,,184,92,,"Northern Orchard Solar PV, LLC",,,,,,construction,,,,2024-03,,,,,,,,,,,,,
@@ -1576,7 +1576,6 @@ Augite Storage,,1599,68164,texas,usa,,302,151,,"Belltown Power Texas 2, LLC",,,,
 Chisme Solar and Storage,,1600,68078,texas,usa,,292,146,,Red River Clean Energy,,,,,,planning,,,,2027-04,,,,,,,,,,,,,
 Vial BESS,,1601,67784,texas,usa,,282,141,,Gransolar Texas Eleven LLC,,,,,,planning,,,,2026-07,,,,,,,,,,,,,
 Connolly BESS,,1602,67861,texas,usa,,250,125,,"BT Connolly Storage, LLC",,,,,,construction,,,,2024-11,,,,,,,,,,,,,
-GFTX BESS,,1603,67860,texas,usa,,250,125,,Giga Texas Energy LLC,,,,,,operation,,,2024-08-01,,,,,,,,,,,,,,
 Dolomite Storage,,1604,68166,texas,usa,,250,125,,"Belltown Power Texas 2, LLC",,,,,,planning,,,,2026-11,,,,,,,,,,,,,
 Marcos PV and BESS,,1605,68080,texas,usa,,230,115,,GRS BESS Texas Eight LLC,,,,,,planning,,,,2027-08,,,,,,,,,,,,,
 Hayrick BESS,,1606,67779,texas,usa,,226,113,,Gransolar Texas Five LLC,,,,,,planning,,,,2027-02,,,,,,,,,,,,,
