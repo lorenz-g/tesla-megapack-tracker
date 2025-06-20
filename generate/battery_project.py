@@ -384,6 +384,9 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
         # in case the government data did not catch up fast enough, can set the data from the CSV here instead
         if csv.status == "operation" and gov.status in ("planning", "construction"):
             status = csv.status
+        elif csv.status == "construction" and gov.status == "planning":
+            # same with construction
+            status = csv.status
 
         # in case we do have info in the csv and not in the gov data, we use it.
         date_first_heard = pick_first(gov.date_first_heard, csv.date_first_heard)
