@@ -1,9 +1,9 @@
 Table of Contents:
 - [tesla-megapack-tracker](#tesla-megapack-tracker)
+- [want to contribute?](#want-to-contribute)
 - [project structure](#project-structure)
 - [good information sources](#good-information-sources)
 - [for profit usage](#for-profit-usage)
-- [want to contribute?](#want-to-contribute)
 - [changelog](#changelog)
 - [inspiration](#inspiration)
 - [useful gpt prompts](#useful-gpt-prompts)
@@ -16,6 +16,12 @@ Table of Contents:
 
 ![map of image](./docs/pics/og-image.jpg)
 
+# want to contribute?
+
+- battery projects
+  - just add or update them in the `projects.csv` file and submit a PR (Pull Request) on Github
+  - Using LibreOffice to edit the csv file is recommended
+
 # project structure
 
 for now:
@@ -26,12 +32,6 @@ for now:
 - To develop it is handy to use a tool like [watchexec](https://watchexec.github.io/downloads/) to listen to file changes and then rebuild the site. Some handy commands are in the [./Makefile](./Makefile)
 - to edit the CSV files, it is best to use Libre Office
 - the external government data is the `misc` folder
-- the blog entries are written in Markdown and in the `misc`
-
-eventually:
-- every battery installation has a toml file located in the `battery-projects`
-- in case there are multiple stages to a project, they will be in that file
-- the naming of the toml file is `date_id_project-name`, e.g. `2020-01-01_4_first-megapack-project`
 
 for the cars vs stationary:
 - raw data is in the [cars-vs-stationary.csv](./cars-vs-stationary.csv) file
@@ -47,17 +47,6 @@ This has grown, so you can find it here now: [Big Battery Info Sources](./misc/2
 
 - if you are a corporate and can use some the data here please do. You can also sell it on (but please respect the MIT license to give credit where it's due)
 - and if you have used it, please consider contributing some info/insights back to the project via pull requests. Thanks 👏
-
-# want to contribute?
-
-- battery projects
-  - just add them to the `projects.csv` file and submit a PR (Pull Request)
-- feature / website improvements
-  - there is a [TODO](./misc/TODO.md) file. You can just grab sth there. 
-- new government integration
-  - they are the best to keep data up to date. Feel free to add one. 
-- blog post
-  - just write / amend one and submit a PR. 
 
 # changelog
 
