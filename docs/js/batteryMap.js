@@ -128,11 +128,13 @@ function generateBatteryMap(projects, mapId, zoom_to_first_project=false){
     mymap.on('zoomend', function() {
         console.log("zoom", mymap.getZoom());
         const overlayKeys = ["planning", "construction", "operation", "cancelled"];
-        if (mymap.getZoom() < 8){
+        if (mymap.getZoom() < 7){
+            // remove the labels for the pins
             for (const key of overlayKeys) {
                 mymap.removeLayer(shortSummaryLabelGroups[key]);
             }
         } else {
+            // add the labels for the pins
             for (const key of overlayKeys) {
                 if (mymap.hasLayer(overlays[key])) {
                   console.log(`Overlay layer (${key}) is added to the map`);
