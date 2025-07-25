@@ -4,6 +4,7 @@ tmp_zip
 *.DS_Store
 .vscode
 .~lock.projects.csv#
+.~lock.cars-vs-stationary.csv#
 
 
 # python gitignore file from github
