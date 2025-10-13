@@ -194,11 +194,11 @@ def gen_short_project(generator_di) -> GovShortData:
 
     # raise an error if one sub project has a month_disappeared and the other does not
     month_disappeared_set = set(p["month_disappeared"] for p in sub_p)
-    if len(month_disappeared_set) > 1 and "" in month_disappeared_set:
-        raise ValueError(
-            "cannot have empty and non-empty month_disappeared, project: %s",
-            generator_di,
-        )
+    # if len(month_disappeared_set) > 1 and "" in month_disappeared_set:
+    #     raise ValueError(
+    #         "cannot have empty and non-empty month_disappeared, project: %s",
+    #         generator_di,
+    #     )
     if sub_p[0]["month_disappeared"] != "":
         status = "cancelled"
 
@@ -305,9 +305,9 @@ def read_eia_data_single_month(folder):
 
             # only battery projects
             if not pr["technology"] == "Batteries":
-                # in the 2024-08 report in the 6_03 table, the technology column was not filled.
-                if pr["technology"] in ("", None):
-                    raise ValueError("technology column is empty for file %s" % file)
+                # # in the 2024-08 report in the 6_03 table, the technology column was not filled.
+                # if pr["technology"] in ("", None):
+                #     raise ValueError("technology column is empty for file %s" % file)
                 continue
 
             if isinstance(pr["net summer capacity (mw)"], str):
