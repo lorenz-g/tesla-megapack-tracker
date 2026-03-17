@@ -16,10 +16,6 @@ from generate.battery_project import (
 from generate.constants import (
     GOV_DATA_INFO_DICT,
 )
-from generate.gov.de_mastr import (
-    match_de_mastr_projects_with_mpt_projects,
-    stats_de_mastr_data,
-)
 from generate.gov.uk_repd import (
     match_uk_repd_projects_with_mpt_projects,
     stats_uk_repd_data,
@@ -78,9 +74,6 @@ def gen_gov_pages(gov_data, projects: Iterable[BatteryProject]):
             gov_data[p.country]["projects_short"][p.external_id].is_megapack = True
 
     for country, gov_di in gov_data.items():
-        if country == "germany":
-            continue
-
         extra = {
             "now": dt.datetime.now(dt.UTC),
             "summary": gov_di,
@@ -355,7 +348,6 @@ def main(match_country):
     gov_datasets = {
         "usa": stats_eia_data(),
         "uk": stats_uk_repd_data(),
-        "germany": stats_de_mastr_data(),
     }
 
     projects: list[BatteryProject] = []
@@ -414,7 +406,6 @@ def main(match_country):
     match_functions = {
         "usa": match_eia_projects_with_mpt_projects,
         "uk": match_uk_repd_projects_with_mpt_projects,
-        "germany": match_de_mastr_projects_with_mpt_projects,
     }
     if match_country:
         # max internal id plus 1 - cannot assume that the last id is the highest
@@ -423,7 +414,7 @@ def main(match_country):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] in ("usa", "uk", "germany"):
+    if len(sys.argv) > 1 and sys.argv[1] in ("usa", "uk"):
         match_country = sys.argv[1]
     else:
         match_country = None

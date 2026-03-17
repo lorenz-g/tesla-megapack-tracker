@@ -17,15 +17,6 @@ GOV_DATA_INFO_DICT = {
         "output_filename": "uk-repd",
         "source_url": "https://www.gov.uk/government/publications/renewable-energy-planning-database-monthly-extract",
     },
-    "germany": {
-        "id": "de",
-        "flag": "🇩🇪",
-        "name_short": "DE MaStR",
-        "name_long": "DE Marktstammdatenregister (MaStR)",
-        "title_extra": "data (>10MW)",
-        "output_filename": "de-mastr",
-        "source_url": "https://www.marktstammdatenregister.de/MaStR/",
-    },
 }
 
 

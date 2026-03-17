@@ -407,9 +407,6 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
         mw = gov.power_mw
         mwh_estimate = csv_int(gov.estimate_mwh)
 
-        # for Germany we get mwh
-        if country == "germany":
-            mwh = gov.mwh
     else:
         external_id = ""
         status = csv.status
