@@ -30,6 +30,7 @@ from generate.utils import date_to_quarter, generate_link, find_duplicates
 # cannot load this for every template rendered, takes too long.
 FILE_LOADER = FileSystemLoader("templates")
 JINJA_ENV = Environment(loader=FILE_LOADER)
+GLOBAL_TEMPLATE_ARGS = {}
 
 
 def write_template(template_name, template_arguments, out_filename=None):
@@ -44,6 +45,7 @@ def write_template(template_name, template_arguments, out_filename=None):
             "g_l": generate_link,
         }
     )
+    template_arguments.update(GLOBAL_TEMPLATE_ARGS)
     with open(os.path.join(output_dir, out_filename), "w") as f:
         f.write(template.render(**template_arguments))
 
@@ -379,6 +381,10 @@ def main(match_country):
     # projects that are not cancelled
     active_projects = [p for p in projects if p.is_active]
     tesla_projects = [p for p in active_projects if p.is_tesla]
+    GLOBAL_TEMPLATE_ARGS["project_length"] = {
+        "tesla_str": "(%d)" % len(tesla_projects),
+        "all_str": "(%d)" % len(active_projects),
+    }
 
     # 2) Generate the pages
     gen_projects_template(tesla_projects, is_tesla_page=True)
@@ -388,18 +394,6 @@ def main(match_country):
     gen_gov_pages(gov_datasets, projects)
     gen_raw_data_files(tesla_projects, "megapack-projects.csv")
     delete_old_blog_files()
-
-    ajax_data = {
-        "project_length": {
-            "tesla_str": "(%d)" % len(tesla_projects),
-            "all_str": "(%d)" % len(active_projects),
-        },
-        # TODO: can move the static site generated at into here also
-        # "generated_at":
-    }
-    # load some data via ajax to keep the commit history of the individual project html files cleaner
-    with open("docs/ajax-data.json", "w") as f:
-        json.dump(ajax_data, f)
 
     # 3) Match and print project that are not in projects.csv
     # this does not have to be run every time, just for manual assignment

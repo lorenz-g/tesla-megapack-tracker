@@ -1295,7 +1295,7 @@ Rodeo Ranch Energy Storage,Reeves County,1317,67175,texas,usa,600,600,300,,"Rode
 Hornshadow Solar II,,1318,67191,utah,usa,,150,75,,"Hornshadow Solar II, LLC",,,,,,planning,,,,2025-06,,,,,,,,,,,,,,
 Hornshadow Solar,,1319,67189,utah,usa,,150,75,,"Hornshadow Solar, LLC",,,,,,planning,,,,2025-06,,,,,,,,,,,,,,
 Paris Solar,,1320,65967,wisconsin,usa,,200,100,,Wisconsin Electric Power Co,,,,,,planning,,,,2025-05,,,,,,,,,,,,,,
-Swanbank,Ipswich,1321,,queensland,australia,500,,250,,,Clean Co,tesla,megapack 2XL,,,construction,,2024-02-19,,2026Q1,330,USD,,-27.649131,152.814807,2,2026-03-17,,,https://www.cleancoqueensland.com.au/what-we-do/our-assets/swanbank-battery,https://twitter.com/SawyerMerritt/status/1759460910530265090,https://reneweconomy.com.au/works-begin-on-giant-queensland-tesla-battery-at-site-of-former-coal-plant/,https://x.com/TeslaAUNZ/status/2033308499837603865,
+Swanbank,Ipswich,1321,,queensland,australia,500,,250,,,Clean Co,tesla,megapack 2XL,,,operation,,2024-02-19,2026-02-17,2026Q1,330,USD,,-27.649131,152.814807,2,2026-03-17,,,https://www.cleancoqueensland.com.au/what-we-do/our-assets/swanbank-battery,https://twitter.com/SawyerMerritt/status/1759460910530265090,https://reneweconomy.com.au/works-begin-on-giant-queensland-tesla-battery-at-site-of-former-coal-plant/,https://x.com/Tesla_Megapack/status/2023862217280823430,
 Eleven Mile Solar Center,,1323,66263,arizona,usa,,600,300,,"Eleven Mile Solar Center, LLC",,,,,,construction,,,,2024-06,,,,,,,,,,,,,,
 Sun Streams 4,,1324,67291,arizona,usa,,600,300,,"Sun Streams Expansion, LLC",,,,,,construction,,,,2025-06,,,,,,,,,,,,,,
 Sun Streams 3,,1326,67285,arizona,usa,,430,215,,"Sun Streams PVS, LLC",,,,,,construction,,,,2024-06,,,,,,,,,,,,,,
@@ -1861,3 +1861,4 @@ Mesquite Clean Energy Center (BESS),,1893,69457,texas,usa,,20,10,,On Energy Stor
 North Pecos Clean Energy Center (BESS),,1894,69458,texas,usa,,20,10,,On Energy Storage,,,,,,construction,,,,2026-01,,,,,,,,,,,,,,
 Danville VA BESS 2,,1895,69552,virginia,usa,,22,11,,Danville VA BESS 2 LLC,,,,,,construction,,,,2026-04,,,,,,,,,,,,,,
 Essex VT BESS 1,,1896,69602,vermont,usa,,32,16,,Essex VT BESS 1 LLC,,,,,,construction,,,,2026-04,,,,,,,,,,,,,,
+Hagersville Battery Energy Storage Park,Hagersville,1897,,ontario,canada,1200,,300,,Boralex / Six Nations of the Grand River Development Corporation (SNGRDC),Boralex / SNGRDC,tesla,megapack 2XL,,334,operation,2026-03-17,,2026-02-27,,0,,0,42.957925,-80.052214,3,2026-03-17,,largest operating battery storage project in Canada as of commissioning,https://www.boralex.com/projects-and-sites/hagersville-storage-project,https://us.boralex.com/en/press-releases/boralex-commissions-hagersville-energy-storage-project,https://x.com/SawyerMerritt/status/2028495886255321439,,
