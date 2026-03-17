@@ -13,7 +13,6 @@ from generate.battery_project import (
     BatteryProject,
     setup_battery_project,
 )
-from generate.blog import gen_blog
 from generate.constants import (
     GOV_DATA_INFO_DICT,
 )
@@ -328,6 +327,27 @@ def delete_old_html_files():
             os.remove(path)
 
 
+def delete_old_blog_files():
+    old_blog_files = [
+        os.path.join("docs", "blog.html"),
+        os.path.join("docs", "blog"),
+    ]
+
+    for path in old_blog_files:
+        if os.path.isfile(path):
+            print(path)
+            os.remove(path)
+        elif os.path.isdir(path):
+            for filename in os.listdir(path):
+                child_path = os.path.join(path, filename)
+                if os.path.isfile(child_path):
+                    print(child_path)
+                    os.remove(child_path)
+            if not os.listdir(path):
+                print(path)
+                os.rmdir(path)
+
+
 def main(match_country):
     # 1) Load an prepare data
     csv_projects = load_file("projects.csv")
@@ -375,7 +395,7 @@ def main(match_country):
     gen_projects_json(projects)
     gen_gov_pages(gov_datasets, projects)
     gen_raw_data_files(tesla_projects, "megapack-projects.csv")
-    gen_blog()
+    delete_old_blog_files()
 
     ajax_data = {
         "project_length": {
