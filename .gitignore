@@ -5,6 +5,7 @@ tmp_zip
 .vscode
 .~lock.projects.csv#
 .~lock.cars-vs-stationary.csv#
+ignored_by_git/
 
 
 # python gitignore file from github
