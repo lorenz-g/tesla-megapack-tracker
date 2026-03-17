@@ -175,7 +175,7 @@
         {% for p in extra.projects %}
         <tr>
             <td class="td-name">
-                <a href="projects/{{p.csv.id}}.html" target="_blank">
+                <a href="{{ g_l('/project.html') }}?id={{p.csv.id}}" target="_blank">
                     <span class="d-none d-md-inline">{{ p.name }} </span>
                     <span class="d-md-none">{{ p.name_short }} </span>
                 </a>

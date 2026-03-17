@@ -297,14 +297,18 @@ def gen_projects_template(projects: list[BatteryProject], is_tesla_page: bool):
     write_template("index.jinja.html", {"extra": extra}, out_filename=out_filename)
 
 
-def gen_individual_pages(projects: Iterable[BatteryProject]):
-    # generate the individual pages
-    for p in projects:
-        write_template(
-            "single.jinja.html",
-            {"p": p, "gov_data_info_dict": GOV_DATA_INFO_DICT},
-            os.path.join("projects", p.csv.id + ".html"),
-        )
+def gen_project_detail_page():
+    write_template(
+        "project.jinja.html",
+        {"gov_data_info_dict": GOV_DATA_INFO_DICT},
+        out_filename="project.html",
+    )
+
+
+def gen_projects_json(projects: Iterable[BatteryProject]):
+    output = {p.csv.id: p.to_dict() for p in projects}
+    with open(os.path.join("docs", "projects.json"), "w") as f:
+        json.dump(output, f)
 
 
 def gen_de_small_batteries():
@@ -349,17 +353,16 @@ def gen_de_small_batteries():
     )
 
 
-def delete_old_html_files(projects: list[BatteryProject]):
-    # if a project is removed from the csv, delete the html file as well
-    active_ids = set([p.csv.id for p in projects])
-    detail_page_ids = os.listdir("docs/projects")
-    detail_page_ids = set([i.replace(".html", "") for i in detail_page_ids])
+def delete_old_html_files():
+    projects_dir = "docs/projects"
+    if not os.path.isdir(projects_dir):
+        return
 
-    ids_to_delete = detail_page_ids - active_ids
-    if ids_to_delete:
-        print("Deleting the following old projects:")
-        for id in ids_to_delete:
-            path = "docs/projects/%s.html" % id
+    html_files = [i for i in os.listdir(projects_dir) if i.endswith(".html")]
+    if html_files:
+        print("Deleting old project detail pages:")
+        for filename in html_files:
+            path = os.path.join(projects_dir, filename)
             print(path)
             os.remove(path)
 
@@ -395,7 +398,7 @@ def main(match_country):
         print("BAD, please fix: Duplicate project ids: %s" % duplicates)
 
     # if a project is removed from the csv, delete the html file as well
-    delete_old_html_files(projects)
+    delete_old_html_files()
 
     # sort by go live as datatables js also sorts like that
     projects = sorted(projects, key=lambda x: x.go_live, reverse=True)
@@ -407,7 +410,8 @@ def main(match_country):
     # 2) Generate the pages
     gen_projects_template(tesla_projects, is_tesla_page=True)
     gen_projects_template(active_projects, is_tesla_page=False)
-    gen_individual_pages(projects)
+    gen_project_detail_page()
+    gen_projects_json(projects)
     gen_gov_pages(gov_datasets, projects)
     gen_de_small_batteries()
     gen_raw_data_files(tesla_projects, "megapack-projects.csv")

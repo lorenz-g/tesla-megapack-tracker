@@ -97,7 +97,7 @@
     {% for pr in month.new %}
         {% set pr_sh = extra.summary.projects_short[pr.ext_id] %}
         {{ pr_sh.power_mw}} MW - {{ pr_sh.status }} - {{ pr_sh.state}} - {{ pr_sh.name }} - 
-        <a href="projects/{{extra.gen_ids_from_projects[pr_sh.external_id]}}.html">{{pr_sh.external_id}}</a>
+        <a href="{{ g_l('/project.html') }}?id={{extra.gen_ids_from_projects[pr_sh.external_id]}}">{{pr_sh.external_id}}</a>
         {% if pr_sh.is_megapack %}
             <span class="badge rounded-pill bg-primary">Megapack</span>
         {% endif %}
@@ -111,7 +111,7 @@
     {% for pr in month.disappeared %}
         {% set pr_sh = extra.summary.projects_short[pr.ext_id] %}
         {{ pr_sh.power_mw}} MW - {{ pr_sh.status }} - {{ pr_sh.state}} - {{ pr_sh.name }} - 
-        <a href="projects/{{extra.gen_ids_from_projects[pr_sh.external_id]}}.html">{{pr_sh.external_id}}</a><br>    
+        <a href="{{ g_l('/project.html') }}?id={{extra.gen_ids_from_projects[pr_sh.external_id]}}">{{pr_sh.external_id}}</a><br>    
     {% endfor %}
     {% endif %}
 
@@ -134,7 +134,7 @@
                     {% for pr, changes in updated.projects %}
                         {% set pr_sh = extra.summary.projects_short[pr.ext_id] %}
                         {{ pr_sh.power_mw}} MW - {{ pr_sh.status }} - {{ pr_sh.state}} - {{ pr_sh.name }} - 
-                        <a href="projects/{{extra.gen_ids_from_projects[pr_sh.external_id]}}.html">{{pr_sh.external_id}}</a>
+                        <a href="{{ g_l('/project.html') }}?id={{extra.gen_ids_from_projects[pr_sh.external_id]}}">{{pr_sh.external_id}}</a>
                         {% if pr_sh.is_megapack %}
                             <span class="badge rounded-pill bg-primary">Megapack</span>
                         {% endif %}    

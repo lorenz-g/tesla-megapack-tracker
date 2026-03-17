@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Project Detail{% endblock %}
+
+{% block og_props %}
+<meta name="description" content="detail page for a big battery project">
+<meta property="og:title" content="Tesla Megapack Tracker project" />
+<meta property="og:description" content="detail page for a big battery project" />
+<meta property="og:image" content="https://lorenz-g.github.io/tesla-megapack-tracker/pics/logo.jpg" />
+{% endblock %}
+
+{% block content %}
+<div id="project-detail-root">Loading project...</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ g_l('/js/batteryMap.js')}}" crossorigin="anonymous"></script>
+<script>
+    window.projectDataUrl = "{{ g_l('/projects.json') }}";
+    window.projectBaseUrl = "{{ g_l('/') }}";
+    window.govDataInfoDict = {{ gov_data_info_dict | tojson }};
+</script>
+<script src="{{ g_l('/js/projectDetail.js')}}" crossorigin="anonymous"></script>
+{% endblock %}
