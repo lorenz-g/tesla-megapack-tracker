@@ -192,19 +192,22 @@ The government data source for this battery is the U.S. Energy Information Admin
 <!-- us data -->
 
 
+<span class="badge bg-info">This project has 2 
+    generator ids under the same plant id</span><br>
 
 
-Info from the <code>2025-09</code> report (Project first appeared in the <code>2020-09</code> report):<br>
+
+Info from the <code>2026-02</code> report (Project first appeared in the <code>2020-09</code> report):<br>
 
 <br>
 <dt>Plant Name / State</dt>
 <dl>Aratina Solar Center 1B / CA</dl>
 
 <dt>go live / power </dt>
-<dl>2026-06 / 125MW</dl>
+<dl>2026-06 / 50MW</dl>
 
 <dt>status / status verbose</dt>
-<dl>construction / (U) Under construction, less than or equal to 50 percent complete </dl>
+<dl>construction / (V) Under construction, more than 50 percent complete </dl>
 
 <dt>Plant id / generator id </dt>
 <dl>61167 / BESS</dl>
@@ -213,6 +216,20 @@ Info from the <code>2025-09</code> report (Project first appeared in the <code>2
 <dl>91MC 8me LLC / 60796</dl>
 
 <b>Changes:</b><br>
+
+
+    <b>2026-02</b><br>
+    
+        status_verbose: (U) Under construction, less than or equal to 50 percent complete -> (V) Under construction, more than 50 percent complete <br>
+    
+        mw: 200 -> 50 <br>
+     <!-- field -->
+
+
+    <b>2025-11</b><br>
+    
+        mw: 125 -> 200 <br>
+     <!-- field -->
 
 
     <b>2025-06</b><br>
@@ -259,6 +276,29 @@ Info from the <code>2025-09</code> report (Project first appeared in the <code>2
     
         date: 2022-08 -> 2023-09 delayed by <span class="badge rounded-pill bg-danger">13</span> months<br>
      <!-- field -->
+
+ <!-- changes -->
+<br><br>
+
+Info from the <code>2026-02</code> report (Project first appeared in the <code>2026-01</code> report):<br>
+
+<br>
+<dt>Plant Name / State</dt>
+<dl>Aratina Solar Center 1B / CA</dl>
+
+<dt>go live / power </dt>
+<dl>2026-06 / 75MW</dl>
+
+<dt>status / status verbose</dt>
+<dl>construction / (U) Under construction, less than or equal to 50 percent complete </dl>
+
+<dt>Plant id / generator id </dt>
+<dl>61167 / 64BES</dl>
+
+<dt>Entity name / entity id </dt>
+<dl>91MC 8me LLC / 60796</dl>
+
+<b>Changes:</b><br>
 
  <!-- changes -->
 <br><br>
@@ -314,7 +354,7 @@ Info from the <code>2025-09</code> report (Project first appeared in the <code>2
         // var projects = '';
         // projects = JSON.parse(projects)
         // could also have the json as static file and load it here...
-        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords are a guess. Only the state is known", "coords_hint": -1, "country": "usa", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "100", "external_id": "61167", "id": "178", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Aratina Solar Center 1 Hybrid", "no_of_battery_units": "", "notes": "", "owner": "91MC 8me LLC", "power_mw": "50", "project_website": "", "start_construction": "", "start_estimated": "2023-09", "start_operation": "", "state": "california", "status": "planning", "type": "", "use_case": ""}, "date_first_heard": "2020-09", "emojis": "\ud83d\udccd\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "61167", "go_live": "0 ~  2026-06", "go_live_year_int": 2026, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:40.93693686027558+-121.04439962977752", "gov": {"coords_hint": -1, "country": "usa", "data_source": "us_eia", "date_first_heard": "2020-09", "estimate_mwh": 250, "external_id": "61167", "has_multiple_projects": false, "is_megapack": false, "lat": "", "long": "", "month_disappeared": "", "mwh": 0, "name": "Aratina Solar Center 1B", "owner": "91MC 8me LLC", "power_mw": 125, "pr_url": "", "start_construction": "2025-01", "start_estimated": "2026-06", "start_operation": "", "state": "california", "status": "construction"}, "gov_history": {"BESS": {"changes": [{"li": [{"change_type": "timing", "extra": "delayed by \u003cspan class=\"badge rounded-pill bg-danger\"\u003e13\u003c/span\u003e months", "from": "2022-08", "name": "date", "to": "2023-09"}], "month": "2021-10"}, {"li": [{"change_type": "timing", "extra": "delayed by \u003cspan class=\"badge rounded-pill bg-danger\"\u003e3\u003c/span\u003e months", "from": "2023-09", "name": "date", "to": "2023-12"}], "month": "2022-11"}, {"li": [{"change_type": "timing", "extra": "delayed by \u003cspan class=\"badge rounded-pill bg-danger\"\u003e18\u003c/span\u003e months", "from": "2023-12", "name": "date", "to": "2025-06"}], "month": "2023-05"}, {"li": [{"change_type": "timing", "extra": "delayed by \u003cspan class=\"badge rounded-pill bg-danger\"\u003e5\u003c/span\u003e months", "from": "2025-06", "name": "date", "to": "2025-11"}, {"change_type": "misc", "extra": "", "from": 50, "name": "mw", "to": 125}], "month": "2024-03"}, {"li": [{"change_type": "status", "extra": "\ud83c\udfd7\ufe0f", "from": "planning", "name": "status", "to": "construction"}, {"change_type": "misc", "extra": "", "from": "(P) Planned for installation, but regulatory approvals not initiated", "name": "status_verbose", "to": "(U) Under construction, less than or equal to 50 percent complete"}], "month": "2025-01"}, {"li": [{"change_type": "misc", "extra": "", "from": "Aratina Solar Center 1 Hybrid", "name": "plant name", "to": "Aratina Solar Center 1B"}], "month": "2025-04"}, {"li": [{"change_type": "timing", "extra": "delayed by \u003cspan class=\"badge rounded-pill bg-danger\"\u003e7\u003c/span\u003e months", "from": "2025-11", "name": "date", "to": "2026-06"}], "month": "2025-06"}], "current": {"date": "2026-06", "energy source code": "MWH", "entity id": "60796", "entity name": "91MC 8me LLC", "ext_id": "61167", "generator id": "BESS", "month": "6", "mw": 125, "net summer capacity (mw)": "125", "plant id": "61167", "plant name": "Aratina Solar Center 1B", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "construction", "status_verbose": "(U) Under construction, less than or equal to 50 percent complete", "technology": "Batteries", "year": "2026"}, "current_month": "2025-09", "dates": {"first_heard": "2020-09", "start_construction": "2025-01"}, "first": {"date": "2022-08", "energy source code": "MWH", "entity id": "60796", "entity name": "91MC 8me LLC", "ext_id": "61167", "generator id": "BESS", "month": "8", "mw": 50, "net summer capacity (mw)": "50", "plant id": "61167", "plant name": "Aratina Solar Center 1 Hybrid", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "planning", "status_verbose": "(P) Planned for installation, but regulatory approvals not initiated", "technology": "Batteries", "year": "2022"}, "first_month": "2020-09", "month_disappeared": ""}}, "has_gov_data": true, "has_user_data": false, "heart_tooltip": "", "in_construction": true, "in_operation": false, "in_planning": false, "internal_id": "178", "is_active": true, "is_megapack": false, "is_tesla": false, "lat": "40.93693686027558", "links": [], "long": "-121.04439962977752", "month_disappeared": "", "mw": 125, "mwh": 250, "mwh_estimate": 250, "mwh_is_estimate": true, "name": "Aratina Solar Center 1B", "name_short": "Aratina Solar Center 1B", "no_of_battery_units": 0, "notes_split": [""], "owner": "91MC 8me LLC", "start_construction": "2025-01", "start_estimated": "2026-06", "start_operation": "", "state": "california", "status": "construction", "status_class": "badge rounded-pill bg-secondary"}];
+        var projects = [ {"construction_speed_mwh_per_month": null, "construction_time_month": null, "coords_exact": false, "coords_help_str": "\ud83d\udccd Coords are a guess. Only the state is known", "coords_hint": -1, "country": "usa", "csv": {"capacity_mwh": "", "cells": "", "city": "", "coords_hint": "", "cost_currency": "", "cost_incl_solar": "", "cost_million": "", "country": "usa", "customer": "", "date_first_heard": "", "developer": "", "estimate_mwh": "100", "external_id": "61167", "id": "178", "lat": "", "link1": "", "link2": "", "link3": "", "link4": "", "long": "", "manufacturer": "", "name": "Aratina Solar Center 1 Hybrid", "no_of_battery_units": "", "notes": "", "owner": "91MC 8me LLC", "power_mw": "50", "project_website": "", "start_construction": "", "start_estimated": "2023-09", "start_operation": "", "state": "california", "status": "planning", "type": "", "use_case": ""}, "date_first_heard": "2020-09", "emojis": "\ud83d\udccd\ud83d\udcca\ud83d\udccf", "emojis_with_tooltips": "\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"location not exactly known\"\u003e\ud83d\udccd\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"government data available\"\u003e\ud83d\udcca\u003c/span\u003e\u003cspan data-toggle=\"tooltip\" data-placement=\"top\" title=\"mwh estimate based on mw\"\u003e\ud83d\udccf\u003c/span\u003e", "external_id": "61167", "go_live": "0 ~  2026-06", "go_live_year_int": 2026, "google_maps_link": "http://maps.google.com/maps?z=19\u0026t=k\u0026q=loc:40.93693686027558+-121.04439962977752", "gov": {"coords_hint": -1, "country": "usa", "data_source": "us_eia", "date_first_heard": "2020-09", "estimate_mwh": 250, "external_id": "61167", "has_multiple_projects": true, "is_megapack": false, "lat": "", "long": "", "month_disappeared": "", "mwh": 0, "name": "Aratina Solar Center 1B", "owner": "91MC 8me LLC", "power_mw": 125, "pr_url": "", "start_construction": "2025-01", "start_estimated": "2026-06", "start_operation": "", "state": "california", "status": "construction"}, "gov_history": {"64BES": {"changes": [], "current": {"date": "2026-06", "energy source code": "MWH", "entity id": "60796", "entity name": "91MC 8me LLC", "ext_id": "61167", "generator id": "64BES", "month": "6", "mw": 75, "net summer capacity (mw)": "75", "plant id": "61167", "plant name": "Aratina Solar Center 1B", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "construction", "status_verbose": "(U) Under construction, less than or equal to 50 percent complete", "technology": "Batteries", "year": "2026"}, "current_month": "2026-02", "dates": {"first_heard": "2026-01", "start_construction": null}, "first": {"date": "2026-06", "energy source code": "MWH", "entity id": "60796", "entity name": "91MC 8me LLC", "ext_id": "61167", "generator id": "64BES", "month": "6", "mw": 75, "net summer capacity (mw)": "75", "plant id": "61167", "plant name": "Aratina Solar Center 1B", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "construction", "status_verbose": "(U) Under construction, less than or equal to 50 percent complete", "technology": "Batteries", "year": "2026"}, "first_month": "2026-01", "month_disappeared": ""}, "BESS": {"changes": [{"li": [{"change_type": "timing", "extra": "delayed by \u003cspan class=\"badge rounded-pill bg-danger\"\u003e13\u003c/span\u003e months", "from": "2022-08", "name": "date", "to": "2023-09"}], "month": "2021-10"}, {"li": [{"change_type": "timing", "extra": "delayed by \u003cspan class=\"badge rounded-pill bg-danger\"\u003e3\u003c/span\u003e months", "from": "2023-09", "name": "date", "to": "2023-12"}], "month": "2022-11"}, {"li": [{"change_type": "timing", "extra": "delayed by \u003cspan class=\"badge rounded-pill bg-danger\"\u003e18\u003c/span\u003e months", "from": "2023-12", "name": "date", "to": "2025-06"}], "month": "2023-05"}, {"li": [{"change_type": "timing", "extra": "delayed by \u003cspan class=\"badge rounded-pill bg-danger\"\u003e5\u003c/span\u003e months", "from": "2025-06", "name": "date", "to": "2025-11"}, {"change_type": "misc", "extra": "", "from": 50, "name": "mw", "to": 125}], "month": "2024-03"}, {"li": [{"change_type": "status", "extra": "\ud83c\udfd7\ufe0f", "from": "planning", "name": "status", "to": "construction"}, {"change_type": "misc", "extra": "", "from": "(P) Planned for installation, but regulatory approvals not initiated", "name": "status_verbose", "to": "(U) Under construction, less than or equal to 50 percent complete"}], "month": "2025-01"}, {"li": [{"change_type": "misc", "extra": "", "from": "Aratina Solar Center 1 Hybrid", "name": "plant name", "to": "Aratina Solar Center 1B"}], "month": "2025-04"}, {"li": [{"change_type": "timing", "extra": "delayed by \u003cspan class=\"badge rounded-pill bg-danger\"\u003e7\u003c/span\u003e months", "from": "2025-11", "name": "date", "to": "2026-06"}], "month": "2025-06"}, {"li": [{"change_type": "misc", "extra": "", "from": 125, "name": "mw", "to": 200}], "month": "2025-11"}, {"li": [{"change_type": "misc", "extra": "", "from": "(U) Under construction, less than or equal to 50 percent complete", "name": "status_verbose", "to": "(V) Under construction, more than 50 percent complete"}, {"change_type": "misc", "extra": "", "from": 200, "name": "mw", "to": 50}], "month": "2026-02"}], "current": {"date": "2026-06", "energy source code": "MWH", "entity id": "60796", "entity name": "91MC 8me LLC", "ext_id": "61167", "generator id": "BESS", "month": "6", "mw": 50, "net summer capacity (mw)": "50", "plant id": "61167", "plant name": "Aratina Solar Center 1B", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "construction", "status_verbose": "(V) Under construction, more than 50 percent complete", "technology": "Batteries", "year": "2026"}, "current_month": "2026-02", "dates": {"first_heard": "2020-09", "start_construction": "2025-01"}, "first": {"date": "2022-08", "energy source code": "MWH", "entity id": "60796", "entity name": "91MC 8me LLC", "ext_id": "61167", "generator id": "BESS", "month": "8", "mw": 50, "net summer capacity (mw)": "50", "plant id": "61167", "plant name": "Aratina Solar Center 1 Hybrid", "plant producer type": "IPP", "plant state": "CA", "prime mover code": "BA", "status": "planning", "status_verbose": "(P) Planned for installation, but regulatory approvals not initiated", "technology": "Batteries", "year": "2022"}, "first_month": "2020-09", "month_disappeared": ""}}, "has_gov_data": true, "has_user_data": false, "heart_tooltip": "", "in_construction": true, "in_operation": false, "in_planning": false, "internal_id": "178", "is_active": true, "is_megapack": false, "is_tesla": false, "lat": "40.93693686027558", "links": [], "long": "-121.04439962977752", "month_disappeared": "", "mw": 125, "mwh": 250, "mwh_estimate": 250, "mwh_is_estimate": true, "name": "Aratina Solar Center 1B", "name_short": "Aratina Solar Center 1B", "no_of_battery_units": 0, "notes_split": [""], "owner": "91MC 8me LLC", "start_construction": "2025-01", "start_estimated": "2026-06", "start_operation": "", "state": "california", "status": "construction", "status_class": "badge rounded-pill bg-secondary"}];
         
         generateBatteryMap(projects, 'mapid', zoom_to_first_project=true);
 
