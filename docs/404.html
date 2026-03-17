@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Redirecting...</title>
+    <script>
+      (function() {
+        const baseUrl = "/tesla-megapack-tracker/";
+        const match = window.location.pathname.match(/\/projects\/(\d+)\.html$/);
+        if (match) {
+          window.location.replace(baseUrl + "project.html?id=" + match[1]);
+          return;
+        }
+        window.location.replace(baseUrl);
+      })();
+    </script>
+  </head>
+  <body>
+    Redirecting...
+  </body>
+</html>

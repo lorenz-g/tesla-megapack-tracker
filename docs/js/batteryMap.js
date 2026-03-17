@@ -1,22 +1,15 @@
 function generateBatteryMap(projects, mapId, zoom_to_first_project=false){
+    var projectDetailBaseUrl = "/tesla-megapack-tracker/project.html?id=";
     // followed this guide 
     // https://leafletjs.com/examples/quick-start/
     // https://leafletjs.com/examples/layers-control/
-    var streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    var streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         maxZoom: 18,
-        id: 'mapbox/streets-v11',
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoiYmFuZGluaWdvIiwiYSI6ImNrc3p2YjhuNzJ3eHAydXRmbW55Y2FuZHgifQ.j5Swr0wVOityl1LecXZT6g'
     });
-    var satellite = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri',
         maxZoom: 18,
-        id: 'mapbox/satellite-v9',
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoiYmFuZGluaWdvIiwiYSI6ImNrc3p2YjhuNzJ3eHAydXRmbW55Y2FuZHgifQ.j5Swr0wVOityl1LecXZT6g'
     });
 
     var baseLayers = {
@@ -75,7 +68,7 @@ function generateBatteryMap(projects, mapId, zoom_to_first_project=false){
                 <br> for: ${p.csv.customer} ${p.owner}
                 <br><a href="${p.google_maps_link}" target="_blank">Google Maps</a>
                 ${warning}
-                <br><a href="/tesla-megapack-tracker/projects/${p.csv.id}.html" target="_blank">Details</a>`                );
+                <br><a href="${projectDetailBaseUrl}${p.csv.id}" target="_blank">Details</a>`                );
             // TODO: find a way to quickly create icons of different colors
             // there is the div icon, or an external lib called AwesomeMarker
             overlays[p["status"]].push(marker)
