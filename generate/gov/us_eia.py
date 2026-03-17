@@ -392,7 +392,8 @@ def download_and_extract_eia_data():
         #  pylightxl - Ill formatted workbook.xml. Skipping NamedRange not containing sheet reference (ex: "Sheet1!A1"): IQ_CH - 110000
         # look at that again.
         # [2024, [8, 13]],
-        [2025, [1, 13]],
+        # [2025, [1, 13]],
+        [2026, [1, 13]],
     ]
     base_url = "https://www.eia.gov/electricity/monthly/archive/%s.zip"
     # the latest month is under this url
