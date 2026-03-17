@@ -45,9 +45,9 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             
             <ul class="navbar-nav mb-2 mb-lg-0">
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Megapack tracker <span id="project-length-tesla"></span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/">Megapack tracker <span id="project-length-tesla">(119)</span></a></li>
               <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/#cars-vs-stationary">Cars vs Stationary</a></li>
-              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">Big battery tracker <span id="project-length-all"></span></a></li>
+              <li class="nav-item"><a class="nav-link" href="/tesla-megapack-tracker/all-big-batteries.html">Big battery tracker <span id="project-length-all">(1673)</span></a></li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Government data
@@ -22893,14 +22893,8 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <!-- script to load in the project length via ajax -->
     <script>
       $(document).ready(function() {
-        $.ajax({url: "/tesla-megapack-tracker/ajax-data.json", success: function(result){
-          $("#project-length-tesla").html(result.project_length.tesla_str);
-          $("#project-length-all").html(result.project_length.all_str); 
-        }});
-
         // enable bootstrap tooltips everywhere
         $(function () {
           $('[data-toggle="tooltip"]').tooltip()
