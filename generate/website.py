@@ -79,6 +79,9 @@ def gen_gov_pages(gov_data, projects: Iterable[BatteryProject]):
             gov_data[p.country]["projects_short"][p.external_id].is_megapack = True
 
     for country, gov_di in gov_data.items():
+        if country == "germany":
+            continue
+
         extra = {
             "now": dt.datetime.now(dt.UTC),
             "summary": gov_di,
@@ -311,48 +314,6 @@ def gen_projects_json(projects: Iterable[BatteryProject]):
         json.dump(output, f)
 
 
-def gen_de_small_batteries():
-    """
-    Column names:
-    quarter	category	count	mwh_sum	kwh_avg	mw_sum	kw_avg
-    """
-    # TODO: automatically use the latest month
-    month = "2022-12"
-    in_filename = "misc/de-mastr/small-batteries/%s-hss-summary.csv" % month
-    rows = []
-    mwh_cum = 0
-    mw_cum = 0
-    count_cum = 0
-
-    current_quarter = date_to_quarter(month)
-
-    with open(in_filename) as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            # don't show future quarters
-            if row["quarter"] > current_quarter:
-                continue
-
-            mwh_cum += Decimal(row["mwh_sum"])
-            mw_cum += Decimal(row["mw_sum"])
-            count_cum += int(row["count"])
-            row["mwh_cum"] = mwh_cum
-            row["mw_cum"] = mw_cum
-            row["count_cum"] = count_cum
-            rows.append(row)
-
-    extra = {
-        "rows": rows,
-        "month": month,
-    }
-    extra.update(GOV_DATA_INFO_DICT["germany"])
-
-    write_template(
-        "gov-de-mastr-small-batteries.jinja.html",
-        {"extra": extra},
-    )
-
-
 def delete_old_html_files():
     projects_dir = "docs/projects"
     if not os.path.isdir(projects_dir):
@@ -413,7 +374,6 @@ def main(match_country):
     gen_project_detail_page()
     gen_projects_json(projects)
     gen_gov_pages(gov_datasets, projects)
-    gen_de_small_batteries()
     gen_raw_data_files(tesla_projects, "megapack-projects.csv")
     gen_blog()
 
