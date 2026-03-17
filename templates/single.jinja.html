@@ -109,6 +109,13 @@
 <dt>Project website </dt>
 <dl><a href="{{ p.csv.project_website }}" target="_blank">{{ p.csv.project_website }} </a> </dl>
 
+<dt>Data flags </dt>
+<dl>
+    {% if p.has_user_data %} 👤 user data {% endif %}
+    {% if p.has_user_data and p.has_ai_data %} / {% endif %}
+    {% if p.has_ai_data %} 🤖 ai data {% endif %}
+</dl>
+
 <dt> Sources </dt>
 <dl>
     {% for link in p.links %}

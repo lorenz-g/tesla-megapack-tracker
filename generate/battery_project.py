@@ -23,8 +23,9 @@ USE_CASE_EMOJI_LI = [
     ["📍", "📍", "location not exactly known"],
     ["⚡️", "⚡️", "more than 1000 MWh / 1GWh"],
     # these just used for the legend
-    ["📊", "📊", "government data available"],
-    ["👤", "👤", "user data available"],
+    ["📊", "📊", "government data"],
+    ["👤", "👤", "user data"],
+    ["🤖", "🤖", "ai data"],
     ["📏", "📏", "mwh estimate based on mw"],
 ]
 
@@ -186,6 +187,7 @@ class CsvProjectData:
     lat: str
     long: str
     coords_hint: str
+    last_edited_by_ai: str
     use_case: str
     notes: str
     project_website: str
@@ -204,6 +206,7 @@ class BatteryProject:
     external_id: str
 
     has_user_data: bool
+    has_ai_data: bool
     has_gov_data: bool
     gov: GovShortData | None
     gov_history: dict | None
@@ -308,6 +311,7 @@ class BatteryProject:
             self.lat,
             self.long,
             self.coords_hint,
+            self.csv.last_edited_by_ai,
             self.has_user_data,
             self.csv.project_website,
             self.csv.link1,
@@ -338,6 +342,7 @@ class BatteryProject:
             "lat",
             "long",
             "coords_hint",
+            "last_edited_by_ai",
             "has_user_data",
             "project_website",
             "link1",
@@ -492,6 +497,7 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
     links = [l for l in links if l != ""]
     # can assume that when a link is there some user data was added
     has_user_data = bool(len(links) > 0) or csv.project_website != ""
+    has_ai_data = csv.last_edited_by_ai != ""
 
     if gov and gov.pr_url:
         links.append(gov.pr_url)
@@ -512,6 +518,9 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
 
     if has_user_data:
         emojis.append("👤")
+
+    if has_ai_data:
+        emojis.append("🤖")
 
     if mwh_is_estimate:
         emojis.append("📏")
@@ -544,6 +553,7 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
         external_id=external_id,
         has_gov_data=has_gov_data,
         has_user_data=has_user_data,
+        has_ai_data=has_ai_data,
         gov=gov,
         gov_history=gov_history,
         mw=mw,
