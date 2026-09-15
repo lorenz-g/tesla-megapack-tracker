@@ -184,13 +184,16 @@
             <td><span class="{{ p.status_class }}">{{ p.status }}</span></td>
             <td class="text-nowrap">{{ p.go_live }}</td>
             <td class="">
+                {% set companies = [p.csv.customer, p.owner, p.csv.developer] %}
+                {% if not extra.is_tesla_page %}
+                    {% set companies = [p.csv.manufacturer] + companies %}
+                {% endif %}
+                {% set companies = companies | reject("equalto", "") | unique(case_sensitive=false) | join(" ") %}
                 <span class="d-none d-md-inline">
-                    {% if not extra.is_tesla_page %} {{ p.csv.manufacturer }} {% endif %}
-                    {{ p.csv.customer }} {{ p.owner }} {{ p.csv.developer }}
+                    {{ companies }}
                 </span>
                 <span class="d-md-none" style="font-size: 0.8rem;">
-                    {% if not extra.is_tesla_page %} {{ p.csv.manufacturer }} {% endif %}
-                    {{ p.csv.customer }} {{ p.owner }} {{ p.csv.developer }}
+                    {{ companies }}
                 </span>
             </td>
             <td data-sort="{{p.internal_id}}">

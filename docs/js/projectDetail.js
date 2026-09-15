@@ -104,7 +104,7 @@ function renderGovSection(project) {
         details = renderUkDeGovSection(project);
     }
 
-    const disappeared = project.gov.month_disappeared
+    const disappeared = project.status === "cancelled" && project.gov.month_disappeared
         ? `${escapeHtml(project.gov.month_disappeared)}<br>
 This project disappeared in the <code>${escapeHtml(project.gov.month_disappeared)}</code> report. <br>
 That's why the status was set to <span class="${escapeHtml(project.status_class)}">${escapeHtml(project.status)}</span><br>`

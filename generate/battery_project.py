@@ -387,7 +387,7 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
         external_id = gov.external_id
         status = gov.status
         # in case the government data did not catch up fast enough, can set the data from the CSV here instead
-        if csv.status == "operation" and gov.status in ("planning", "construction"):
+        if csv.status == "operation" and gov.status != "operation":
             status = csv.status
         elif csv.status == "construction" and gov.status == "planning":
             # same with construction
@@ -399,7 +399,9 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
         start_operation = pick_first(gov.start_operation, csv.start_operation)
         start_estimated = pick_first(gov.start_estimated, csv.start_estimated)
 
-        month_disappeared = gov.month_disappeared
+        # A project can disappear from EIA's proposed-generator table when it
+        # enters operation, so confirmed CSV operation data clears that signal.
+        month_disappeared = "" if status == "operation" else gov.month_disappeared
         owner = pick_first(gov.owner, csv.owner)
         name = gov.name
         state = gov.state
