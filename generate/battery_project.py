@@ -288,8 +288,61 @@ class BatteryProject:
             di["gov"] = copy.deepcopy(asdict(self.gov))
         else:
             di["gov"] = {}
+        di["gov_history"] = self._browser_gov_history()
         di["flag"] = self.flag
         return di
+
+    def _browser_gov_history(self):
+        """Keep only government history fields rendered by projectDetail.js."""
+        if not self.gov_history:
+            return self.gov_history
+
+        def compact_changes(changes):
+            return [
+                {
+                    "month": change["month"],
+                    "li": [
+                        {
+                            key: field.get(key, "")
+                            for key in ("name", "from", "to", "extra")
+                        }
+                        for field in change["li"]
+                    ],
+                }
+                for change in changes
+            ]
+
+        if self.country == "usa":
+            current_fields = (
+                "plant name",
+                "plant state",
+                "date",
+                "mw",
+                "status",
+                "status_verbose",
+                "plant id",
+                "generator id",
+                "entity name",
+                "entity id",
+            )
+            return {
+                generator_id: {
+                    "first_month": history["first_month"],
+                    "current_month": history["current_month"],
+                    "current": {
+                        key: history["current"].get(key, "")
+                        for key in current_fields
+                    },
+                    "changes": compact_changes(history["changes"]),
+                }
+                for generator_id, history in self.gov_history.items()
+            }
+
+        return {
+            "first_month": self.gov_history["first_month"],
+            "current_month": self.gov_history["current_month"],
+            "changes": compact_changes(self.gov_history["changes"]),
+        }
     
     def to_csv_row(self):
         """ this is the merged data from the user (the project.csv) and the government data"""

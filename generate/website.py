@@ -288,7 +288,9 @@ def gen_projects_template(projects: list[BatteryProject], is_tesla_page: bool):
         "cars": gen_cars_vs_stationary(),
         "summary": summary,
         "projects": projects,
-        "projects_json": json.dumps([p.to_dict() for p in projects]),
+        "projects_json": json.dumps(
+            [p.to_dict() for p in projects], separators=(",", ":")
+        ),
     }
 
     write_template("index.jinja.html", {"extra": extra}, out_filename=out_filename)
@@ -305,7 +307,7 @@ def gen_project_detail_page():
 def gen_projects_json(projects: Iterable[BatteryProject]):
     output = {p.csv.id: p.to_dict() for p in projects}
     with open(os.path.join("docs", "projects.json"), "w") as f:
-        json.dump(output, f)
+        json.dump(output, f, separators=(",", ":"))
 
 
 def delete_old_html_files():
