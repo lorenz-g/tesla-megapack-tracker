@@ -492,6 +492,8 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
 
     links = [csv.link1, csv.link2, csv.link3, csv.link4]
     links = [l for l in links if l != ""]
+    # TODO: need to find a better way to check if a human did sth
+    # now that llms also fill the source links. 
     # can assume that when a link is there some user data was added
     has_user_data = bool(len(links) > 0) or csv.project_website != ""
     has_ai_data = csv.last_edited_by_ai != ""

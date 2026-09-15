@@ -27,6 +27,7 @@ for now:
 - To generate the website, install the dependencies with `pip install -r requirements.txt` and run `python generate/website.py`. It is recommended to setup a python virtualenv for the project beforehand (can use `pip install pip-tools` and `pip-compile requirements.in` to create an up to date version of requirements)
   - all python code lives in the `generate` folder
 - some handy commands are in the [./Makefile](./Makefile)
+- run `make csv-diff` to review project changes compared with the latest commit
 - to edit the CSV files, it is best to use Libre Office
 - the external government data is the `misc` folder
 
@@ -52,4 +53,3 @@ There are many other great trackers about various tesla stats, such as:
   - Power tracker of big batteries in Australia: http://nemlog.com.au/show/unit/yesterday/?k1=VBBG1,VBBL1 
   - EU EVs tracker https://eu-evs.com/ 
   - https://map.evuniverse.io/#mapstart map of EV the ev industry
-

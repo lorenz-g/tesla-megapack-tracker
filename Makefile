@@ -8,6 +8,9 @@ test:
 build:
 	python generate/website.py
 
+csv-diff:
+	python generate/csv_diff.py
+
 run-local:
 	python -m http.server 2222 --bind localhost
 
