@@ -288,6 +288,7 @@ class BatteryProject:
             di["gov"] = copy.deepcopy(asdict(self.gov))
         else:
             di["gov"] = {}
+        di["flag"] = self.flag
         return di
     
     def to_csv_row(self):
