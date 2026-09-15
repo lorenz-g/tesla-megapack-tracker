@@ -23,11 +23,17 @@ function generateBatteryList(order, mwh_column, mw_column, listId){
         var pagingType = "simple_numbers";
     }
 
-    $(listId).DataTable({
+    const url = new URL(window.location.href);
+    const initialSearch = url.searchParams.get('search') || '';
+
+    const table = $(listId).DataTable({
         "pageLength": pageLength,
         // https://datatables.net/reference/option/pagingType
         "pagingType": pagingType,
         "order": [[ order, "desc" ]],
+        "search": {
+            "search": initialSearch
+        },
         // for the table on mobile that you can scroll in the x direction
         "scrollX": scrollX,
         // code from here: https://datatables.net/examples/advanced_init/footer_callback.html
@@ -123,5 +129,18 @@ function generateBatteryList(order, mwh_column, mw_column, listId){
 
         } // end footerCallback
 
+    });
+
+    table.on('search.dt', function () {
+        const search = table.search();
+        const currentUrl = new URL(window.location.href);
+
+        if (search) {
+            currentUrl.searchParams.set('search', search);
+        } else {
+            currentUrl.searchParams.delete('search');
+        }
+
+        window.history.replaceState(null, '', currentUrl);
     });
 }
