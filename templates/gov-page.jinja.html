@@ -18,6 +18,16 @@
 
 {% block content %}
 
+{% if extra.id == "uk" %}
+<div class="alert alert-warning" role="alert">
+    This page is not maintained anymore. <br>
+    <span style="font-size: 0.8rem;">
+        This page contains projects imported from the UK Renewable Energy Planning Database and is retained for matching them with Tesla Megapack projects.
+        Only the <a href="{{ g_l('/gov-us-eia.html') }}">US EIA government-data page</a> is maintained.
+    </span>
+</div>
+{% endif %}
+
 <h3>{{ extra.flag}} {{ extra.name_short }} {{extra.title_extra}}</h3>
 
 <div class="row">

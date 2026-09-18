@@ -8,7 +8,12 @@ The calculations are in the <a href="https://github.com/lorenz-g/tesla-megapack-
 <div class="row">
     <div class="col-lg-6">
         <div>
-            <b>{{ y.year }}</b> - <code>{{ "%.0f" | format(y.total_gwh) }} GWh</code> in total,  {{ y.perc_cars }}% cars vs {{ y.perc_stat_year }}% ESS
+            <b>{{ y.year }}</b> - <code>{{ "%.0f" | format(y.total_gwh) }} GWh</code> in total,
+            {% if y.year == "All Time" %}
+                {{ y.perc_cars }}% (<code>{{ "%.0f" | format(y.cars_gwh) }} GWh</code>) cars vs {{ y.perc_stat_year }}% (<code>{{ "%.0f" | format(y.stat_gwh) }} GWh</code>) ESS
+            {% else %}
+                {{ y.perc_cars }}% cars vs {{ y.perc_stat_year }}% ESS
+            {% endif %}
         </div>
         {% if y.year != "All Time" %}
         <div class="progress bg-white mb-2" style="height: 2em;">

@@ -158,6 +158,8 @@ def gen_cars_vs_stationary():
         {
             "year": "All Time",
             "total_gwh": total_gwh,
+            "cars_gwh": sum_cars / 1000,
+            "stat_gwh": sum_ess / 1000,
             "perc_cars": perc_cars,
             "perc_stat_year": 100 - perc_cars,
         }
