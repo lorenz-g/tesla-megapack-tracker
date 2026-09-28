@@ -142,7 +142,6 @@ def eia_location_estimate(id_, state):
 
     coords = constants.US_STATES_TO_EIA_COORDINATES[state]
     if not coords:
-        print("no coordinates for state:", state)
         coords = EIA_COORDS_USA
 
     scaling_factor = 0.02
@@ -257,8 +256,8 @@ class BatteryProject:
     is_megapack: bool
 
     def __repr__(self) -> str:
-        e_id = self.gov.external_id if self.gov else ""
-        return "<BatteryProject %s / %s - %s>" % (self.csv.id, e_id, self.csv.name)
+        e_id = f" ({self.gov.external_id})" if self.gov else ""
+        return "<%s%s - %s (%s MWh)>" % (self.csv.id, e_id, self.csv.name, self.mwh)
 
     @property
     def flag(self):
@@ -582,27 +581,7 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
 
     emojis_with_tooltips = "".join([tooltip_for_emoji(e) for e in emojis])
 
-    is_tesla = csv.manufacturer == "tesla"
-
-    if is_tesla:
-        if mwh_is_estimate and in_operation and mw > 20:
-            print(
-                f"project <{internal_id} / {name_short}> is_tesla "
-                "and mwh_is_estimate and in_operation -> should research proper mwh value"
-            )
-
-        if (
-            in_operation
-            and coords_hint not in COORDS_HINTS_GOOD_FOR_TESLA_PROJECTS
-            and mw > 20
-        ):
-            # TODO: maybe add in_construction here as well
-            print(
-                f"project <{internal_id} / {name_short}> is_tesla and in_operation and "
-                "coords_hint not in COORDS_HINTS_GOOD_FOR_TESLA_PROJECTS -> should research the some better coords"
-            )
-
-    return BatteryProject(
+    battery_project = BatteryProject(
         csv=csv,
         internal_id=internal_id,
         external_id=external_id,
@@ -646,7 +625,28 @@ def setup_battery_project(csv_di, gov: GovShortData, gov_history) -> BatteryProj
         in_planning=in_planning,
         go_live_year_int=go_live_year_int,
         is_active=status != "cancelled",
-        is_tesla=is_tesla,
+        is_tesla=csv.manufacturer == "tesla",
         is_megapack="megapack" in csv.type.lower(),
         heart_tooltip=heart_tooltip,
     )
+
+    if battery_project.is_tesla:
+        if mwh_is_estimate and in_operation and mw > 20:
+            print(
+                f"project {battery_project} is_tesla "
+                "and mwh_is_estimate and in_operation -> should research proper mwh value"
+            )
+
+        if (
+            in_operation
+            and coords_hint not in COORDS_HINTS_GOOD_FOR_TESLA_PROJECTS
+            and mw > 20
+        ):
+            # TODO: maybe add in_construction here as well
+            print(
+                f"project {battery_project} is_tesla and in_operation and "
+                "coords_hint not in COORDS_HINTS_GOOD_FOR_TESLA_PROJECTS -> should research the some better coords"
+            )
+
+
+    return battery_project
